@@ -1,0 +1,40 @@
+[build-system]
+requires = ["setuptools>=68", "wheel"]
+build-backend = "setuptools.build_meta"
+
+
+[project]
+name = "umutextstats"
+version = "0.1.0"
+description = "Linguistic feature extraction tool based on dimensions"
+readme = "README.md"
+requires-python = ">=3.10"
+
+authors = [
+    { name = "Tu Nombre" }
+]
+
+dependencies = [
+    "pandas>=2.0",
+    "tqdm>=4.66",
+    "emoji>=2.0",
+    "pyarrow>=15.0"
+]
+
+
+[project.optional-dependencies]
+nlp = [
+    "stanza>=1.8"
+]
+
+dev = [
+    "pytest>=8.0"
+]
+
+
+[project.scripts]
+umutextstats = "umutextstats.cli.main:main"
+
+
+[tool.setuptools.packages.find]
+where = ["src"]

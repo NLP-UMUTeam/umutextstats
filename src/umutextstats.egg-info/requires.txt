@@ -1,0 +1,9 @@
+pandas>=2.0
+tqdm>=4.66
+emoji>=2.0
+
+[dev]
+pytest>=8.0
+
+[nlp]
+stanza>=1.8

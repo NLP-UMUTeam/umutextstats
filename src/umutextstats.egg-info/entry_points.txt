@@ -1,0 +1,2 @@
+[console_scripts]
+umutextstats = umutextstats.cli.main:main

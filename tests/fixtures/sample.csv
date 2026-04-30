@@ -1,0 +1,4 @@
+id,tweet,label
+1,"Hola mundo",pos
+2,"Texto con, coma",neu
+3,,neg
