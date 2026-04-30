@@ -5,6 +5,7 @@ from umutextstats.cache import CacheManager
 from umutextstats.config import load_config
 from umutextstats.dimensions import DimensionEngine
 from umutextstats.utils.profiler import Profiler
+from umutextstats.output import write_output
 
 input_path = "dataset-10.csv"
 
@@ -44,16 +45,5 @@ with profiler.track("dimensions", "compute_all"):
 
 stats = profiler.dataframe()
 
-# guardar todo
-stats.to_csv("pipeline_stats.csv", index=False)
-
-# solo dimensiones
-dim_stats = stats[stats["stage"] == "dimension"]
-dim_stats.to_csv("dimension_stats.csv", index=False)
-
-# top lentas
-print(dim_stats.sort_values("seconds", ascending=False).head(10))
-
-
-print (features.head ())
-features.to_csv ('features.csv', index=False)
+write_output(features, "features.csv")
+write_output(profiler.dataframe(), "stats.json")
