@@ -1,0 +1,27 @@
+# @link https://sites.google.com/site/slhpqp/etimologia/latinismos-cultismos-semicultismos-y-patrimonialismos
+# words
+album
+cathedra
+celula
+climax
+culmen
+desiderata
+deficit
+ergo
+quorum
+referendum
+superavit
+sic
+status
+ultimatum
+vagina
+
+# expressions
+a priori
+a posteriori
+ipso facto
+in fraganti
+numerus clausus
+de facto
+de iure
+verbi gratia

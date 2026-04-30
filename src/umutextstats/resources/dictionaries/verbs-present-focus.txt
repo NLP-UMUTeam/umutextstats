@@ -1,0 +1,8 @@
+\p{L}{2,}(a|o|endo|ivo)\b
+\p{L}{2,}(as?|des|ive)\b
+\p{L}{2,}(amos|emos|imos)\b
+\p{L}{2,}(áis|éis|ís)\b
+\p{L}{2,}((a|á)n|en)\b
+\p{L}{2,}(asgo|aigo|igo|ago|ongo|algo|engo)\b
+
+est(oy|ás?|amos|áis|án)\s\p{L}{2,}((a|e|ie)ndo)\b

@@ -1,0 +1,8 @@
+# connectors
+\b(son|es|serán|fue(ron)?|cual(es)?|como|tan|igual(es)?|similar(es)?|parecid[oa]s?)\b(\s?\p{L}{2,}\s?)\p{L}{2,}
+como (en l[ao]s?|(el|l[oa]s) de)
+
+(tienes?|ten\w+) suerte de
+
+sonar a
+suena a

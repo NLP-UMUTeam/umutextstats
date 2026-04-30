@@ -1,0 +1,4 @@
+bocas que alimentar
+cabezas? de ganado
+(ganar|traer)\p{L}* el pan
+\p{L}{4,} primaveras

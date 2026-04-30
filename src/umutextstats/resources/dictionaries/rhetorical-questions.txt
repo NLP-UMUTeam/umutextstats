@@ -1,0 +1,34 @@
+cag\w+( hoy)? en [\p{L}\p{N}]+\?
+no te parec\w* que .+\?
+cu[aá]ndo (acab\w*|termin\w*) [\p{L}\p{N}\s]+ calvario\?
+tengo monos en la cara\?
+visto( una)? cosa igual\?
+(se|te|nos|os) podría decir que
+
+# truncated
+qué más necesit\w* [\p{L}\p{N}\s]+\?
+¿qué más necesit\w* [\p{L}\p{N}\s]+
+
+qui[eé]n te iba a decir que [[\p{L}\p{N}]*\s]*\?
+¿qui[eé]n te iba a decir que [[\p{L}\p{N}]*\s]*
+
+cuantas veces [\p{L}\p{N}\s]+\?
+¿cuantas veces [\p{L}\p{N}\s]+
+
+qui[eé]n sino él [\p{L}\p{N}\s]+\?
+
+quién[\p{L}\p{N}\s]* (soy yo|eres tú|es (él|ella))([\p{L}\p{N}\s]*)?\?
+quienes[\p{L}\p{N}\s]* (somos nosotros|sois vosotros|son ellos)([\p{L}\p{N}\s]*)?\?
+
+qué queréis que( os|nos) diga\?
+
+no puedes ser (un poco )?(más|menos) [\p{L}\p{N}\s]*[\!\?\.]
+
+
+# self
+qué me pasa\?
+qué estoy haciendo\?
+qué me ocurre hoy\?
+todas las desgracias me ocurren a mí\?
+
+no (os habéis|te has) dado cuenta?

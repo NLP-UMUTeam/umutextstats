@@ -1,0 +1,56 @@
+# Guía del lenguaje no sexista UNED
+# Include words. 
+# The incorporation to the speech both masculine and feminine forms.
+\p{L}{2,}[oe]s\s(y|o|e)\s\p{L}{2,}as
+\p{L}{2,}as\s(y|o|e)\s\p{L}{2,}[oe]s
+
+# Use the groups
+alumnado
+bandada
+estudiantes?
+electorado
+equipos?
+familias?
+gentes?
+gentío
+gremios?
+hermandad(es)?
+jóven(es)?
+muchedumbre
+parvada
+personas?
+personal
+plantilla
+poblaci(ón|ones)
+pueblos?
+reparto
+
+
+# abstracts
+(la|una) (redacción|dirección|legislación|infancia|juventud|adultez|vejez)
+
+
+# neutral forms
+parejas?
+relaci(ón|ones)
+cónyuges?
+presidencias?
+vocalías?
+
+
+# inclusive forms: estimado/a, estimado(a)
+\p{L}{3,}o\/a
+\p{L}{3,}a\/o
+\p{L}{3,}o\/\(a\)
+\p{L}{3,}a\/\(o\)
+de todos y (de)? todas
+de todas y (de)? todos
+las\/los
+los y las
+l[x*\@]s
+sr\/a
+sr\/sra
+señor y señora
+señores y señoras
+hombres y mujeres
+niños y niñas

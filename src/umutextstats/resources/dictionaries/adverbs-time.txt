@@ -1,0 +1,40 @@
+# ends with -mente
+(actual|anterior|antigua|asidua|breve|constate|continua|eterna|final|frecuente|inmediata|instantána|normal|inicial|momentánea|ocasional|posterior|reciente|regular|simultánea|típica|usual|última)mente
+
+# words
+ahor(a|ita)
+anoche
+ante(ayer|lación|mano|s)
+aprisa
+ayer
+aún
+cuando
+después
+enseguida
+entonces
+hoy
+jamás
+justo
+luego
+mañana
+mientras
+n[oa]más
+nunca
+pronto
+recién
+siempre
+tarde
+temprano
+todavía
+ya
+
+
+# locutions
+abrir y cerrar de ojos
+de un momento a otro
+de ahora en adelante
+de vez en cuando
+entre tanto
+más tarde o más temprano
+tard* una barbaridad
+una eternidad

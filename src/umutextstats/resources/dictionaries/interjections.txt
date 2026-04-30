@@ -1,0 +1,51 @@
+aaj+
+adi[óo]s
+arrea?
+au+pa+
+ay+
+bah+
+brrr+
+buah+
+buau+
+caramba
+chao
+chas
+che
+chit(ón)?
+ea
+eh
+eh\?
+ep+a
+guau+
+a?[(jha)]{3,}
+hala
+hey+
+hola
+huy
+(juas\s?)+
+maldición
+mia+u+
+muu+
+ojal[aá]
+ole*é
+ostiah?
+paf+
+pif
+pitas
+plash
+psé
+puaj+
+pum+
+sh+
+uau
+uf+
+venga\!
+zas+
+órale
+
+
+# locutions
+de nada
+dios santo
+madre mia
+virgen sant\p{L}+

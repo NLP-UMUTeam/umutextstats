@@ -1,0 +1,15 @@
+# ends with -mente
+(afortunada|amplia|aparente|basica|consecuente|franca|indudable|misma|precisa|principal|pura|relativa|respectiva|única)mente
+
+# words
+además
+antelación
+aparte
+asi(mismo)?
+atrás
+a[uú]n
+inclusive
+viceversa
+
+# locutions
+en (lugar|vez) de

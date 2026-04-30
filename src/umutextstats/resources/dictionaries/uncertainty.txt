@@ -1,0 +1,14 @@
+seguramente
+probablemente
+es probable que
+(puede|podría) ser
+no lo sé
+no estoy segur(o|a) de
+quizás
+igual
+posiblemente
+es posible que
+seguro que
+imposible que
+tal vez
+lo más seguro es que	

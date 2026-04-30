@@ -1,0 +1,17 @@
+# Source: https://es.wiktionary.org/wiki/Wikcionario:Lista_de_sufijos_en_el_espa%C3%B1ol
+\p{L}{2,}(áceo|ácea|aco|aca|ada|aje|al|algia|amen|ancia|ano|ana|anza|ar|ario|aria|arquia|ata|ato|avo|ava|azgo|azo)e?s?
+\p{L}{2,}(bilidad|ble)e?s?
+\p{L}{2,}(cardio|cardia|cida|cidio|ción|cola|cracia|crata|cultor|cultora)e?s?
+\p{L}{2,}(dad|demia|dero|dera|dero|dizo|diza|dor|dora|dura)e?s?
+\p{L}{2,}(ear|ecer|eco|edo|eda|edro|ego|ega|encia|eno|ena|ense|eño|eña|era|és|esa|esco|esca|ez|eza)e?s?
+\p{L}{2,}(fagia|fago|faga|fero|fera|filia|filo|fila|fito|fobia|fobo|foba|fono|fona|fonía|forme|fugo|fuga)e?s?
+\p{L}{2,}(gamia|gamo|gama|genia|geno|gena|geo|ginia|gino|gina|gono|grafía|grafo|grafa|grama)e?s?
+\p{L}{2,}(í|ía|iano|iana|ica|ido|ido|ida|ificar|il|illos|ín|ina|ína|ing|ismo|ista|ístico|ística|itis|ístico|ística|ita|itis|izar|izo\iza)e?s?
+\p{L}{2,}(latra|latría|lisis|lito|logía|logo|loga)e?s?
+\p{L}{2,}(mancia|manía|mano|mana|mante|mente|mento|metría|metro|miento)e?s?
+\p{L}{2,}(nomía|nomo|noma|nte)e?s?
+\p{L}{2,}(oide|óleo|oma|ope|opía|osis|oso|osa|ón|ona|or)e?s?
+\p{L}{2,}(pata|patía|pedia|podo|polis)e?s?
+\p{L}{2,}(teca|torio|torio|toria|tud)e?s?
+\p{L}{2,}(udo|uda|ura|ucho|ucha)e?s?
+\p{L}{2,}(voro|vora)e?s?

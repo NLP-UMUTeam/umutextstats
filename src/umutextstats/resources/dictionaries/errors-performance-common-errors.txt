@@ -1,0 +1,64 @@
+# https://www.correccionyestilo.com/101-errores-de-escritura-habituales/
+# Write one word instead of two by mistake
+asique
+enserio
+portanto
+sobreaviso
+sobretodo
+
+
+# Write two words by mistake instead of one
+a parte
+sin fin
+
+
+# Non-existent words
+andó
+deshaucio
+disgresión
+hechar
+inflacción
+
+
+# Incorrect compound plurals (in one word or two)
+avesmaría
+bocascalles
+malostratos
+mediaslunas
+socios-políticos
+
+
+# Poorly written latinos
+a grosso modo
+(De )?motu propr?io
+in media res
+mutatis mutandi
+status quo
+
+
+# Skip the tilde in words that are required
+aereo
+album
+buho
+duplex
+naufrago
+
+
+# Write the tilde in words that do not carry it
+ávaro
+estáte
+fuí
+pié
+truhán
+
+
+# Incorrect expressions
+bajo mi punto de vista
+a la mayor brevedad
+contra la espada y la pared
+de ellos mismos
+detrás mío
+
+
+# Separate the prefixes from the word to which it precedes
+[súper|infra|contra|extra|vice]-\p{L}*

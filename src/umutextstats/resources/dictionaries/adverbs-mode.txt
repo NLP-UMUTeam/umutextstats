@@ -1,0 +1,42 @@
+# ends with -mente
+(apasionada|automática|abable)mente
+(cariñosa|clara|casual|concreta|contraria|correcta|curiosa)mente
+(descarada|desgraciada|difícil|directa)mente
+(entera|especial|específica|extraordinaria|extremada)mente
+(falsa|fundamental|fácil)mente
+(general)mente
+(hipotética)mente
+in(correcta|dependiente|directa|tencionada|tencional|útil)mente
+(lenta|lógica)mente
+(mala)mente
+(natural)mente
+(parcial|particular|perfecta|personal|profunda|propia|práctica)mente
+(rápida)mente
+(seguida|segura|separada|sigilosa|simple|sincera|sola|sorprendente|sorpresiva|suave|supuesta)mente
+(terrible|teórica|tierna)mente
+(veloz|verdadera)mente
+
+# words
+adrede
+a\s?penas
+bajo
+bien
+como
+conforme
+deprisa
+despacio
+duro
+fuerte
+igual
+lento
+ligero
+mal
+mejor
+regular
+sólo
+
+# locutions
+a regañadientes
+al instante
+al pie de la letra
+cual pez

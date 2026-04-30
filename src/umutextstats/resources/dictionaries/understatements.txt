@@ -1,0 +1,19 @@
+# lítotes
+no (es|son|fue|fueron|serán|están|estuv([eo]|ieron)) (la|algo|muy|un|tan|nada|poc[oa]s?|mal[oa]s?|buen[oa]s?)
+no (me|te|le|nos|os|les) (parecen?|resultan?|crea[sn])
+no deben?( de )?andar muy lejos
+no (lejos|menos|poc[oa]s?|much[oa]s?)
+no puedo rechazar
+no tienen? desperdicio
+
+menos mal
+poco a gusto
+tampoco es tan
+
+# interrogative
+¿te parece poco\?
+
+# exclamative
+¡no me digas!
+
+palabreja

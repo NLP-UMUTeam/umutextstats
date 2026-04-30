@@ -1,0 +1,11 @@
+{# general #}
+\p{L}ísim[oa]s?\b
+\p{L}érrim[oa]s?\b
+(pés|ínf|máx|mín)im[oa]s?
+
+{# others #}
+colosal(es)?
+extra\p{L}+
+perfect[oa]s?
+super\p{L}+
+suprem[oa]s?

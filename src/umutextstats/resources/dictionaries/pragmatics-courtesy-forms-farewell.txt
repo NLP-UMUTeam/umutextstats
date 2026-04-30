@@ -1,0 +1,6 @@
+# farewell
+atentamente,?
+adiós
+hasta (luego|pronto|la próxima|mañana)
+me despido de usted
+nos vemos

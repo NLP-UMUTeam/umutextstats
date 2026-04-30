@@ -18,7 +18,8 @@ dependencies = [
     "pandas>=2.0",
     "tqdm>=4.66",
     "emoji>=2.0",
-    "pyarrow>=15.0"
+    "pyarrow>=15.0",
+    "regex>=2024.0"
 ]
 
 
@@ -42,5 +43,6 @@ where = ["src"]
 
 [tool.setuptools.package-data]
 umutextstats = [
-    "resources/config/*.xml"
+    "resources/config/*.xml",
+    "resources/dictionaries/*.txt"
 ]

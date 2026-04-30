@@ -1,0 +1,50 @@
+# Opening
+de una parte
+de un lado
+en primer lugar
+para empezar
+primero( que todo)?
+por una parte
+por un lado
+
+
+# Continuous
+asimismo
+de igual (forma|modo|manera)
+de otra( parte)?
+de otro( lado)?
+después
+el caso es que,
+en (segundo|tercer|cuarto|quinto|sexto) lugar
+en este sentido,
+entonces,
+igualmente
+luego
+por otra( parte)?
+por otro( lado)?
+por su parte
+
+
+
+# Conclusive
+en conclusión,
+en definitiva,
+en suma,
+en resumen
+en resumidas cuentas
+en último lugar,
+en último término,
+en fin
+para terminar,
+por fin
+por último
+finalmente
+
+
+# Others
+a todo esto,
+por lo demás,
+en parte,
+en otro orden de cosas,
+éstos,
+aquellos,

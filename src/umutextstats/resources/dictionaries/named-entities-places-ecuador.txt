@@ -1,0 +1,47 @@
+# cities
+ambato
+arajuno
+babahoyo
+bahía de caráquez
+baños de agua santa
+cuenca
+durán
+esmeraldas
+guaranda
+guayaquil
+ibarra
+la libertad
+latacunga
+loja
+macas
+machala
+manta
+milagro
+nueva loja
+portoviejo
+piñas
+pintag
+quevedo
+quito
+riobamba
+santo domingo de los colorados
+salinas
+shell mera
+tulcán
+
+
+# states
+azuay
+chimborazo
+cotopaxi
+el oro
+esmeraldas
+guayas
+imbabura
+loja
+los ríos
+manabí
+pichincha
+santa elena
+santo domingo
+tungurahua

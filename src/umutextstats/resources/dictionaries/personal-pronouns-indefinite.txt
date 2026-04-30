@@ -1,0 +1,16 @@
+(cual|quien)(es)?quiera
+
+alguien
+algun[oa]s?
+demasiad[oa]s?
+bastantes?
+l[oa]s demás
+much[oa]s?
+nadie
+nada
+ning[úu]n[oa]s?
+otr[oa]s?
+poc[oa]s?
+tod[oa]s?
+vari[oa]s?
+un[oa]s?

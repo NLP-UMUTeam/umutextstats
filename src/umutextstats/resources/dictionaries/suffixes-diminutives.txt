@@ -1,0 +1,10 @@
+\p{L}{2,}uc[oa]s?
+\p{L}{2,}et
+\p{L}{2,}ic[oa]s?
+\p{L}{2,}ill[oa]s?
+\p{L}{2,}it[oa]s?
+\p{L}{2,}in[oa]s?
+\p{L}{2,}(ín|ines)
+\p{L}{2,}ij[oa]s?
+\p{L}{2,}izn[oa]s?
+\p{L}{2,}etas?

@@ -1,0 +1,9 @@
+coj(ón|ones)
+erecci\p{L}*
+pollas?
+pollaz\p{L}*
+próstata\p{L}*
+rabo\p{L}*
+verga\p{L}*
+
+NEG:hasta la polla

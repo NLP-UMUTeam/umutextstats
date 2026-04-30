@@ -1,0 +1,31 @@
+abandono de familia
+acusación y denuncia falsa
+agresión sexual
+amenazas
+apropiación indebida
+asesinatos?
+atentado contra la autoridad
+blanqueo de capitales
+coacciones 
+defraudación
+delito contra la (seguridad (colectiva|vial)|salud pública)
+denegación de auxilio
+desobediencia
+detención ilegal
+estafas?
+falsedad documental
+falsificación de (documento público|tarjetas de crédito)
+homicidios?
+hurtos?
+lesiones
+quebrantamiento de condena
+resistencia y desobediencia  
+robos?( con violencia|fuerza)?
+simulación del delito
+sustracción de menores
+torturas?
+trata de blancas
+tráfico de drogas
+tráfico de personas
+usurpación
+violación

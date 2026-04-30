@@ -1,0 +1,14 @@
+caja tonta
+comida (basura|chatarra)
+copula\p{L}*
+cria\p{L}* malvas
+estirar la pata
+fregatas?
+fuertot[ea]s?
+jubiletas?
+matasanos
+sambr\p{L}* yucas?
+seguratas?
+pedos?
+tarugos?
+tierra de los pies juntos

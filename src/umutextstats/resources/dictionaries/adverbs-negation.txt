@@ -1,0 +1,17 @@
+jamás
+nada
+nadie
+ni( si quiera)?
+ningun[oa]
+ningún
+ningun[oa]
+no(pe?)?
+nunca( jamás)?
+tampoco
+
+# adjectives
+nul[oa]s?
+negativ[oa]s?
+
+# sustantives
+negaci(ón|ones|onismos?)

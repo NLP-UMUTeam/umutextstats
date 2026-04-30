@@ -4,32 +4,56 @@ from umutextstats.nlp import annotate_dataframe_with_stanza
 from umutextstats.cache import CacheManager
 from umutextstats.config import load_config
 from umutextstats.dimensions import DimensionEngine
+from umutextstats.utils.profiler import Profiler
 
-input_path = "dataset.csv"
+input_path = "dataset-10.csv"
 
 cache = CacheManager(".cache")
 config = load_config()
 
-df = read_input(input_path, text_column="text")
+profiler = Profiler(enabled=True)
 
-df = preprocess_dataframe_cached(
-    df,
-    input_path=input_path,
-    cache=cache,
-)
+with profiler.track("io", "read_input"):
+    df = read_input(input_path, text_column="text")
 
-df = annotate_dataframe_with_stanza(
-    df,
-    input_path=input_path,
-    cache=cache,
-)
+with profiler.track("preprocessing", "normalize"):
+    df = preprocess_dataframe_cached(
+        df,
+        input_path=input_path,
+        cache=cache,
+    )
 
-features = DimensionEngine(
+with profiler.track("nlp", "stanza"):
+    df = annotate_dataframe_with_stanza(
+        df,
+        input_path=input_path,
+        cache=cache,
+    )
+
+engine = DimensionEngine(
     config=config,
     input_column="text_norm",
     include_unimplemented=True,
-).compute(df)
+    profiler=profiler,
+    show_progress=True,
+)
 
-features.to_csv("features.csv", index=False)
+with profiler.track("dimensions", "compute_all"):
+    features = engine.compute(df)
 
-print(features.head())
+
+stats = profiler.dataframe()
+
+# guardar todo
+stats.to_csv("pipeline_stats.csv", index=False)
+
+# solo dimensiones
+dim_stats = stats[stats["stage"] == "dimension"]
+dim_stats.to_csv("dimension_stats.csv", index=False)
+
+# top lentas
+print(dim_stats.sort_values("seconds", ascending=False).head(10))
+
+
+print (features.head ())
+features.to_csv ('features.csv', index=False)

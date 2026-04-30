@@ -1,0 +1,77 @@
+acoso( sexual)?
+acosadas?
+arpía\p{L}*
+bolud\p{L}+
+cabr[oó]n\p{L}*
+capull\p{L}+
+caranabo
+cerd\p{L}+
+calientapollas
+calzonazos
+coño
+estúpid\p{L}*
+feministas de mierda
+gilipollas
+golf[ao]\p{L}*
+gorda
+guarr[ao]\p{L}*
+histéric\p{L}*
+hijas? de re\s?mil putas?
+hij[oa]s?(d?e)?puta\p{L}*
+idiota\p{L}*
+lameculo\p{L}*
+lerd\p{L}*
+mala puta
+malfollad\p{L}+
+malparid\p{L}+
+mamada
+mamáis
+mamamos
+maman
+mamando
+mamar\p{L}*
+mamará\p{L}*
+mamare\p{L}*
+mamaré\p{L}*
+mamarrach\p{L}+
+mamast\p{L}+
+marimach\p{L}+
+mierda\p{L}*
+pelotud\p{L}+
+pendej\p{L}+
+perras?
+pinche\p{L}*
+piltrafas?
+puercas?
+puta barata
+reputa
+sevillis\p{L}*
+subnormal\p{L}*
+vomitivas?
+tarad\p{L}+
+zorr\p{L}+
+
+# acronyms
+hp
+hd(lg)?p
+
+# comparatives
+como ((lo|unas) )?putas?
+láv[ae]\p{L} las (patas|piernas)
+en el juego (de )?feminazis?
+
+# others
+c[aá]llate puta
+conchas retobadas
+eres puta
+feministómetros?
+la muy puta
+la puta más puta
+mi novia es sevillista
+mi polla
+pediche
+qué zorra eres
+so puta
+lo putas? que son
+puta resentida
+una puta más

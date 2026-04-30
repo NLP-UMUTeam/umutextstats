@@ -1,0 +1,19 @@
+# Source: https://educacion.elpensante.com/sufijos-adjetivizantes/
+\p{L}{2,}il(es)?
+\p{L}{2,}os[oa]s?
+\p{L}{2,}[ai]?bles?
+\p{L}{2,}[ai]antes?
+\p{L}{2,}[ai]i?entes?
+\p{L}{2,}an(es)?
+\p{L}{2,}ad(es)?
+\p{L}{2,}al(es)?
+\p{L}{2,}il(es)?
+\p{L}{2,}oides?
+\p{L}{2,}entos?
+\p{L}{2,}iz[oa]s?
+\p{L}{2,}ud[oa]s?
+\p{L}{2,}er[oa]s?
+\p{L}{2,}érrim[oa]s?
+\p{L}{2,}istas?
+\p{L}{2,}anos?
+\p{L}{2,}ísim[oa]s?

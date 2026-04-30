@@ -1,0 +1,28 @@
+# words
+abajo
+acullá
+acá
+ad[oó]nde
+a?fuera
+ahí
+all[áí]
+alrededor
+aquí
+arriba
+bajo
+cerca
+delante
+dentro
+detrás
+donde(quiera)?
+encima
+enfrente
+sobre
+
+# locations
+a través
+al borde
+del otro lado
+junto a
+lejos( de aquí)?
+por debajo

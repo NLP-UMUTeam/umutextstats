@@ -1,0 +1,7 @@
+est\p{L}
+ha(s|n)?
+hab\p{L}
+hay\p{L}
+he(mos)?
+hub\p{L}
+p(o|u)d\p{L}

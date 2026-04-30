@@ -1,0 +1,47 @@
+acoso( sexual)?
+amargad[oa]s?
+cerdas?
+chonis?
+cochin[oa]s?
+frustad[oa]s?
+guarr[oa]s?
+mujer del?
+machorras?
+montapollos
+mugrient[oa]s?
+payas[oa]s?
+patétic[oa]s?
+pesad[oa]s?
+pesadit[oa]s?
+pij[oa]s?
+
+
+# expressions
+la puta esa
+las putas estas
+locas? de los gatos
+t[óo]m[aeéoó]\p{L} la pastilla
+
+
+# sexual dominance
+calientapollas
+chúpa\p{L}*
+chuparme la polla
+com[eé][mts]elas?
+cómele la polla
+(mi|en busca de|meter|gust\p{L}*) (\p{L}{1,3}\s)?poll(a|ón|ones)
+mal follada\p{L}*
+frígid\p{L}+
+foll[aéeoó]\p{L}*
+fornic\p{L}*
+coñ\p{L}* reseco\p{L}*
+put[a|ón|ones]
+zorras?
+zorr(ón|ones)
+nalguear\p{L}*
+
+
+# life-style
+# drinks
+borrachas?
+alcohol

@@ -1,0 +1,63 @@
+# quantity
+(mill(ón|ones)|mil(es)?|cientos|decenas|infinitas) (de)? \p{L}{3,}
+(mill(ón|ones)|mil(es)?|cientos|decenas|infinitas)\b \p{L}{3,}
+últimos? esfuerzos?
+más esperadas?
+y más allá
+infinitas gracias
+extensión más grande
+\p{L}+nt(os|e) \p{L}+es
+durante horas
+todos los días
+
+# comparative
+(más|menos) [\p{L}\p{N}]+ del (mundo|universo)
+más lento que el caballo del malo
+m(orir(se)?|até|urieron|orirán|uero) de risa
+pes\p{L}+ \p{L}{2,} tonelada
+est[\p{L}\p{N}]+ tan (lejos|feliz|felices|cansad[oa]s?|content[oa]s?|tristes?) que 
+tanto sueño que 
+nunca \p{L}+m(e|os)
+ll(ue|o)v\p{L}+ a cántaros
+mand\p{L}+ al infierno
+dev\p{L}+ los apuntes
+morir de ganas
+qued\p{L}+ frit[oa]s?
+mira\p{L}+ al infinito
+mand\p{L}+ al infinito
+(es|son) una joya
+(es|son) un([oa]s?)? lastres?
+hambre de lob[oa]s?
+picha hecha un lío
+lanz\p{L}+ un(os)? besos?
+cong\p{L}+ los pies
+vista de águila
+
+# excesive groups
+(del|todo el) (mundo|universo|barrio)
+
+# quality
+[tms]e comería[ns]? una? [\p{L}\p{N}\s]+ enter[oa]
+(dar?|doy|dió|darán?|dieron|baj\p{L}+) (la luna|las estrellas)
+sang\p{L}+ de dolor
+montañas? de trabajo
+(muero|mor\p{L}+) por \p{L}+
+
+
+# others
+que no le cabe en el pecho
+hiper\p{L}+
+super\p{L}+
+multi\p{L}+
+oreja a oreja
+en las nubes
+diluvio
+
+NEG:supervisar
+NEG:tribunal superior
+
+# polysyndeton
+\b(\p{L}+),?\s+\1\b
+
+# adjectives
+furor

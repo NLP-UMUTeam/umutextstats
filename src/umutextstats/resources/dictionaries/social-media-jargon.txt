@@ -1,0 +1,39 @@
+# Acronnyms
+dm
+rt
+tt
+tl
+ff
+
+
+# Terms
+block
+bots?
+fav(ear|eo)?
+follow
+trending( topic)?
+timelines?
+un(follow)(er)?s?
+hashtags?
+(multi)?menci(ón|ones)
+(re)?tweets?
+(re)?tuits?
+(re)twit?
+report(ar|en|aron)
+via
+trolls?
+tuiter
+tuiter[oa]s?
+tuitstars
+
+
+# Verbs
+(re)?twit\p{L}*
+tui(é|e)t\p{L}*
+
+
+# Other argot
+influencers?
+bloggers?
+blogera
+instagramers?

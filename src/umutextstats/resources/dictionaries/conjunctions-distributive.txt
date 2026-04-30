@@ -1,0 +1,4 @@
+ya \p{L}{3,}, ya
+bien \p{L}{3,}, bien
+unas veces \p{L}{3,}, otras
+unos \p{L}{3,}, otros

@@ -1,0 +1,22 @@
+# orders
+a (fregar|barrer|callar|obedecer|chupar|mamar)
+cállate
+callate
+
+
+# despective
+hij[oae]s?(d?e)?(puta|perra)\p{L}*
+so
+puta boca
+
+
+# injuries
+contus\p{L}+
+gimote\p{L}*
+magull\p{L}+
+
+
+
+# prahses
+falta\p{L}* al respeto
+no (tienes|tener|tienen) ni (puta )idea

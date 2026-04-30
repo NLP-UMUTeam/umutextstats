@@ -1,0 +1,12 @@
+definid\p{L}*
+honest\p{L}*
+ciertos?
+creíbles?
+certezas?
+conven\p{L}*
+convincen\p{L}*
+confi\p{L}*
+real
+original(es)
+since\p{L}*
+válid[oa]s?

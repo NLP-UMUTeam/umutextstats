@@ -1,0 +1,150 @@
+alcornoques?
+alfeñiques?
+apollardad?[oa]s?
+arpías?
+barrabás
+barriobajer[oa]s?
+bellac[oa]s?
+berzotas
+bobalic\p{L}*
+bocachanclas?
+bocazas
+borde
+bolleras?
+bolud[oa]s?
+bujarr(as?|ón)
+bufo
+burr[oa]s?
+busconas?
+cabestros?
+cabez(ón|ona)
+cabr(ón|ones)
+cafres?
+cag(ar|o|ó|é|amos|ais|abamos|ando|aríamos)
+calientapollas
+callo
+calzonazos
+cansa{1,2}lmas
+cantamañanas
+capullos?
+carajaula
+carajo
+caspos[oa]s?
+catet[oa]s?
+cenizos?
+cerdadas?
+chichifos?
+chingadas?
+chupa(pollas|pilas|candados)
+chotos?
+coj(ón|ones|onacos)
+corto
+concha
+coños?
+comemierdas?
+coños?
+cretinos?
+crápulas?
+culos?
+don\s?nadie
+estúpid[ao]s?
+empanad[oa]s?
+fachas?
+fachitas?
+fantasmas?
+fascineros[oa]s?
+feminazi
+fulanas?
+furcias?
+gabach[oa]s?
+gandules
+gandúl
+gaznapi[oa]s?
+gañenes
+gañán
+garrul[oa]s?
+gilip(ollas|uertas)
+golf[oa]s?
+gorrin[oa]s?
+guarr[oa]s?
+hijos? de perras?
+hijos? de puta
+hostias?
+(hi)?joputa
+huev[óo]n
+idiotas?
+inútil(es)?
+joder(n?os|no)?
+jodes
+jotos?
+lame(culos|botas)
+lechugin[oa]s?
+lagartas?
+lerd[oa]s?
+locazas?
+lloricas?
+malajes?
+malparid[oa]s?
+malfollad[oa]s?
+mam(ón|ones)
+mamar(la)?
+mamarrach[oa]s?
+maric(ón|ones)
+marimach[oa]s?
+maritontas?
+mariquín
+mentecatos?
+mequetrefes?
+mierdas?
+miedicas?
+mongolos?
+moromieda
+muerdealmohadas
+orco(c[ao]s?)?
+pagafantas
+panoli
+peleles?
+pelotud[oa]s?
+penc[oa]s?
+pendej[oa]s?
+perroflautas?
+pij[oa]s?
+piltrafas?
+pendón
+podemitas?
+putas?
+rameras?
+sarasas?
+soplapollas
+subnormal(es)?
+tarugos?
+tarumbas?
+tocapelotas
+tont[oa]s?
+tortilleras?
+tuercebotas
+traidor([ea]s)?
+totalitaristas?
+tontolelculo
+tontolabas?
+tontainas?
+verduleras?
+yayoflautas?
+zampabollos
+zascas?
+zopencos?
+zorras?
+¡?BUM!
+
+# expressions
+a caldo
+folle un pez
+freir espárragos
+cag\p{L}* en
+eres tont[oa] o
+más feo que
+la madre que [tm]e parió
+la del pulpo
+qué cabr(ón|ones|onas|ona)
+puta madre
+tontos? del culo

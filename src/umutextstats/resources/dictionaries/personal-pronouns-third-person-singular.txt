@@ -1,0 +1,7 @@
+consigo
+él
+ella
+l[aeo]
+se
+sus?
+suy[oa]\p{L}*

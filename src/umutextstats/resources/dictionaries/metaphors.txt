@@ -1,0 +1,75 @@
+# common. a is b
+dinero es la llave
+tiempo es una ventana
+corazón es un desierto
+corazón desierto
+cabellos? de oro
+
+
+# with preposition. a of b
+labios de miel
+lágrimas de (cocodrilo|sangre)
+ojos de cristal
+azote del aire
+alma de (acero|cordero)
+corazón de crital
+filo de [st]us? mirada
+cara de ángel
+corazón de (herido|diablo|cristal|algodón|seda|piedra)
+manojo de nervios
+got[ita|a]s? de nostalgia
+fantasma del pasado
+máscara de (su|mi) alma
+luz de mi vida
+coche vuela
+dientes de perla
+canas de plata
+puños de acero
+
+# pure
+llama en tu pecho
+moros en la costa
+
+# aposicional
+besos brujos
+cuatro ojos
+gentil ogro
+lobo con piel de oveja
+
+
+# negative
+
+# sinestésica
+árido corazón
+dulce [color]
+áspero ruido
+suave melodía
+sonriente rubí(es)?
+zorro astuto
+caja tonta
+caja idiota
+corazón sincero
+juguete (roto|perdido)
+
+# others
+(eres|es|será) un sol
+agarr\p{L}* al vuelo
+aguas turbulentas
+brincar recuerdo
+caerse de una nube
+caído del cielo
+dar luz verde
+escarbar en mi mente
+escribir con sangre
+estar colgado del teléfono
+estar encadenado a tí
+forar el caracter
+hablar por los codos
+mata(r\p{L}*|n\p{L}*) para
+sacar(le| el) jugo
+sangre escribo
+ser la puerta
+ser|volverse un as
+temblar el mundo
+vivir dentro de un caparazón
+voz iluminar

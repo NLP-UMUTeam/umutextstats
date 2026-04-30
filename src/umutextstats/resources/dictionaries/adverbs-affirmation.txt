@@ -1,0 +1,12 @@
+# words
+(cierta|clara|efectiva|evidente|exacta|definitiva|indiscutible|natural|obvia|real|segura|verdadera)mente
+de\s?veras
+sí
+también
+
+# locutions
+claro que
+desde luego
+en (efecto|verdad)
+por supuesto
+sin duda

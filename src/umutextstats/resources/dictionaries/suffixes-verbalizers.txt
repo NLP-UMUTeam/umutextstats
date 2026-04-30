@@ -1,0 +1,7 @@
+ # Source: https://educacion.elpensante.com/sufijos-verbalizantes/
+\p{L}{2,}ear
+\p{L}{2,}ecer
+\p{L}{2,}izar
+\p{L}{2,}igar
+\p{L}{2,}ificar
+ 

@@ -1,0 +1,13 @@
+# general
+de nada
+gracias
+permiso
+perd(ón|ones)
+por favor
+por nada
+un placer
+el placer es (mío|nuestro)
+
+
+# refer people in formal second person
+usted(es)?

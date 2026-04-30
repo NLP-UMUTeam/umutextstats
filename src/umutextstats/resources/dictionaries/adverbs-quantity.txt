@@ -1,0 +1,69 @@
+# ends with mente
+(abudante|absoluta|aproximada|completa|mayor|menor|enorme|excesiva|extremada|infinita|justa|parcial|sola|(in)?suficiente|suma|terrible|radical|relativa|sensible)mente
+
+
+# words
+abundantes?
+algo
+apenas
+bastantes?
+basto
+cada
+casi
+cu[aá]n
+complet[ao]s?
+cuant[oa]s?
+demasiad[oa]s?
+excepto
+harto
+igual(es)?
+(in)?suficientes?
+llen[ao]s?
+justo
+mayoría
+mazo
+minoría
+mismos?
+mitad(es)?
+menos
+mogoll(ón|ones)
+mont(ón|ones)
+much[oa]s?
+muy
+más
+ningun[oa]
+ningún
+nada
+poc[oa]s?
+poquit[oa]s?
+salvo
+siquiera
+sobremanera
+s[óo]l[oa]s?
+tan(to)?
+tod[oa]s?
+vari[ao]s
+
+# sustantives
+cantidad
+etc(étera)?
+extra
+porci(ón|ones)
+trozos?
+partes?
+segmentos?
+sorb(ito|o)s?
+porci(ón|ones)
+restos?
+total(es)?
+toneladas?
+
+# locutions
+(mejor|menos|más|peor)(\sque)?
+claro que
+desde luego
+en (efecto|verdad)
+por supuesto
+sin duda
+tal como
+tan\s\w+\scomo

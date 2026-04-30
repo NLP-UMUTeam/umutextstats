@@ -1,0 +1,87 @@
+# firearms
+ametralladoras?
+arcos?
+armas? cuerpo a cuerpo
+barreminas
+blitzen
+cañ(ón|ones)
+carabinas?
+chain rifle
+chain-colt
+ciberminas
+contender
+crazykoala
+desactivator
+descubrir
+dispersador de minas
+drop bears
+escopetas?
+flammenspeer
+(sub)?fusil(es)?
+granadas
+jammer
+katyusha
+lanza-?adhesivos?
+lanzacohetes?
+lanzagranadas?
+lanzallamas?
+lanzamisiles?
+madtraps
+minas?
+mk12
+molotok
+molotov
+pistolas?
+pitcher
+pulso eléctrico
+pulso flash
+pulzar
+red fury
+riotstopper
+sepsitor
+simbiobichos?
+spitfire( ap)?
+trench-hammer
+uragan mrl
+zapper
+
+
+# cold weapons
+alabarda
+alfanje
+almarada
+bayoneta
+bracamante
+corvo
+cuchillo
+chakram
+daga
+dirk
+espada
+espadín
+estilete
+estoque
+falcata
+flecha
+florete
+garra
+gladius
+guadaña
+hacha
+katana
+katar
+kubotan
+kunai
+lanza
+machete
+mandoble
+maza
+mangual
+navaja
+puñal
+sai
+sica
+sable
+tantō
+tridente
+wakizashi

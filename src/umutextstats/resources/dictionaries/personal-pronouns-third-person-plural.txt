@@ -1,0 +1,6 @@
+consigo
+ell[oa]s
+les
+se
+sus?
+suy[oa]\p{L}*

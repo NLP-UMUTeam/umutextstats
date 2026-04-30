@@ -1,0 +1,7 @@
+# analytic pasive
+(es|fue|será|sería|son|serán) (vista|sido|hecha|\p{L}{3,}[aií]d[oa]s?)\b
+
+
+# syntetic
+se \p{L}{3,}(an?|en?|on)
+se ve a las?

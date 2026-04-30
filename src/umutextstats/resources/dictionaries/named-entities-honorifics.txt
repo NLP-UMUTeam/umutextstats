@@ -1,0 +1,12 @@
+caballeros?
+licenciados?
+doctor([ae]s?)?
+maestr[oa]s?
+(su|vuestra )?merced
+usted
+ud\.
+tú
+señor(es|as?)?
+señoritas?
+sra?\.
+señoros?

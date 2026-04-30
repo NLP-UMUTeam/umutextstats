@@ -1,0 +1,3 @@
+nos
+nosotr\p{L}*
+nuestr\p{L}*

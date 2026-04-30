@@ -1,0 +1,6 @@
+# simple
+\p{L}{3,}(a|e|i)r(é|á|emos|éis|án)\b
+
+# not simple
+\bhabr(é|á?s|emos|éis|án)\s\w{3,}(ído|ido|ado)\b
+\bhabr(é|á?s|emos|éis|án)\s(abierto|dicho|escrito|hecho|frito|freído|impr(eso|imido)|muerto|puesto|provisto|suscrito|visto|vuelto)\b

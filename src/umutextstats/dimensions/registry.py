@@ -9,7 +9,9 @@ from umutextstats.dimensions.length import LengthDimension
 from umutextstats.dimensions.sentence_count import SentenceCountDimension
 from umutextstats.dimensions.syllable_count import SyllableCountDimension
 from umutextstats.dimensions.word_count import WordCountDimension
-
+from umutextstats.dimensions.word_per_dictionary import WordPerDictionary
+from umutextstats.dimensions.pattern import PatternDimension
+from umutextstats.dimensions.pos_tagging_tag import POSTaggingTag
 
 # =========================
 # Registry
@@ -20,6 +22,9 @@ DIMENSION_REGISTRY: dict[str, Type[BaseDimension]] = {
     "SentenceCountDimension": SentenceCountDimension,
     "SyllableCountDimension": SyllableCountDimension,
     "WordCountDimension": WordCountDimension,
+    "WordPerDictionary": WordPerDictionary,
+    "PatternDimension": PatternDimension,
+    "POSTaggingTag": POSTaggingTag,
 }
 
 

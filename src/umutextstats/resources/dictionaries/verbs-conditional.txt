@@ -1,0 +1,5 @@
+# simple
+\p{L}{3,}(ía|as|íamos|ían)\b
+
+# not simple
+\bhabr(ía[sn]?|íamos|íais)\s\p{L}{3,}([ai]do)\b

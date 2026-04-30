@@ -1,0 +1,15 @@
+chichis?
+chochos?
+chuminos?
+coño\p{L}*
+coñi\p{L}+
+pezón
+pezones
+teta\p{L}*
+tetilla\p{L}*
+vagina\p{L}*
+
+NEG:hasta el coño
+NEG:ole tu coño
+NEG:cómo coño
+NEG:quesos? de tetilla

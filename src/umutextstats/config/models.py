@@ -1,5 +1,3 @@
-# src/umutextstats/config/models.py
-
 from dataclasses import dataclass, field
 
 
@@ -13,6 +11,8 @@ class DimensionConfig:
     pattern: str | None = None
     universal: str | None = None
     use_original_input: bool = False
+    percentage: bool = True
+    disabled_regexp: bool = False
     children: list["DimensionConfig"] = field(default_factory=list)
     params: dict[str, str] = field(default_factory=dict)
 

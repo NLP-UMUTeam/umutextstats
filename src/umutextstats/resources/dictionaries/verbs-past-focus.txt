@@ -1,0 +1,22 @@
+# Preterite imperfect
+\p{L}{3,}(aba(s|n)?|ábamos|ábais)\b
+\p{L}{3,}(ías?|íamos|íais|ían)\b
+(ibas?|ibais|íbamos|era(s|n)?|éramos|veía(s|n)?|veíamos)
+
+# Past perfect
+\bhub(o|iste|ieron|isteis|iberon)\s\w{3,}(ído|ido|ado)\b
+\bhub(o|iste|ieron|isteis|iberon)\s(abierto|dicho|escrito|hecho|frito|freído|impr(eso|imido)|muerto|puesto|provisto|suscrito|visto|vuelto)\b
+
+# Preterite perfect
+\b(he|has|ha|hemos|habéis|han)\s\w{3,}(ído|ido|ado)\b
+\b(he|has|ha|hemos|habéis|han)\s(abierto|dicho|escrito|hecho|frito|freído|impr(eso|imido)|muerto|puesto|provisto|suscrito|visto|vuelto)\b
+
+# Preterite indefinite
+\p{L}{3,}é|í|ó|aste|(a|i)ste(s|is)?|(a|i)mos|(a|e)ron|(i|y)eron\b
+\p{L}{3,}qué|gué|güé|ecé\b
+(anduv|cup|dij|estuv|hub|pud|pus|quis|sup|tuv|traj|vin)(e|iste|o|imos|isteis|ieron)
+(d|fu|o|v)(i|iste|io|imos|isteis|ieron)
+
+# Preterite pluperfect
+\bhab(ías?|íamos|iais|ían)\s\w{3,}[íia]do\b
+\bhab(ías?|íamos|iais|ían)\s(abierto|dicho|escrito|hecho|frito|freído|impr(eso|imido)|muerto|puesto|provisto|suscrito|visto|vuelto)\b

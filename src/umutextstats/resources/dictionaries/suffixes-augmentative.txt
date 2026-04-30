@@ -1,0 +1,5 @@
+\p{L}{2,}(ón|ones|ona|onas)
+\p{L}{2,}otes?
+\p{L}{2,}az[oa]s?
+\p{L}{2,}at[oa]s?
+\p{L}{2,}arr(ón|ones|onas?)

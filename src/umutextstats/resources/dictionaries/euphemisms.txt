@@ -1,0 +1,108 @@
+actualiz\p{L}+ (de|el) precios?
+activos? adjudicados?
+adecua\p{L}+ d?el poder adquisitivo
+agente comercial
+almacén temporal centralizado
+amnistías? fiscal(es)?
+amortización de puesto de trabajo
+apretar\p{L}* el cinturón
+apropiaci(ón|ones) indebidas?
+asistente técnico sanitario
+ataque preventivo
+auxiliar de vuelo
+bar(es)? de alterne
+cal[ei]nt\p{L}+ el banquillo
+cambiar el agua al canario
+calmar los mercados
+capital humano
+casa de asistencia
+centro de salud mental
+cese de negocio
+cese temporal de convivencia
+comida rápida
+conflicto laboral severo
+conflictos? (armados?|belicos?)
+consumar el matrimonio 
+contabilidad indebida
+crecimientos? \p{L}{4,} negativos?
+dar a luz
+dar el paseillo
+daños colaterales
+dementes?
+democracia orgánica
+desaceleración
+desaconsejar
+desviar fondos
+detención ilegal
+disfunción eréctil
+división de plata
+documento clasificado
+dormir el sueño eterno
+ebrios?
+economía de mercado
+economía sumergida
+edad dorada
+empinar el codo
+establecimiento penitenciario
+estación de servicio
+expediente de regulación de empleo
+faltar a la verdad
+falta de liquidez
+fuego amigo
+flexibili\p{L}+ de la plantilla( laboral)?
+flexibili\p{L}+ el mercado de trabajo
+(flexibili\p{L}+ en el despido|despidos? flexibles?)
+(ir|fue\p{L}*) al e[sx]cusado
+gravamen adicional
+hacer aguas mayores
+hacer el último viaje
+huesos? anchos?
+(niñ[oa]s?hombres?|mujer(es)?|personas?) de color
+incrementos? negativos?
+intern[oa]s? ingres\p{L}+ en (un )?centros? penitenciarios?
+interrogatorio intensificado
+interrupción( voluntaria)? del embarazo
+limpiezas? étnicas?
+material(es)?( para) adultos?
+miembro viril
+movilidad exterior
+no vidente
+pago del impuesto revolucionario
+paraíso fiscal
+pasar a mejor vida
+pasar al toilette
+pasar\p{L}* de copas
+pa(ís|ises) en vías de desarrollo
+persona mayor
+personas? de color
+personas? de movilidad reducida
+personas? en riesgo de exclusión social
+personas? pequeñas?
+prescindir de \p{L}{3,}
+pronunciamientos militar(es)?
+poco agraciad[oa]s?
+pre\-?constitucional
+prisión permanente revisable
+procedimiento de ejecución hipotecaria
+promotor de ventas
+(pronunciamiento|intervención) militar
+pérdida de poder adquisitivo
+reajuste de (precios|personal)
+recargo temporal de solidaridad
+re(ducción|gulación) de (personal|plantilla)
+relaciones impropias
+residencia para la tercera edad
+residuos sólidos urbanos
+salivar
+sentar la cabeza
+servicios? de (acompañamiento|inteligencia)
+servicios? a la comunidad
+sobrepeso
+sustancias? prohibidas?
+teatro de operaciones
+tener la regla
+tercera edad
+trabajadora sexual
+tráficos? de influencias
+tránsito intestinal
+vividora?

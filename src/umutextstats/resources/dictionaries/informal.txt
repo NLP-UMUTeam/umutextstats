@@ -1,0 +1,4 @@
+contigo
+t(e|us?|ú)
+tuy[oa]\p{L}*
+vos

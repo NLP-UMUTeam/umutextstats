@@ -1,0 +1,60 @@
+# Basic female
+\p{L}{3,}(a|d|ón|z|tes?|is|ie|umbre|@|@s)\b
+
+# articles, demostratives, pronouns
+ellas?
+las?
+unas?
+
+
+# Short words not included in the regexp
+cumbres?
+
+# Full Words not included in the regexp
+brigadas
+cárcel(es)?
+clases?
+dinamos?
+fotos?
+libidos?
+imagen
+imágenes
+jornadas
+gentes?
+medidas
+motos?
+manos?
+mujer(es)?
+nieves?
+noches?
+piel(es)?
+polios?
+radios?
+vacunas
+
+
+# Exceptions
+NEG:arpa
+NEG:avión
+NEG:betis
+NEG:cabrón
+NEG:camión
+NEG:clima
+NEG:cometa
+NEG:chikungunya
+NEG:ébola
+NEG:gripe
+NEG:millón
+NEG:hipócrita
+NEG:planeta
+NEG:problema
+NEG:perdón
+NEG:tema
+NEG:zika
+
+
+# Neutrals
+NEG:cállate
+NEG:(in)?conscientes?
+NEG:(in)?insuficientes?
+NEG:machista

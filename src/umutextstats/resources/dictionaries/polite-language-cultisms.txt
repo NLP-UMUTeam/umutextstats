@@ -1,0 +1,25 @@
+# @link https://www.gramaticas.net/2016/10/ejemplos-de-cultismos.html
+# @link https://www.ortografias.com/2019/11/ejemplos-de-cultismos.html
+# @link https://ejemplos.net/ejemplos-de-cultismo/
+a[eé]ro\p{L}*
+astro\p{L}*
+bar[íio]\p{L}*
+cefa\p{L}*
+ciber\p{L}*
+crio\p{L}+
+crono\p{L}*
+dem[ao]\p{L}*
+enea\p{L}*
+fago\p{L}*
+gastr\p{L}*
+hexa\p{L}*
+iso\p{L}*
+kilo\p{L}*
+macro\p{L}*
+micro\p{L}*
+nefr\p{L}*
+neumo\p{L}*
+paleo\p{L}*
+psico\p{L}*
+tele\p{L}*
+ultra\p{L}*

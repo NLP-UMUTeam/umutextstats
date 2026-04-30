@@ -1,0 +1,80 @@
+# redundant expressions
+sal(ir|id|gamos|go|es|ís|en|dríamos|drían)?( hacia)? a?fuera
+entr(a|o|é|ar|an|ad|ais|amos|emos)?(hacia)? dentro
+sub(a|o|e|ir|an|id|ais|amos|emos)?(hacia)? arriba
+baj(a|o|ar|an|ad|ais|amos|emos)?(hacia)? abajo
+v(er|í) con mis propios ojos
+vol(a|ar|ad)? por (los aires|el aire)
+ven para acá
+
+# phrases
+ambos dos
+antecedente previo
+accidentes? fortuítos?
+base fundamental
+beber líquidos?
+casualidad imprevista
+ciego que (nada|no) ve
+citas? previas?
+colaboración mutua
+colaborar juntos
+completamente abarrotados?
+con mis propios ojos
+conclusión final
+cálla(te)? la boca
+círculo redondo
+desenlace final
+desierto sin agua
+divisas extranjeras
+erario público
+escrito de mi puño y letra
+falso pretexto
+funcionario público
+justicia justa
+hielo frío
+lapso de tiempo
+lava volcánica
+medio ambiente
+mendrugo de pan
+mentira falsa
+minucias? sin importancia
+más (mayor|menor)
+más sin embargo
+más (peor|mejor)
+nexo de unión
+obsequio gratuito
+opinión personal
+pared divisoria
+parte ingegrante
+pelucas? postizas?
+personas? humanas?
+pinta[r|do] con mis propias manos
+protagonista principal
+puños? cerrados?
+querella criminal
+regalos? gratis
+réplica exacta
+resultado final
+reiterar varias veces
+requisito imprescindible
+sacado del interior
+sonrisa en los labios
+sorpresa inesperada
+supuesto hipotético
+testigo presencial
+tunel subterráneo
+utopía inalcanzable
+viejo anciano
+vigente en la actualidad
+
+# verbs
+a poder ser posible
+como suele ser habitual
+repetir otra vez
+
+# repeting verbs
+(\p{L}{3,}ndo) y \1
+
+# twists
+# @link http://lema.rae.es/dpd/srv/search?key=volver
+volver a (recaer|repetir(se)?|reanudar|recomenzar|rehacer|insistir)

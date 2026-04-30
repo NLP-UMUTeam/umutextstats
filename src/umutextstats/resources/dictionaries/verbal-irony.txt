@@ -1,0 +1,24 @@
+# puns
+escoja
+del fín
+de dos
+lana baja
+o las
+rey no
+ya te
+
+# double-entendres
+cabezas? (bien )?amuebladas?
+como una regadera
+cant\p{L} las cuarenta
+hay tomate
+dar la lata
+de sol a sol
+dej\p{L} plantado
+met\p{L} la gamba
+(ten\p{L}|tienes?) algo en la punta de la lengua
+vend\p{L} la moto
+
+# mistaken identity
+
+# ironic juxtaposition

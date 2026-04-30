@@ -1,0 +1,4 @@
+# emoticons
+# happy face :) :-) :)) :-))) :-D :-DDD
+:\-?[\)D]+
+🤣

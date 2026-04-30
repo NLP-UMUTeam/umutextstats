@@ -1,0 +1,21 @@
+# Source: https://es.wiktionary.org/wiki/Categor%C3%ADa:ES:Prefijos
+(a|aden|adeno|aero|afro|agro|algo|alo|ambi|an|ana|anarco|anglo|ante|anti|astro|auto)\p{L}{2,}
+(baro|bi|biblio|bio|bronco)\p{L}{2,}
+(carcino|cardio|cito|com?|con|crio|crono)\p{L}{2,}
+(dactilo|de|demo|derm|dermat|dermato|dermo|des|dis|dolico)\p{L}{2,}
+(eco|electro|em|en|endo|entre|epi|es|etno|eu|ex|exa|exo|extra)\p{L}{2,}
+(fibro|filo|fito|fono|foto|franco)\p{L}{2,}
+(galo|gastr|geno|geo|giga|grafo|halo|helio|hepat|hepato|hetero|hidro|hiper|hipo|histo|holo|homo)\p{L}{2,}
+(i|idio|im|in|infra|inter|iso|kilo|lito)\p{L}{2,}
+(macro|mal|mega|meta|micro|mili|mini|mio|mono|multi)\p{L}{2,}
+(nano|necro|neumo|neuro)\p{L}{2,}
+(oligo|omni|ot|oto)\p{L}{2,}
+(pan|para|paro|pato|peta|pico|piro|pluri|poli|pos|post|pre|pro|proto|psico)\p{L}{2,}
+(quir|quiro)\p{L}{2,}
+(radio|re|requete|res)\p{L}{2,}
+(selen|seleno|sico|sin|so|sobre|sub|super|supra)\p{L}{2,}
+(tele|tera|termo|trans|tras|trofo)\p{L}{2,}
+(uni)\p{L}{2,}
+(vice)\p{L}{2,}
+(xeno|xero)\p{L}{2,}
+(zoo)\p{L}{2,}

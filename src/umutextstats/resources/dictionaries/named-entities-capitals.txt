@@ -1,0 +1,198 @@
+abu dabi
+abuya
+accra
+adís abeba
+amán
+ámsterdam
+andorra la vieja
+ankara
+antananarivo
+apia
+argel
+asjabad
+asmara
+astaná
+asunción
+atenas
+bagdad
+bakú
+bamako
+bandar seri begawan
+bangkok
+bangui
+banjul
+basseterre
+beirut
+belgrado
+belmopán
+berlín
+berna
+biskek
+bisáu
+bogotá
+brasilia
+bratislava
+brazzaville
+bridgetown
+bruselas
+bucarest
+budapest
+buenos aires
+buyumbura
+canberra
+caracas
+castries
+chisináu
+conakri
+copenhague
+daca
+dakar
+damasco
+dili
+dodoma
+doha
+dublín
+dusambé
+edimburgo
+el cairo
+ereván
+estocolmo
+freetown
+funafuti
+gaborone
+georgetown
+guatemala
+hanói
+harare
+helsinki
+honiara
+islamabad
+jartum
+jerusalén
+jerusalén este
+kabul
+kampala
+katmandú
+kiev
+kigali
+kingston
+kingstown
+kinsasa
+kuala lumpur
+kuwait city
+la habana
+la valeta
+libreville
+lilongüe
+lima
+lisboa
+liubliana
+lomé
+londres
+luanda
+lusaka
+luxemburgo
+madrid
+majuro
+malabo
+malé
+managua
+manama
+manila
+maputo
+mascate
+maseru
+mbabane
+melekeok
+minsk
+mogadiscio
+monrovia
+montevideo
+moroni
+moscú
+méxico
+mónaco
+naipyidó
+nairobi
+nasáu
+niamey
+nicosia
+nom pen
+nuakchot
+nueva delhi
+nukualofa
+oslo
+ottawa
+palikir
+panamá
+paramaribo
+parís
+pekín
+pionyang
+podgorica
+port louis
+port vila
+porto-novo
+praga
+praia
+pretoria
+pristina
+puerto españa
+puerto moresby
+puerto príncipe
+quito
+rabat
+reikiavik
+riad
+riga
+roma
+roseau
+saint george
+saint john
+san josé
+san marino
+san salvador
+santiago
+santo domingo
+santo tomé
+saná
+sarajevo
+seúl
+singapur
+skopie
+sofía
+sri jayawardenapura kotte
+sucre
+suva
+taipéi
+tallin
+tarawa
+taskent
+tegucigalpa
+teherán
+thimphu
+tiflis
+tirana
+tokio
+trípoli
+túnez
+uagadugú
+ulán bator
+vaduz
+varsovia
+vaticano
+victoria
+viena
+vientián
+vilna
+washington( d\. c\.)?
+wellington
+windhoek
+yakarta
+yamena
+yamusukro
+yaren
+yaundé
+yibuti
+yuba
+zagreb

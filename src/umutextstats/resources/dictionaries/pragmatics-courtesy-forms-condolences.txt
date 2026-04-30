@@ -1,0 +1,5 @@
+# condolences
+sentido pésame
+[lt]e acompañ\p{L}+ en (su dolor|el sentimiento)
+siento( much\p{L}+)? la pérdida de
+mis más sentidas condolencias

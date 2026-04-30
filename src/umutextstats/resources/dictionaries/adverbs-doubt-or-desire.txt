@@ -1,0 +1,16 @@
+# ends with -mente
+(posible|probable|segura)mente
+
+# words
+acaso
+así
+igual
+quizás
+
+# locutions
+a lo (mejor|peor)
+lo mismo
+tal vez
+
+# desire
+ojalá

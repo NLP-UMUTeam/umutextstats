@@ -1,0 +1,5 @@
+# violence
+(acos|abus|viol)[aéeoó]\p{L}*
+[te|las?] mat(o|amos)
+(d|peg)\p{L}+ (\p{L}{1,3}\s)?hostia\p{L}*
+mol\p{L}+ a palos

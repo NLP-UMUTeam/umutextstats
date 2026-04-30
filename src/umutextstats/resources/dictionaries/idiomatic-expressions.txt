@@ -1,0 +1,183 @@
+# general
+(de|en) balde
+a ojo de buen cubero
+a regañadientes
+a sangre fría
+abogado (de el|del) diablo
+al pie de la letra
+entr\p{L}+ al trapo
+bord(ó|ar|an?do) el papel
+cabezas? duras?
+callar(me|le|nos)? las? bocas?
+caer\p{L}* en (el juego|la cuenta)
+castaño a oscuro
+cerrar(se)? en banda
+cinco patas al gato
+d(ar|ió|ieron|arán|a) (calabazas|cizaña|el cante|caña|la castaña)
+desternill\p{L}* de risa
+edad del pavo
+está cantado
+el dedo en la llaga
+ech[aéeoó]\p{L}* un cable
+en un abrir y cerrar de ojos
+en otro mundo
+en sus trece
+entre ceja y ceja
+de oreja a oreja
+gato por liebre
+hablando del rey de roma
+(hacer?|hecho|hizo) gracia que
+(hacer?|hecho|hizo) la cama
+hasta las narices
+hierro al asunto
+humor de perros
+jarro de agua fría
+larga vida
+lo dijo de labios para fuera
+lavar\w* los piés
+le(yó|er|erá|yeron) la cartilla
+mal tiempo buena cara
+media naranja
+metidos? hasta la cabeza
+meter cabeza
+mosca detrás de la oreja
+más lana que un borrego
+nadar( a)? contracorriente
+ombligo del mundo
+ovejas? negras?
+part\p{L}+ la cara
+picar el anzuelo
+poner a caldo
+principe azúl
+quinto pino
+sangre azul
+sin blanca
+santas pascuas
+santo de qué
+sol que más calienta
+tomar viento
+tres en un burro
+tres pies al gato
+último esfuerzo
+
+# reprhains
+al mal tiempo, buena cara
+al pan pan y al vino vino
+coger el rábano por las hojas
+como un huevo a una castaña
+contigo pan y cebolla
+cuando se cierra una puerta, se abre una ventana
+curiosidad mató al gato
+como agua de mayo
+como el día y la noche
+de tal palo tal astilla
+de la sartén al fuego
+de Guatemala a Guatepeor
+dos pájaros de un tiro
+en casa del herrero, cuchillo de palo
+el habito no hace al monje
+gota que colm* el vaso
+(huele a|aquí hay) gato encerrado
+hacer una montaña de un grano de arena
+(mala hierba|hierba mala) nunca muere
+más largo que un día sin pan
+mord* la mano que te da de comer
+no hay peor sordo que el que no quiere oír
+no es oro todo lo que reluce
+no se parecen ni en (lo|el) blanco de los ojos
+ojos que no ven, corazón que no siente
+quien avisa no es traidor
+
+# with "tener"
+t(ener|engo|ienes?|enemos|éneis|ienen|uvo|uve|uiste|ieron|endrán?|endrían|endrán|enido) (agallas|mano izquierda|mucha cara|un pan bajo el brazo|pelos en la lengua|pelos? de punta|ni pies ni cabeza|dos dedos de frente|vista de lince|memoria de pez|lo que se merece|enchufe|que estar loco para|techo)
+
+# with "hacer"
+h(acer(se)?|ago|aces?|acemos|aceis|izo|icieron|arán?|arían|aciendo) (oídos sordos|la boca agua|sangre| el sueco)
+
+# with "ser"
+(es|s(er|oy|eré|eremos|eréis|erán|erían|eríamos|erás|ido|iendo)) (todo oídos|uña y carne|pan comido|(una?) gallinas?|una? rata|un melón|un bombón|un hacha|un bicho raro|un(os?|as?)? don nadies?|un pez gordo|un(os?|as?)? chorizos?|un manta)
+
+# with "poner"
+p(oner((s|l)e)?|uso|usieron|ondrá(n|s)|odrían?) (de mala leche|(rojo )?como un tomate|morad(o|a)s?|verdes?)
+
+# with "estar"
+est(ar|oy|ás|amos|aremos|aréis|arán|uve|aré|aríamos|ado|ando) (con el agua al cuello|como una cabra|más sano que una pera|de mala uva|como un fideo|metido en un lío|en tela de juicio|en los huesos|mosca|hartos|a un(os)? pasos?)
+
+# with "echar"
+ech\w+ (en cara|una mano|agua al mar|humo)
+
+# with "dar"
+d(ar|oy|as|an|amos|áis|arán|aríamos|isteis|iérais|ando) (la espalda|en la nariz|el brazo a tocer|pie con bola|calabazas|en el blanco|su merecido|clavado[oa]s?|coba|la lata|leña|patadas al diccionario)
+
+# with "ver"
+v(er|eo|es|ió|imos|iendo|erás|emos) (las orejas al lobo|(de )?color de rosa)
+
+# with "salir"
+sal(dré|dremos|dría|drán|ir|ió|imos|ieron) (por la tangente)
+
+# with "costar"
+c(ostar|uest(o|a|as)|ostó|ostamos|ostando) un ojo de la cara
+
+# with "tirar"
+tir(ar|ando|ó|aste|arán?|arían|amos|an) (la casa por la ventana|la toalla|de la lengua)
+
+# with "meter"
+met(er((s|l)e)?|ieron|iendo|eterán) (en camisas? de once varas|cizaña|en un berenjenal)
+
+# with "quedar"
+qued(ó|o|a|ar(se)?|aron|ando(se)?) (fritos?)
+
+# with "bajar"
+baj(ó|o|a|ar(se)?|aron|ando) la guardia
+
+# with "ir"
+i(r|do) la olla
+fue la olla
+
+# with "andar"
+(and\w+ con) (rodeos|pies de plomo)
+
+# with "llegar"
+lleg\w+ a (las manos|los tobillos)
+
+# with "llover"
+(llover|llueve|lloviendo) a cántaros
+
+# with "pasar"
+pas(ó|a|ar|aron|ando) factura
+
+
+# with general verbs that no produces false positives
+abr\w+ la caja de los truenos
+arrim\w+ el hombro
+besar el santo
+chup\w+ los dedos
+com\w+ con los ojos
+cruz\w+ de brazos
+decir cuatro verdades
+di(me)? .* y te diré (qué|quien)
+d(o|u)rm\w+ a pierna suelta
+empez\w+ la casa por el tejado
+estir\w+ la pata
+habl\w+ por los codos
+hin(c|qu)\w+ los codos
+import\w+ una? (pepino|rabano|pimiento)
+lav\w+ las manos
+levant\w+ con mal pie
+mord\w+ la lengua
+peg\w+ ojo
+regal\w+ el oído
+sal\w+ por piernas
+sub\w+ al carro
+qued\w+ de piedra
+tembl\w+ como un flan
+tom\w+ el pelo
+
+# mexican
+¡a darle que es mole de olla!
+chivo los tamales
+(qued\w+|est\p{L}+) hasta las chanclas
+se armó un pancho
+ves burro y se te antoja viaje
+ya salió el peine
+yendo a bailar a chalma

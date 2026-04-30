@@ -1,0 +1,22 @@
+# regards and presentations
+hola
+(muy )?buen[oa]s (días|tardes|noches)
+bienvenid[oa]s?
+encantad[oa]s?
+mucho gusto
+¿cómo está( usted)?\?
+¿cómo se encuentra( usted)?( hoy)?\?
+¿cómo se encuentra usted?
+cómo está usted?
+cómo se encuentra hoy?
+
+¿qué tal está\?
+espero que (se encuentre bien|goze de buena salud)
+
+# letters
+estimad[oa]s? señor([ea]s)?
+(estimad|querid)\p{L}+ \p{L}{3,}or(es|as?)?( mí[oa]s?|nuestr[oa]s?)?,
+querid[oa]s?
+queridísim[oa]s?
+(muy )?señor(es|as?)?( (míos|mía|nuestr[oa]s))
+un( (cálido|afectuoso|cordial))? saludo

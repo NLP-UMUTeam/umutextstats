@@ -1,0 +1,23 @@
+# general organisations
+(tribunal )?supremo
+
+# political parties
+bildu
+ciudadanos
+cs
+erc
+podemos
+pp
+psoe
+vox
+
+# Organisms
+DAX
+FMI
+INE
+ibex
+NH
+
+# Bussiness
+Wall\s?street
+pyme

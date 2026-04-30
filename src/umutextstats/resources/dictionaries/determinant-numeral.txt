@@ -1,0 +1,117 @@
+# Cardinals
+# ----------------------------------------------
+# Words composed by one word
+cero
+un[oa]s?
+dos
+tres
+cuatro
+cinco
+seis
+siete
+ocho
+nueve
+diez
+once
+doce
+trece
+catorce
+quince
+diecis\p{L}*
+veint[ie]\p{L}*
+treinta
+cuarenta
+cinquenta
+se[st]enta
+ochenta
+noventa
+ciento
+(dos|tres|cuatro|seis|sete|ocho|nove)cientos
+quinientos
+mil
+mill(ón|ones)
+millardos?
+trill(ón|ones)
+cuatrill(ón|ones)
+quintill(ón|ones)
+sentill(ón|ones)
+septill(ón|ones)
+octill(ón|ones)
+nanill(ón|ones)
+decill(ón|ones)
+undecill(ón|ones)
+duodecill(ón|ones)
+trigentill(ón|ones)
+centill(ón|ones)
+bicentill(ón|ones)
+tricentill(ón|ones)
+
+
+# From numbers to 31 to 100 words are written with the "y" conjuction
+treinta\sy\s
+cuarenta\sy\s
+cinquenta\sy\s
+sesenta\sy\s
+setenta\sy\s
+ochenta\sy\s
+noventa\sy\s
+
+
+# Ordinals
+# ----------------------------------------------
+(?<!un\s)primer(o|a)?s?
+(?<!un\s)segund(o|a)?s?
+(?<!un\s)tercer(o|a)?s?
+(?<!un\s)cuart(o|a)?s?
+(?<!un\s)quint(o|a)?s?
+(?<!un\s)sext(o|a)?s?
+(?<!un\s)séptim(o|a)?s?
+(?<!un\s)octav(o|a)?s?
+(?<!un\s)noven(o|a)?s?
+dédim(o|a)?s?
+undécim(o|a)?s?
+duodécim(o|a)?s?
+decimo\p{L}*
+vigésimo\p{L}*
+trigésimo\p{L}*
+cuadragésimo\p{L}*
+quincuagésimo\p{L}*
+sexagésimo\p{L}*
+septuagésimo\p{L}*
+octogésimo\p{L}*
+nonagésimo\p{L}*
+centésimo\p{L}*
+ducentésimo\p{L}*
+tricentésimo\p{L}*
+cuadringentésimo\p{L}*
+quingentésimo\p{L}*
+sexcentésimo\p{L}*
+septingentésimo\p{L}*
+octingentésimo\p{L}*
+noningentésimo\p{L}*
+milésimo\p{L}*
+dosmilésimo\p{L}*
+tresmilésimo\p{L}*
+diezmilésimo\p{L}*
+cienmilésimo\p{L}*
+millonésimo\p{L}*
+dosmillonésimo\p{L}*
+tresmillonésimo\p{L}*
+
+
+# Multiplicative
+dobles?
+triples?
+cuadrúples?
+quintúples?
+sextuples?
+séptuples?
+
+
+# Partitions
+un (medio|tércio|cuarto|quinto|sexto|séptimo|octavo|noveno)
+una (décima|centésima|milésima)
+
+# N term
+enésim[oa]s?
+infinitésim[oa]s?

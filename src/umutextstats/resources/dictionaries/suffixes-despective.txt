@@ -1,0 +1,11 @@
+# @link https://es.wikipedia.org/wiki/Despectivo
+\p{L}{3,}(ach?[oa])s?
+\p{L}{3,}(aj[oa])s?
+\p{L}{3,}(ango)s?
+\p{L}{3,}(asc[oa])s?
+\p{L}{3,}(astr[oa])s?
+\p{L}{3,}(at[oa])s?
+\p{L}{3,}(ej[oa])s?
+\p{L}{3,}(orri[oa]s?|orr[oa]s?|ori[oa]s?)
+\p{L}{3,}(u[ch|c|j|z][oa])s?
+\p{L}{3,}(zuel[oa])s?

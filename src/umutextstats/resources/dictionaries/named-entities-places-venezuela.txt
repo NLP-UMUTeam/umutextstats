@@ -1,0 +1,91 @@
+# cities
+acarigua
+anaco
+araure
+barcelona
+barinas
+barquisimeto
+cabimas
+cabudare
+cagua
+calabozo
+caracas
+carora
+carúpano
+charallave
+ciudad bolívar
+ciudad guayana
+ciudad ojeda
+coro
+cumaná
+cúa
+ejido
+el limón
+el tigre
+el vigia
+guacara
+guanare
+guarenas
+guasdualito
+guatire
+la guaira
+la victoria
+la villa del rosario
+los guayos
+los teques
+machiques
+maracaibo
+maracay
+mariara
+maturín
+mérida
+naguanagua
+ocumare del tuy
+palo negro
+pedernales
+petare
+porlamar
+puerto cabello
+puerto la cruz
+punto fijo
+san cristóbal
+san diego
+san felipe del rey
+san fernando de apure
+san juan de los morros
+santa rita
+santa teresa del tuy
+turmero
+táriba
+upata
+valencia
+valera
+valle de la pascua
+yaritagua
+zaraza
+
+
+# states
+amazonas
+anzoátegui
+apure
+aragua
+barinas
+bolívar
+carabobo
+cojedes
+delta amacuro
+falcón
+guárico
+lara
+mérida
+miranda
+monagas
+nueva esparta
+portuguesa
+sucre
+táchira
+trujillo
+vargas
+yaracuy
+zulia

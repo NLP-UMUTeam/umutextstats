@@ -16,6 +16,8 @@ KNOWN_FIELDS = {
     "universal",
     "useoriginalinput",
     "dimensions",
+    "percentage",
+    "disabledregexp"
 }
 
 
@@ -65,6 +67,8 @@ def parse_dimension(element) -> DimensionConfig:
         pattern=_text(element, "pattern"),
         universal=_text(element, "universal"),
         use_original_input=_bool_text(_text(element, "useoriginalinput")),
+        percentage=_bool_text(_text(element, "percentage")) if _text(element, "percentage") is not None else True,
+        disabled_regexp=_bool_text(_text(element, "disabledregexp")), 
         children=children,
         params=_parse_extra_params(element),
     )
