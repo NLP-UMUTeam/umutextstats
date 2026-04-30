@@ -15,6 +15,7 @@ def preprocess_dataframe(
     if input_column not in df.columns:
         raise ValueError(f"Input column '{input_column}' not found in dataframe")
 
+    # Lazy enough: normalizer only created when this function is actually computing.
     normalizer = normalizer or default_normalizer()
 
     if show_progress:

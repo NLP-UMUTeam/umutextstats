@@ -1,0 +1,3003 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<configuration>
+    
+    <!-- Use spanish words -->
+    <directory_folder>es</directory_folder>
+    
+    
+    <!-- Configuration -->
+    <dimensions>
+    
+        <!-- phonetics -->
+        <dimension>
+            <key>phonetics</key>
+            <strategy>CompositeStrategySum</strategy>
+            <class>CompositeDimension</class>
+            <dimensions>
+                <dimension>
+                    <key>phonetics-expressive-lengthening</key>
+                    <class>PatternDimension</class>
+                    <description>Drawing out or emphasizing a verbalized word, giving it character</description>
+                    <pattern>(.)\1{3,}</pattern>
+                    <useoriginalinput>true</useoriginalinput>
+                </dimension>
+            
+            </dimensions>
+        </dimension>
+        
+    
+        <!-- Morphosyntax -->
+        <dimension>
+            <key>morphosyntax</key>
+            
+            <dimensions>
+            
+                <!-- Grammatical Gender -->
+                <dimension>
+                    <key>morphosyntax-gender</key>
+                    <dimensions>
+                        <dimension>
+                            <key>morphosyntax-gender-words-feminine</key>
+                            <class>POSTaggingTag</class>
+                            <universal>Gender=Fem</universal>
+                            <description>Percentage of grammatically feminine words</description>
+                        </dimension>
+                        
+                        <dimension>
+                            <key>morphosyntax-gender-words-masculine</key>
+                            <class>POSTaggingTag</class>
+                            <universal>Gender=Masc</universal>
+                            <description>Percentage of grammatically masculine words. In Spanish, masculine gender is the unmarked or inclusive form</description>
+                        </dimension>
+                        
+                        <dimension>
+                            <key>morphosyntax-gender-words-neutral</key>
+                            <class>POSTaggingTag</class>
+                            <universal>Gender=Neut</universal>
+                            <description>Percentage of grammatically neutral words. Common in articles, abstract concepts, or certain demonstratives among others</description>
+                        </dimension>
+                        
+                        <dimension>
+                            <key>morphosyntax-gender-words-common</key>
+                            <class>POSTaggingTag</class>
+                            <universal>Gender=Com</universal>
+                            <description>Grammatically neutral words. Added for languages that do not distinguish masculine or feminine most of the time but they do distinguish between neutral or non-neutral forms.</description>
+                        </dimension>
+                    </dimensions>
+                </dimension>
+                
+                
+                <!-- Number Singular and plural -->
+                <dimension>
+                    <key>morphosyntax-number</key>
+                    <dimensions>
+                        <dimension>
+                            <key>morphosyntax-number-singular</key>
+                            <description>Counts how many singular words there are in the text</description>
+                            <class>POSTaggingTag</class>
+                            <universal>Number=Sing</universal>
+                        </dimension>
+                        
+                        <dimension>
+                            <key>morphosyntax-number-plural</key>
+                            <description>Counts how many plural words there are in the text</description>
+                            <class>POSTaggingTag</class>
+                            <universal>Number=Plur</universal>
+                        </dimension>
+                    </dimensions>
+                </dimension>
+                
+                
+                <!-- Suffixes -->
+                <dimension>
+                    <key>morphosyntax-affixes</key>
+                    
+                    <dimensions>
+                    
+                        <dimension>
+                            <key>morphosyntax-affixes-suffixes</key>
+                            <strategy>CompositeStrategySum</strategy>
+                            <class>CompositeDimension</class>
+                            <description>Counts how many words includes suffixes</description>
+                            <dimensions>
+
+                                <dimension>
+                                    <key>morphosyntax-affixes-suffixes-nominals</key>
+                                    <class>WordPerDictionary</class>
+                                    <dictionary>suffixes-nominals</dictionary>
+                                    <description>Counts how many words includes nominals suffixes</description>
+                                </dimension>
+                                
+                                <dimension>
+                                    <key>morphosyntax-affixes-suffixes-adjectivizers</key>
+                                    <class>WordPerDictionary</class>
+                                    <dictionary>suffixes-adjectivizers</dictionary>
+                                    <description>Counts how many words includes adjectivizers suffixes</description>
+                                </dimension>
+
+                                <dimension>
+                                    <key>morphosyntax-affixes-suffixes-verbalizers</key>
+                                    <class>WordPerDictionary</class>
+                                    <dictionary>suffixes-verbalizers</dictionary>
+                                    <description>Counts how many words includes verbalizers suffixes</description>
+                                </dimension>
+                                
+                                <dimension>
+                                    <key>morphosyntax-affixes-suffixes-adverbializers</key>
+                                    <class>WordPerDictionary</class>
+                                    <dictionary>suffixes-adverbializers</dictionary>
+                                    <description>Counts how many words includes adverbializers suffixes</description>
+                                </dimension>
+                                
+                                <dimension>
+                                    <key>morphosyntax-affixes-suffixes-augmentative</key>
+                                    <class>WordPerDictionary</class>
+                                    <dictionary>suffixes-augmentative</dictionary>
+                                    <description>Counts how many words includes augmentative suffixes</description>
+                                </dimension>
+
+                                <dimension>
+                                    <key>morphosyntax-affixes-suffixes-diminutives</key>
+                                    <class>WordPerDictionary</class>
+                                    <dictionary>suffixes-diminutives</dictionary>
+                                    <description>Counts how many words includes diminutives suffixes</description>
+                                </dimension>
+
+                                <dimension>
+                                    <key>morphosyntax-affixes-suffixes-despective</key>
+                                    <class>WordPerDictionary</class>
+                                    <dictionary>suffixes-despective</dictionary>
+                                    <description>Counts how many words includes despective suffixes</description>
+                                </dimension>
+                            </dimensions>
+                        </dimension>
+                        
+                        
+                        <!-- Prefixes -->
+                        <dimension>
+                            <key>morphosyntax-affixes-prefixes</key>
+                            <class>WordPerDictionary</class>
+                            <dictionary>prefixes</dictionary>
+                            <description>Counts how many words includes prefixes</description>
+                        </dimension>
+                    </dimensions>
+                </dimension>
+                
+                <dimension>
+                    <key>morphosyntax-morphology</key>
+                    <dimensions>
+                
+                        <!-- Nouns -->
+                        <dimension>
+                            <key>morphosyntax-morphology-nouns</key>
+                            <strategy>CompositeStrategySum</strategy>
+                            <description>Percentage of PoS nouns</description>
+                            <class>CompositeDimension</class>
+                            <dimensions>
+                                <dimension>
+                                    <key>morphosyntax-morphology-nouns-common</key>
+                                    <description>Percentage of PoS common nouns</description>
+                                    <class>POSTaggingTag</class>
+                                    <tag>NOUN</tag>
+                                </dimension>
+                                
+                                <dimension>
+                                    <key>morphosyntax-morphology-nouns-proper</key>
+                                    <description>Percentage of PoS proper nouns</description>
+                                    <class>POSTaggingTag</class>
+                                    <tag>PROPN</tag>
+                                </dimension>
+
+                                <dimension>
+                                    <key>morphosyntax-morphology-nouns-male</key>
+                                    <class>WordPerDictionary</class>
+                                    <description>Percentage of male names</description>
+                                    <dictionary>named-entities-male-names</dictionary>
+                                </dimension>
+
+                                <dimension>
+                                    <key>morphosyntax-morphology-nouns-female</key>
+                                    <class>WordPerDictionary</class>
+                                    <dictionary>named-entities-female-names</dictionary>
+                                    <description>Percentage of female names</description>
+                                </dimension>
+                                
+                                <dimension>
+                                    <key>morphosyntax-morphology-nouns-dates</key>
+                                    <strategy>CompositeStrategySum</strategy>
+                                    <description>Sum of the dates percentage</description>
+                                    <class>CompositeDimension</class>
+                                    <dimensions>
+                                        <dimension>
+                                            <key>morphosyntax-morphology-nouns-dates-ymd</key>
+                                            <description>Percentage of dates (ymd)</description>
+                                            <class>PatternDimension</class>
+                                            <pattern><![CDATA[(1[1-9]|2[0-9])(\d\d)?[- \/.](0[1-9]|1[012])[- \/.](0[1-9]|[12][0-9]|3[01])]]></pattern>
+                                            <separator>by-word</separator>
+                                        </dimension>
+                                        
+                                        <dimension>
+                                            <key>morphosyntax-morphology-nouns-dates-dmt</key>
+                                            <description>Percentage of dates (dmt)</description>
+                                            <class>PatternDimension</class>
+                                            <pattern><![CDATA[(0[1-9]|[12][0-9]|3[01])[- \/.](0?[1-9]|1[012])[- \/.](1[1-9]|2[0-9])(\d\d)?]]></pattern>
+                                            <separator>by-word</separator>
+                                        </dimension>
+
+                                        <dimension>
+                                            <key>morphosyntax-morphology-nouns-dates-mdy</key>
+                                            <description>Percentage of dates (mdy)</description>
+                                            <class>PatternDimension</class>
+                                            <pattern><![CDATA[^(0[1-9]|1[012])[- \/.](0[1-9]|[12][0-9]|3[01])[- \/.](1[0-9]|2[0-9])(\d\d)?$]]></pattern>
+                                            <separator>by-word</separator>
+                                        </dimension>
+                                        
+                                        <dimension>
+                                            <key>morphosyntax-morphology-nouns-dates-textual-short</key>
+                                            <description>Percentage of dates (short-format)</description>
+                                            <class>PatternDimension</class>
+                                            <pattern><![CDATA[\d{1,2}[\-\s](ene|feb|mar|abr|may|jun|jul|ago|sep|oct|nov|dic)(\-\d{2,4})?]]></pattern>
+                                            <separator>by-word</separator>
+                                        </dimension>
+                                        
+                                        <dimension>
+                                            <key>morphosyntax-morphology-nouns-dates-textual-long</key>
+                                            <description>Percentage of dates (long-format)</description>
+                                            <class>PatternDimension</class>
+                                            <pattern><![CDATA[(0[1-9]|[12][0-9]|3[01])\sde\s(enero|febrero|marzo|abril|mayo|junio|julio|agosto|septiembre|octubre|noviembre|diciembre)\sde\s(1[1-9]|2[0-9])(\d\d)?]]></pattern>
+                                            <separator>by-word</separator>
+                                        </dimension>
+                                        
+                                        <dimension>
+                                            <key>morphosyntax-morphology-nouns-dates-textual-days</key>
+                                            <description>Percentage of day names</description>
+                                            <class>PatternDimension</class>
+                                            <pattern><![CDATA[(lunes|martes|miércoles|jueves|viernes)]]></pattern>
+                                            <separator>by-word</separator>
+                                        </dimension>
+                                        
+                                    </dimensions>
+                                </dimension>
+                                
+                                <dimension>
+                                    <key>morphosyntax-morphology-nouns-numerals</key>
+                                    <description>Percentage of PoS numerals</description>
+                                    <class>POSTaggingTag</class>
+                                    <tag>NUM</tag>
+                                </dimension>
+
+                            </dimensions>
+                        </dimension>
+                            
+                        <dimension>
+                            <key>morphosyntax-morphology-nouns-topics</key>
+                            <dimensions>
+                                <dimension>
+                                    <key>morphosyntax-morphology-nouns-topics-capitals</key>
+                                    <class>WordPerDictionary</class>
+                                    <percentage>false</percentage>
+                                    <dictionary>named-entities-capitals</dictionary>
+                                    <description>Number of capitals</description>
+                                </dimension>
+                                
+                                <dimension>
+                                    <key>morphosyntax-morphology-nouns-topics-countries</key>
+                                    <class>WordPerDictionary</class>
+                                    <percentage>false</percentage>
+                                    <dictionary>named-entities-countries</dictionary>
+                                    <description>Number of countries</description>
+                                </dimension>
+                                
+                                <dimension>
+                                    <key>morphosyntax-morphology-nouns-topics-demonyms</key>
+                                    <class>WordPerDictionary</class>
+                                    <percentage>false</percentage>
+                                    <dictionary>named-entities-demonyms</dictionary>
+                                    <description>Number of demonyms; that is, to refer to inhabitants of a particular place</description>
+                                </dimension>
+                                
+                                <dimension>
+                                    <key>morphosyntax-morphology-nouns-topics-languages</key>
+                                    <class>WordPerDictionary</class>
+                                    <percentage>false</percentage>
+                                    <dictionary>named-entities-languages</dictionary>
+                                    <description>Number of words that refer to languages</description>
+                                </dimension>
+                                
+                                <dimension>
+                                    <key>morphosyntax-morphology-nouns-topics-honorifics</key>
+                                    <class>WordPerDictionary</class>
+                                    <percentage>false</percentage>
+                                    <dictionary>named-entities-honorifics</dictionary>
+                                    <description>Number of words that refer to honorifs; that is, titles that conveys esteem, courtesy, or respect for position or rank when used in addressing or referring to a person. Sometimes, the term "honorific" is used in a more specific sense to refer to an honorary academic title. </description>
+                                </dimension>
+                                
+                                <dimension>
+                                    <key>morphosyntax-morphology-nouns-topics-colors</key>
+                                    <class>WordPerDictionary</class>
+                                    <percentage>false</percentage>
+                                    <dictionary>named-entities-colors</dictionary>
+                                    <description>Number of words that refer to colors.</description>
+                                </dimension>
+                                
+                            </dimensions>
+                        </dimension>
+                    
+                    
+                        <!-- Adjectives -->
+                        <dimension>
+                            <key>morphosyntax-morphology-adjectives</key>
+                            <strategy>CompositeStrategySum</strategy>
+                            <class>CompositeDimension</class>
+                            
+                            <dimensions>
+                                <dimension>
+                                    <key>morphosyntax-morphology-adjectives-qualifying</key>
+                                    <description>Percentage of qualifying adjectives</description>
+                                    <class>WordPerDictionary</class>
+                                    <dictionary>adjectives-qualifying</dictionary>
+                                </dimension>
+                                
+                                <dimension>
+                                    <key>morphosyntax-morphology-adjectives-ordinals</key>
+                                    <description>Percentage of ordinals adjectives</description>
+                                    <class>WordPerDictionary</class>
+                                    <dictionary>adjectives-ordinals</dictionary>
+                                </dimension>
+                                
+                                <dimension>
+                                    <key>morphosyntax-morphology-adjectives-superlative</key>
+                                    <description>Percentage of superlative adjectives</description>
+                                    <class>WordPerDictionary</class>
+                                    <dictionary>adjectives-superlative</dictionary>
+                                </dimension>
+                                
+                                <dimension>
+                                    <key>morphosyntax-morphology-adjectives-despective</key>
+                                    <description>Percentage of despective adjectives</description>
+                                    <class>WordPerDictionary</class>
+                                    <dictionary>adjectives-despective</dictionary>
+                                </dimension>
+                            </dimensions>
+                        </dimension>
+                        <!-- End of adjectives -->
+                        
+                        
+                        <!-- Adverbs -->
+                        <dimension>
+                            <key>morphosyntax-morphology-adverbs</key>
+                            <strategy>CompositeStrategySum</strategy>
+                            <class>CompositeDimension</class>
+                            <description>Percentage of adverbs</description>
+
+                            <dimensions>
+                                <dimension>
+                                    <key>morphosyntax-morphology-adverbs-time</key>
+                                    <class>POSTaggingTag</class>
+                                    <tag>ADV</tag>
+                                    <universal>AdvType=Tim</universal>
+                                    <description>Percentage of adverbs of time</description>
+                                </dimension>
+                                
+                                <dimension>
+                                    <key>morphosyntax-morphology-adverbs-mode</key>
+                                    <class>POSTaggingTag</class>
+                                    <tag>ADV</tag>
+                                    <universal>AdvType=Man</universal>
+                                    <description>Percentage of adverbs of mode</description>
+                                </dimension>
+                                
+                                <dimension>
+                                    <key>morphosyntax-morphology-adverbs-place</key>
+                                    <class>POSTaggingTag</class>
+                                    <tag>ADV</tag>
+                                    <universal>AdvType=Loc</universal>
+                                    <description>Percentage of adverbs of place</description>
+                                </dimension>
+                                
+                                <dimension>
+                                    <key>morphosyntax-morphology-adverbs-interrogative</key>
+                                    <class>WordPerDictionary</class>
+                                    <dictionary>adverbs-interrogative</dictionary>
+                                    <description>Percentage of interrogative adverbs</description>
+                                </dimension>
+                                
+                                <dimension>
+                                    <key>morphosyntax-morphology-adverbs-cause</key>
+                                    <class>POSTaggingTag</class>
+                                    <tag>ADV</tag>
+                                    <universal>AdvType=Cau</universal>
+                                    <description>Percentage of causal adverbs</description>
+                                </dimension>
+                                
+                                <dimension>
+                                    <key>morphosyntax-morphology-adverbs-doubt-or-desire</key>
+                                    <class>WordPerDictionary</class>
+                                    <dictionary>adverbs-doubt-or-desire</dictionary>
+                                    <description>Percentage of adverbs that expresses doubt or desire</description>
+                                </dimension>
+                                
+                                <dimension>
+                                    <key>morphosyntax-morphology-adverbs-negation</key>
+                                    <class>WordPerDictionary</class>
+                                    <dictionary>adverbs-negation</dictionary>
+                                    <description>Percentage of negation adverbs</description>
+                                </dimension>
+                                
+                                <dimension>
+                                    <key>morphosyntax-morphology-adverbs-affirmation</key>
+                                    <class>WordPerDictionary</class>
+                                    <dictionary>adverbs-affirmation</dictionary>
+                                    <description>Percentage of affirmation adverbs</description>
+                                </dimension>
+                                
+                                <dimension>
+                                    <key>morphosyntax-morphology-adverbs-quantity</key>
+                                    <class>POSTaggingTag</class>
+                                    <tag>ADV</tag>
+                                    <universal>AdvType=Deg</universal>
+                                    <description>Percentage of adverbs that expresses quantity</description>
+                                </dimension>
+                                
+                                <dimension>
+                                    <key>morphosyntax-morphology-adverbs-others</key>
+                                    <class>WordPerDictionary</class>
+                                    <dictionary>adverbs-others</dictionary>
+                                    <description>Percentage of adverbs that do not belong to the rest of the categories</description>
+                                </dimension>
+                            </dimensions>
+                        </dimension>
+                        <!-- End of adverbs -->
+                        
+                        
+                        <!-- Determiners -->
+                        <dimension>
+                            <key>morphosyntax-morphology-determiners</key>
+                            <strategy>CompositeStrategySum</strategy>
+                            <class>CompositeDimension</class>
+                            <dimensions>
+                                <dimension>
+                                    <key>morphosyntax-morphology-determiners-articles</key>
+                                    <description>Percentage of PoS determiners articles</description>
+                                    <class>POSTaggingTag</class>
+                                    <tag>DET</tag>
+                                    <universal>PronType=Art</universal>
+                                </dimension>
+                                
+                                <dimension>
+                                    <key>morphosyntax-morphology-determiners-demostrative</key>
+                                    <description>Percentage of PoS determiners demostrative</description>
+                                    <class>POSTaggingTag</class>
+                                    <tag>DET</tag>
+                                    <universal>PronType=Dem</universal>
+                                </dimension>
+                                
+                                <dimension>
+                                    <key>morphosyntax-morphology-determiners-emphatic</key>
+                                    <description>Percentage of PoS emphatic determiners</description>
+                                    <class>POSTaggingTag</class>
+                                    <tag>DET</tag>
+                                    <universal>PronType=Emp</universal>
+                                </dimension>
+                                
+                                <dimension>
+                                    <key>morphosyntax-morphology-determiners-possessive</key>
+                                    <description>Percentage of PoS possessive determiners</description>
+                                    <class>POSTaggingTag</class>
+                                    <tag>DET</tag>
+                                    <universal>PronType=Prs</universal>
+                                </dimension>
+                                
+                                <dimension>
+                                    <key>morphosyntax-morphology-determiners-indefinite</key>
+                                    <description>Percentage of PoS indefinite determiners</description>
+                                    <class>POSTaggingTag</class>
+                                    <tag>DET</tag>
+                                    <universal>PronType=Ind</universal>
+                                </dimension>
+                                
+                                <dimension>
+                                    <key>morphosyntax-morphology-determiners-exclamatory</key>
+                                    <description>Percentage of PoS exclamatory determiners</description>
+                                    <class>POSTaggingTag</class>
+                                    <tag>DET</tag>
+                                    <universal>PronType=Exc</universal>
+                                </dimension>
+                                
+                                <dimension>
+                                    <key>morphosyntax-morphology-determiners-interrogative</key>
+                                    <description>Percentage of PoS interrogative determiners</description>
+                                    <class>POSTaggingTag</class>
+                                    <tag>DET</tag>
+                                    <universal>PronType=Int</universal>
+                                </dimension>
+                                
+                                <dimension>
+                                    <key>morphosyntax-morphology-determiners-negative</key>
+                                    <description>Percentage of PoS negative determiners</description>
+                                    <class>POSTaggingTag</class>
+                                    <tag>DET</tag>
+                                    <universal>PronType=Neg</universal>
+                                </dimension>
+                                
+                                <dimension>
+                                    <key>morphosyntax-morphology-determiners-reciprocal</key>
+                                    <description>Percentage of PoS reciprocal determiners</description>
+                                    <class>POSTaggingTag</class>
+                                    <tag>DET</tag>
+                                    <universal>PronType=Rcp</universal>
+                                </dimension>
+                                
+                                <dimension>
+                                    <key>morphosyntax-morphology-determiners-relative</key>
+                                    <description>Percentage of PoS relative determiners</description>
+                                    <class>POSTaggingTag</class>
+                                    <tag>DET</tag>
+                                    <universal>PronType=Rel</universal>
+                                </dimension>
+                                
+                                <dimension>
+                                    <key>morphosyntax-morphology-determiners-total</key>
+                                    <description>Percentage of PoS total determiners</description>
+                                    <class>POSTaggingTag</class>
+                                    <tag>DET</tag>
+                                    <universal>PronType=Tot</universal>
+                                </dimension>
+                            </dimensions>
+                        </dimension>
+                        <!-- End of determiners -->
+                        
+                        
+                        <!-- Pronouns -->
+                        <dimension>
+                            <key>morphosyntax-morphology-pronouns</key>
+                            <class>CompositeDimension</class>
+                            <strategy>CompositeStrategySum</strategy>
+                            <description>Personal and impersonal pronouns</description>
+                            <dimensions>
+                                <dimension>
+                                    <key>morphosyntax-morphology-pronouns-personal</key>
+                                    <description>Personal pronouns</description>
+                                    <class>CompositeDimension</class>
+                                    <strategy>CompositeStrategyAvg</strategy>
+                                    <dimensions>
+                                    
+                                        <dimension>
+                                            <key>morphosyntax-morphology-pronouns-personal-number</key>
+                                            <class>CompositeDimension</class>
+                                            <strategy>CompositeStrategySum</strategy>
+                                            <description>Personal pronouns based on number</description>
+                                            <dimensions>
+                                                <dimension>
+                                                    <key>morphosyntax-morphology-pronouns-personal-number-singular</key>
+                                                    <class>POSTaggingTag</class>
+                                                    <tag>PRON</tag>
+                                                    <universal>Number=Sing|PronType=Prs</universal>
+                                                    <description>Personal pronouns in singular</description>
+                                                </dimension>
+
+                                                <dimension>
+                                                    <key>morphosyntax-morphology-pronouns-personal-number-plural</key>
+                                                    <class>POSTaggingTag</class>
+                                                    <tag>PRON</tag>
+                                                    <universal>Number=Plur|PronType=Prs</universal>
+                                                    <description>Personal pronouns in plural</description>
+                                                </dimension>
+                                            </dimensions>
+                                        </dimension>
+                                        
+                                        <dimension>
+                                            <key>morphosyntax-morphology-pronouns-personal-person</key>
+                                            <class>CompositeDimension</class>
+                                            <strategy>CompositeStrategySum</strategy>
+                                            <description>Personal pronouns based on person</description>
+                                            <dimensions>
+                                                <dimension>
+                                                    <key>morphosyntax-morphology-pronouns-personal-person-first</key>
+                                                    <class>POSTaggingTag</class>
+                                                    <tag>PRON</tag>
+                                                    <universal>Person=1|PronType=Prs</universal>
+                                                    <description>Personal pronouns based on first person</description>
+                                                </dimension>
+                                                <dimension>
+                                                    <key>morphosyntax-morphology-pronouns-personal-person-second</key>
+                                                    <class>POSTaggingTag</class>
+                                                    <tag>PRON</tag>
+                                                    <universal>Person=2|PronType=Prs</universal>
+                                                    <description>Personal pronouns based on second person</description>
+                                                </dimension>
+                                                <dimension>
+                                                    <key>morphosyntax-morphology-pronouns-personal-person-third</key>
+                                                    <class>POSTaggingTag</class>
+                                                    <tag>PRON</tag>
+                                                    <universal>Person=3|PronType=Prs</universal>
+                                                    <description>Personal pronouns based on third person</description>
+                                                </dimension>
+                                            </dimensions>
+                                        </dimension>
+                                        
+                                        <dimension>
+                                            <key>morphosyntax-morphology-pronouns-personal-gender</key>
+                                            <class>CompositeDimension</class>
+                                            <strategy>CompositeStrategySum</strategy>
+                                            <description>Personal pronouns based on gender</description>
+                                            <dimensions>
+                                                <dimension>
+                                                    <key>morphosyntax-morphology-pronouns-personal-gender-male</key>
+                                                    <class>WordPerDictionary</class>
+                                                    <dictionary>personal-pronouns-gender-male</dictionary>
+                                                    <description>Male personal pronouns</description>
+                                                </dimension>
+                                                <dimension>
+                                                    <key>morphosyntax-morphology-pronouns-personal-gender-female</key>
+                                                    <class>WordPerDictionary</class>
+                                                    <dictionary>personal-pronouns-gender-female</dictionary>
+                                                    <description>Female personal pronouns</description>
+                                                </dimension>
+                                                <dimension>
+                                                    <key>morphosyntax-morphology-pronouns-personal-gender-neutral</key>
+                                                    <class>WordPerDictionary</class>
+                                                    <dictionary>personal-pronouns-gender-neutral</dictionary>
+                                                    <description>Gender-neutral personal pronouns</description>
+                                                </dimension>
+                                            </dimensions>
+                                        </dimension>
+                                    
+                                        
+                                        <dimension>
+                                            <key>morphosyntax-morphology-pronouns-personal-enclitics</key>
+                                            <class>EncliticsPersonalPronounsDictionary</class>
+                                            <dictionaries>verbs-infinitive|verbs-gerund|verbs-participe</dictionaries>
+                                            <description>Personal pronouns with enclitics. These pronouns are those attached to verbs so that it can play a role.</description>
+                                        </dimension>
+                                        
+                                    </dimensions>
+                                </dimension>
+                                <dimension>
+                                    <key>morphosyntax-morphology-pronouns-impersonal</key>
+                                    <description>Impersonal pronouns</description>
+                                    <class>WordPerDictionary</class>
+                                    <dictionary>personal-pronouns-impersonal</dictionary>
+                                </dimension>
+                                <dimension>
+                                    <key>morphosyntax-morphology-pronouns-indefinite</key>
+                                    <description>Indefinite pronouns</description>
+                                    <class>POSTaggingTag</class>
+                                    <tag>PRON</tag>
+                                    <universal>PronType=Ind</universal>
+                                </dimension>
+                                <dimension>
+                                    <key>morphosyntax-morphology-pronouns-relative</key>
+                                    <description>Interrogative relative</description>
+                                    <class>POSTaggingTag</class>
+                                    <tag>PRON</tag>
+                                    <universal>PronType=Rel</universal>
+                                </dimension>
+                                <dimension>
+                                    <key>morphosyntax-morphology-pronouns-interrogative</key>
+                                    <description>Interrogative pronouns</description>
+                                    <class>POSTaggingTag</class>
+                                    <tag>PRON</tag>
+                                    <universal>PronType=Int</universal>
+                                </dimension>
+                                <dimension>
+                                    <key>morphosyntax-morphology-pronouns-reciprocal</key>
+                                    <description>Reciprocal pronouns</description>
+                                    <class>POSTaggingTag</class>
+                                    <tag>PRON</tag>
+                                    <universal>PronType=Rcp</universal>
+                                </dimension>
+                                <dimension>
+                                    <key>morphosyntax-morphology-pronouns-demonstrative</key>
+                                    <description>Demonstrative relative</description>
+                                    <class>POSTaggingTag</class>
+                                    <tag>PRON</tag>
+                                    <universal>PronType=Dem</universal>
+                                </dimension>
+                                
+                                <dimension>
+                                    <key>morphosyntax-morphology-pronouns-total</key>
+                                    <description>Total pronouns</description>
+                                    <class>POSTaggingTag</class>
+                                    <tag>PRON</tag>
+                                    <universal>PronType=Tot</universal>
+                                </dimension>
+                                
+                                <dimension>
+                                    <key>morphosyntax-morphology-pronouns-negative</key>
+                                    <description>Negative pronouns</description>
+                                    <class>POSTaggingTag</class>
+                                    <tag>PRON</tag>
+                                    <universal>PronType=Neg</universal>
+                                </dimension>
+                            </dimensions>
+                        </dimension>
+                        <!-- End of pronouns -->
+                        
+                        
+                        <!-- Prepositions -->
+                        <dimension>
+                            <key>morphosyntax-morphology-prepositions</key>
+                            <class>CompositeDimension</class>
+                            <strategy>CompositeStrategySum</strategy>
+                            <description>Personal and impersonal pronouns</description>
+                            <dimensions>
+                                <dimension>
+                                    <key>morphosyntax-morphology-prepositions-individual</key>
+                                    <description>Percentage of prepositions</description>
+                                    <class>WordPerDictionary</class>
+                                    <dictionary>prepositions</dictionary>
+                                </dimension>
+                                
+                                <dimension>
+                                    <key>morphosyntax-morphology-prepositions-locutions</key>
+                                    <description>Percentage of prepositional locutions</description>
+                                    <class>WordPerDictionary</class>
+                                    <dictionary>prepositions-locutions</dictionary>
+                                </dimension>
+                            </dimensions>
+                        </dimension>
+                        <!-- End of prepositions -->
+                        
+                        
+                        <!-- Conjunctions -->
+                        <dimension>
+                            <key>morphosyntax-morphology-conjunctions</key>
+                            <class>CompositeDimension</class>
+                            <strategy>CompositeStrategySum</strategy>
+                            <dimensions>
+                                <dimension>
+                                    <key>morphosyntax-morphology-conjunctions-coordinating</key>
+                                    <description>Percentage of coordinating conjuctions</description>
+                                    <class>POSTaggingTag</class>
+                                    <tag>CCONJ</tag>
+                                </dimension>  
+                                <dimension>
+                                    <key>morphosyntax-morphology-conjunctions-subordinating</key>
+                                    <description>Percentage of subordinating conjuctions</description>
+                                    <class>POSTaggingTag</class>
+                                    <tag>SCONJ</tag>
+                                </dimension>
+
+                            </dimensions>
+                        </dimension>
+                        <!-- End of conjunctions -->
+
+
+                        <!-- Interjections -->
+                        <dimension>
+                            <key>morphosyntax-morphology-interjections</key>
+                            <description>Percentage of interjections</description>
+                            <class>POSTaggingTag</class>
+                            <tag>INTJ</tag>
+                        </dimension>
+                        <!-- End of interjections -->
+                        
+                        
+                        <!-- Verbs -->
+                        <dimension>
+                            <key>morphosyntax-morphology-verbs</key>
+                            <dimensions>
+                            
+                                <!-- Periphrasis -->
+                                <dimension>
+                                    <key>morphosyntax-morphology-verbs-periphrasis</key>
+                                    <strategy>CompositeStrategySum</strategy>
+                                    <class>CompositeDimension</class>
+                                    <description>Percentage of verbal periphrasis. That is, verbal constructions made of two verb forms.</description>
+                                    <dimensions>
+                                    
+                                        <dimension>
+                                            <key>morphosyntax-morphology-verbs-periphrasis-temporal-aspect</key>
+                                            <strategy>CompositeStrategySum</strategy>
+                                            <class>CompositeDimension</class>
+                                            <description>Percentage of verbal periphrasis based on a temporal aspect</description>
+                                            <dimensions>
+                                                <dimension>
+                                                    <key>morphosyntax-morphology-verbs-periphrasis-temporal-aspect-temporal</key>
+                                                    <description>Percentage of verbal periphrasis based on a temporal aspect</description>
+                                                    <strategy>CompositeStrategySum</strategy>
+                                                    <class>CompositeDimension</class>
+                                                    <dimensions>
+                                                        <dimension>
+                                                            <key>morphosyntax-morphology-verbs-periphrasis-temporal-aspect-temporal-immediate-posteriority</key>
+                                                            <class>PeriphrasisDimension</class>
+                                                            <auxiliar_verbs>ir(a)+infinitive</auxiliar_verbs>
+                                                            <description>Percentage of verbal periphrasis based on a temporal aspect: immediate posteriority</description>
+                                                        </dimension>
+                                                        <dimension>
+                                                            <key>morphosyntax-morphology-verbs-periphrasis-temporal-aspect-temporal-recent-posteriority</key>
+                                                            <class>PeriphrasisDimension</class>
+                                                            <auxiliar_verbs>acabar(de)+infinitive,terminar(de)+infinitive</auxiliar_verbs>
+                                                            <description>Percentage of verbal periphrasis based on a temporal aspect: recent posteriority</description>
+                                                        </dimension>
+                                                    </dimensions>
+                                                </dimension>
+                                                <dimension>
+                                                    <key>morphosyntax-morphology-verbs-periphrasis-temporal-aspect-phase</key>
+                                                    <strategy>CompositeStrategySum</strategy>
+                                                    <class>CompositeDimension</class>
+                                                    <description>Percentage of verbal periphrasis based on a phase aspect</description>
+                                                    <dimensions>
+                                                        <dimension>
+                                                            <key>morphosyntax-morphology-verbs-periphrasis-temporal-aspect-temporal-habit</key>
+                                                            <class>PeriphrasisDimension</class>
+                                                            <auxiliar_verbs>soler+infinitive,acostumbrar(a)+infinitive,volver(a)+infinitive,seguir+gerund,continuar+gerund,llevar+participe,tener+participe</auxiliar_verbs>
+                                                            <description>Percentage of verbal periphrasis for expressing temporal habits</description>
+                                                        </dimension>
+                                                        <dimension>
+                                                            <key>morphosyntax-morphology-verbs-periphrasis-temporal-aspect-temporal-inminent</key>
+                                                            <class>PeriphrasisDimension</class>
+                                                            <auxiliar_verbs>estar(por|para|a punto de)+infinitive</auxiliar_verbs>
+                                                            <description>Percentage of verbal periphrasis for expressing inminent actions</description>
+                                                            <mode>infinitive</mode>
+                                                        </dimension>
+
+                                                        <dimension>
+                                                            <key>morphosyntax-morphology-verbs-periphrasis-temporal-aspect-temporal-initial</key>
+                                                            <class>PeriphrasisDimension</class>
+                                                            <auxiliar_verbs>empezar(a)+infinitive,comenzar(a)+infinitive,poner(a)+infinitive,entrar(a)+infinitive</auxiliar_verbs>
+                                                            <description>Percentage of verbal periphrasis for indicating that one action is going to start</description>
+                                                        </dimension>
+                                                        <dimension>
+                                                            <key>morphosyntax-morphology-verbs-periphrasis-temporal-aspect-temporal-current</key>
+                                                            <class>PeriphrasisDimension</class>
+                                                            <auxiliar_verbs>estar+gerund,ir+gerund,seguir+gerund,venir+gerund,llevar+gerund,pasar+gerund</auxiliar_verbs>
+                                                            <description>Percentage of verbal periphrasis for indicating that one action what is taking place</description>
+                                                        </dimension>
+                                                        <dimension>
+                                                            <key>morphosyntax-morphology-verbs-periphrasis-temporal-aspect-temporal-ending</key>
+                                                            <class>PeriphrasisDimension</class>
+                                                            <auxiliar_verbs>dejar(de)+infinitive,cesar(de)+infinitive,acabar(de)+infinitive,terminar(de)+infinitive,parar(a|de)+infinitive,estar+participe,tener+participe,llevar+participe</auxiliar_verbs>
+                                                            <description>Percentage of verbal periphrasis for indicating that one action is going to end</description>
+                                                        </dimension>
+                                                        <dimension>
+                                                            <key>morphosyntax-morphology-verbs-periphrasis-temporal-aspect-temporal-transitional</key>
+                                                            <class>PeriphrasisDimension</class>
+                                                            <auxiliar_verbs>pasar(a)+infinitive,conseguir+infinitive</auxiliar_verbs>
+                                                            <description>Percentage of verbal periphrasis for indicating that one action is going to change</description>
+                                                        </dimension>
+                                                        <dimension>
+                                                            <key>morphosyntax-morphology-verbs-periphrasis-temporal-aspect-temporal-scalar</key>
+                                                            <class>PeriphrasisDimension</class>
+                                                            <auxiliar_verbs>empezar(por)+infinitive,acabar(por)+infinitive,terminar(por)+infinitive,llegar(a)+infinitive</auxiliar_verbs>
+                                                            <description>Percentage of verbal periphrasis for indicating scalar actions</description>
+                                                        </dimension>
+                                                    </dimensions>
+                                                </dimension>
+                                            </dimensions>
+                                        </dimension>
+
+                                        <dimension>
+                                            <key>morphosyntax-morphology-verbs-periphrasis-modals</key>
+                                            <strategy>CompositeStrategySum</strategy>
+                                            <class>CompositeDimension</class>
+                                            <description>Percentage of verbal periphrasis for indicating mode</description>
+                                            <dimensions>
+                                                <dimension>
+                                                    <key>morphosyntax-morphology-verbs-periphrasis-modals-obligation</key>
+                                                    <class>PeriphrasisDimension</class>
+                                                    <auxiliar_verbs>deber+infinitive,tener(que)+infinitive,haber(de|que)+infinitive</auxiliar_verbs>
+                                                    <description>Percentage of verbal periphrasis for indicating obligation</description>
+                                                </dimension>
+                                                <dimension>
+                                                    <key>morphosyntax-morphology-verbs-periphrasis-modals-hability</key>
+                                                    <class>PeriphrasisDimension</class>
+                                                    <auxiliar_verbs>dar(por)+infinitive,poder(de)+infinitive</auxiliar_verbs>
+                                                    <description>Percentage of verbal periphrasis for indicating hability</description>
+                                                </dimension>
+                                                <dimension>
+                                                    <key>morphosyntax-morphology-verbs-periphrasis-modals-probability</key>
+                                                    <class>PeriphrasisDimension</class>
+                                                    <auxiliar_verbs>deber(de)+infinitive,haber(de)+infinitive,poder(de)+infinitive</auxiliar_verbs>
+                                                    <description>Percentage of verbal periphrasis for indicating probability</description>
+                                                </dimension>
+                                                <dimension>
+                                                    <key>morphosyntax-morphology-verbs-periphrasis-modals-certainty</key>
+                                                    <class>PeriphrasisDimension</class>
+                                                    <auxiliar_verbs>tener(que)+infinitive</auxiliar_verbs>
+                                                    <description>Percentage of verbal periphrasis for indicating certainty</description>
+                                                </dimension>
+                                                <dimension>
+                                                    <key>morphosyntax-morphology-verbs-periphrasis-modals-approach</key>
+                                                    <class>PeriphrasisDimension</class>
+                                                    <auxiliar_verbs>venir(a)+infinitive</auxiliar_verbs>
+                                                    <description>Percentage of verbal periphrasis for indicating approaches</description>
+                                                </dimension>
+
+                                            </dimensions>
+                                        </dimension>
+                                        
+                                    </dimensions>
+                                </dimension>
+                            
+        
+                                <!-- By number -->
+                                <dimension>
+                                    <key>morphosyntax-morphology-verbs-number</key>
+                                    <strategy>CompositeStrategySum</strategy>
+                                    <class>CompositeDimension</class>
+                                    <description>Percentage of verbs based on numbers</description>
+                                    <dimensions>
+                                        <dimension>
+                                            <key>morphosyntax-morphology-verbs-number-singular</key>
+                                            <strategy>CompositeStrategySum</strategy>
+                                            <class>CompositeDimension</class>
+                                            <description>Percentage of singular verbs</description>
+                                            <dimensions>
+                                                <dimension>
+                                                    <key>morphosyntax-morphology-verbs-number-singular-first</key>
+                                                    <class>WordPerDictionary</class>
+                                                    <dictionary>verbs-singular-first</dictionary>
+                                                    <disabledregexp>true</disabledregexp>
+                                                    <description>Percentage of singular verbs in first person</description>
+                                                </dimension>
+                                                <dimension>
+                                                    <key>morphosyntax-morphology-verbs-number-singular-second</key>
+                                                    <class>WordPerDictionary</class>
+                                                    <dictionary>verbs-singular-second</dictionary>
+                                                    <disabledregexp>true</disabledregexp>
+                                                    <description>Percentage of singular verbs in second person</description>
+                                                </dimension>
+                                                <dimension>
+                                                    <key>morphosyntax-morphology-verbs-number-singular-third</key>
+                                                    <class>WordPerDictionary</class>
+                                                    <dictionary>verbs-singular-third</dictionary>
+                                                    <disabledregexp>true</disabledregexp>
+                                                    <description>Percentage of singular verbs in third person</description>
+                                                </dimension>
+                                            </dimensions>
+                                        </dimension>
+                                        <dimension>
+                                            <key>morphosyntax-morphology-verbs-number-plural</key>
+                                            <strategy>CompositeStrategySum</strategy>
+                                            <class>CompositeDimension</class>
+                                            <description>Percentage of plural verbs</description>
+                                            <dimensions>
+                                                <dimension>
+                                                    <key>morphosyntax-morphology-verbs-number-plural-first</key>
+                                                    <class>WordPerDictionary</class>
+                                                    <dictionary>verbs-plural-first</dictionary>
+                                                    <disabledregexp>true</disabledregexp>
+                                                    <description>Percentage of plural verbs in first person</description>
+                                                </dimension>
+                                                <dimension>
+                                                    <key>morphosyntax-morphology-verbs-number-plural-second</key>
+                                                    <class>WordPerDictionary</class>
+                                                    <dictionary>verbs-plural-second</dictionary>
+                                                    <disabledregexp>true</disabledregexp>
+                                                    <description>Percentage of plural verbs in second person</description>
+                                                </dimension>
+                                                <dimension>
+                                                    <key>morphosyntax-morphology-verbs-number-plural-third</key>
+                                                    <class>WordPerDictionary</class>
+                                                    <dictionary>verbs-plural-third</dictionary>
+                                                    <disabledregexp>true</disabledregexp>
+                                                    <description>Percentage of plural verbs in third person</description>
+                                                </dimension>
+                                            </dimensions>
+                                        </dimension>
+                                    </dimensions>
+                                </dimension>
+                                <!-- End by number -->
+                            
+                            
+                                <!-- By transitivity -->
+                                <dimension>
+                                    <key>morphosyntax-morphology-verbs-transitivity</key>
+                                    <dimensions>
+                                        <dimension>
+                                            <key>morphosyntax-morphology-verbs-transitive</key>
+                                            <description>Percentage of transitive verbs</description>
+                                            <class>WordPerDictionary</class>
+                                            <dictionary>verbs-transitive</dictionary>
+                                        </dimension>
+                                
+                                        <dimension>
+                                            <key>morphosyntax-morphology-verbs-intransitive</key>
+                                            <description>Percentage of intransitive verbs</description>
+                                            <class>WordPerDictionary</class>
+                                            <dictionary>verbs-intransitive</dictionary>
+                                        </dimension>
+                                    </dimensions>
+                                </dimension>
+                                
+                                
+                                <!-- By inflection -->
+                                <dimension>
+                                    <key>morphosyntax-morphology-verbs-inflection</key>
+                                    <dimensions>
+                                        <dimension>
+                                            <key>morphosyntax-morphology-verbs-inflection-regular</key>
+                                            <description>Percentage of regulary verbs</description>
+                                            <class>WordPerDictionary</class>
+                                            <dictionary>verbs-regular</dictionary>
+                                        </dimension>
+                                        
+                                        <dimension>
+                                            <key>morphosyntax-morphology-verbs-inflection-irregular</key>
+                                            <description>Percentage of irregulary verbs</description>
+                                            <class>WordPerDictionary</class>
+                                            <dictionary>verbs-irregular</dictionary>
+                                        </dimension>  
+                                    </dimensions>
+                                </dimension>
+
+
+                                <!-- By function -->
+                                <dimension>
+                                    <key>morphosyntax-morphology-verbs-function</key>
+                                    <dimensions>
+                                        <dimension>
+                                            <key>morphosyntax-morphology-verbs-function-main</key>
+                                            <description>Percentage of main verbs</description>
+                                            <class>POSTaggingTag</class>
+                                            <tag>VERB</tag>
+                                        </dimension>
+                                        
+                                        <dimension>
+                                            <key>morphosyntax-morphology-verbs-function-copulative</key>
+                                            <description>Percentage of copulative verbs</description>
+                                            <class>WordPerDictionary</class>
+                                            <dictionary>verbs-copulative</dictionary>
+                                        </dimension>
+                                        
+                                        <dimension>
+                                            <key>morphosyntax-morphology-verbs-function-auxiliary</key>
+                                            <description>Percentage of auxiliary verbs</description>
+                                            <class>POSTaggingTag</class>
+                                            <tag>AUX</tag>
+                                            <universal>VerbForm</universal>
+                                        </dimension>
+
+                                    </dimensions>
+                                </dimension>
+                                
+                                
+                                <!-- Non-finite -->
+                                <dimension>
+                                    <key>morphosyntax-morphology-verbs-nonfinite</key>
+                                    <dimensions>
+                                    
+                                        <dimension>
+                                            <key>morphosyntax-morphology-verbs-nonfinite-infinitive</key>
+                                            <description>Percentage of infinitive verbs</description>
+                                            <class>VerbPerDictionary</class>
+                                            <dictionary>verbs-infinitive</dictionary>
+                                        </dimension>
+                                    
+                                        <dimension>
+                                            <key>morphosyntax-morphology-verbs-nonfinite-gerund</key>
+                                            <description>Percentage of gerund verbs</description>
+                                            <class>VerbPerDictionary</class>
+                                            <dictionary>verbs-gerund</dictionary>
+                                        </dimension>
+                                        
+                                        <dimension>
+                                            <key>morphosyntax-morphology-verbs-nonfinite-participle</key>
+                                            <description>Percentage of participle verbs</description>
+                                            <class>VerbPerDictionary</class>
+                                            <dictionary>verbs-participe</dictionary>
+                                        </dimension>
+
+                                    </dimensions>
+                                </dimension>
+                                
+                                
+                                <!-- By tense -->
+                                <dimension>
+                                    <key>morphosyntax-morphology-verbs-tense</key>
+                                    <dimensions>
+                                        <dimension>
+                                            <key>morphosyntax-morphology-verbs-tense-past</key>
+                                            <description>Counts how many words are past</description>
+                                            <class>POSTaggingTag</class>
+                                            <tag>VERB</tag>
+                                            <universal>Tense=Past</universal>
+                                        </dimension>
+                                        
+                                        <dimension>
+                                            <key>morphosyntax-morphology-verbs-tense-present</key>
+                                            <description>Counts how many words are present focus</description>
+                                            <class>POSTaggingTag</class>
+                                            <tag>VERB</tag>
+                                            <universal>Tense=Pres</universal>
+                                        </dimension>
+
+                                        <dimension>
+                                            <key>morphosyntax-morphology-verbs-tense-future</key>
+                                            <description>Counts how many words are future focus</description>
+                                            <class>POSTaggingTag</class>
+                                            <tag>VERB</tag>
+                                            <universal>Tense=Fut</universal>
+                                        </dimension>
+
+                                    </dimensions>
+                                </dimension>
+                 
+
+                            
+                                <!-- By mode -->
+                                <dimension>
+                                    <key>morphosyntax-morphology-verbs-mode</key>
+                                    <dimensions>
+                                        <dimension>
+                                            <key>morphosyntax-morphology-verbs-mode-indicative</key>
+                                            <description>Counts how many words are in indicative</description>
+                                            <class>VerbPerDictionary</class>
+                                            <dictionaries>verbs-indicative-simple-present|verbs-indicative-simple-future|verbs-indicative-simple-past|verbs-indicative-compound-present-perfect|verbs-indicative-compound-past-perfect|verbs-indicative-compound-pluperfect|verbs-indicative-compound-past-perfect-tense|verbs-indicative-compound-future-perfect|verbs-indicative-compound-future-perfect</dictionaries>
+                                        </dimension>
+                                        
+                                        <dimension>
+                                            <key>morphosyntax-morphology-verbs-mode-subjunctive</key>
+                                            <description>Counts how many words are in subjunctive</description>
+                                            <class>VerbPerDictionary</class>
+                                            <dictionaries>verbs-subjunctive-simple-present|verbs-subjunctive-simple-past|verbs-subjunctive-simple-future|verbs-subjunctive-simple-past-other|verbs-subjunctive-compound-pluperfect|verbs-subjunctive-compound-future-perfect|verbs-subjunctive-compound-plusperfect-2|verbs-subjunctive-compound-past-perfect</dictionaries>
+                                        </dimension>
+                                        
+                                        <dimension>
+                                            <key>morphosyntax-morphology-verbs-imperative</key>
+                                            <description>Percentage of imperative verbs</description>
+                                            <class>VerbPerDictionary</class>
+                                            <dictionary>verbs-imperative</dictionary>
+                                        </dimension>
+                                            
+                                        <dimension>
+                                            <key>morphosyntax-morphology-verbs-conditional</key>
+                                            <description>Percentage of conditional verbs</description>
+                                            <class>VerbPerDictionary</class>
+                                            <dictionaries>verbs-indicative-simple-conditional|verbs-indicative-compound-conditional-perfect</dictionaries>
+                                        </dimension>
+
+                                    </dimensions>
+                                </dimension>
+                                
+                                
+                                <!-- Mode indicative simple -->
+                                <dimension>
+                                    <key>morphosyntax-morphology-verbs-indicative-simple</key>
+                                    <strategy>CompositeStrategySum</strategy>
+                                    <class>CompositeDimension</class>
+                                    <description>Percentage of verbs in indicative simple</description>
+                                    <dimensions>
+                                        <dimension>
+                                            <key>morphosyntax-morphology-verbs-indicative-simple-present</key>
+                                            <class>VerbPerDictionary</class>
+                                            <dictionary>verbs-indicative-simple-present</dictionary>
+                                            <description>Percentage of verbs in present indicative simple</description>
+                                        </dimension>
+                                        <dimension>
+                                            <key>morphosyntax-morphology-verbs-indicative-simple-past</key>
+                                            <class>VerbPerDictionary</class>
+                                            <dictionary>verbs-indicative-simple-past</dictionary>
+                                            <description>Percentage of verbs in past indicative simple</description>
+                                        </dimension>
+                                        <dimension>
+                                            <key>morphosyntax-morphology-verbs-indicative-simple-future</key>
+                                            <class>VerbPerDictionary</class>
+                                            <dictionary>verbs-indicative-simple-future</dictionary>
+                                            <description>Percentage of verbs in future indicative simple</description>
+                                        </dimension>
+                                        <dimension>
+                                            <key>morphosyntax-morphology-verbs-indicative-simple-conditional</key>
+                                            <class>VerbPerDictionary</class>
+                                            <dictionary>verbs-indicative-simple-conditional</dictionary>
+                                            <description>Percentage of verbs in conditional indicative simple</description>
+                                        </dimension>
+                                        <dimension>
+                                            <key>morphosyntax-morphology-verbs-indicative-simple-imperative</key>
+                                            <class>VerbPerDictionary</class>
+                                            <dictionary>verbs-indicative-simple-imperative</dictionary>
+                                            <description>Percentage of verbs in imperative simple</description>
+                                        </dimension>
+                                    </dimensions>
+                                </dimension>
+                                
+                                
+                                <dimension>
+                                    <key>morphosyntax-morphology-verbs-subjunctive-simple</key>
+                                    <strategy>CompositeStrategySum</strategy>
+                                    <class>CompositeDimension</class>
+                                    <description>Percentage of verbs in subjunctive simple</description>
+                                    <dimensions>
+                                        <dimension>
+                                            <key>morphosyntax-morphology-verbs-subjunctive-simple-present</key>
+                                            <class>VerbPerDictionary</class>
+                                            <dictionary>verbs-subjunctive-simple-present</dictionary>
+                                            <description>Percentage of verbs in present subjunctive simple</description>
+                                        </dimension>
+                                        <dimension>
+                                            <key>morphosyntax-morphology-verbs-subjunctive-simple-past</key>
+                                            <class>VerbPerDictionary</class>
+                                            <dictionary>verbs-subjunctive-simple-past</dictionary>
+                                            <description>Percentage of verbs in past subjunctive simple</description>
+                                        </dimension>
+                                        <dimension>
+                                            <key>morphosyntax-morphology-verbs-subjunctive-simple-future</key>
+                                            <class>VerbPerDictionary</class>
+                                            <dictionary>verbs-subjunctive-simple-future</dictionary>
+                                            <description>Percentage of verbs in future subjunctive simple</description>
+                                        </dimension>
+                                        <dimension>
+                                            <key>morphosyntax-morphology-verbs-subjunctive-simple-past-other</key>
+                                            <class>VerbPerDictionary</class>
+                                            <dictionary>verbs-subjunctive-simple-past-other</dictionary>
+                                            <description>Percentage of verbs in other past forms of subjunctive simple</description>
+                                        </dimension>
+                                    </dimensions>
+                                </dimension>
+        
+
+                                <dimension>
+                                    <key>morphosyntax-morphology-verbs-indicative-compound</key>
+                                    <strategy>CompositeStrategySum</strategy>
+                                    <class>CompositeDimension</class>
+                                    <description>Percentage of compound verbs in indicative</description>
+                                    <dimensions>
+                                        <dimension>
+                                            <key>morphosyntax-morphology-verbs-indicative-compound-present-perfect</key>
+                                            <class>VerbPerDictionary</class>
+                                            <dictionary>verbs-indicative-compound-present-perfect</dictionary>
+                                            <description>Percentage of compound verbs in indicative in present perfect</description>
+                                        </dimension>
+                                        <dimension>
+                                            <key>morphosyntax-morphology-verbs-indicative-compound-pluperfect</key>
+                                            <class>VerbPerDictionary</class>
+                                            <dictionary>verbs-indicative-compound-pluperfect</dictionary>
+                                            <description>Percentage of compound verbs in indicative in pluperfect</description>
+                                        </dimension>
+                                        <dimension>
+                                            <key>morphosyntax-morphology-verbs-indicative-compound-past-perfect-tense</key>
+                                            <class>VerbPerDictionary</class>
+                                            <dictionary>verbs-indicative-compound-past-perfect-tense</dictionary>
+                                            <description>Percentage of compound verbs in indicative in past perfect tense</description>
+                                        </dimension>
+                                        <dimension>
+                                            <key>morphosyntax-morphology-verbs-indicative-compound-future-perfect</key>
+                                            <class>VerbPerDictionary</class>
+                                            <dictionary>verbs-indicative-compound-future-perfect</dictionary>
+                                            <description>Percentage of compound verbs in indicative in future perfect</description>
+                                        </dimension>
+                                        <dimension>
+                                            <key>morphosyntax-morphology-verbs-indicative-compound-conditional-perfect</key>
+                                            <class>VerbPerDictionary</class>
+                                            <dictionary>verbs-indicative-compound-conditional-perfect</dictionary>
+                                            <description>Percentage of compound verbs in indicative in conditional perfect</description>
+                                        </dimension>
+                                        <dimension>
+                                            <key>morphosyntax-morphology-verbs-indicative-compound-past-perfect</key>
+                                            <class>VerbPerDictionary</class>
+                                            <dictionary>verbs-indicative-compound-past-perfect</dictionary>
+                                            <description>Percentage of compound verbs in indicative in past perfect</description>
+                                        </dimension>
+                                    </dimensions>
+                                </dimension>
+        
+        
+                                <dimension>
+                                    <key>morphosyntax-morphology-verbs-subjunctive-compound</key>
+                                    <strategy>CompositeStrategySum</strategy>
+                                    <class>CompositeDimension</class>
+                                    <description>Percentage of compound verbs in subjunctive</description>
+                                    <dimensions>
+                                        <dimension>
+                                            <key>morphosyntax-morphology-verbs-subjunctive-compound-pluperfect</key>
+                                            <class>VerbPerDictionary</class>
+                                            <dictionary>verbs-subjunctive-compound-pluperfect</dictionary>
+                                            <description>Percentage of compound verbs in pluperfect subjunctive</description>
+                                        </dimension>
+                                        <dimension>
+                                            <key>morphosyntax-morphology-verbs-subjunctive-compound-future-perfect</key>
+                                            <class>VerbPerDictionary</class>
+                                            <dictionary>verbs-subjunctive-compound-future-perfect</dictionary>
+                                            <description>Percentage of compound verbs in future perfect in subjunctive</description>
+                                        </dimension>
+                                        <dimension>
+                                            <key>morphosyntax-morphology-verbs-subjunctive-compound-plusperfect-2</key>
+                                            <class>VerbPerDictionary</class>
+                                            <dictionary>verbs-subjunctive-compound-plusperfect-2</dictionary>
+                                            <description>Percentage of compound verbs in future perfect in subjunctive (alternative version)</description>
+                                        </dimension>
+                                        <dimension>
+                                            <key>morphosyntax-morphology-verbs-subjunctive-compound-past-perfect</key>
+                                            <class>VerbPerDictionary</class>
+                                            <dictionary>verbs-subjunctive-compound-past-perfect</dictionary>
+                                            <description>Percentage of compound verbs in past perfect in subjunctive</description>
+                                        </dimension>
+                                    </dimensions>
+                                </dimension>
+                                
+                            </dimensions>
+                        </dimension>
+                        <!-- End of Verbs -->
+
+
+
+                    </dimensions>
+                </dimension>
+                
+            </dimensions>
+        </dimension>
+        
+        
+        <!-- Correction and style -->
+        <dimension>
+            <key>errors</key>
+            <dimensions>
+                
+                <!-- Orthographics -->
+                <dimension>
+                    <key>errors-orthographics</key>
+                    <strategy>CompositeStrategyAvg</strategy>
+                    <class>CompositeDimension</class>
+                    <description>Orthographic errors</description>
+                    <dimensions>
+                        <dimension>
+                            <key>errors-orthographics-sentences-starting-in-lowercase</key>
+                            <class>ErrorCapitalizationStartingWithLowerCaseDimension</class>
+                            <percentage>true</percentage>
+                            <description>Percentage of sentences that start in lowercase</description>
+                        </dimension>
+                        
+                        <dimension>
+                            <key>errors-orthographics-misspelled-words</key>
+                            <class>ErrorMispellingDimension</class>
+                            <useoriginalinput>true</useoriginalinput>
+                            <description>Percentage of misspelled words</description>
+                        </dimension>
+                        
+                        <dimension>
+                            <key>errors-orthographics-misspelled-accents-words</key>
+                            <class>ErrorMispellingAccentsDimension</class>
+                            <useoriginalinput>true</useoriginalinput>
+                            <description>Percentage of poorly accented words</description>
+                        </dimension>
+                        
+                    </dimensions>
+                </dimension>
+                
+                
+                <!-- Stylistics -->
+                <dimension>
+                    <key>errors-stylistics</key>
+                    <strategy>CompositeStrategySum</strategy>
+                    <class>CompositeDimension</class>
+                    <description>Stylistic errors</description>
+                    <dimensions>
+                        
+                        <dimension>
+                            <key>errors-sentences-starting-with-numbers</key>
+                            <class>ErrorStyleSentencesStartingWithNumbers</class>
+                            <description>Sentences that starts with numbers</description>
+                        </dimension>
+                        
+                        <dimension>
+                            <key>errors-sentences-starting-with-the-same-word</key>
+                            <class>ErrorStyleSentencesStartingWithTheSameWord</class>
+                            <description>Sentences that starts with the same word</description>
+                        </dimension>
+                        
+                    </dimensions>
+                </dimension>
+                
+                
+                <!-- Performance errors -->
+                <dimension>
+                    <key>errors-performance</key>
+                    <strategy>CompositeStrategySum</strategy>
+                    <class>CompositeDimension</class>
+                    <description>Performance errors</description>
+                    <dimensions>
+                        <dimension>
+                            <key>errors-performance-duplicated-words</key>
+                            <class>ErrorMiscTwoOrMoreEqualWordsDimension</class>
+                            <description>Number of duplicated words</description>
+                        </dimension>
+                        
+                        <dimension>
+                            <key>errors-performance-dot-after-exclamation-or-interrogation</key>
+                            <class>PatternDimension</class>
+                            <description>Counts how many sentences have a dot after "!" or "?"</description>
+                            <pattern>[\p{L}\p{N}\s]+[\?\!]+\.</pattern>
+                            <separator>by-sentence</separator>
+                            <percentage>false</percentage>
+                        </dimension>
+                        
+                        <dimension>
+                            <key>errors-performance-two-or-more-consecutive-commas</key>
+                            <class>PatternDimension</class>
+                            <pattern>\,{2,}</pattern>
+                            <separator>whole</separator>
+                            <percentage>false</percentage>
+                            <description>Two or more consecutive commas</description>
+                        </dimension>
+                        
+                        <dimension>
+                            <key>errors-performance-two-or-more-consecutive-periods</key>
+                            <class>PatternDimension</class>
+                            <pattern>\.{2,}</pattern>
+                            <separator>whole</separator>
+                            <percentage>false</percentage>
+                            <description>Two or more consecutive periods</description>
+                        </dimension>
+                        
+                        <dimension>
+                            <key>errors-performance-common-errors</key>
+                            <class>WordPerDictionary</class>
+                            <dictionary>errors-performance-common-errors</dictionary>
+                            <percentage>false</percentage>
+                            <description>List of common errors in Spanish</description>
+                        </dimension>
+                        
+                        <dimension>
+                            <key>errors-performance-redundant-expressions</key>
+                            <class>WordPerDictionary</class>
+                            <dictionary>redundant-expressions</dictionary>
+                            <description>Percentage of redundant expressions</description>
+                        </dimension>
+                    </dimensions>
+                </dimension>
+            </dimensions>
+        </dimension>
+        
+        
+        <!-- Semantics -->
+        <dimension>
+            <key>semantics</key>
+            <dimensions>
+                <dimension>
+                    <key>semantics-onomatopoeia</key>
+                    <class>WordPerDictionary</class>
+                    <percentage>false</percentage>
+                    <useoriginalinput>true</useoriginalinput>
+                    <dictionary>onomatopoeia</dictionary>
+                    <description>List of onomatopoeia; that is, the formation of a word from a sound associated with what is named.</description>
+                </dimension>
+                
+                <dimension>
+                    <key>semantics-euphemisms</key>
+                    <class>WordPerDictionary</class>
+                    <dictionary>euphemisms</dictionary>
+                    <description>List of euphemisms; that is, mild expressions that replaces another that is considered too harsh.</description>
+                </dimension>
+                
+                <dimension>
+                    <key>semantics-dysfemisms</key>
+                    <class>WordPerDictionary</class>
+                    <dictionary>dysfemisms</dictionary>
+                    <description>List of dysfemisms; that is, expressions with derogatory connotations.</description>
+                </dimension>
+                
+                <dimension>
+                    <key>semantics-synecdocs</key>
+                    <class>WordPerDictionary</class>
+                    <dictionary>synecdocs</dictionary>
+                    <description>List of synecdoche; that are figures of speech in which a part is made to represent the whole</description>
+                </dimension>
+            </dimensions>
+        </dimension>
+        <!-- End of semantics -->
+        
+        
+        <!-- Pragmatics -->
+        <dimension>
+            <key>pragmatics</key>
+            <dimensions>
+            
+                <!-- Figurative language -->
+                <dimension>
+                    <key>pragmatics-figurative-language</key>
+                    <dimensions>
+                    
+                        <dimension>
+                            <key>pragmatics-figurative-language-hyperboles</key>
+                            <class>WordPerDictionary</class>
+                            <dictionary>hyperboles</dictionary>
+                            <percentage>false</percentage>
+                            <description>Number of expressions that contains hyperboles</description>
+                        </dimension>
+                    
+                        <dimension>
+                            <key>pragmatics-figurative-language-idiomatics-expressions</key>
+                            <class>WordPerDictionary</class>
+                            <dictionary>idiomatic-expressions</dictionary>
+                            <percentage>false</percentage>
+                            <description>Number of idiomatic expressions</description>
+                        </dimension>
+                        
+                        <dimension>
+                            <key>pragmatics-figurative-language-rhetorical-questions</key>
+                            <class>WordPerDictionary</class>
+                            <dictionary>rhetorical-questions</dictionary>
+                            <percentage>false</percentage>
+                            <description>Number of rhetorical questions</description>
+                        </dimension>
+                        
+                        <dimension>
+                            <key>pragmatics-figurative-language-verbal-irony</key>
+                            <class>WordPerDictionary</class>
+                            <dictionary>verbal-irony</dictionary>
+                            <percentage>false</percentage>
+                            <description>Number of expressions that contains verbal irony</description>
+                        </dimension>
+                        
+                        <dimension>
+                            <key>pragmatics-figurative-language-understatements</key>
+                            <class>WordPerDictionary</class>
+                            <dictionary>understatements</dictionary>
+                            <percentage>false</percentage>
+                            <description>Number of expressions of understatements</description>
+                        </dimension>
+                        
+                        <dimension>
+                            <key>pragmatics-figurative-language-metaphors</key>
+                            <class>WordPerDictionary</class>
+                            <dictionary>metaphors</dictionary>
+                            <percentage>false</percentage>
+                        </dimension>
+
+                        <dimension>
+                            <key>pragmatics-figurative-language-similes</key>
+                            <class>WordPerDictionary</class>
+                            <dictionary>similes</dictionary>
+                            <percentage>false</percentage>
+                            <description>Number of similes</description>
+                        </dimension>
+                        
+                    </dimensions>
+                </dimension>
+                <!-- End of figures of speech -->
+            
+                
+                
+                <!-- Discourse markers -->
+                <dimension>
+                    <key>pragmatics-discourse-markers</key>
+                    <dimensions>
+                    
+                        <dimension>
+                            <key>pragmatics-discourse-markers-structuring</key>
+                            <strategy>CompositeStrategySum</strategy>
+                            <class>CompositeDimension</class>
+                            <description>Number of discourse markers using for structuring the text</description>
+                            <dimensions>
+                                <dimension>
+                                    <dictionary>pragmatics-discourse-markers-structuring-commenters</dictionary>
+                                    <class>WordPerDictionary</class>
+                                    <key>pragmatics-discourse-markers-structuring-commenters</key>
+                                    <percentage>false</percentage>
+                                    <description>Number of discourse markers using for structuring with commenters</description>
+                                </dimension>
+                                <dimension>
+                                    <key>pragmatics-discourse-markers-structuring-order</key>
+                                    <class>WordPerDictionary</class>
+                                    <dictionary>pragmatics-discourse-markers-structuring-order</dictionary>
+                                    <percentage>false</percentage>
+                                    <description>Number of discourse markers using for ordering</description>
+                                </dimension>
+                            </dimensions>
+                        </dimension>
+                        
+                        <dimension>
+                            <key>pragmatics-discourse-markers-connectors</key>
+                            <strategy>CompositeStrategySum</strategy>
+                            <class>CompositeDimension</class>
+                            <description>Number of discourse markers for connecting ideas</description>
+                            <dimensions>
+                                <dimension>
+                                    <key>pragmatics-discourse-markers-connectors-additive</key>
+                                    <class>WordPerDictionary</class>
+                                    <dictionary>pragmatics-discourse-markers-connectors-additive</dictionary>
+                                    <description>Number of discourse markers for adding ideas</description>
+                                    <percentage>false</percentage>
+                                </dimension>
+                                <dimension>
+                                    <key>pragmatics-discourse-markers-connectors-consecutive</key>
+                                    <class>WordPerDictionary</class>
+                                    <dictionary>pragmatics-discourse-markers-connectors-consecutive</dictionary>
+                                    <percentage>false</percentage>
+                                    <description>Number of discourse markers for connecting ideas</description>
+                                </dimension>
+                                <dimension>
+                                    <key>pragmatics-discourse-markers-connectors-counter-augmentative</key>
+                                    <class>WordPerDictionary</class>
+                                    <dictionary>pragmatics-discourse-markers-connectors-counter-augmentative</dictionary>
+                                    <percentage>false</percentage>
+                                    <description>Number of discourse markers for augmentation</description>
+                                </dimension>
+                                          
+                            </dimensions>
+                        </dimension>
+
+                        <dimension>
+                            <key>pragmatics-discourse-markers-reformers</key>
+                            <strategy>CompositeStrategySum</strategy>
+                            <class>CompositeDimension</class>
+                            <description>Number of discourse markers used for reforming</description>
+                            <dimensions>
+                                <dimension>
+                                    <key>pragmatics-discourse-markers-reformers-explanatory</key>
+                                    <class>WordPerDictionary</class>
+                                    <dictionary>pragmatics-discourse-markers-reformers-explanatory</dictionary>
+                                    <percentage>false</percentage>
+                                    <description>Number of discourse markers used for explaining</description>
+                                </dimension>
+                                <dimension>
+                                    <key>pragmatics-discourse-markers-reformers-corrective</key>
+                                    <class>WordPerDictionary</class>
+                                    <dictionary>pragmatics-discourse-markers-reformers-corrective</dictionary>
+                                    <percentage>false</percentage>
+                                    <description>Number of discourse markers used for correcting</description>
+                                </dimension>
+                                <dimension>
+                                    <key>pragmatics-discourse-markers-reformers-distance</key>
+                                    <class>WordPerDictionary</class>
+                                    <dictionary>pragmatics-discourse-markers-reformers-distance</dictionary>
+                                    <percentage>false</percentage>
+                                    <description>Number of discourse markers used to move away from the treated fact</description>
+                                </dimension>
+                                <dimension>
+                                    <key>pragmatics-discourse-markers-reformers-recapitulative</key>
+                                    <class>WordPerDictionary</class>
+                                    <dictionary>pragmatics-discourse-markers-reformers-recapitulative</dictionary>
+                                    <percentage>false</percentage>
+                                    <description>Number of discourse markers used to recapitulative</description>
+                                </dimension>
+                            </dimensions>
+                        </dimension>
+                        
+                        <dimension>
+                            <key>pragmatics-discourse-markers-argumentative</key>
+                            <strategy>CompositeStrategySum</strategy>
+                            <class>CompositeDimension</class>
+                            <description>Number of discourse markers used to argument</description>
+                            <dimensions>
+                                <dimension>
+                                    <key>pragmatics-discourse-markers-argumentative-reinforcement</key>
+                                    <class>WordPerDictionary</class>
+                                    <dictionary>pragmatics-discourse-markers-argumentative-reinforcement</dictionary>
+                                    <percentage>false</percentage>
+                                    <description>Number of discourse markers used to reinforce an argument</description>
+                                </dimension>
+                                <dimension>
+                                    <key>pragmatics-discourse-markers-argumentative-concretion</key>
+                                    <class>WordPerDictionary</class>
+                                    <dictionary>pragmatics-discourse-markers-argumentative-concretion</dictionary>
+                                    <percentage>false</percentage>
+                                    <description>Number of discourse markers used to specify an argument</description>
+                                </dimension>
+                            </dimensions>
+                        </dimension>
+                        
+                        <dimension>
+                            <key>pragmatics-discourse-markers-conversational-bookmarks</key>
+                            <class>WordPerDictionary</class>
+                            <dictionary>pragmatics-discourse-markers-conversational-bookmarks</dictionary>
+                            <percentage>false</percentage>
+                            <description>Number of discourse markers used as bookmars or pause a conversation</description>
+                        </dimension>
+
+ 
+                    </dimensions>
+                </dimension>
+                
+                
+                <!-- Courtesy forms -->
+                <dimension>
+                    <key>pragmatics-courtesy-forms</key>
+                    <class>CompositeDimension</class>
+                    <strategy>CompositeStrategySum</strategy>
+                    <description>Percentage of courtesy forms</description>
+                    <dimensions>
+                        <dimension>
+                            <key>pragmatics-courtesy-forms-greetings</key>
+                            <class>WordPerDictionary</class>
+                            <dictionary>pragmatics-courtesy-forms-greetings</dictionary>
+                            <description>Percentage of expressions used for greetings</description>
+                        </dimension>
+                        
+                        <dimension>
+                            <key>pragmatics-courtesy-forms-farewell</key>
+                            <class>WordPerDictionary</class>
+                            <dictionary>pragmatics-courtesy-forms-farewell</dictionary>
+                            <description>Percentage of expressions used for farewell</description>
+                        </dimension>
+                        
+                        <dimension>
+                            <key>pragmatics-courtesy-forms-requirements</key>
+                            <class>WordPerDictionary</class>
+                            <dictionary>pragmatics-courtesy-forms-requirements</dictionary>
+                            <description>Percentage of expressions used for requirements</description>
+                        </dimension>
+                        
+                        <dimension>
+                            <key>pragmatics-courtesy-forms-general</key>
+                            <class>WordPerDictionary</class>
+                            <dictionary>pragmatics-courtesy-forms-general</dictionary>
+                            <description>Percentage of expressions used for requirements</description>
+                        </dimension>
+                        
+                        <dimension>
+                            <key>pragmatics-courtesy-forms-condolences</key>
+                            <class>WordPerDictionary</class>
+                            <dictionary>pragmatics-courtesy-forms-condolences</dictionary>
+                            <description>Percentage of expressions used for expressing condolences</description>
+                        </dimension>
+                        
+                    </dimensions>
+                    
+                </dimension>
+                
+            </dimensions>
+        </dimension>
+        
+        
+        
+        <!-- Stylometry -->
+        <dimension>
+            <key>stylometry</key>
+            <dimensions>
+            
+                <dimension>
+                    <key>stylometry-corpus</key>
+                    <dimensions>
+                        
+                        <!-- Length -->
+                        <dimension>
+                            <key>stylometry-corpus-length</key>
+                            <class>LengthDimension</class>
+                            <description>Counts the length of the text</description>
+                        </dimension>
+                        
+                        
+                        <!-- Standardized ratios Tipo/Ítem  -->
+                        <dimension>
+                            <key>stylometry-corpus-TTR</key>
+                            <class>RTIEDimension</class>
+                            <description>Standardized ratios TTR</description>
+                            <separator>whole</separator>
+                        </dimension>
+                        
+                        <dimension>
+                            <key>stylometry-corpus-TTR-standard</key>
+                            <class>RTIEDimension</class>
+                            <description>TTR (by chunks)</description>
+                            <separator>by-chunks</separator>
+                        </dimension>
+
+                        <dimension>
+                            <key>stylometry-corpus-TTR-deviation</key>
+                            <class>RTIEDeviationDimension</class>
+                            <description>TTR (by chunks)</description>
+                            <separator>by-chunks</separator>
+                        </dimension>
+                        
+                        <!-- Word count -->
+                        <dimension>
+                            <key>stylometry-corpus-words-count</key>
+                            <class>WordCountDimension</class>
+                            <description>Counts how many words there are in the text</description>
+                        </dimension>
+                        
+
+                        <!-- Syllabes count -->
+                        <dimension>
+                            <key>stylometry-corpus-syllabes-count</key>
+                            <class>SyllableCountDimension</class>
+                            <description>Counts how many syllabes there are in the text</description>
+                        </dimension>
+                        
+                        
+                        <!-- Syllabes count -->
+                        <dimension>
+                            <key>stylometry-corpus-syllabes-per-word</key>
+                            <class>SyllablePerWordDimension</class>
+                            <description>Counts how many syllabes there per word</description>
+                        </dimension>
+                        
+                        
+                        <!-- Words per sentence -->
+                        <dimension>
+                            <key>stylometry-corpus-words-per-sentence</key>
+                            <class>WordPerSentenceDimension</class>
+                            <description>The average number of words per sentence</description>
+                        </dimension>
+                        
+                        
+                        <!-- Case -->
+                        <dimension>
+                            <key>stylometry-corpus-uppercase</key>
+                            <class>WordCase</class>
+                            <comparator>upper</comparator>
+                            <description>The average number of words written in uppercase</description>
+                        </dimension>
+                        
+                        <dimension>
+                            <key>stylometry-corpus-titlecase</key>
+                            <class>WordCase</class>
+                            <comparator>title</comparator>
+                            <description>The average number of words written in titlecase</description>
+                        </dimension>
+
+                        
+                        
+                        <!-- Writting style -->
+                        <dimension>
+                            <key>stylometry-corpus-writing-style</key>
+                            <dimensions>
+                            
+                                <!-- Readability -->
+                                <dimension>
+                                    <key>stylometry-corpus-readability</key>
+                                    <class>ReadbilityDimension</class>
+                                    <description>Measures the readability within of the text</description>
+                                </dimension>
+                                
+                                
+                                <!-- Perspicuity -->
+                                <dimension>
+                                    <key>stylometry-corpus-inflesz</key>
+                                    <class>PerspicuityDimension</class>
+                                    <description>Measures the perspicuity within of the text</description>
+                                </dimension>
+                            </dimensions>
+                        </dimension>
+                        
+                        
+                        <!-- Words in quotes or parenthesis -->
+                        <dimension>
+                            <key>stylometry-corpus-expressions-quoted</key>
+                            <class>PatternDimension</class>
+                            <description>Counts how many quoted expressions</description>
+                            <pattern>["“‘'«][\p{L}\p{N}\s\-\,\.]{4,64}[”"’'»]</pattern>
+                            <separator>whole</separator>
+                            <percentage>false</percentage>
+                        </dimension>
+                        
+                        <dimension>
+                            <key>stylometry-corpus-expressions-within-parenthesis</key>
+                            <class>PatternDimension</class>
+                            <description>Counts how many expressions within paranthesis</description>
+                            <pattern>\([\p{L}\p{N}\s\-\,\.]{4,64}\)</pattern>
+                            <percentage>false</percentage>
+                        </dimension>
+                        
+                        <dimension>
+                            <key>stylometry-corpus-expressions-within-asterisks</key>
+                            <class>PatternDimension</class>
+                            <description>Counts how many expressions within asterisks</description>
+                            <pattern>\*[\p{L}\p{N}\s\-\,\.]{4,64}\*</pattern>
+                            <percentage>false</percentage>
+                        </dimension>
+                        
+                        
+                        <!-- Words length average -->
+                        <dimension>
+                            <key>stylometry-corpus-words-length-avg</key>
+                            <class>WordAverageLengthDimension</class>
+                            <description>The average length of the words</description>
+                        </dimension>
+                        
+                        
+                        <!-- Word's Length -->
+                        <dimension>
+                            <key>stylometry-corpus-words-longer-6tr</key>
+                            <class>WordLengthDimension</class>
+                            <comparator>>=</comparator>
+                            <length>6</length>
+                            <description>The number of words bigger than 6 characters</description>
+                        </dimension>
+                        <dimension>
+                            <key>stylometry-corpus-words-with-1ltr</key>
+                            <class>WordLengthDimension</class>
+                            <length>1</length>
+                            <comparator>=</comparator>
+                            <description>The number of words equal to 1 characters</description>
+                        </dimension>
+                        <dimension>
+                            <key>stylometry-corpus-words-with-2ltr</key>
+                            <class>WordLengthDimension</class>
+                            <length>2</length>
+                            <comparator>=</comparator>
+                            <description>The number of words equal to 2 characters</description>
+                        </dimension>
+                        <dimension>
+                            <key>stylometry-corpus-words-with-3ltr</key>
+                            <class>WordLengthDimension</class>
+                            <comparator>=</comparator>
+                            <length>3</length>
+                            <description>The number of words equal to 3 characters</description>
+                        </dimension>
+                        <dimension>
+                            <key>stylometry-corpus-words-with-4ltr</key>
+                            <class>WordLengthDimension</class>
+                            <comparator>=</comparator>
+                            <length>4</length>
+                            <description>The number of word sequal to 4 characters</description>
+                        </dimension>
+                        <dimension>
+                            <key>stylometry-corpus-words-with-5ltr</key>
+                            <class>WordLengthDimension</class>
+                            <comparator>=</comparator>
+                            <length>5</length>
+                            <description>The number of words equal to 5 characters</description>
+                        </dimension>
+                        <dimension>
+                            <key>stylometry-corpus-words-with-6ltr</key>
+                            <class>WordLengthDimension</class>
+                            <comparator>=</comparator>
+                            <length>6</length>
+                            <description>The number of words equal to 6 characters</description>
+                        </dimension>
+                        <dimension>
+                            <key>stylometry-corpus-words-with-7ltr</key>
+                            <class>WordLengthDimension</class>
+                            <comparator>=</comparator>
+                            <length>7</length>
+                            <description>The number of words equal to 7 characters</description>
+                        </dimension>
+                        <dimension>
+                            <key>stylometry-corpus-words-with-8ltr</key>
+                            <class>WordLengthDimension</class>
+                            <length>8</length>
+                            <comparator>=</comparator>
+                            <description>The number of words equal to 8 characters</description>
+                        </dimension>
+                        <dimension>
+                            <key>stylometry-corpus-words-with-9ltr</key>
+                            <class>WordLengthDimension</class>
+                            <length>9</length>
+                            <comparator>=</comparator>
+                            <description>The number of words equal to 9 characters</description>
+                        </dimension>
+                        <dimension>
+                            <key>stylometry-corpus-words-with-10ltr</key>
+                            <class>WordLengthDimension</class>
+                            <length>10</length>
+                            <comparator>=</comparator>
+                            <description>The number of words equal to 10 characters</description>
+                        </dimension>
+                        <dimension>
+                            <key>stylometry-corpus-words-with-11ltr</key>
+                            <class>WordLengthDimension</class>
+                            <length>11</length>
+                            <comparator>=</comparator>
+                            <description>The number of words equal to 11 characters</description>
+                        </dimension>
+                        <dimension>
+                            <key>stylometry-corpus-words-with-12ltr</key>
+                            <class>WordLengthDimension</class>
+                            <length>12</length>
+                            <comparator>=</comparator>
+                            <description>The number of words equal to 12 characters</description>
+                        </dimension>
+                        <dimension>
+                            <key>stylometry-corpus-words-with-13ltr</key>
+                            <class>WordLengthDimension</class>
+                            <length>13</length>
+                            <comparator>=</comparator>
+                            <description>The number of words equal to 13 characters</description>
+                        </dimension>
+                        <dimension>
+                            <key>stylometry-corpus-words-with-14ltr</key>
+                            <class>WordLengthDimension</class>
+                            <length>14</length>
+                            <comparator>=</comparator>
+                            <description>The number of words equal to 14 characters</description>
+                        </dimension>
+                        <dimension>
+                            <key>stylometry-corpus-words-with-15ltr</key>
+                            <class>WordLengthDimension</class>
+                            <length>15</length>
+                            <comparator>=</comparator>
+                            <description>The number of words equal to 15 characters</description>
+                        </dimension>
+                        <dimension>
+                            <key>stylometry-corpus-words-with-16ltr</key>
+                            <class>WordLengthDimension</class>
+                            <length>16</length>
+                            <comparator>=</comparator>
+                            <description>The number of words equal to 16 characters</description>
+                        </dimension>
+                        <dimension>
+                            <key>stylometry-corpus-words-with-17ltr</key>
+                            <class>WordLengthDimension</class>
+                            <length>17</length>
+                            <comparator>=</comparator>
+                            <description>The number of words equal to 17 characters</description>
+                        </dimension>
+                        <dimension>
+                            <key>stylometry-corpus-words-with-18ltr</key>
+                            <class>WordLengthDimension</class>
+                            <length>18</length>
+                            <comparator>=</comparator>
+                            <description>The number of words equal to 18 characters</description>
+                        </dimension>
+                        <dimension>
+                            <key>stylometry-corpus-words-with-19ltr</key>
+                            <class>WordLengthDimension</class>
+                            <length>19</length>
+                            <comparator>=</comparator>
+                            <description>The number of words equal to 19 characters</description>
+                        </dimension>
+                        <dimension>
+                            <key>stylometry-corpus-words-with-20ltr</key>
+                            <class>WordLengthDimension</class>
+                            <length>20</length>
+                            <comparator>=</comparator>
+                            <description>The number of words equal to 20 characters</description>
+                        </dimension>
+                        <dimension>
+                            <key>stylometry-corpus-words-with-21ltr</key>
+                            <class>WordLengthDimension</class>
+                            <length>17</length>
+                            <comparator>=</comparator>
+                            <description>The number of words equal to 21 characters</description>
+                        </dimension>
+                        <dimension>
+                            <key>stylometry-corpus-words-with-22ltr</key>
+                            <class>WordLengthDimension</class>
+                            <length>22</length>
+                            <comparator>=</comparator>
+                            <description>The number of words equal to 22 characters</description>
+                        </dimension>
+                        <dimension>
+                            <key>stylometry-corpus-words-with-23ltr</key>
+                            <class>WordLengthDimension</class>
+                            <length>23</length>
+                            <comparator>=</comparator>
+                            <description>The number of words equal to 23 characters</description>
+                        </dimension>
+                        <dimension>
+                            <key>stylometry-corpus-words-with-24ltr</key>
+                            <class>WordLengthDimension</class>
+                            <length>24</length>
+                            <comparator>=</comparator>
+                            <description>The number of words equal to 24 characters</description>
+                        </dimension>
+                        <dimension>
+                            <key>stylometry-corpus-words-with-25ltr</key>
+                            <class>WordLengthDimension</class>
+                            <length>25</length>
+                            <comparator>=</comparator>
+                            <description>The number of words equal to 25 characters</description>
+                        </dimension>
+
+
+                    </dimensions>
+                </dimension>
+            
+                
+                <dimension>
+                    <key>stylometry-sentences</key>
+                    <dimensions>
+                        <!-- Sentence count -->
+                        <dimension>
+                            <key>stylometry-sentences-count</key>
+                            <class>SentenceCountDimension</class>
+                            <description>Counts how many sentences there are in the text</description>
+                        </dimension>
+                        
+                        
+                        <!-- Sentence exclamative -->
+                        <dimension>
+                            <key>stylometry-sentences-exclamative-percentage</key>
+                            <class>PatternDimension</class>
+                            <description>Counts how many exclamative sentences there are in the text</description>
+                            <pattern>[\p{L}\p{N}\s]+[\!]+</pattern>
+                            <separator>by-sentence</separator>
+                        </dimension>
+                        
+                        
+                        <dimension>
+                            <key>stylometry-sentences-exclamative-percentage-emphasis</key>
+                            <class>PatternDimension</class>
+                            <description>Counts how many exclamative sentences there are in the text</description>
+                            <pattern>[\p{L}\p{N}\s]+[\!]{2,}</pattern>
+                            <separator>by-sentence</separator>
+                        </dimension>                
+                        
+                        
+                        <!-- Sentence interrogative -->
+                        <dimension>
+                            <key>stylometry-sentences-interrogative-percentage</key>
+                            <class>PatternDimension</class>
+                            <description>Counts how many exclamative sentences there are in the text with more than "?"</description>
+                            <pattern>[\p{L}\p{N}\s]+[\?]+</pattern>
+                            <separator>by-sentence</separator>
+                        </dimension>
+                        
+                        
+                        <dimension>
+                            <key>stylometry-sentences-interrogative-percentage-emphasis</key>
+                            <class>PatternDimension</class>
+                            <description>Counts how many interrogative sentences there are in the text with more than one "?"</description>
+                            <pattern>[\p{L}\p{N}\s]+[\?]{2,}</pattern>
+                            <separator>by-sentence</separator>
+                        </dimension>
+                        
+                        
+                        
+                        <!-- Sentence quotes count -->
+                        <dimension>
+                            <key>stylometry-sentences-quotes-percentage</key>
+                            <class>PatternDimension</class>
+                            <description>Counts how many quoted sentences</description>
+                            <pattern>^[“"][\p{L}\p{N}\s]+["”]$</pattern>
+                            <separator>by-sentence</separator>
+                        </dimension>
+                        
+
+                        
+                        <!-- Sentence pasive count -->
+                        <dimension>
+                            <key>stylometry-sentences-pasive-percentage</key>
+                            <class>SentencePerDictionary</class>
+                            <description>Counts how many sentences with pasive voice within the text</description>
+                            <dictionary>sentences-with-pasive-voice</dictionary>
+                        </dimension>
+                        
+                        
+                        <!-- Sentences with conversations -->
+                        <dimension>
+                            <key>stylometry-sentences-conversations</key>
+                            <class>PatternDimension</class>
+                            <description>Counts how many sentences simulate a conversation</description>
+                            <pattern>\-[\s\¿]*\p{L}+</pattern>
+                            <separator>by-sentence</separator>
+                        </dimension>
+
+                    </dimensions>
+                </dimension>
+                
+                <!-- Punctuaction symbols -->
+                <dimension>
+                    <key>stylometry-punctuation-symbols</key>
+                    <dimensions>
+                
+                        <!-- Measure units -->
+                        <dimension>
+                            <key>stylometry-punctuation-symbols-prime</key>
+                            <class>CharacterCountDimension</class>
+                            <character>′‴″</character>
+                            <description>Number of prime symbols</description>
+                        </dimension>
+                
+                
+                        <!-- Currency -->
+                        <dimension>
+                            <key>stylometry-punctuation-symbols-currencies</key>
+                            <class>CharacterCountDimension</class>
+                            <character>€$£</character>
+                            <description>Number of symbols used as currency symbols</description>
+                        </dimension>
+                
+                
+                        <!-- Punctuation -->
+                        <dimension>
+                            <key>stylometry-punctuation-symbols-apostrophe</key>
+                            <class>CharacterCountDimension</class>
+                            <character>’'</character>
+                            <description>Apostrohpes, can be used to measure units or in Elision of words</description>
+                        </dimension>
+                
+                
+                        <!-- Brackets -->
+                        <dimension>
+                            <key>stylometry-punctuation-symbols-brackets-open</key>
+                            <class>CharacterCountDimension</class>
+                            <character>{[(〔</character>
+                            <description>Number of open curly brackets</description>
+                        </dimension>
+                        <dimension>
+                            <key>stylometry-punctuation-symbols-curly-brackets-close</key>
+                            <class>CharacterCountDimension</class>
+                            <character>}])〕</character>
+                            <description>Number of closed curly brackets</description>
+                        </dimension>
+
+                        
+                        <!-- Quotation marks -->
+                        <dimension>
+                            <key>stylometry-punctuation-symbols-quotation-open</key>
+                            <class>CharacterCountDimension</class>
+                            <character>"“‘'«</character>
+                            <description>Number of quotation open symbols</description>
+                        </dimension>
+                        
+                        <dimension>
+                            <key>stylometry-punctuation-symbols-quotation-close</key>
+                            <class>CharacterCountDimension</class>
+                            <character>”"’'»</character>
+                            <description>Number of quotation close symbols</description>
+                        </dimension>
+                        
+                        <dimension>
+                            <key>stylometry-punctuation-symbols-colons</key>
+                            <class>CharacterCountDimension</class>
+                            <character>:ː：∶</character>
+                            <removeemojis>true</removeemojis>
+                            <description>Number of colons</description>
+                        </dimension>
+                        <dimension>
+                            <key>stylometry-punctuation-symbols-semicolons</key>
+                            <class>CharacterCountDimension</class>
+                            <character>;</character>
+                            <description>Number of semicolons</description>
+                        </dimension>
+                        <dimension>
+                            <key>stylometry-punctuation-symbols-dashes</key>
+                            <class>CharacterCountDimension</class>
+                            <character>-</character>
+                            <description>Number of dashed</description>
+                        </dimension>
+                        <dimension>
+                            <key>stylometry-punctuation-symbols-low-dashes</key>
+                            <class>CharacterCountDimension</class>
+                            <character>_</character>
+                            <description>Number of low dashed</description>
+                        </dimension>
+                        <dimension>
+                            <key>stylometry-punctuation-symbols-fullstop</key>
+                            <class>CharacterCountDimension</class>
+                            <character>.</character>
+                            <description>Number of fullstops</description>
+                        </dimension>
+                        <dimension>
+                            <key>stylometry-punctuation-symbols-commas</key>
+                            <class>CharacterCountDimension</class>
+                            <character>,ʻ،、︐︑﹐﹑，､</character>
+                            <description>Number of commas</description>
+                        <dimension>
+                        </dimension>
+                            <key>stylometry-punctuation-symbols-ellipsis</key>
+                            <class>PatternDimension</class>
+                            <pattern><![CDATA[[…|\.{3,}]]]></pattern>
+                            <separator>by-spaces</separator>
+                            <useoriginalinput>true</useoriginalinput>
+                            <description>Number of ellipsis</description>
+                        </dimension>
+                        <dimension>
+                            <key>stylometry-punctuation-symbols-open-question</key>
+                            <class>CharacterCountDimension</class>
+                            <character>¿</character>
+                            <description>Number of open question symbol</description>
+                        </dimension>
+                        <dimension>
+                            <key>stylometry-punctuation-symbols-open-exclamation</key>
+                            <class>CharacterCountDimension</class>
+                            <character>¡</character>
+                            <description>Number of open exclamation symbol</description>
+                        </dimension>
+
+                        
+                        <!-- Word dividers -->
+                        <dimension>
+                            <key>stylometry-punctuation-symbols-space</key>
+                            <class>CharacterCountDimension</class>
+                            <character> </character>
+                            <description>Number of spaces</description>
+                        </dimension>
+
+                        <dimension>
+                            <key>stylometry-punctuation-symbols-interdot</key>
+                            <class>CharacterCountDimension</class>
+                            <character>·</character>
+                            <description>Number of interdots</description>
+                        </dimension>
+                
+                
+                        <!-- General typography -->
+                        <dimension>
+                            <key>stylometry-punctuation-symbols-percentages</key>
+                            <class>CharacterCountDimension</class>
+                            <character>%‰‱</character>
+                            <description>Number of percentages</description>
+                        </dimension>
+                        <dimension>
+                            <key>stylometry-punctuation-symbols-ampersand</key>
+                            <class>CharacterCountDimension</class>
+                            <character>&amp;</character>
+                            <description>Number of ampersands</description>
+                        </dimension>
+                        <dimension>
+                            <key>stylometry-punctuation-symbols-at-sign</key>
+                            <class>CharacterCountDimension</class>
+                            <character>@</character>
+                            <description>Number of at sign symbols</description>
+                        </dimension>
+                        <dimension>
+                            <key>stylometry-punctuation-symbols-backslash</key>
+                            <class>CharacterCountDimension</class>
+                            <character>\</character>
+                            <description>Number of backslash symbols</description>
+                        </dimension>
+                        <dimension>
+                            <key>stylometry-punctuation-symbols-pipe</key>
+                            <class>CharacterCountDimension</class>
+                            <character>|¦</character>
+                            <description>Number of pipe symbols</description>
+                        </dimension>    
+                        <dimension>
+                            <key>stylometry-punctuation-symbols-bullet</key>
+                            <class>CharacterCountDimension</class>
+                            <character>•</character>
+                            <description>Number of bullet symbols</description>
+                        </dimension>
+                        <dimension>
+                            <key>stylometry-punctuation-symbols-caret</key>
+                            <class>CharacterCountDimension</class>
+                            <character>^^‸⁁＾</character>
+                            <description>Number of caret symbols</description>
+                        </dimension>
+                        <dimension>
+                            <key>stylometry-punctuation-symbols-degree</key>
+                            <class>CharacterCountDimension</class>
+                            <character>º</character>
+                            <description>Number of degree symbols</description>
+                        </dimension>
+                        <dimension>
+                            <key>stylometry-punctuation-symbols-ditto-mark</key>
+                            <class>CharacterCountDimension</class>
+                            <character>”</character>
+                            <description>Number of ditto marks, that expresses that the words or figures above it are to be repeated</description>
+                        </dimension>
+                        <dimension>
+                            <key>stylometry-punctuation-symbols-hash</key>
+                            <class>CharacterCountDimension</class>
+                            <character>#</character>
+                            <description>Number of hash symbols</description>
+                        </dimension>    
+                        <dimension>
+                            <key>stylometry-punctuation-symbols-numero-sign</key>
+                            <class>PatternDimension</class>
+                            <pattern><![CDATA[(№|Nº|No,|No\.|no.)]]></pattern>
+                            <description>Number of numero signs</description>
+                        </dimension>    
+                        
+                        <dimension>
+                            <key>stylometry-punctuation-symbols-pilcrow</key>
+                            <class>CharacterCountDimension</class>
+                            <character>¶</character>
+                            <description>Number of pilcrow symbol, that are typographical characters that mark the star of a paragraph</description>
+                        </dimension>
+                
+
+                        <!-- Intellectual property -->
+                        <dimension>
+                            <key>stylometry-punctuation-symbols-trademarks</key>
+                            <class>CharacterCountDimension</class>
+                            <character>©®™</character>
+                            <description>Number of copyright or trademark signs</description>
+                        </dimension> 
+
+                        
+                        <!-- Mathematical signs -->
+                        <dimension>
+                            <key>stylometry-punctuation-symbols-mathematical-signs</key>
+                            <class>CharacterCountDimension</class>
+                            <character>−-≠+×*·+÷=≈~</character>
+                            <description>Number of mathematical signs</description>
+                        </dimension>
+                        
+
+                        <!-- Line breaks -->
+                        <dimension>
+                            <key>stylometry-punctuation-symbols-line-breaks</key>
+                            <class>PatternDimension</class>
+                            <pattern><![CDATA[[\r\n]]]></pattern>
+                            <separator>whole</separator>
+                            <useoriginalinput>true</useoriginalinput>
+                            <description>Number of line breaks</description>
+                        </dimension>
+                        
+                    </dimensions>
+                </dimension>
+            </dimensions>
+        </dimension>
+        
+        
+        <!-- Lexical -->
+        <dimension>
+            <key>lexical</key>
+            <dimensions>
+            
+                <dimension>
+                    <key>lexical-locations</key>
+                    <class>NERTaggingTag</class>
+                    <tag>PER</tag>
+                    <description>Percentage of words of related to locations</description>
+                </dimension>
+                
+                <dimension>
+                    <key>lexical-organisations</key>
+                    <class>NERTaggingTag</class>
+                    <tag>ORG</tag>
+                    <description>Percentage of words of related to organisations</description>
+                </dimension>
+                
+                <dimension>
+                    <key>lexical-persons</key>
+                    <class>NERTaggingTag</class>
+                    <tag>PER</tag>
+                    <description>Percentage of words of related to persons</description>
+                </dimension>
+                
+                <dimension>
+                    <key>lexical-others</key>
+                    <class>NERTaggingTag</class>
+                    <tag>MISC</tag>
+                    <description>Percentage of words of related to other named entities</description>
+                </dimension>
+            
+                <dimension>
+                    <key>lexical-animals</key>
+                    <class>WordPerDictionary</class>
+                    <dictionary>animals</dictionary>
+                    <description>Percentage of words of related to animals</description>
+                </dimension>
+                
+                <dimension>
+                    <key>lexical-weapons</key>
+                    <class>WordPerDictionary</class>
+                    <dictionary>weapons</dictionary>
+                    <description>Percentage of words of related to weapons</description>
+                </dimension>
+                
+                <dimension>
+                    <key>lexical-food</key>
+                    <class>WordPerDictionary</class>
+                    <dictionary>food</dictionary>
+                    <description>Percentage of words of related to food</description>
+                </dimension>
+                
+                <dimension>
+                    <key>lexical-jobs</key>
+                    <class>WordPerDictionary</class>
+                    <dictionary>jobs</dictionary>
+                    <description>Percentage of words of related to jobs</description>
+                </dimension>
+                
+                <dimension>
+                    <key>lexical-crime</key>
+                    <class>WordPerDictionary</class>
+                    <dictionary>crime</dictionary>
+                    <description>Percentage of words of related to crime</description>
+                </dimension>
+                
+                <dimension>
+                    <key>lexical-personal-money</key>
+                    <class>WordPerDictionary</class>
+                    <dictionary>money</dictionary>
+                    <description>Percentage of words of related to money</description>
+                </dimension>
+                
+                <dimension>
+                    <key>lexical-personal-religion</key>
+                    <class>WordPerDictionary</class>
+                    <dictionary>religion</dictionary>
+                    <description>Percentage of words of related to religion</description>
+                </dimension>
+                
+                <dimension>
+                    <key>lexical-personal-work</key>
+                    <class>WordPerDictionary</class>
+                    <dictionary>work</dictionary>
+                    <description>Percentage of words of related to work</description>
+                </dimension>
+                
+                <dimension>
+                    <key>lexical-clothes</key>
+                    <class>WordPerDictionary</class>
+                    <dictionary>clothes</dictionary>
+                    <description>Percentage of words of related to clothes</description>
+                </dimension>
+                
+                <dimension>
+                    <key>lexical-body</key>
+                    <class>WordPerDictionary</class>
+                    <dictionary>body</dictionary>
+                    <description>Percentage of words of related to the body</description>
+                </dimension>
+                
+                <dimension>
+                    <key>lexical-body-male-genitalia</key>
+                    <class>WordPerDictionary</class>
+                    <dictionary>misogyny-male-genitalia</dictionary>
+                    <description>Percentage of words of related to male genitalia</description>
+                </dimension>
+                
+                <dimension>
+                    <key>lexical-body-female-genitalia</key>
+                    <class>WordPerDictionary</class>
+                    <dictionary>misogyny-female-genitalia</dictionary>
+                    <description>Percentage of words of related to female genitalia</description>
+                </dimension>
+                
+                <dimension>
+                    <key>lexical-health</key>
+                    <class>WordPerDictionary</class>
+                    <dictionary>health</dictionary>
+                    <description>Percentage of words of related to health</description>
+                </dimension>
+                
+                <dimension>
+                    <key>lexical-ingesting</key>
+                    <class>WordPerDictionary</class>
+                    <dictionary>ingesting</dictionary>
+                    <description>Percentage of words of related to ingesting food and drinks</description>
+                </dimension>
+                
+                <dimension>
+                    <key>lexical-sex</key>
+                    <class>WordPerDictionary</class>
+                    <dictionary>sex</dictionary>
+                    <description>Percentage of words of related to sex</description>
+                </dimension>
+
+                <dimension>
+                    <key>lexical-death</key>
+                    <class>WordPerDictionary</class>
+                    <dictionary>death</dictionary>
+                    <description>Percentage of words of related to death</description>
+                </dimension>
+                
+                <dimension>
+                    <key>lexical-home</key>
+                    <class>WordPerDictionary</class>
+                    <dictionary>home</dictionary>
+                    <description>Percentage of words of related to home</description>
+                </dimension>
+                
+                
+                <!-- Social -->
+                <dimension>
+                    <key>lexical-social</key>
+                    
+                    <dimensions>
+                    
+                        <dimension>
+                            <key>lexical-social-inclusive</key>
+                            <class>WordPerDictionary</class>
+                            <dictionary>words-inclusive</dictionary>
+                            <description>Percentage of words of inclusive language</description>
+                        </dimension>
+                        
+                        <dimension>
+                            <key>lexical-social-analytic</key>
+                            <class>WordPerDictionary</class>
+                            <dictionary>analytic</dictionary>
+                            <description>Percentage of words and expresions related to analytic thinking</description>
+                        </dimension>
+                        
+                        <dimension>
+                            <key>lexical-social-affiliation</key>
+                            <class>WordPerDictionary</class>
+                            <dictionary>affiliation</dictionary>
+                            <description>Percentage of words and expresions related to affiliation</description>
+                        </dimension>
+                        
+                        <dimension>
+                            <key>lexical-social-achievement</key>
+                            <class>WordPerDictionary</class>
+                            <dictionary>achievement</dictionary>
+                            <description>Percentage of words and expresions related to achievement</description>
+                        </dimension>
+                        
+                        <dimension>
+                            <key>lexical-social-risk</key>
+                            <class>WordPerDictionary</class>
+                            <dictionary>risk</dictionary>
+                            <description>Percentage of words and expresions related to risk</description>
+                        </dimension>
+                        
+                        <dimension>
+                            <key>lexical-social-social-family</key>
+                            <class>WordPerDictionary</class>
+                            <dictionary>family</dictionary>
+                            <description>Percentage of words and expresions related to family</description>
+                        </dimension>
+                        
+                        <dimension>
+                            <key>lexical-social-friendship</key>
+                            <class>WordPerDictionary</class>
+                            <dictionary>friendship</dictionary>
+                            <description>Percentage of words and expresions related to friendship</description>
+                        </dimension>
+                        
+                        <dimension>
+                            <key>lexical-social-social-female</key>
+                            <class>WordPerDictionary</class>
+                            <dictionary>female</dictionary>
+                            <description>Percentage of words and expresions related to social female groups and individuals</description>
+                        </dimension>
+                        
+                        <dimension>
+                            <key>lexical-social-social-male</key>
+                            <class>WordPerDictionary</class>
+                            <dictionary>male</dictionary>
+                            <description>Percentage of words and expresions related to social male groups and individuals</description>
+                        </dimension>
+                        
+                        
+                        <!-- Cognitive process -->
+                        <dimension>
+                            <key>lexical-social-cognitive</key>
+                            <strategy>CompositeStrategyAvg</strategy>
+                            <class>CompositeDimension</class>
+                            <description>Percentage of words and expresions related to cognitive processes</description>
+                            <dimensions>
+                                <dimension>
+                                    <key>lexical-social-cognitive-insight</key>
+                                    <class>WordPerDictionary</class>
+                                    <dictionary>insight</dictionary>
+                                    <description>Percentage of words and expresions related to insights</description>
+                                </dimension>
+                                
+                                <dimension>
+                                    <key>lexical-social-cognitive-cause</key>
+                                    <class>WordPerDictionary</class>
+                                    <dictionary>cause</dictionary>
+                                    <description>Percentage of words and expresions related to causes</description>
+                                </dimension>
+                                
+                                <dimension>
+                                    <key>lexical-social-cognitive-discrepancies</key>
+                                    <class>WordPerDictionary</class>
+                                    <dictionary>discrepancies</dictionary>
+                                    <description>Percentage of words and expresions related to discrepancies</description>
+                                </dimension>
+                                
+                                <dimension>
+                                    <key>lexical-social-cognitive-tentativeness</key>
+                                    <class>WordPerDictionary</class>
+                                    <dictionary>tentativeness</dictionary>
+                                    <description>Percentage of words and expresions related to tentativeness</description>
+                                </dimension>
+                                
+                                <dimension>
+                                    <key>lexical-social-cognitive-certainty</key>
+                                    <class>WordPerDictionary</class>
+                                    <dictionary>certainty</dictionary>
+                                    <description>Percentage of words and expresions related to certainty</description>
+                                </dimension>
+                            </dimensions>
+                        </dimension>
+                        
+                        
+                        <dimension>
+                            <key>lexical-social-perceptual-processes</key>
+                            <class>CompositeDimension</class>
+                            <strategy>CompositeStrategyAvg</strategy>
+                            <description>Percentage of words and expresions related to feelings and perceptions</description>
+                            <dimensions>
+                                <dimension>
+                                    <key>lexical-social-perceptual-explore</key>
+                                    <class>WordPerDictionary</class>
+                                    <dictionary>exploration</dictionary>
+                                    <description>Percentage of words and expresions related to explore and adventure</description>
+                                </dimension>
+                                
+                               <dimension>
+                                    <key>lexical-social-perceptual-surprise</key>
+                                    <class>WordPerDictionary</class>
+                                    <dictionary>surprise</dictionary>
+                                    <description>Percentage of words and expresions related to surprise</description>
+                                </dimension>
+                                
+                                <dimension>
+                                    <key>lexical-social-perceptual-feel</key>
+                                    <class>WordPerDictionary</class>
+                                    <dictionary>feel</dictionary>
+                                    <description>Percentage of words and expresions related to the sense of feeling</description>
+                                </dimension>
+                                
+                                <dimension>
+                                    <key>lexical-social-perceptual-hear</key>
+                                    <class>WordPerDictionary</class>
+                                    <dictionary>hear</dictionary>
+                                    <description>Percentage of words and expresions related to the sense of hearing</description>
+                                </dimension>
+                                
+                                <dimension>
+                                    <key>lexical-social-perceptual-see</key>
+                                    <class>WordPerDictionary</class>
+                                    <dictionary>see</dictionary>
+                                    <description>Percentage of words and expresions related to the sense of seeing</description>
+                                </dimension>
+                            </dimensions>
+                        </dimension>
+
+                        
+                        <dimension>
+                            <key>lexical-social-relativity</key>
+                            <strategy>CompositeStrategyAvg</strategy>
+                            <description>Percentage of words and expresions related to relative processes</description>
+                        
+                            <dimensions>
+                                <dimension>
+                                    <key>lexical-social-relativity-movement</key>
+                                    <class>WordPerDictionary</class>
+                                    <dictionary>movement</dictionary>
+                                    <description>Percentage of words and expresions related to movement</description>
+                                </dimension>
+                                
+                                <dimension>
+                                    <key>lexical-social-relativity-space</key>
+                                    <class>WordPerDictionary</class>
+                                    <dictionary>space</dictionary>
+                                    <description>Percentage of words and expresions related to space</description>
+                                </dimension>
+                                
+                                <dimension>
+                                    <key>lexical-social-relativity-time</key>
+                                    <class>WordPerDictionary</class>
+                                    <dictionary>time</dictionary>
+                                    <description>Percentage of words and expresions related to time</description>
+                                </dimension>
+                                
+                            </dimensions>
+                        </dimension>
+                    </dimensions>
+                </dimension>
+            </dimensions>
+        </dimension>
+        
+        
+        <!-- Psycholinguistic Processes -->
+        <dimension>
+            <key>psycholinguistic-processes</key>
+            <strategy>CompositeStrategyAvg</strategy>
+            <class>CompositeDimension</class>
+            <description>Average of psycholinguistic processes</description>
+            <dimensions>
+                <dimension>
+                    <key>psycholinguistic-processes-positive</key>
+                    <description>Percentage of positive emotions</description>
+                    <class>CompositeDimension</class>
+                    <strategy>CompositeStrategyMax</strategy>
+                    <dimensions>
+                        <dimension>
+                            <key>psycholinguistic-processes-positive-general</key>
+                            <description>Percentage of positive emotions</description>
+                            <class>WordPerDictionary</class>
+                            <dictionary>positive</dictionary>
+                        </dimension>
+                        
+                        <dimension>
+                            <key>psycholinguistic-processes-positive-pleasure</key>
+                            <class>WordPerDictionary</class>
+                            <dictionary>pleasure</dictionary>
+                            <description>Percentage of positive emotions</description>
+                        </dimension>
+                        
+                        <dimension>
+                            <key>psycholinguistic-processes-positive-emoticons</key>
+                            <description>Percentage of positive emotions</description>
+                            <class>WordPerDictionary</class>
+                            <dictionary>positive-emoticons</dictionary>
+                        </dimension>
+                    </dimensions>
+                    
+                </dimension>
+            
+                <dimension>
+                    <key>psycholinguistic-processes-negative</key>
+                    <class>CompositeDimension</class>
+                    <strategy>CompositeStrategyMax</strategy>
+                    <description>Percentage of words related with negative psycholinguistic processes</description>
+                    <dimensions>
+                        <dimension>
+                            <key>psycholinguistic-processes-negative-general</key>
+                            <description>Percentage of words related with negative feelings</description>
+                            <class>WordPerDictionary</class>
+                            <dictionary>negative</dictionary>
+                        </dimension>
+                        
+                        <dimension>
+                            <key>psycholinguistic-processes-negative-anxiety</key>
+                            <description>Percentage of words related with anxiety</description>
+                            <class>WordPerDictionary</class>
+                            <dictionary>anxiety</dictionary>
+                        </dimension>
+                        
+                        <dimension>
+                            <key>psycholinguistic-processes-negative-anger</key>
+                            <description>Percentage of words related with anger</description>
+                            <class>WordPerDictionary</class>
+                            <dictionary>anger</dictionary>
+                        </dimension>
+
+                        <dimension>
+                            <key>psycholinguistic-processes-negative-sad</key>
+                            <description>Percentage of words related with sadness</description>
+                            <class>WordPerDictionary</class>
+                            <dictionary>sad</dictionary>
+                        </dimension>
+                        
+                        <dimension>
+                            <key>psycholinguistic-processes-negative-emoticons</key>
+                            <description>Percentage of negative emotions</description>
+                            <class>WordPerDictionary</class>
+                            <dictionary>negative-emoticons</dictionary>
+                        </dimension>
+                    </dimensions>
+                </dimension>
+            </dimensions>
+        </dimension>
+        
+        
+        <!-- Register -->
+        <dimension>
+            <key>register</key>
+            
+            <dimensions>
+                
+                <!-- Offensive language -->
+                <dimension>
+                    <key>register-offensive-speech</key>
+                    <strategy>CompositeStrategyAvg</strategy>
+                    <dimensions>
+                        <dimension>
+                            <key>register-offensive-speech</key>
+                            <description>Percentage of words related with offenses</description>
+                            <class>WordPerDictionary</class>
+                            <dictionary>offensive</dictionary>
+                        </dimension>
+                        <dimension>
+                            <key>register-offensive-speech-soft</key>
+                            <description>Percentage of words related with soft offenses</description>
+                            <class>WordPerDictionary</class>
+                            <dictionary>offensive_soft</dictionary>
+                        </dimension>
+                        <dimension>
+                            <key>register-offensive-speech-strong</key>
+                            <description>Percentage of words related with strong offenses</description>
+                            <class>WordPerDictionary</class>
+                            <dictionary>offensive_strong</dictionary>
+                        </dimension>
+                    </dimensions>
+                </dimension>
+                
+            
+                <!-- Informal speech -->
+                <dimension>
+                    <key>register-informal-speech</key>
+                    <strategy>CompositeStrategyAvg</strategy>
+                    <description>Average of expressions related to informal speech</description>
+                    <dimensions>
+                        <dimension>
+                            <key>register-informal-speech-assent</key>
+                            <class>WordPerDictionary</class>
+                            <dictionary>assent</dictionary>
+                            <description>Expressions related to expressions of approval or agreement.</description>
+                        </dimension>
+                        <dimension>
+                            <key>register-informal-speech-nonfluencies</key>
+                            <class>WordPerDictionary</class>
+                            <dictionary>non-fluent-texts</dictionary>
+                            <description>Percentage of non-fluent words and expressions.</description>
+                        </dimension>
+                        <dimension>
+                            <key>register-informal-speech-swear</key>
+                            <class>WordPerDictionary</class>
+                            <dictionary>swear</dictionary>
+                            <description>Percentage of swear words and expressions.</description>
+                        </dimension>
+                        <dimension>
+                            <key>register-informal-speech-colloquialisms</key>
+                            <class>WordPerDictionary</class>
+                            <dictionary>colloquialisms</dictionary>
+                            <description>Percentage of colloquialisms.</description>
+                        </dimension>
+                        <dimension>
+                            <key>register-informal-speech-sms</key>
+                            <class>WordPerDictionary</class>
+                            <dictionary>sms</dictionary>
+                            <useoriginalinput>true</useoriginalinput>
+                            <description>Percentage of informal speech with a style of short messages on the Internet</description>
+                        </dimension>
+                        
+                    </dimensions>
+                </dimension>
+                <dimension>
+                    <key>register-polite-language-cultisms</key>
+                    <title>cultisms</title>
+                    <description>Percentage of cultism</description>
+                    <class>WordPerDictionary</class>
+                    <dictionary>polite-language-cultisms</dictionary>
+                </dimension>
+                <dimension>
+                    <key>register-polite-language-latinisms</key>
+                    <title>latinisms</title>
+                    <class>WordPerDictionary</class>
+                    <description>Percentage of latinisms</description>
+                    <dictionary>polite-language-latinisms</dictionary>
+                </dimension>
+        
+            </dimensions>
+        </dimension>
+        <!-- End of register -->
+
+
+        <!-- Social media dimension -->
+        <dimension>
+            <key>social-media</key>
+            
+            <dimensions>
+                <dimension>
+                    <key>social-media-hashtags</key>
+                    <class>PatternDimension</class>
+                    <pattern><![CDATA[(\s|\A)#(\p{L}+)]]></pattern>
+                    <useoriginalinput>true</useoriginalinput>
+                    <separator>by-word</separator>
+                    <percentage>false</percentage>
+                    <description>Number of hashtags</description>
+                </dimension>
+                
+                <dimension>
+                    <key>social-media-mentions</key>
+                    <class>PatternDimension</class>
+                    <pattern><![CDATA[(\s|\A)@([\p{L}\p{N}]+)]]></pattern>
+                    <useoriginalinput>true</useoriginalinput>
+                    <percentage>false</percentage>
+                    <description>Number of mentions</description>
+                </dimension>
+                
+                
+                <dimension>
+                    <key>social-media-mentions-in-the-middle</key>
+                    <class>PatternDimension</class>
+                    <pattern><![CDATA[(?<!^)(\s|\A)@([\p{L}\p{N}]+)]]></pattern>
+                    <useoriginalinput>true</useoriginalinput>
+                    <percentage>false</percentage>
+                    <separator>whole</separator>
+                    <description>Number of mentions in the middle of the text</description>
+                </dimension>
+                
+                <dimension>
+                    <key>social-media-urls</key>
+                    <class>PatternDimension</class>
+                    <pattern>http</pattern>
+                    <useoriginalinput>true</useoriginalinput>
+                    <percentage>false</percentage>
+                    <description>Number of hyperlinks</description>
+                </dimension>
+                
+                <dimension>
+                    <key>social-media-jargon</key>
+                    <class>WordPerDictionary</class>
+                    <disabledregexp>true</disabledregexp>
+                    <useoriginalinput>true</useoriginalinput>
+                    <description>Number of hyperlinks</description>
+                </dimension>
+                
+                <dimension>
+                    <key>social-media-emoticons</key>
+                    <class>POSTaggingTag</class>
+                    <percentage>false</percentage>
+                    <tag>word</tag>
+                    <description>Number of emoticons</description>
+                </dimension>
+                
+                <dimension>
+                    <key>social-media-reply-female</key>
+                    <class>TwitterReplyToDimension</class>
+                    <dictionary>named-entities-female-names</dictionary>
+                    <description>Number of replies directed to a female name account</description>
+                </dimension>
+                
+                <dimension>
+                    <key>social-media-reply-male</key>
+                    <class>TwitterReplyToDimension</class>
+                    <dictionary>named-entities-male-names</dictionary>
+                    <description>Number of replies directed to a male name account</description>
+                </dimension>
+                
+            </dimensions>
+        </dimension>
+        <!-- End of twitter dimension -->
+        
+
+    </dimensions>
+</configuration>

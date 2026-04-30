@@ -1,5 +1,3 @@
-# src/umutextstats/nlp/__init__.py
-
 from umutextstats.cache import CacheManager
 from umutextstats.nlp.stanza_annotator import (
     StanzaAnnotator,
@@ -19,19 +17,18 @@ def annotate_dataframe_with_stanza(
     use_cache: bool = True,
     cache: CacheManager | None = None,
 ):
-    annotator = annotator or StanzaAnnotator()
     cache = cache or CacheManager()
 
     params = {
         "input_column": input_column,
         "pos_column": pos_column,
         "ner_column": ner_column,
-        "lang": annotator.lang,
-        "processors": annotator.processors,
-        "use_gpu": annotator.use_gpu,
-        "pos_batch_size": annotator.pos_batch_size,
-        "ner_batch_size": annotator.ner_batch_size,
-        "batch_size_docs": annotator.batch_size_docs,
+        "lang": annotator.lang if annotator else StanzaAnnotator.lang,
+        "processors": annotator.processors if annotator else StanzaAnnotator.processors,
+        "use_gpu": annotator.use_gpu if annotator else StanzaAnnotator.use_gpu,
+        "pos_batch_size": annotator.pos_batch_size if annotator else StanzaAnnotator.pos_batch_size,
+        "ner_batch_size": annotator.ner_batch_size if annotator else StanzaAnnotator.ner_batch_size,
+        "batch_size_docs": annotator.batch_size_docs if annotator else StanzaAnnotator.batch_size_docs,
     }
 
     key = cache.build_key(input_path, "stanza", params)
@@ -40,6 +37,9 @@ def annotate_dataframe_with_stanza(
         cached = cache.load("stanza", key)
         if cached is not None:
             return cached
+
+    # Lazy initialization: Stanza only loads if cache is missing
+    annotator = annotator or StanzaAnnotator()
 
     df = annotator.annotate_dataframe(
         df,
