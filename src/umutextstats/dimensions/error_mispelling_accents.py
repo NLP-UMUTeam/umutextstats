@@ -1,7 +1,9 @@
+# src/umutextstats/dimensions/error_mispelling_accents.py
+
 from umutextstats.dimensions.base import BaseDimension
 from umutextstats.dimensions.enclitics_personal_pronouns import remove_accents
 from umutextstats.dimensions.word_count import WORD_REGEX
-from umutextstats.utils.spellchecker_cache import get_cached_spellchecker
+from umutextstats.utils.accent_map import load_accent_map
 
 
 class ErrorMispellingAccentsDimension(BaseDimension):
@@ -10,23 +12,14 @@ class ErrorMispellingAccentsDimension(BaseDimension):
         key: str,
         input_column: str = "text_norm",
         language: str = "es",
-        missing_value: float | str = "",
+        accent_map_path: str | None = None,
+        percentage: bool = True,
     ):
         super().__init__(key=key, input_column=input_column)
-        self.missing_value = missing_value
-
-        try:
-            from spellchecker import SpellChecker
-        except ImportError:
-            self.spellchecker = None
-            return
-
-        self.spellchecker = get_cached_spellchecker(language)
+        self.percentage = percentage
+        self.accent_map = load_accent_map(language=language, path=accent_map_path)
 
     def compute(self, df):
-        if not self.spellchecker.available():
-            return [self.missing_value] * len(df)
-
         return (
             df[self.input_column]
             .fillna("")
@@ -35,23 +28,23 @@ class ErrorMispellingAccentsDimension(BaseDimension):
         )
 
     def _compute_text(self, text: str) -> float:
-        words = WORD_REGEX.findall(text.lower())
+        words = [word.lower() for word in WORD_REGEX.findall(text)]
 
         if not words:
             return 0.0
 
-        occurrences = 0
+        occurrences = sum(1 for word in words if self._is_accent_error(word))
 
-        for word in words:
-            if self.spellchecker.is_known(word):
-                continue
-
-            suggestion = self.spellchecker.correction(word)
-
-            if not suggestion:
-                continue
-
-            if remove_accents(word) == remove_accents(suggestion):
-                occurrences += 1
+        if not self.percentage:
+            return occurrences
 
         return (100 * occurrences) / len(words)
+
+    def _is_accent_error(self, word: str) -> bool:
+        # Si ya tiene tilde, no lo contamos como error de tilde omitida.
+        plain = remove_accents(word)
+
+        if plain != word:
+            return False
+
+        return word in self.accent_map

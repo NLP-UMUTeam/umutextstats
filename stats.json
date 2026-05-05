@@ -3,2793 +3,2793 @@
     "stage":"io",
     "name":"read_input",
     "status":"ok",
-    "seconds":0.0106179789,
+    "seconds":0.0109695084,
     "class_name":null
   },
   {
     "stage":"preprocessing",
     "name":"normalize",
     "status":"ok",
-    "seconds":0.0164174847,
+    "seconds":0.0509572029,
     "class_name":null
   },
   {
     "stage":"common",
     "name":"features",
     "status":"ok",
-    "seconds":0.0129225664,
+    "seconds":0.0129062347,
     "class_name":null
   },
   {
     "stage":"nlp",
     "name":"stanza",
     "status":"ok",
-    "seconds":0.0211291984,
+    "seconds":0.014228873,
     "class_name":null
   },
   {
     "stage":"dimension",
     "name":"phonetics-expressive-lengthening",
     "status":"ok",
-    "seconds":0.0325249992,
+    "seconds":0.029010281,
     "class_name":"PatternDimension"
   },
   {
     "stage":"dimension",
     "name":"phonetics",
     "status":"ok",
-    "seconds":0.0333456621,
+    "seconds":0.0298914686,
     "class_name":"CompositeDimension"
   },
   {
     "stage":"dimension",
     "name":"morphosyntax-gender-words-feminine",
     "status":"ok",
-    "seconds":0.1289597414,
+    "seconds":0.1338314228,
     "class_name":"POSTaggingTag"
   },
   {
     "stage":"dimension",
     "name":"morphosyntax-gender-words-masculine",
     "status":"ok",
-    "seconds":0.1287736148,
+    "seconds":0.1333832517,
     "class_name":"POSTaggingTag"
   },
   {
     "stage":"dimension",
     "name":"morphosyntax-gender-words-neutral",
     "status":"ok",
-    "seconds":0.1289177127,
+    "seconds":0.1332642026,
     "class_name":"POSTaggingTag"
   },
   {
     "stage":"dimension",
     "name":"morphosyntax-gender-words-common",
     "status":"ok",
-    "seconds":0.128257148,
+    "seconds":0.1317601502,
     "class_name":"POSTaggingTag"
   },
   {
     "stage":"dimension",
     "name":"morphosyntax-gender",
     "status":"ok",
-    "seconds":0.5161249824,
+    "seconds":0.5335477479,
     "class_name":""
   },
   {
     "stage":"dimension",
     "name":"morphosyntax-number-singular",
     "status":"ok",
-    "seconds":0.1294874214,
+    "seconds":0.1331301294,
     "class_name":"POSTaggingTag"
   },
   {
     "stage":"dimension",
     "name":"morphosyntax-number-plural",
     "status":"ok",
-    "seconds":0.1285783537,
+    "seconds":0.1339228936,
     "class_name":"POSTaggingTag"
   },
   {
     "stage":"dimension",
     "name":"morphosyntax-number",
     "status":"ok",
-    "seconds":0.2589023039,
+    "seconds":0.2680565417,
     "class_name":""
   },
   {
     "stage":"dimension",
     "name":"morphosyntax-affixes-suffixes-nominals",
     "status":"ok",
-    "seconds":0.6367520355,
+    "seconds":0.6290592216,
     "class_name":"WordPerDictionary"
   },
   {
     "stage":"dimension",
     "name":"morphosyntax-affixes-suffixes-adjectivizers",
     "status":"ok",
-    "seconds":0.1317656115,
+    "seconds":0.1302559599,
     "class_name":"WordPerDictionary"
   },
   {
     "stage":"dimension",
     "name":"morphosyntax-affixes-suffixes-verbalizers",
     "status":"ok",
-    "seconds":0.0402060263,
+    "seconds":0.0381492525,
     "class_name":"WordPerDictionary"
   },
   {
     "stage":"dimension",
     "name":"morphosyntax-affixes-suffixes-adverbializers",
     "status":"ok",
-    "seconds":0.0271382779,
+    "seconds":0.0260675475,
     "class_name":"WordPerDictionary"
   },
   {
     "stage":"dimension",
     "name":"morphosyntax-affixes-suffixes-augmentative",
     "status":"ok",
-    "seconds":0.0807638243,
+    "seconds":0.0798605271,
     "class_name":"WordPerDictionary"
   },
   {
     "stage":"dimension",
     "name":"morphosyntax-affixes-suffixes-diminutives",
     "status":"ok",
-    "seconds":0.1068191081,
+    "seconds":0.1043908894,
     "class_name":"WordPerDictionary"
   },
   {
     "stage":"dimension",
     "name":"morphosyntax-affixes-suffixes-despective",
     "status":"ok",
-    "seconds":0.0907575861,
+    "seconds":0.0888789222,
     "class_name":"WordPerDictionary"
   },
   {
     "stage":"dimension",
     "name":"morphosyntax-affixes-suffixes",
     "status":"ok",
-    "seconds":1.1155956723,
+    "seconds":1.0981902257,
     "class_name":"CompositeDimension"
   },
   {
     "stage":"dimension",
     "name":"morphosyntax-affixes-prefixes",
     "status":"ok",
-    "seconds":0.1235624179,
+    "seconds":0.1239110306,
     "class_name":"WordPerDictionary"
   },
   {
     "stage":"dimension",
     "name":"morphosyntax-affixes",
     "status":"ok",
-    "seconds":1.2399883308,
+    "seconds":1.2229862958,
     "class_name":""
   },
   {
     "stage":"dimension",
     "name":"morphosyntax-morphology-nouns-common",
     "status":"ok",
-    "seconds":0.1282440387,
+    "seconds":0.1357455552,
     "class_name":"POSTaggingTag"
   },
   {
     "stage":"dimension",
     "name":"morphosyntax-morphology-nouns-proper",
     "status":"ok",
-    "seconds":0.1284297183,
+    "seconds":0.1348347664,
     "class_name":"POSTaggingTag"
   },
   {
     "stage":"dimension",
     "name":"morphosyntax-morphology-nouns-male",
     "status":"ok",
-    "seconds":2.1781651117,
+    "seconds":2.1858403869,
     "class_name":"WordPerDictionary"
   },
   {
     "stage":"dimension",
     "name":"morphosyntax-morphology-nouns-female",
     "status":"ok",
-    "seconds":2.3961787373,
+    "seconds":2.4043943733,
     "class_name":"WordPerDictionary"
   },
   {
     "stage":"dimension",
     "name":"morphosyntax-morphology-nouns-dates-ymd",
     "status":"ok",
-    "seconds":0.00706378,
+    "seconds":0.0071739294,
     "class_name":"PatternDimension"
   },
   {
     "stage":"dimension",
     "name":"morphosyntax-morphology-nouns-dates-dmt",
     "status":"ok",
-    "seconds":0.0106369369,
+    "seconds":0.0108504221,
     "class_name":"PatternDimension"
   },
   {
     "stage":"dimension",
     "name":"morphosyntax-morphology-nouns-dates-mdy",
     "status":"ok",
-    "seconds":0.0044674091,
+    "seconds":0.0047120266,
     "class_name":"PatternDimension"
   },
   {
     "stage":"dimension",
     "name":"morphosyntax-morphology-nouns-dates-textual-short",
     "status":"ok",
-    "seconds":0.006762974,
+    "seconds":0.0069207512,
     "class_name":"PatternDimension"
   },
   {
     "stage":"dimension",
     "name":"morphosyntax-morphology-nouns-dates-textual-long",
     "status":"ok",
-    "seconds":0.008281406,
+    "seconds":0.0082396977,
     "class_name":"PatternDimension"
   },
   {
     "stage":"dimension",
     "name":"morphosyntax-morphology-nouns-dates-textual-days",
     "status":"ok",
-    "seconds":0.0131654069,
+    "seconds":0.0128947422,
     "class_name":"PatternDimension"
   },
   {
     "stage":"dimension",
     "name":"morphosyntax-morphology-nouns-dates",
     "status":"ok",
-    "seconds":0.0516843237,
+    "seconds":0.0520918518,
     "class_name":"CompositeDimension"
   },
   {
     "stage":"dimension",
     "name":"morphosyntax-morphology-nouns-numerals",
     "status":"ok",
-    "seconds":0.1282934472,
+    "seconds":0.1327684559,
     "class_name":"POSTaggingTag"
   },
   {
     "stage":"dimension",
     "name":"morphosyntax-morphology-nouns",
     "status":"ok",
-    "seconds":5.0125999041,
+    "seconds":5.0475009345,
     "class_name":"CompositeDimension"
   },
   {
     "stage":"dimension",
     "name":"morphosyntax-morphology-nouns-topics-capitals",
     "status":"ok",
-    "seconds":0.4247936867,
+    "seconds":0.4328115359,
     "class_name":"WordPerDictionary"
   },
   {
     "stage":"dimension",
     "name":"morphosyntax-morphology-nouns-topics-countries",
     "status":"ok",
-    "seconds":0.4777577594,
+    "seconds":0.4915941767,
     "class_name":"WordPerDictionary"
   },
   {
     "stage":"dimension",
     "name":"morphosyntax-morphology-nouns-topics-demonyms",
     "status":"ok",
-    "seconds":0.9855210632,
+    "seconds":0.995557148,
     "class_name":"WordPerDictionary"
   },
   {
     "stage":"dimension",
     "name":"morphosyntax-morphology-nouns-topics-languages",
     "status":"ok",
-    "seconds":0.4083012827,
+    "seconds":0.4165326469,
     "class_name":"WordPerDictionary"
   },
   {
     "stage":"dimension",
     "name":"morphosyntax-morphology-nouns-topics-honorifics",
     "status":"ok",
-    "seconds":0.0336885788,
+    "seconds":0.0328371972,
     "class_name":"WordPerDictionary"
   },
   {
     "stage":"dimension",
     "name":"morphosyntax-morphology-nouns-topics-colors",
     "status":"ok",
-    "seconds":0.1167859882,
+    "seconds":0.1190232411,
     "class_name":"WordPerDictionary"
   },
   {
     "stage":"dimension",
     "name":"morphosyntax-morphology-nouns-topics",
     "status":"ok",
-    "seconds":2.4481971078,
+    "seconds":2.48988235,
     "class_name":""
   },
   {
     "stage":"dimension",
     "name":"morphosyntax-morphology-adjectives-qualifying",
     "status":"ok",
-    "seconds":2.8496474363,
+    "seconds":2.7845692635,
     "class_name":"WordPerDictionary"
   },
   {
     "stage":"dimension",
     "name":"morphosyntax-morphology-adjectives-ordinals",
     "status":"ok",
-    "seconds":0.0239026509,
+    "seconds":0.0230520032,
     "class_name":"WordPerDictionary"
   },
   {
     "stage":"dimension",
     "name":"morphosyntax-morphology-adjectives-superlative",
     "status":"ok",
-    "seconds":0.0477883853,
+    "seconds":0.0461043268,
     "class_name":"WordPerDictionary"
   },
   {
     "stage":"dimension",
     "name":"morphosyntax-morphology-adjectives-despective",
     "status":"ok",
-    "seconds":0.1615051404,
+    "seconds":0.1631049439,
     "class_name":"WordPerDictionary"
   },
   {
     "stage":"dimension",
     "name":"morphosyntax-morphology-adjectives",
     "status":"ok",
-    "seconds":3.0854609981,
+    "seconds":3.0200526379,
     "class_name":"CompositeDimension"
   },
   {
     "stage":"dimension",
     "name":"morphosyntax-morphology-adverbs-time",
     "status":"ok",
-    "seconds":0.1295362338,
+    "seconds":0.1343613751,
     "class_name":"POSTaggingTag"
   },
   {
     "stage":"dimension",
     "name":"morphosyntax-morphology-adverbs-mode",
     "status":"ok",
-    "seconds":0.1293378025,
+    "seconds":0.1352297962,
     "class_name":"POSTaggingTag"
   },
   {
     "stage":"dimension",
     "name":"morphosyntax-morphology-adverbs-place",
     "status":"ok",
-    "seconds":0.1286537945,
+    "seconds":0.1344159991,
     "class_name":"POSTaggingTag"
   },
   {
     "stage":"dimension",
     "name":"morphosyntax-morphology-adverbs-interrogative",
     "status":"ok",
-    "seconds":0.0492067821,
+    "seconds":0.0487799607,
     "class_name":"WordPerDictionary"
   },
   {
     "stage":"dimension",
     "name":"morphosyntax-morphology-adverbs-cause",
     "status":"ok",
-    "seconds":0.1284936182,
+    "seconds":0.1337336674,
     "class_name":"POSTaggingTag"
   },
   {
     "stage":"dimension",
     "name":"morphosyntax-morphology-adverbs-doubt-or-desire",
     "status":"ok",
-    "seconds":0.0456342511,
+    "seconds":0.0442801565,
     "class_name":"WordPerDictionary"
   },
   {
     "stage":"dimension",
     "name":"morphosyntax-morphology-adverbs-negation",
     "status":"ok",
-    "seconds":0.0563573278,
+    "seconds":0.0555409342,
     "class_name":"WordPerDictionary"
   },
   {
     "stage":"dimension",
     "name":"morphosyntax-morphology-adverbs-affirmation",
     "status":"ok",
-    "seconds":0.0485625006,
+    "seconds":0.048670277,
     "class_name":"WordPerDictionary"
   },
   {
     "stage":"dimension",
     "name":"morphosyntax-morphology-adverbs-quantity",
     "status":"ok",
-    "seconds":0.130774837,
+    "seconds":0.1343542151,
     "class_name":"POSTaggingTag"
   },
   {
     "stage":"dimension",
     "name":"morphosyntax-morphology-adverbs-others",
     "status":"ok",
-    "seconds":0.0529025793,
+    "seconds":0.052612707,
     "class_name":"WordPerDictionary"
   },
   {
     "stage":"dimension",
     "name":"morphosyntax-morphology-adverbs",
     "status":"ok",
-    "seconds":0.9012323394,
+    "seconds":0.9237934984,
     "class_name":"CompositeDimension"
   },
   {
     "stage":"dimension",
     "name":"morphosyntax-morphology-determiners-articles",
     "status":"ok",
-    "seconds":0.1333412006,
+    "seconds":0.1348969787,
     "class_name":"POSTaggingTag"
   },
   {
     "stage":"dimension",
     "name":"morphosyntax-morphology-determiners-demostrative",
     "status":"ok",
-    "seconds":0.1331325807,
+    "seconds":0.1338933222,
     "class_name":"POSTaggingTag"
   },
   {
     "stage":"dimension",
     "name":"morphosyntax-morphology-determiners-emphatic",
     "status":"ok",
-    "seconds":0.1329212785,
+    "seconds":0.1329286881,
     "class_name":"POSTaggingTag"
   },
   {
     "stage":"dimension",
     "name":"morphosyntax-morphology-determiners-possessive",
     "status":"ok",
-    "seconds":0.1325121559,
+    "seconds":0.1322915517,
     "class_name":"POSTaggingTag"
   },
   {
     "stage":"dimension",
     "name":"morphosyntax-morphology-determiners-indefinite",
     "status":"ok",
-    "seconds":0.1325180046,
+    "seconds":0.1325796656,
     "class_name":"POSTaggingTag"
   },
   {
     "stage":"dimension",
     "name":"morphosyntax-morphology-determiners-exclamatory",
     "status":"ok",
-    "seconds":0.1327774562,
+    "seconds":0.1328063272,
     "class_name":"POSTaggingTag"
   },
   {
     "stage":"dimension",
     "name":"morphosyntax-morphology-determiners-interrogative",
     "status":"ok",
-    "seconds":0.1342434734,
+    "seconds":0.1323131733,
     "class_name":"POSTaggingTag"
   },
   {
     "stage":"dimension",
     "name":"morphosyntax-morphology-determiners-negative",
     "status":"ok",
-    "seconds":0.1333294809,
+    "seconds":0.1329855509,
     "class_name":"POSTaggingTag"
   },
   {
     "stage":"dimension",
     "name":"morphosyntax-morphology-determiners-reciprocal",
     "status":"ok",
-    "seconds":0.1333221905,
+    "seconds":0.1324957535,
     "class_name":"POSTaggingTag"
   },
   {
     "stage":"dimension",
     "name":"morphosyntax-morphology-determiners-relative",
     "status":"ok",
-    "seconds":0.1329185329,
+    "seconds":0.1343063898,
     "class_name":"POSTaggingTag"
   },
   {
     "stage":"dimension",
     "name":"morphosyntax-morphology-determiners-total",
     "status":"ok",
-    "seconds":0.1329587065,
+    "seconds":0.1333759613,
     "class_name":"POSTaggingTag"
   },
   {
     "stage":"dimension",
     "name":"morphosyntax-morphology-determiners",
     "status":"ok",
-    "seconds":1.4657926932,
+    "seconds":1.4667741694,
     "class_name":"CompositeDimension"
   },
   {
     "stage":"dimension",
     "name":"morphosyntax-morphology-pronouns-personal-number-singular",
     "status":"ok",
-    "seconds":0.1329360791,
+    "seconds":0.1341247261,
     "class_name":"POSTaggingTag"
   },
   {
     "stage":"dimension",
     "name":"morphosyntax-morphology-pronouns-personal-number-plural",
     "status":"ok",
-    "seconds":0.1323762536,
+    "seconds":0.1329330876,
     "class_name":"POSTaggingTag"
   },
   {
     "stage":"dimension",
     "name":"morphosyntax-morphology-pronouns-personal-number",
     "status":"ok",
-    "seconds":0.2661858015,
+    "seconds":0.2680349015,
     "class_name":"CompositeDimension"
   },
   {
     "stage":"dimension",
     "name":"morphosyntax-morphology-pronouns-personal-person-first",
     "status":"ok",
-    "seconds":0.1319659315,
+    "seconds":0.1328556947,
     "class_name":"POSTaggingTag"
   },
   {
     "stage":"dimension",
     "name":"morphosyntax-morphology-pronouns-personal-person-second",
     "status":"ok",
-    "seconds":0.1317449249,
+    "seconds":0.1329286732,
     "class_name":"POSTaggingTag"
   },
   {
     "stage":"dimension",
     "name":"morphosyntax-morphology-pronouns-personal-person-third",
     "status":"ok",
-    "seconds":0.1314230599,
+    "seconds":0.1321349107,
     "class_name":"POSTaggingTag"
   },
   {
     "stage":"dimension",
     "name":"morphosyntax-morphology-pronouns-personal-person",
     "status":"ok",
-    "seconds":0.3960910477,
+    "seconds":0.398990199,
     "class_name":"CompositeDimension"
   },
   {
     "stage":"dimension",
     "name":"morphosyntax-morphology-pronouns-personal-gender-male",
     "status":"ok",
-    "seconds":0.0333513655,
+    "seconds":0.0321092233,
     "class_name":"WordPerDictionary"
   },
   {
     "stage":"dimension",
     "name":"morphosyntax-morphology-pronouns-personal-gender-female",
     "status":"ok",
-    "seconds":0.0318738595,
+    "seconds":0.030547075,
     "class_name":"WordPerDictionary"
   },
   {
     "stage":"dimension",
     "name":"morphosyntax-morphology-pronouns-personal-gender-neutral",
     "status":"ok",
-    "seconds":0.0516547598,
+    "seconds":0.0508563332,
     "class_name":"WordPerDictionary"
   },
   {
     "stage":"dimension",
     "name":"morphosyntax-morphology-pronouns-personal-gender",
     "status":"ok",
-    "seconds":0.1177977249,
+    "seconds":0.1144868135,
     "class_name":"CompositeDimension"
   },
   {
     "stage":"dimension",
     "name":"morphosyntax-morphology-pronouns-personal-enclitics",
     "status":"ok",
-    "seconds":0.0679588802,
+    "seconds":0.0681010038,
     "class_name":"EncliticsPersonalPronounsDictionary"
   },
   {
     "stage":"dimension",
     "name":"morphosyntax-morphology-pronouns-personal",
     "status":"ok",
-    "seconds":0.8490059599,
+    "seconds":0.8506410867,
     "class_name":"CompositeDimension"
   },
   {
     "stage":"dimension",
     "name":"morphosyntax-morphology-pronouns-impersonal",
     "status":"ok",
-    "seconds":0.0895120576,
+    "seconds":0.0888459273,
     "class_name":"WordPerDictionary"
   },
   {
     "stage":"dimension",
     "name":"morphosyntax-morphology-pronouns-indefinite",
     "status":"ok",
-    "seconds":0.132787969,
+    "seconds":0.1343338192,
     "class_name":"POSTaggingTag"
   },
   {
     "stage":"dimension",
     "name":"morphosyntax-morphology-pronouns-relative",
     "status":"ok",
-    "seconds":0.1325059161,
+    "seconds":0.1337371096,
     "class_name":"POSTaggingTag"
   },
   {
     "stage":"dimension",
     "name":"morphosyntax-morphology-pronouns-interrogative",
     "status":"ok",
-    "seconds":0.1320573725,
+    "seconds":0.1334131435,
     "class_name":"POSTaggingTag"
   },
   {
     "stage":"dimension",
     "name":"morphosyntax-morphology-pronouns-reciprocal",
     "status":"ok",
-    "seconds":0.1312099472,
+    "seconds":0.1316125467,
     "class_name":"POSTaggingTag"
   },
   {
     "stage":"dimension",
     "name":"morphosyntax-morphology-pronouns-demonstrative",
     "status":"ok",
-    "seconds":0.1311646402,
+    "seconds":0.1314676665,
     "class_name":"POSTaggingTag"
   },
   {
     "stage":"dimension",
     "name":"morphosyntax-morphology-pronouns-total",
     "status":"ok",
-    "seconds":0.1316091754,
+    "seconds":0.1318478808,
     "class_name":"POSTaggingTag"
   },
   {
     "stage":"dimension",
     "name":"morphosyntax-morphology-pronouns-negative",
     "status":"ok",
-    "seconds":0.1309941188,
+    "seconds":0.1318188459,
     "class_name":"POSTaggingTag"
   },
   {
     "stage":"dimension",
     "name":"morphosyntax-morphology-pronouns",
     "status":"ok",
-    "seconds":1.8624797724,
+    "seconds":1.8695461378,
     "class_name":"CompositeDimension"
   },
   {
     "stage":"dimension",
     "name":"morphosyntax-morphology-prepositions-individual",
     "status":"ok",
-    "seconds":0.1207993515,
+    "seconds":0.120186206,
     "class_name":"WordPerDictionary"
   },
   {
     "stage":"dimension",
     "name":"morphosyntax-morphology-prepositions-locutions",
     "status":"ok",
-    "seconds":0.1589173786,
+    "seconds":0.1606193446,
     "class_name":"WordPerDictionary"
   },
   {
     "stage":"dimension",
     "name":"morphosyntax-morphology-prepositions",
     "status":"ok",
-    "seconds":0.2805914879,
+    "seconds":0.2817013934,
     "class_name":"CompositeDimension"
   },
   {
     "stage":"dimension",
     "name":"morphosyntax-morphology-conjunctions-coordinating",
     "status":"ok",
-    "seconds":0.1311100163,
+    "seconds":0.1358389519,
     "class_name":"POSTaggingTag"
   },
   {
     "stage":"dimension",
     "name":"morphosyntax-morphology-conjunctions-subordinating",
     "status":"ok",
-    "seconds":0.1297592968,
+    "seconds":0.1342996992,
     "class_name":"POSTaggingTag"
   },
   {
     "stage":"dimension",
     "name":"morphosyntax-morphology-conjunctions",
     "status":"ok",
-    "seconds":0.2617301196,
+    "seconds":0.2712960094,
     "class_name":"CompositeDimension"
   },
   {
     "stage":"dimension",
     "name":"morphosyntax-morphology-interjections",
     "status":"ok",
-    "seconds":0.129172951,
+    "seconds":0.1337374598,
     "class_name":"POSTaggingTag"
   },
   {
     "stage":"dimension",
     "name":"morphosyntax-morphology-verbs-periphrasis-temporal-aspect-temporal-immediate-posteriority",
     "status":"ok",
-    "seconds":0.1799761802,
+    "seconds":0.1848567799,
     "class_name":"PeriphrasisDimension"
   },
   {
     "stage":"dimension",
     "name":"morphosyntax-morphology-verbs-periphrasis-temporal-aspect-temporal-recent-posteriority",
     "status":"ok",
-    "seconds":0.1792614311,
+    "seconds":0.1850373559,
     "class_name":"PeriphrasisDimension"
   },
   {
     "stage":"dimension",
     "name":"morphosyntax-morphology-verbs-periphrasis-temporal-aspect-temporal",
     "status":"ok",
-    "seconds":0.3602221981,
+    "seconds":0.3707795776,
     "class_name":"CompositeDimension"
   },
   {
     "stage":"dimension",
     "name":"morphosyntax-morphology-verbs-periphrasis-temporal-aspect-temporal-habit",
     "status":"ok",
-    "seconds":0.1949659698,
+    "seconds":0.196602907,
     "class_name":"PeriphrasisDimension"
   },
   {
     "stage":"dimension",
     "name":"morphosyntax-morphology-verbs-periphrasis-temporal-aspect-temporal-inminent",
     "status":"ok",
-    "seconds":0.1829933263,
+    "seconds":0.1817536838,
     "class_name":"PeriphrasisDimension"
   },
   {
     "stage":"dimension",
     "name":"morphosyntax-morphology-verbs-periphrasis-temporal-aspect-temporal-initial",
     "status":"ok",
-    "seconds":0.1867967919,
+    "seconds":0.1873759404,
     "class_name":"PeriphrasisDimension"
   },
   {
     "stage":"dimension",
     "name":"morphosyntax-morphology-verbs-periphrasis-temporal-aspect-temporal-current",
     "status":"ok",
-    "seconds":0.1897473037,
+    "seconds":0.1925574578,
     "class_name":"PeriphrasisDimension"
   },
   {
     "stage":"dimension",
     "name":"morphosyntax-morphology-verbs-periphrasis-temporal-aspect-temporal-ending",
     "status":"ok",
-    "seconds":0.1945578828,
+    "seconds":0.1968544722,
     "class_name":"PeriphrasisDimension"
   },
   {
     "stage":"dimension",
     "name":"morphosyntax-morphology-verbs-periphrasis-temporal-aspect-temporal-transitional",
     "status":"ok",
-    "seconds":0.184060175,
+    "seconds":0.1836877018,
     "class_name":"PeriphrasisDimension"
   },
   {
     "stage":"dimension",
     "name":"morphosyntax-morphology-verbs-periphrasis-temporal-aspect-temporal-scalar",
     "status":"ok",
-    "seconds":0.1835006103,
+    "seconds":0.1875986569,
     "class_name":"PeriphrasisDimension"
   },
   {
     "stage":"dimension",
     "name":"morphosyntax-morphology-verbs-periphrasis-temporal-aspect-phase",
     "status":"ok",
-    "seconds":1.3178556114,
+    "seconds":1.3277262673,
     "class_name":"CompositeDimension"
   },
   {
     "stage":"dimension",
     "name":"morphosyntax-morphology-verbs-periphrasis-temporal-aspect",
     "status":"ok",
-    "seconds":1.6788347028,
+    "seconds":1.6992211491,
     "class_name":"CompositeDimension"
   },
   {
     "stage":"dimension",
     "name":"morphosyntax-morphology-verbs-periphrasis-modals-obligation",
     "status":"ok",
-    "seconds":0.1819985881,
+    "seconds":0.1832639053,
     "class_name":"PeriphrasisDimension"
   },
   {
     "stage":"dimension",
     "name":"morphosyntax-morphology-verbs-periphrasis-modals-hability",
     "status":"ok",
-    "seconds":0.1799273454,
+    "seconds":0.1821629629,
     "class_name":"PeriphrasisDimension"
   },
   {
     "stage":"dimension",
     "name":"morphosyntax-morphology-verbs-periphrasis-modals-probability",
     "status":"ok",
-    "seconds":0.1824187376,
+    "seconds":0.1852222793,
     "class_name":"PeriphrasisDimension"
   },
   {
     "stage":"dimension",
     "name":"morphosyntax-morphology-verbs-periphrasis-modals-certainty",
     "status":"ok",
-    "seconds":0.1789032184,
+    "seconds":0.1817834377,
     "class_name":"PeriphrasisDimension"
   },
   {
     "stage":"dimension",
     "name":"morphosyntax-morphology-verbs-periphrasis-modals-approach",
     "status":"ok",
-    "seconds":0.1778128445,
+    "seconds":0.1786843166,
     "class_name":"PeriphrasisDimension"
   },
   {
     "stage":"dimension",
     "name":"morphosyntax-morphology-verbs-periphrasis-modals",
     "status":"ok",
-    "seconds":0.9021344185,
+    "seconds":0.9122261778,
     "class_name":"CompositeDimension"
   },
   {
     "stage":"dimension",
     "name":"morphosyntax-morphology-verbs-periphrasis",
     "status":"ok",
-    "seconds":2.5817056634,
+    "seconds":2.6121593416,
     "class_name":"CompositeDimension"
   },
   {
     "stage":"dimension",
     "name":"morphosyntax-morphology-verbs-number-singular-first",
     "status":"ok",
-    "seconds":0.117872607,
+    "seconds":0.1185449436,
     "class_name":"WordPerDictionary"
   },
   {
     "stage":"dimension",
     "name":"morphosyntax-morphology-verbs-number-singular-second",
     "status":"ok",
-    "seconds":0.1126652099,
+    "seconds":0.1135154068,
     "class_name":"WordPerDictionary"
   },
   {
     "stage":"dimension",
     "name":"morphosyntax-morphology-verbs-number-singular-third",
     "status":"ok",
-    "seconds":0.1163257025,
+    "seconds":0.1135848165,
     "class_name":"WordPerDictionary"
   },
   {
     "stage":"dimension",
     "name":"morphosyntax-morphology-verbs-number-singular",
     "status":"ok",
-    "seconds":0.3699852414,
+    "seconds":0.3697387315,
     "class_name":"CompositeDimension"
   },
   {
     "stage":"dimension",
     "name":"morphosyntax-morphology-verbs-number-plural-first",
     "status":"ok",
-    "seconds":0.1149736457,
+    "seconds":0.1140085198,
     "class_name":"WordPerDictionary"
   },
   {
     "stage":"dimension",
     "name":"morphosyntax-morphology-verbs-number-plural-second",
     "status":"ok",
-    "seconds":0.115547426,
+    "seconds":0.1141973659,
     "class_name":"WordPerDictionary"
   },
   {
     "stage":"dimension",
     "name":"morphosyntax-morphology-verbs-number-plural-third",
     "status":"ok",
-    "seconds":0.1125519946,
+    "seconds":0.1164505258,
     "class_name":"WordPerDictionary"
   },
   {
     "stage":"dimension",
     "name":"morphosyntax-morphology-verbs-number-plural",
     "status":"ok",
-    "seconds":0.3665004112,
+    "seconds":0.3681935146,
     "class_name":"CompositeDimension"
   },
   {
     "stage":"dimension",
     "name":"morphosyntax-morphology-verbs-number",
     "status":"ok",
-    "seconds":0.7373117842,
+    "seconds":0.7387443855,
     "class_name":"CompositeDimension"
   },
   {
     "stage":"dimension",
     "name":"morphosyntax-morphology-verbs-transitive",
     "status":"ok",
-    "seconds":0.3168249913,
+    "seconds":0.3055004627,
     "class_name":"WordPerDictionary"
   },
   {
     "stage":"dimension",
     "name":"morphosyntax-morphology-verbs-intransitive",
     "status":"ok",
-    "seconds":0.1536551751,
+    "seconds":0.1474458165,
     "class_name":"WordPerDictionary"
   },
   {
     "stage":"dimension",
     "name":"morphosyntax-morphology-verbs-transitivity",
     "status":"ok",
-    "seconds":0.4713635333,
+    "seconds":0.4538694285,
     "class_name":""
   },
   {
     "stage":"dimension",
     "name":"morphosyntax-morphology-verbs-inflection-regular",
     "status":"ok",
-    "seconds":2.4016751945,
+    "seconds":2.3245073222,
     "class_name":"WordPerDictionary"
   },
   {
     "stage":"dimension",
     "name":"morphosyntax-morphology-verbs-inflection-irregular",
     "status":"ok",
-    "seconds":0.3803666532,
+    "seconds":0.3738989383,
     "class_name":"WordPerDictionary"
   },
   {
     "stage":"dimension",
     "name":"morphosyntax-morphology-verbs-inflection",
     "status":"ok",
-    "seconds":2.7832111679,
+    "seconds":2.6995978504,
     "class_name":""
   },
   {
     "stage":"dimension",
     "name":"morphosyntax-morphology-verbs-function-main",
     "status":"ok",
-    "seconds":0.130521711,
+    "seconds":0.1349878423,
     "class_name":"POSTaggingTag"
   },
   {
     "stage":"dimension",
     "name":"morphosyntax-morphology-verbs-function-copulative",
     "status":"ok",
-    "seconds":0.1145950705,
+    "seconds":0.1106916852,
     "class_name":"WordPerDictionary"
   },
   {
     "stage":"dimension",
     "name":"morphosyntax-morphology-verbs-function-auxiliary",
     "status":"ok",
-    "seconds":0.1298550516,
+    "seconds":0.1326409392,
     "class_name":"POSTaggingTag"
   },
   {
     "stage":"dimension",
     "name":"morphosyntax-morphology-verbs-function",
     "status":"ok",
-    "seconds":0.3760579713,
+    "seconds":0.3793911785,
     "class_name":""
   },
   {
     "stage":"dimension",
     "name":"morphosyntax-morphology-verbs-nonfinite-infinitive",
     "status":"ok",
-    "seconds":0.0351491757,
+    "seconds":0.0343469568,
     "class_name":"VerbPerDictionary"
   },
   {
     "stage":"dimension",
     "name":"morphosyntax-morphology-verbs-nonfinite-gerund",
     "status":"ok",
-    "seconds":0.0345404558,
+    "seconds":0.0338181295,
     "class_name":"VerbPerDictionary"
   },
   {
     "stage":"dimension",
     "name":"morphosyntax-morphology-verbs-nonfinite-participle",
     "status":"ok",
-    "seconds":0.0344363004,
+    "seconds":0.033935912,
     "class_name":"VerbPerDictionary"
   },
   {
     "stage":"dimension",
     "name":"morphosyntax-morphology-verbs-nonfinite",
     "status":"ok",
-    "seconds":0.1058714911,
+    "seconds":0.1041482538,
     "class_name":""
   },
   {
     "stage":"dimension",
     "name":"morphosyntax-morphology-verbs-tense-past",
     "status":"ok",
-    "seconds":0.1296201833,
+    "seconds":0.1317168623,
     "class_name":"POSTaggingTag"
   },
   {
     "stage":"dimension",
     "name":"morphosyntax-morphology-verbs-tense-present",
     "status":"ok",
-    "seconds":0.1319457777,
+    "seconds":0.1312848292,
     "class_name":"POSTaggingTag"
   },
   {
     "stage":"dimension",
     "name":"morphosyntax-morphology-verbs-tense-future",
     "status":"ok",
-    "seconds":0.1310001872,
+    "seconds":0.1317708269,
     "class_name":"POSTaggingTag"
   },
   {
     "stage":"dimension",
     "name":"morphosyntax-morphology-verbs-tense",
     "status":"ok",
-    "seconds":0.3935415484,
+    "seconds":0.3958371282,
     "class_name":""
   },
   {
     "stage":"dimension",
     "name":"morphosyntax-morphology-verbs-mode-indicative",
     "status":"ok",
-    "seconds":0.0315831527,
+    "seconds":0.0309436321,
     "class_name":"VerbPerDictionary"
   },
   {
     "stage":"dimension",
     "name":"morphosyntax-morphology-verbs-mode-subjunctive",
     "status":"ok",
-    "seconds":0.0314314254,
+    "seconds":0.0307878293,
     "class_name":"VerbPerDictionary"
   },
   {
     "stage":"dimension",
     "name":"morphosyntax-morphology-verbs-imperative",
     "status":"ok",
-    "seconds":0.0459464528,
+    "seconds":0.0456058718,
     "class_name":"VerbPerDictionary"
   },
   {
     "stage":"dimension",
     "name":"morphosyntax-morphology-verbs-conditional",
     "status":"ok",
-    "seconds":0.0317083411,
+    "seconds":0.0308096334,
     "class_name":"VerbPerDictionary"
   },
   {
     "stage":"dimension",
     "name":"morphosyntax-morphology-verbs-mode",
     "status":"ok",
-    "seconds":0.1429786272,
+    "seconds":0.1406903341,
     "class_name":""
   },
   {
     "stage":"dimension",
     "name":"morphosyntax-morphology-verbs-indicative-simple-present",
     "status":"ok",
-    "seconds":0.04740154,
+    "seconds":0.0474077538,
     "class_name":"VerbPerDictionary"
   },
   {
     "stage":"dimension",
     "name":"morphosyntax-morphology-verbs-indicative-simple-past",
     "status":"ok",
-    "seconds":0.0470768064,
+    "seconds":0.0467590466,
     "class_name":"VerbPerDictionary"
   },
   {
     "stage":"dimension",
     "name":"morphosyntax-morphology-verbs-indicative-simple-future",
     "status":"ok",
-    "seconds":0.0485879928,
+    "seconds":0.0482043922,
     "class_name":"VerbPerDictionary"
   },
   {
     "stage":"dimension",
     "name":"morphosyntax-morphology-verbs-indicative-simple-conditional",
     "status":"ok",
-    "seconds":0.048354432,
+    "seconds":0.0478465892,
     "class_name":"VerbPerDictionary"
   },
   {
     "stage":"dimension",
     "name":"morphosyntax-morphology-verbs-indicative-simple-imperative",
     "status":"ok",
-    "seconds":0.0443163291,
+    "seconds":0.0442964286,
     "class_name":"VerbPerDictionary"
   },
   {
     "stage":"dimension",
     "name":"morphosyntax-morphology-verbs-indicative-simple",
     "status":"ok",
-    "seconds":0.2440351658,
+    "seconds":0.2437135577,
     "class_name":"CompositeDimension"
   },
   {
     "stage":"dimension",
     "name":"morphosyntax-morphology-verbs-subjunctive-simple-present",
     "status":"ok",
-    "seconds":0.0470089428,
+    "seconds":0.0495807305,
     "class_name":"VerbPerDictionary"
   },
   {
     "stage":"dimension",
     "name":"morphosyntax-morphology-verbs-subjunctive-simple-past",
     "status":"ok",
-    "seconds":0.0468463525,
+    "seconds":0.0457647257,
     "class_name":"VerbPerDictionary"
   },
   {
     "stage":"dimension",
     "name":"morphosyntax-morphology-verbs-subjunctive-simple-future",
     "status":"ok",
-    "seconds":0.0460902303,
+    "seconds":0.0464025736,
     "class_name":"VerbPerDictionary"
   },
   {
     "stage":"dimension",
     "name":"morphosyntax-morphology-verbs-subjunctive-simple-past-other",
     "status":"ok",
-    "seconds":0.0459549874,
+    "seconds":0.0470003933,
     "class_name":"VerbPerDictionary"
   },
   {
     "stage":"dimension",
     "name":"morphosyntax-morphology-verbs-subjunctive-simple",
     "status":"ok",
-    "seconds":0.1924313046,
+    "seconds":0.1960964724,
     "class_name":"CompositeDimension"
   },
   {
     "stage":"dimension",
     "name":"morphosyntax-morphology-verbs-indicative-compound-present-perfect",
     "status":"ok",
-    "seconds":0.047978472,
+    "seconds":0.0481019132,
     "class_name":"VerbPerDictionary"
   },
   {
     "stage":"dimension",
     "name":"morphosyntax-morphology-verbs-indicative-compound-pluperfect",
     "status":"ok",
-    "seconds":0.0502046421,
+    "seconds":0.0489864871,
     "class_name":"VerbPerDictionary"
   },
   {
     "stage":"dimension",
     "name":"morphosyntax-morphology-verbs-indicative-compound-past-perfect-tense",
     "status":"ok",
-    "seconds":0.0476642884,
+    "seconds":0.0476892106,
     "class_name":"VerbPerDictionary"
   },
   {
     "stage":"dimension",
     "name":"morphosyntax-morphology-verbs-indicative-compound-future-perfect",
     "status":"ok",
-    "seconds":0.0510497093,
+    "seconds":0.0490413159,
     "class_name":"VerbPerDictionary"
   },
   {
     "stage":"dimension",
     "name":"morphosyntax-morphology-verbs-indicative-compound-conditional-perfect",
     "status":"ok",
-    "seconds":0.0503821783,
+    "seconds":0.0499150939,
     "class_name":"VerbPerDictionary"
   },
   {
     "stage":"dimension",
     "name":"morphosyntax-morphology-verbs-indicative-compound-past-perfect",
     "status":"ok",
-    "seconds":0.0481208935,
+    "seconds":0.0466188304,
     "class_name":"VerbPerDictionary"
   },
   {
     "stage":"dimension",
     "name":"morphosyntax-morphology-verbs-indicative-compound",
     "status":"ok",
-    "seconds":0.3056184798,
+    "seconds":0.3013650402,
     "class_name":"CompositeDimension"
   },
   {
     "stage":"dimension",
     "name":"morphosyntax-morphology-verbs-subjunctive-compound-pluperfect",
     "status":"ok",
-    "seconds":0.0488976166,
+    "seconds":0.0479629599,
     "class_name":"VerbPerDictionary"
   },
   {
     "stage":"dimension",
     "name":"morphosyntax-morphology-verbs-subjunctive-compound-future-perfect",
     "status":"ok",
-    "seconds":0.0491201766,
+    "seconds":0.0478471182,
     "class_name":"VerbPerDictionary"
   },
   {
     "stage":"dimension",
     "name":"morphosyntax-morphology-verbs-subjunctive-compound-plusperfect-2",
     "status":"ok",
-    "seconds":0.0484729297,
+    "seconds":0.0476092063,
     "class_name":"VerbPerDictionary"
   },
   {
     "stage":"dimension",
     "name":"morphosyntax-morphology-verbs-subjunctive-compound-past-perfect",
     "status":"ok",
-    "seconds":0.0489003174,
+    "seconds":0.0475442037,
     "class_name":"VerbPerDictionary"
   },
   {
     "stage":"dimension",
     "name":"morphosyntax-morphology-verbs-subjunctive-compound",
     "status":"ok",
-    "seconds":0.2023070753,
+    "seconds":0.1985205859,
     "class_name":"CompositeDimension"
   },
   {
     "stage":"dimension",
     "name":"morphosyntax-morphology-verbs",
     "status":"ok",
-    "seconds":8.538135197,
+    "seconds":8.4657382779,
     "class_name":""
   },
   {
     "stage":"dimension",
     "name":"morphosyntax-morphology",
     "status":"ok",
-    "seconds":23.9871028997,
+    "seconds":23.9716496132,
     "class_name":""
   },
   {
     "stage":"dimension",
     "name":"morphosyntax",
     "status":"ok",
-    "seconds":26.00306274,
+    "seconds":25.9971816353,
     "class_name":""
   },
   {
     "stage":"dimension",
     "name":"errors-orthographics-sentences-starting-in-lowercase",
     "status":"ok",
-    "seconds":0.0146459863,
+    "seconds":0.0154153481,
     "class_name":"ErrorCapitalizationStartingWithLowerCaseDimension"
   },
   {
     "stage":"dimension",
     "name":"errors-orthographics-misspelled-words",
     "status":"ok",
-    "seconds":0.0687016584,
+    "seconds":0.07021733,
     "class_name":"ErrorMispellingDimension"
   },
   {
     "stage":"dimension",
     "name":"errors-orthographics-misspelled-accents-words",
     "status":"ok",
-    "seconds":519.8010435961,
+    "seconds":0.110120941,
     "class_name":"ErrorMispellingAccentsDimension"
   },
   {
     "stage":"dimension",
     "name":"errors-orthographics",
     "status":"ok",
-    "seconds":519.892273996,
+    "seconds":0.1968471408,
     "class_name":"CompositeDimension"
   },
   {
     "stage":"dimension",
     "name":"errors-sentences-starting-with-numbers",
     "status":"ok",
-    "seconds":0.0205351114,
+    "seconds":0.0148268081,
     "class_name":"ErrorStyleSentencesStartingWithNumbers"
   },
   {
     "stage":"dimension",
     "name":"errors-sentences-starting-with-the-same-word",
     "status":"ok",
-    "seconds":0.0212361701,
+    "seconds":0.0205227062,
     "class_name":"ErrorStyleSentencesStartingWithTheSameWord"
   },
   {
     "stage":"dimension",
     "name":"errors-stylistics",
     "status":"ok",
-    "seconds":0.0431517847,
+    "seconds":0.0361721814,
     "class_name":"CompositeDimension"
   },
   {
     "stage":"dimension",
     "name":"errors-performance-duplicated-words",
     "status":"ok",
-    "seconds":0.0373727158,
+    "seconds":0.0358880535,
     "class_name":"ErrorMiscTwoOrMoreEqualWordsDimension"
   },
   {
     "stage":"dimension",
     "name":"errors-performance-dot-after-exclamation-or-interrogation",
     "status":"ok",
-    "seconds":0.018139232,
+    "seconds":0.0173058771,
     "class_name":"PatternDimension"
   },
   {
     "stage":"dimension",
     "name":"errors-performance-two-or-more-consecutive-commas",
     "status":"ok",
-    "seconds":0.0035713762,
+    "seconds":0.0038118325,
     "class_name":"PatternDimension"
   },
   {
     "stage":"dimension",
     "name":"errors-performance-two-or-more-consecutive-periods",
     "status":"ok",
-    "seconds":0.0036334842,
+    "seconds":0.0036049746,
     "class_name":"PatternDimension"
   },
   {
     "stage":"dimension",
     "name":"errors-performance-common-errors",
     "status":"ok",
-    "seconds":0.0942116454,
+    "seconds":0.0849004872,
     "class_name":"WordPerDictionary"
   },
   {
     "stage":"dimension",
     "name":"errors-performance-redundant-expressions",
     "status":"ok",
-    "seconds":0.1807602271,
+    "seconds":0.1726375073,
     "class_name":"WordPerDictionary"
   },
   {
     "stage":"dimension",
     "name":"errors-performance",
     "status":"ok",
-    "seconds":0.3409316353,
+    "seconds":0.3195371851,
     "class_name":"CompositeDimension"
   },
   {
     "stage":"dimension",
     "name":"errors",
     "status":"ok",
-    "seconds":520.2772376761,
+    "seconds":0.5534060411,
     "class_name":""
   },
   {
     "stage":"dimension",
     "name":"semantics-onomatopoeia",
     "status":"ok",
-    "seconds":0.2312576398,
+    "seconds":0.2254743651,
     "class_name":"WordPerDictionary"
   },
   {
     "stage":"dimension",
     "name":"semantics-euphemisms",
     "status":"ok",
-    "seconds":0.2556270175,
+    "seconds":0.2496966608,
     "class_name":"WordPerDictionary"
   },
   {
     "stage":"dimension",
     "name":"semantics-dysfemisms",
     "status":"ok",
-    "seconds":0.055008363,
+    "seconds":0.0539620109,
     "class_name":"WordPerDictionary"
   },
   {
     "stage":"dimension",
     "name":"semantics-synecdocs",
     "status":"ok",
-    "seconds":0.0339402519,
+    "seconds":0.0314620584,
     "class_name":"WordPerDictionary"
   },
   {
     "stage":"dimension",
     "name":"semantics",
     "status":"ok",
-    "seconds":0.5771694966,
+    "seconds":0.5618910864,
     "class_name":""
   },
   {
     "stage":"dimension",
     "name":"pragmatics-figurative-language-hyperboles",
     "status":"ok",
-    "seconds":0.2238158174,
+    "seconds":0.2148586996,
     "class_name":"WordPerDictionary"
   },
   {
     "stage":"dimension",
     "name":"pragmatics-figurative-language-idiomatics-expressions",
     "status":"ok",
-    "seconds":0.3741058372,
+    "seconds":0.3512085974,
     "class_name":"WordPerDictionary"
   },
   {
     "stage":"dimension",
     "name":"pragmatics-figurative-language-rhetorical-questions",
     "status":"ok",
-    "seconds":0.0569285639,
+    "seconds":0.0545441434,
     "class_name":"WordPerDictionary"
   },
   {
     "stage":"dimension",
     "name":"pragmatics-figurative-language-verbal-irony",
     "status":"ok",
-    "seconds":0.0462031066,
+    "seconds":0.0452731587,
     "class_name":"WordPerDictionary"
   },
   {
     "stage":"dimension",
     "name":"pragmatics-figurative-language-understatements",
     "status":"ok",
-    "seconds":0.0351140089,
+    "seconds":0.0339813791,
     "class_name":"WordPerDictionary"
   },
   {
     "stage":"dimension",
     "name":"pragmatics-figurative-language-metaphors",
     "status":"ok",
-    "seconds":0.1383264028,
+    "seconds":0.1333662979,
     "class_name":"WordPerDictionary"
   },
   {
     "stage":"dimension",
     "name":"pragmatics-figurative-language-similes",
     "status":"ok",
-    "seconds":0.0374439768,
+    "seconds":0.0365967788,
     "class_name":"WordPerDictionary"
   },
   {
     "stage":"dimension",
     "name":"pragmatics-figurative-language",
     "status":"ok",
-    "seconds":0.9132844917,
+    "seconds":0.8711176477,
     "class_name":""
   },
   {
     "stage":"dimension",
     "name":"pragmatics-discourse-markers-structuring-commenters",
     "status":"ok",
-    "seconds":0.0136130378,
+    "seconds":0.0132450387,
     "class_name":"WordPerDictionary"
   },
   {
     "stage":"dimension",
     "name":"pragmatics-discourse-markers-structuring-order",
     "status":"ok",
-    "seconds":0.0885019302,
+    "seconds":0.088753555,
     "class_name":"WordPerDictionary"
   },
   {
     "stage":"dimension",
     "name":"pragmatics-discourse-markers-structuring",
     "status":"ok",
-    "seconds":0.103064768,
+    "seconds":0.1029147208,
     "class_name":"CompositeDimension"
   },
   {
     "stage":"dimension",
     "name":"pragmatics-discourse-markers-connectors-additive",
     "status":"ok",
-    "seconds":0.0282676667,
+    "seconds":0.0283357464,
     "class_name":"WordPerDictionary"
   },
   {
     "stage":"dimension",
     "name":"pragmatics-discourse-markers-connectors-consecutive",
     "status":"ok",
-    "seconds":0.0267955437,
+    "seconds":0.0263996013,
     "class_name":"WordPerDictionary"
   },
   {
     "stage":"dimension",
     "name":"pragmatics-discourse-markers-connectors-counter-augmentative",
     "status":"ok",
-    "seconds":0.0258658826,
+    "seconds":0.0256376266,
     "class_name":"WordPerDictionary"
   },
   {
     "stage":"dimension",
     "name":"pragmatics-discourse-markers-connectors",
     "status":"ok",
-    "seconds":0.0818586797,
+    "seconds":0.0812901631,
     "class_name":"CompositeDimension"
   },
   {
     "stage":"dimension",
     "name":"pragmatics-discourse-markers-reformers-explanatory",
     "status":"ok",
-    "seconds":0.0243590251,
+    "seconds":0.024419073,
     "class_name":"WordPerDictionary"
   },
   {
     "stage":"dimension",
     "name":"pragmatics-discourse-markers-reformers-corrective",
     "status":"ok",
-    "seconds":0.0149997585,
+    "seconds":0.0137469471,
     "class_name":"WordPerDictionary"
   },
   {
     "stage":"dimension",
     "name":"pragmatics-discourse-markers-reformers-distance",
     "status":"ok",
-    "seconds":0.0178453512,
+    "seconds":0.016350694,
     "class_name":"WordPerDictionary"
   },
   {
     "stage":"dimension",
     "name":"pragmatics-discourse-markers-reformers-recapitulative",
     "status":"ok",
-    "seconds":0.0372612812,
+    "seconds":0.0329123847,
     "class_name":"WordPerDictionary"
   },
   {
     "stage":"dimension",
     "name":"pragmatics-discourse-markers-reformers",
     "status":"ok",
-    "seconds":0.0954346322,
+    "seconds":0.0884319283,
     "class_name":"CompositeDimension"
   },
   {
     "stage":"dimension",
     "name":"pragmatics-discourse-markers-argumentative-reinforcement",
     "status":"ok",
-    "seconds":0.0115789399,
+    "seconds":0.0120372437,
     "class_name":"WordPerDictionary"
   },
   {
     "stage":"dimension",
     "name":"pragmatics-discourse-markers-argumentative-concretion",
     "status":"ok",
-    "seconds":0.0157227367,
+    "seconds":0.015997164,
     "class_name":"WordPerDictionary"
   },
   {
     "stage":"dimension",
     "name":"pragmatics-discourse-markers-argumentative",
     "status":"ok",
-    "seconds":0.0280974619,
+    "seconds":0.0288255215,
     "class_name":"CompositeDimension"
   },
   {
     "stage":"dimension",
     "name":"pragmatics-discourse-markers-conversational-bookmarks",
     "status":"ok",
-    "seconds":0.0745673291,
+    "seconds":0.0793360807,
     "class_name":"WordPerDictionary"
   },
   {
     "stage":"dimension",
     "name":"pragmatics-discourse-markers",
     "status":"ok",
-    "seconds":0.3840170577,
+    "seconds":0.3819547333,
     "class_name":""
   },
   {
     "stage":"dimension",
     "name":"pragmatics-courtesy-forms-greetings",
     "status":"ok",
-    "seconds":0.0737451166,
+    "seconds":0.0729757585,
     "class_name":"WordPerDictionary"
   },
   {
     "stage":"dimension",
     "name":"pragmatics-courtesy-forms-farewell",
     "status":"ok",
-    "seconds":0.0346952677,
+    "seconds":0.0336417556,
     "class_name":"WordPerDictionary"
   },
   {
     "stage":"dimension",
     "name":"pragmatics-courtesy-forms-requirements",
     "status":"ok",
-    "seconds":0.0383673795,
+    "seconds":0.0380860977,
     "class_name":"WordPerDictionary"
   },
   {
     "stage":"dimension",
     "name":"pragmatics-courtesy-forms-general",
     "status":"ok",
-    "seconds":0.0431696028,
+    "seconds":0.0429265127,
     "class_name":"WordPerDictionary"
   },
   {
     "stage":"dimension",
     "name":"pragmatics-courtesy-forms-condolences",
     "status":"ok",
-    "seconds":0.0321733691,
+    "seconds":0.0326070227,
     "class_name":"WordPerDictionary"
   },
   {
     "stage":"dimension",
     "name":"pragmatics-courtesy-forms",
     "status":"ok",
-    "seconds":0.2233810648,
+    "seconds":0.2215564102,
     "class_name":"CompositeDimension"
   },
   {
     "stage":"dimension",
     "name":"pragmatics",
     "status":"ok",
-    "seconds":1.5215946101,
+    "seconds":1.4755265191,
     "class_name":""
   },
   {
     "stage":"dimension",
     "name":"stylometry-corpus-length",
     "status":"ok",
-    "seconds":0.0021437593,
+    "seconds":0.0011881627,
     "class_name":"LengthDimension"
   },
   {
     "stage":"dimension",
     "name":"stylometry-corpus-TTR",
     "status":"ok",
-    "seconds":0.0287890136,
+    "seconds":0.03006294,
     "class_name":"RTIEDimension"
   },
   {
     "stage":"dimension",
     "name":"stylometry-corpus-TTR-standard",
     "status":"ok",
-    "seconds":0.0302018225,
+    "seconds":0.0305011161,
     "class_name":"RTIEDimension"
   },
   {
     "stage":"dimension",
     "name":"stylometry-corpus-TTR-deviation",
     "status":"ok",
-    "seconds":0.029983867,
+    "seconds":0.0298861265,
     "class_name":"RTIEDeviationDimension"
   },
   {
     "stage":"dimension",
     "name":"stylometry-corpus-words-count",
     "status":"ok",
-    "seconds":0.0180575736,
+    "seconds":0.0177001506,
     "class_name":"WordCountDimension"
   },
   {
     "stage":"dimension",
     "name":"stylometry-corpus-syllabes-count",
     "status":"ok",
-    "seconds":0.0844506994,
+    "seconds":0.0835950486,
     "class_name":"SyllableCountDimension"
   },
   {
     "stage":"dimension",
     "name":"stylometry-corpus-syllabes-per-word",
     "status":"ok",
-    "seconds":0.1029836647,
+    "seconds":0.1054273136,
     "class_name":"SyllablePerWordDimension"
   },
   {
     "stage":"dimension",
     "name":"stylometry-corpus-words-per-sentence",
     "status":"ok",
-    "seconds":0.023259744,
+    "seconds":0.0230273418,
     "class_name":"WordPerSentenceDimension"
   },
   {
     "stage":"dimension",
     "name":"stylometry-corpus-uppercase",
     "status":"ok",
-    "seconds":0.0481998995,
+    "seconds":0.0469801426,
     "class_name":"WordCase"
   },
   {
     "stage":"dimension",
     "name":"stylometry-corpus-titlecase",
     "status":"ok",
-    "seconds":0.0508617051,
+    "seconds":0.048416432,
     "class_name":"WordCase"
   },
   {
     "stage":"dimension",
     "name":"stylometry-corpus-readability",
     "status":"ok",
-    "seconds":0.1086980216,
+    "seconds":0.107666079,
     "class_name":"ReadbilityDimension"
   },
   {
     "stage":"dimension",
     "name":"stylometry-corpus-inflesz",
     "status":"ok",
-    "seconds":0.1085221097,
+    "seconds":0.1070528068,
     "class_name":"PerspicuityDimension"
   },
   {
     "stage":"dimension",
     "name":"stylometry-corpus-writing-style",
     "status":"ok",
-    "seconds":0.2180958837,
+    "seconds":0.2157104239,
     "class_name":""
   },
   {
     "stage":"dimension",
     "name":"stylometry-corpus-expressions-quoted",
     "status":"ok",
-    "seconds":0.0092249401,
+    "seconds":0.0094845705,
     "class_name":"PatternDimension"
   },
   {
     "stage":"dimension",
     "name":"stylometry-corpus-expressions-within-parenthesis",
     "status":"ok",
-    "seconds":0.0031149611,
+    "seconds":0.0030956231,
     "class_name":"PatternDimension"
   },
   {
     "stage":"dimension",
     "name":"stylometry-corpus-expressions-within-asterisks",
     "status":"ok",
-    "seconds":0.003074076,
+    "seconds":0.0030231737,
     "class_name":"PatternDimension"
   },
   {
     "stage":"dimension",
     "name":"stylometry-corpus-words-length-avg",
     "status":"ok",
-    "seconds":0.0217649899,
+    "seconds":0.0210843161,
     "class_name":"AverageWordLengthDimension"
   },
   {
     "stage":"dimension",
     "name":"stylometry-corpus-words-longer-6tr",
     "status":"ok",
-    "seconds":0.0290585496,
+    "seconds":0.0282023326,
     "class_name":"WordLengthDimension"
   },
   {
     "stage":"dimension",
     "name":"stylometry-corpus-words-with-1ltr",
     "status":"ok",
-    "seconds":0.031845931,
+    "seconds":0.0309319571,
     "class_name":"WordLengthDimension"
   },
   {
     "stage":"dimension",
     "name":"stylometry-corpus-words-with-2ltr",
     "status":"ok",
-    "seconds":0.0319451839,
+    "seconds":0.0312107466,
     "class_name":"WordLengthDimension"
   },
   {
     "stage":"dimension",
     "name":"stylometry-corpus-words-with-3ltr",
     "status":"ok",
-    "seconds":0.0322286151,
+    "seconds":0.030720491,
     "class_name":"WordLengthDimension"
   },
   {
     "stage":"dimension",
     "name":"stylometry-corpus-words-with-4ltr",
     "status":"ok",
-    "seconds":0.0321347974,
+    "seconds":0.0306479149,
     "class_name":"WordLengthDimension"
   },
   {
     "stage":"dimension",
     "name":"stylometry-corpus-words-with-5ltr",
     "status":"ok",
-    "seconds":0.0318490118,
+    "seconds":0.0316499881,
     "class_name":"WordLengthDimension"
   },
   {
     "stage":"dimension",
     "name":"stylometry-corpus-words-with-6ltr",
     "status":"ok",
-    "seconds":0.0317276642,
+    "seconds":0.0309589542,
     "class_name":"WordLengthDimension"
   },
   {
     "stage":"dimension",
     "name":"stylometry-corpus-words-with-7ltr",
     "status":"ok",
-    "seconds":0.0321167111,
+    "seconds":0.0305866264,
     "class_name":"WordLengthDimension"
   },
   {
     "stage":"dimension",
     "name":"stylometry-corpus-words-with-8ltr",
     "status":"ok",
-    "seconds":0.0316650607,
+    "seconds":0.0305050723,
     "class_name":"WordLengthDimension"
   },
   {
     "stage":"dimension",
     "name":"stylometry-corpus-words-with-9ltr",
     "status":"ok",
-    "seconds":0.0316669792,
+    "seconds":0.0307416208,
     "class_name":"WordLengthDimension"
   },
   {
     "stage":"dimension",
     "name":"stylometry-corpus-words-with-10ltr",
     "status":"ok",
-    "seconds":0.0316585004,
+    "seconds":0.0314091295,
     "class_name":"WordLengthDimension"
   },
   {
     "stage":"dimension",
     "name":"stylometry-corpus-words-with-11ltr",
     "status":"ok",
-    "seconds":0.031930808,
+    "seconds":0.0307245404,
     "class_name":"WordLengthDimension"
   },
   {
     "stage":"dimension",
     "name":"stylometry-corpus-words-with-12ltr",
     "status":"ok",
-    "seconds":0.0316291265,
+    "seconds":0.030353386,
     "class_name":"WordLengthDimension"
   },
   {
     "stage":"dimension",
     "name":"stylometry-corpus-words-with-13ltr",
     "status":"ok",
-    "seconds":0.0314127132,
+    "seconds":0.0305510126,
     "class_name":"WordLengthDimension"
   },
   {
     "stage":"dimension",
     "name":"stylometry-corpus-words-with-14ltr",
     "status":"ok",
-    "seconds":0.0315815806,
+    "seconds":0.0305611789,
     "class_name":"WordLengthDimension"
   },
   {
     "stage":"dimension",
     "name":"stylometry-corpus-words-with-15ltr",
     "status":"ok",
-    "seconds":0.0316931084,
+    "seconds":0.0304067321,
     "class_name":"WordLengthDimension"
   },
   {
     "stage":"dimension",
     "name":"stylometry-corpus-words-with-16ltr",
     "status":"ok",
-    "seconds":0.0313492492,
+    "seconds":0.0305432081,
     "class_name":"WordLengthDimension"
   },
   {
     "stage":"dimension",
     "name":"stylometry-corpus-words-with-17ltr",
     "status":"ok",
-    "seconds":0.0317892842,
+    "seconds":0.0305333361,
     "class_name":"WordLengthDimension"
   },
   {
     "stage":"dimension",
     "name":"stylometry-corpus-words-with-18ltr",
     "status":"ok",
-    "seconds":0.0315699615,
+    "seconds":0.0305605605,
     "class_name":"WordLengthDimension"
   },
   {
     "stage":"dimension",
     "name":"stylometry-corpus-words-with-19ltr",
     "status":"ok",
-    "seconds":0.0314845257,
+    "seconds":0.030558113,
     "class_name":"WordLengthDimension"
   },
   {
     "stage":"dimension",
     "name":"stylometry-corpus-words-with-20ltr",
     "status":"ok",
-    "seconds":0.031349469,
+    "seconds":0.0304228403,
     "class_name":"WordLengthDimension"
   },
   {
     "stage":"dimension",
     "name":"stylometry-corpus-words-with-21ltr",
     "status":"ok",
-    "seconds":0.0314654224,
+    "seconds":0.0306724757,
     "class_name":"WordLengthDimension"
   },
   {
     "stage":"dimension",
     "name":"stylometry-corpus-words-with-22ltr",
     "status":"ok",
-    "seconds":0.0316308737,
+    "seconds":0.030675929,
     "class_name":"WordLengthDimension"
   },
   {
     "stage":"dimension",
     "name":"stylometry-corpus-words-with-23ltr",
     "status":"ok",
-    "seconds":0.0316537805,
+    "seconds":0.0307213999,
     "class_name":"WordLengthDimension"
   },
   {
     "stage":"dimension",
     "name":"stylometry-corpus-words-with-24ltr",
     "status":"ok",
-    "seconds":0.031419199,
+    "seconds":0.0307247117,
     "class_name":"WordLengthDimension"
   },
   {
     "stage":"dimension",
     "name":"stylometry-corpus-words-with-25ltr",
     "status":"ok",
-    "seconds":0.0312794447,
+    "seconds":0.0305393934,
     "class_name":"WordLengthDimension"
   },
   {
     "stage":"dimension",
     "name":"stylometry-corpus",
     "status":"ok",
-    "seconds":1.5015719384,
+    "seconds":1.471620664,
     "class_name":""
   },
   {
     "stage":"dimension",
     "name":"stylometry-sentences-count",
     "status":"ok",
-    "seconds":0.0079578124,
+    "seconds":0.0063292831,
     "class_name":"SentenceCountDimension"
   },
   {
     "stage":"dimension",
     "name":"stylometry-sentences-exclamative-percentage",
     "status":"ok",
-    "seconds":0.006559886,
+    "seconds":0.0049350485,
     "class_name":"PatternDimension"
   },
   {
     "stage":"dimension",
     "name":"stylometry-sentences-exclamative-percentage-emphasis",
     "status":"ok",
-    "seconds":0.0052785203,
+    "seconds":0.0048389472,
     "class_name":"PatternDimension"
   },
   {
     "stage":"dimension",
     "name":"stylometry-sentences-interrogative-percentage",
     "status":"ok",
-    "seconds":0.0056886859,
+    "seconds":0.0047524534,
     "class_name":"PatternDimension"
   },
   {
     "stage":"dimension",
     "name":"stylometry-sentences-interrogative-percentage-emphasis",
     "status":"ok",
-    "seconds":0.0051570274,
+    "seconds":0.0048036389,
     "class_name":"PatternDimension"
   },
   {
     "stage":"dimension",
     "name":"stylometry-sentences-quotes-percentage",
     "status":"ok",
-    "seconds":0.0050374307,
+    "seconds":0.00439981,
     "class_name":"PatternDimension"
   },
   {
     "stage":"dimension",
     "name":"stylometry-sentences-pasive-percentage",
     "status":"ok",
-    "seconds":0.0315968618,
+    "seconds":0.0289261267,
     "class_name":"SentencePerDictionary"
   },
   {
     "stage":"dimension",
     "name":"stylometry-sentences-conversations",
     "status":"ok",
-    "seconds":0.0047286227,
+    "seconds":0.0047247671,
     "class_name":"PatternDimension"
   },
   {
     "stage":"dimension",
     "name":"stylometry-sentences",
     "status":"ok",
-    "seconds":0.0735119618,
+    "seconds":0.0651239268,
     "class_name":""
   },
   {
     "stage":"dimension",
     "name":"stylometry-punctuation-symbols-prime",
     "status":"ok",
-    "seconds":0.0026075244,
+    "seconds":0.0025249645,
     "class_name":"CharacterCountDimension"
   },
   {
     "stage":"dimension",
     "name":"stylometry-punctuation-symbols-currencies",
     "status":"ok",
-    "seconds":0.002615571,
+    "seconds":0.0024460107,
     "class_name":"CharacterCountDimension"
   },
   {
     "stage":"dimension",
     "name":"stylometry-punctuation-symbols-apostrophe",
     "status":"ok",
-    "seconds":0.0028754212,
+    "seconds":0.0026515536,
     "class_name":"CharacterCountDimension"
   },
   {
     "stage":"dimension",
     "name":"stylometry-punctuation-symbols-brackets-open",
     "status":"ok",
-    "seconds":0.0027084649,
+    "seconds":0.0024573132,
     "class_name":"CharacterCountDimension"
   },
   {
     "stage":"dimension",
     "name":"stylometry-punctuation-symbols-curly-brackets-close",
     "status":"ok",
-    "seconds":0.0027368926,
+    "seconds":0.0024402738,
     "class_name":"CharacterCountDimension"
   },
   {
     "stage":"dimension",
     "name":"stylometry-punctuation-symbols-quotation-open",
     "status":"ok",
-    "seconds":0.0026928112,
+    "seconds":0.002430249,
     "class_name":"CharacterCountDimension"
   },
   {
     "stage":"dimension",
     "name":"stylometry-punctuation-symbols-quotation-close",
     "status":"ok",
-    "seconds":0.0026057921,
+    "seconds":0.0024062246,
     "class_name":"CharacterCountDimension"
   },
   {
     "stage":"dimension",
     "name":"stylometry-punctuation-symbols-colons",
     "status":"ok",
-    "seconds":0.0026060566,
+    "seconds":0.0024849698,
     "class_name":"CharacterCountDimension"
   },
   {
     "stage":"dimension",
     "name":"stylometry-punctuation-symbols-semicolons",
     "status":"ok",
-    "seconds":0.0025813133,
+    "seconds":0.0024325736,
     "class_name":"CharacterCountDimension"
   },
   {
     "stage":"dimension",
     "name":"stylometry-punctuation-symbols-dashes",
     "status":"ok",
-    "seconds":0.0025707409,
+    "seconds":0.002394408,
     "class_name":"CharacterCountDimension"
   },
   {
     "stage":"dimension",
     "name":"stylometry-punctuation-symbols-low-dashes",
     "status":"ok",
-    "seconds":0.0025829896,
+    "seconds":0.0024780631,
     "class_name":"CharacterCountDimension"
   },
   {
     "stage":"dimension",
     "name":"stylometry-punctuation-symbols-fullstop",
     "status":"ok",
-    "seconds":0.0025460236,
+    "seconds":0.0024490431,
     "class_name":"CharacterCountDimension"
   },
   {
     "stage":"dimension",
     "name":"stylometry-punctuation-symbols-commas",
     "status":"ok",
-    "seconds":0.0025832765,
+    "seconds":0.0024467632,
     "class_name":"CharacterCountDimension"
   },
   {
     "stage":"dimension",
     "name":"stylometry-punctuation-symbols-open-question",
     "status":"ok",
-    "seconds":0.0025992543,
+    "seconds":0.0024218969,
     "class_name":"CharacterCountDimension"
   },
   {
     "stage":"dimension",
     "name":"stylometry-punctuation-symbols-open-exclamation",
     "status":"ok",
-    "seconds":0.0025895387,
+    "seconds":0.0024222955,
     "class_name":"CharacterCountDimension"
   },
   {
     "stage":"dimension",
     "name":"stylometry-punctuation-symbols-space",
     "status":"ok",
-    "seconds":0.002581086,
+    "seconds":0.0025135614,
     "class_name":"CharacterCountDimension"
   },
   {
     "stage":"dimension",
     "name":"stylometry-punctuation-symbols-interdot",
     "status":"ok",
-    "seconds":0.0025771074,
+    "seconds":0.0024095327,
     "class_name":"CharacterCountDimension"
   },
   {
     "stage":"dimension",
     "name":"stylometry-punctuation-symbols-percentages",
     "status":"ok",
-    "seconds":0.00257653,
+    "seconds":0.0023822896,
     "class_name":"CharacterCountDimension"
   },
   {
     "stage":"dimension",
     "name":"stylometry-punctuation-symbols-ampersand",
     "status":"ok",
-    "seconds":0.0026038066,
+    "seconds":0.0024712086,
     "class_name":"CharacterCountDimension"
   },
   {
     "stage":"dimension",
     "name":"stylometry-punctuation-symbols-at-sign",
     "status":"ok",
-    "seconds":0.0045439713,
+    "seconds":0.0024069212,
     "class_name":"CharacterCountDimension"
   },
   {
     "stage":"dimension",
     "name":"stylometry-punctuation-symbols-backslash",
     "status":"ok",
-    "seconds":0.0048743635,
+    "seconds":0.0024003498,
     "class_name":"CharacterCountDimension"
   },
   {
     "stage":"dimension",
     "name":"stylometry-punctuation-symbols-pipe",
     "status":"ok",
-    "seconds":0.0053133443,
+    "seconds":0.0026912987,
     "class_name":"CharacterCountDimension"
   },
   {
     "stage":"dimension",
     "name":"stylometry-punctuation-symbols-bullet",
     "status":"ok",
-    "seconds":0.0049202181,
+    "seconds":0.0024297349,
     "class_name":"CharacterCountDimension"
   },
   {
     "stage":"dimension",
     "name":"stylometry-punctuation-symbols-caret",
     "status":"ok",
-    "seconds":0.0048784614,
+    "seconds":0.0024270751,
     "class_name":"CharacterCountDimension"
   },
   {
     "stage":"dimension",
     "name":"stylometry-punctuation-symbols-degree",
     "status":"ok",
-    "seconds":0.0049110949,
+    "seconds":0.0024212077,
     "class_name":"CharacterCountDimension"
   },
   {
     "stage":"dimension",
     "name":"stylometry-punctuation-symbols-ditto-mark",
     "status":"ok",
-    "seconds":0.0048868954,
+    "seconds":0.002407942,
     "class_name":"CharacterCountDimension"
   },
   {
     "stage":"dimension",
     "name":"stylometry-punctuation-symbols-hash",
     "status":"ok",
-    "seconds":0.0048608556,
+    "seconds":0.0025146864,
     "class_name":"CharacterCountDimension"
   },
   {
     "stage":"dimension",
     "name":"stylometry-punctuation-symbols-numero-sign",
     "status":"ok",
-    "seconds":0.022186473,
+    "seconds":0.0124940798,
     "class_name":"PatternDimension"
   },
   {
     "stage":"dimension",
     "name":"stylometry-punctuation-symbols-pilcrow",
     "status":"ok",
-    "seconds":0.0049269199,
+    "seconds":0.0024080686,
     "class_name":"CharacterCountDimension"
   },
   {
     "stage":"dimension",
     "name":"stylometry-punctuation-symbols-trademarks",
     "status":"ok",
-    "seconds":0.0049372762,
+    "seconds":0.0024122223,
     "class_name":"CharacterCountDimension"
   },
   {
     "stage":"dimension",
     "name":"stylometry-punctuation-symbols-mathematical-signs",
     "status":"ok",
-    "seconds":0.004888799,
+    "seconds":0.0024374947,
     "class_name":"CharacterCountDimension"
   },
   {
     "stage":"dimension",
     "name":"stylometry-punctuation-symbols-line-breaks",
     "status":"ok",
-    "seconds":0.0152329728,
+    "seconds":0.0087754056,
     "class_name":"PatternDimension"
   },
   {
     "stage":"dimension",
     "name":"stylometry-punctuation-symbols",
     "status":"ok",
-    "seconds":0.146017611,
+    "seconds":0.0980588496,
     "class_name":""
   },
   {
     "stage":"dimension",
     "name":"stylometry",
     "status":"ok",
-    "seconds":1.7224613279,
+    "seconds":1.635666322,
     "class_name":""
   },
   {
     "stage":"dimension",
     "name":"lexical-locations",
     "status":"ok",
-    "seconds":0.0048899092,
+    "seconds":0.0029072613,
     "class_name":"NERTaggingTag"
   },
   {
     "stage":"dimension",
     "name":"lexical-organisations",
     "status":"ok",
-    "seconds":0.0028864667,
+    "seconds":0.0028301962,
     "class_name":"NERTaggingTag"
   },
   {
     "stage":"dimension",
     "name":"lexical-persons",
     "status":"ok",
-    "seconds":0.0028840303,
+    "seconds":0.0028271824,
     "class_name":"NERTaggingTag"
   },
   {
     "stage":"dimension",
     "name":"lexical-others",
     "status":"ok",
-    "seconds":0.0028473772,
+    "seconds":0.0028070845,
     "class_name":"NERTaggingTag"
   },
   {
     "stage":"dimension",
     "name":"lexical-animals",
     "status":"ok",
-    "seconds":0.7045953423,
+    "seconds":0.690976426,
     "class_name":"WordPerDictionary"
   },
   {
     "stage":"dimension",
     "name":"lexical-weapons",
     "status":"ok",
-    "seconds":0.2022910491,
+    "seconds":0.198966179,
     "class_name":"WordPerDictionary"
   },
   {
     "stage":"dimension",
     "name":"lexical-food",
     "status":"ok",
-    "seconds":0.4845500961,
+    "seconds":0.4797677882,
     "class_name":"WordPerDictionary"
   },
   {
     "stage":"dimension",
     "name":"lexical-jobs",
     "status":"ok",
-    "seconds":0.2528595515,
+    "seconds":0.2482721843,
     "class_name":"WordPerDictionary"
   },
   {
     "stage":"dimension",
     "name":"lexical-crime",
     "status":"ok",
-    "seconds":0.0897415616,
+    "seconds":0.0854431577,
     "class_name":"WordPerDictionary"
   },
   {
     "stage":"dimension",
     "name":"lexical-personal-money",
     "status":"ok",
-    "seconds":0.4578209333,
+    "seconds":0.4503542148,
     "class_name":"WordPerDictionary"
   },
   {
     "stage":"dimension",
     "name":"lexical-personal-religion",
     "status":"ok",
-    "seconds":0.6230116747,
+    "seconds":0.6165828481,
     "class_name":"WordPerDictionary"
   },
   {
     "stage":"dimension",
     "name":"lexical-personal-work",
     "status":"ok",
-    "seconds":1.1075656787,
+    "seconds":1.0762037262,
     "class_name":"WordPerDictionary"
   },
   {
     "stage":"dimension",
     "name":"lexical-clothes",
     "status":"ok",
-    "seconds":0.1332888938,
+    "seconds":0.1300362758,
     "class_name":"WordPerDictionary"
   },
   {
     "stage":"dimension",
     "name":"lexical-body",
     "status":"ok",
-    "seconds":0.6016195938,
+    "seconds":0.5930081233,
     "class_name":"WordPerDictionary"
   },
   {
     "stage":"dimension",
     "name":"lexical-body-male-genitalia",
     "status":"ok",
-    "seconds":0.0426561609,
+    "seconds":0.0409738235,
     "class_name":"WordPerDictionary"
   },
   {
     "stage":"dimension",
     "name":"lexical-body-female-genitalia",
     "status":"ok",
-    "seconds":0.0557334609,
+    "seconds":0.0534352027,
     "class_name":"WordPerDictionary"
   },
   {
     "stage":"dimension",
     "name":"lexical-health",
     "status":"ok",
-    "seconds":0.4770267718,
+    "seconds":0.475237187,
     "class_name":"WordPerDictionary"
   },
   {
     "stage":"dimension",
     "name":"lexical-ingesting",
     "status":"ok",
-    "seconds":0.507547617,
+    "seconds":0.4986399859,
     "class_name":"WordPerDictionary"
   },
   {
     "stage":"dimension",
     "name":"lexical-sex",
     "status":"ok",
-    "seconds":0.3609827757,
+    "seconds":0.3555341028,
     "class_name":"WordPerDictionary"
   },
   {
     "stage":"dimension",
     "name":"lexical-death",
     "status":"ok",
-    "seconds":0.2568419389,
+    "seconds":0.2525030971,
     "class_name":"WordPerDictionary"
   },
   {
     "stage":"dimension",
     "name":"lexical-home",
     "status":"ok",
-    "seconds":0.288079951,
+    "seconds":0.2831210904,
     "class_name":"WordPerDictionary"
   },
   {
     "stage":"dimension",
     "name":"lexical-social-inclusive",
     "status":"ok",
-    "seconds":0.1675268486,
+    "seconds":0.1618931368,
     "class_name":"WordPerDictionary"
   },
   {
     "stage":"dimension",
     "name":"lexical-social-analytic",
     "status":"ok",
-    "seconds":24.5467570163,
+    "seconds":25.9204035662,
     "class_name":"WordPerDictionary"
   },
   {
     "stage":"dimension",
     "name":"lexical-social-affiliation",
     "status":"ok",
-    "seconds":0.1805076674,
+    "seconds":0.1741916128,
     "class_name":"WordPerDictionary"
   },
   {
     "stage":"dimension",
     "name":"lexical-social-achievement",
     "status":"ok",
-    "seconds":0.2502996027,
+    "seconds":0.2417250164,
     "class_name":"WordPerDictionary"
   },
   {
     "stage":"dimension",
     "name":"lexical-social-risk",
     "status":"ok",
-    "seconds":0.1855886206,
+    "seconds":0.1784171462,
     "class_name":"WordPerDictionary"
   },
   {
     "stage":"dimension",
     "name":"lexical-social-social-family",
     "status":"ok",
-    "seconds":0.139804367,
+    "seconds":0.1349659003,
     "class_name":"WordPerDictionary"
   },
   {
     "stage":"dimension",
     "name":"lexical-social-friendship",
     "status":"ok",
-    "seconds":0.0984140001,
+    "seconds":0.0952996202,
     "class_name":"WordPerDictionary"
   },
   {
     "stage":"dimension",
     "name":"lexical-social-social-female",
     "status":"ok",
-    "seconds":0.1019323021,
+    "seconds":0.0977938175,
     "class_name":"WordPerDictionary"
   },
   {
     "stage":"dimension",
     "name":"lexical-social-social-male",
     "status":"ok",
-    "seconds":0.0886538252,
+    "seconds":0.0855824612,
     "class_name":"WordPerDictionary"
   },
   {
     "stage":"dimension",
     "name":"lexical-social-cognitive-insight",
     "status":"ok",
-    "seconds":0.9257038683,
+    "seconds":0.9244353995,
     "class_name":"WordPerDictionary"
   },
   {
     "stage":"dimension",
     "name":"lexical-social-cognitive-cause",
     "status":"ok",
-    "seconds":0.3808315061,
+    "seconds":0.3821926527,
     "class_name":"WordPerDictionary"
   },
   {
     "stage":"dimension",
     "name":"lexical-social-cognitive-discrepancies",
     "status":"ok",
-    "seconds":0.1875700168,
+    "seconds":0.1874590479,
     "class_name":"WordPerDictionary"
   },
   {
     "stage":"dimension",
     "name":"lexical-social-cognitive-tentativeness",
     "status":"ok",
-    "seconds":0.3575313464,
+    "seconds":0.360111922,
     "class_name":"WordPerDictionary"
   },
   {
     "stage":"dimension",
     "name":"lexical-social-cognitive-certainty",
     "status":"ok",
-    "seconds":0.1931179464,
+    "seconds":0.1928909793,
     "class_name":"WordPerDictionary"
   },
   {
     "stage":"dimension",
     "name":"lexical-social-cognitive",
     "status":"ok",
-    "seconds":2.0459478348,
+    "seconds":2.0482662767,
     "class_name":"CompositeDimension"
   },
   {
     "stage":"dimension",
     "name":"lexical-social-perceptual-explore",
     "status":"ok",
-    "seconds":0.1751022302,
+    "seconds":0.1741135344,
     "class_name":"WordPerDictionary"
   },
   {
     "stage":"dimension",
     "name":"lexical-social-perceptual-surprise",
     "status":"ok",
-    "seconds":0.1069298834,
+    "seconds":0.1065346897,
     "class_name":"WordPerDictionary"
   },
   {
     "stage":"dimension",
     "name":"lexical-social-perceptual-feel",
     "status":"ok",
-    "seconds":0.296344649,
+    "seconds":0.2979471236,
     "class_name":"WordPerDictionary"
   },
   {
     "stage":"dimension",
     "name":"lexical-social-perceptual-hear",
     "status":"ok",
-    "seconds":0.2767254747,
+    "seconds":0.2767681293,
     "class_name":"WordPerDictionary"
   },
   {
     "stage":"dimension",
     "name":"lexical-social-perceptual-see",
     "status":"ok",
-    "seconds":0.4726640806,
+    "seconds":0.4738642126,
     "class_name":"WordPerDictionary"
   },
   {
     "stage":"dimension",
     "name":"lexical-social-perceptual-processes",
     "status":"ok",
-    "seconds":1.3289043903,
+    "seconds":1.3303336464,
     "class_name":"CompositeDimension"
   },
   {
     "stage":"dimension",
     "name":"lexical-social-relativity-movement",
     "status":"ok",
-    "seconds":0.7505582161,
+    "seconds":0.7531087473,
     "class_name":"WordPerDictionary"
   },
   {
     "stage":"dimension",
     "name":"lexical-social-relativity-space",
     "status":"ok",
-    "seconds":0.7452941909,
+    "seconds":0.7399977706,
     "class_name":"WordPerDictionary"
   },
   {
     "stage":"dimension",
     "name":"lexical-social-relativity-time",
     "status":"ok",
-    "seconds":0.6878634952,
+    "seconds":0.6864532828,
     "class_name":"WordPerDictionary"
   },
   {
     "stage":"dimension",
     "name":"lexical-social-relativity",
     "status":"ok",
-    "seconds":2.1847834252,
+    "seconds":2.1805870794,
     "class_name":""
   },
   {
     "stage":"dimension",
     "name":"lexical-social",
     "status":"ok",
-    "seconds":31.3237307146,
+    "seconds":32.6538853087,
     "class_name":""
   },
   {
     "stage":"dimension",
     "name":"lexical",
     "status":"ok",
-    "seconds":37.9865436554,
+    "seconds":39.1974872984,
     "class_name":""
   },
   {
     "stage":"dimension",
     "name":"psycholinguistic-processes-positive-general",
     "status":"ok",
-    "seconds":2.8218683302,
+    "seconds":2.6975630783,
     "class_name":"WordPerDictionary"
   },
   {
     "stage":"dimension",
     "name":"psycholinguistic-processes-positive-pleasure",
     "status":"ok",
-    "seconds":0.7101297006,
+    "seconds":0.681834206,
     "class_name":"WordPerDictionary"
   },
   {
     "stage":"dimension",
     "name":"psycholinguistic-processes-positive-emoticons",
     "status":"ok",
-    "seconds":0.1402416378,
+    "seconds":0.1346111409,
     "class_name":"WordPerDictionary"
   },
   {
     "stage":"dimension",
     "name":"psycholinguistic-processes-positive",
     "status":"ok",
-    "seconds":3.6744750664,
+    "seconds":3.5161686204,
     "class_name":"CompositeDimension"
   },
   {
     "stage":"dimension",
     "name":"psycholinguistic-processes-negative-general",
     "status":"ok",
-    "seconds":5.6049397849,
+    "seconds":5.3701271601,
     "class_name":"WordPerDictionary"
   },
   {
     "stage":"dimension",
     "name":"psycholinguistic-processes-negative-anxiety",
     "status":"ok",
-    "seconds":0.2888056636,
+    "seconds":0.2790623829,
     "class_name":"WordPerDictionary"
   },
   {
     "stage":"dimension",
     "name":"psycholinguistic-processes-negative-anger",
     "status":"ok",
-    "seconds":0.7154402845,
+    "seconds":0.6877965778,
     "class_name":"WordPerDictionary"
   },
   {
     "stage":"dimension",
     "name":"psycholinguistic-processes-negative-sad",
     "status":"ok",
-    "seconds":0.301439207,
+    "seconds":0.2908194959,
     "class_name":"WordPerDictionary"
   },
   {
     "stage":"dimension",
     "name":"psycholinguistic-processes-negative-emoticons",
     "status":"ok",
-    "seconds":0.1643976159,
+    "seconds":0.1552815475,
     "class_name":"WordPerDictionary"
   },
   {
     "stage":"dimension",
     "name":"psycholinguistic-processes-negative",
     "status":"ok",
-    "seconds":7.0770475008,
+    "seconds":6.7850569487,
     "class_name":"CompositeDimension"
   },
   {
     "stage":"dimension",
     "name":"psycholinguistic-processes",
     "status":"ok",
-    "seconds":10.7523260713,
+    "seconds":10.3020028062,
     "class_name":"CompositeDimension"
   },
   {
     "stage":"dimension",
     "name":"register-offensive-speech",
     "status":"ok",
-    "seconds":0.3664932773,
+    "seconds":0.3539992534,
     "class_name":"WordPerDictionary"
   },
   {
     "stage":"dimension",
     "name":"register-offensive-speech-soft",
     "status":"ok",
-    "seconds":0.2559438124,
+    "seconds":0.2468816452,
     "class_name":"WordPerDictionary"
   },
   {
     "stage":"dimension",
     "name":"register-offensive-speech-strong",
     "status":"ok",
-    "seconds":0.1802366078,
+    "seconds":0.1741258837,
     "class_name":"WordPerDictionary"
   },
   {
     "stage":"dimension",
     "name":"register-offensive-speech",
     "status":"ok",
-    "seconds":0.8036473356,
+    "seconds":0.7759330124,
     "class_name":""
   },
   {
     "stage":"dimension",
     "name":"register-informal-speech-assent",
     "status":"ok",
-    "seconds":0.0796078593,
+    "seconds":0.077505704,
     "class_name":"WordPerDictionary"
   },
   {
     "stage":"dimension",
     "name":"register-informal-speech-nonfluencies",
     "status":"ok",
-    "seconds":0.0537035391,
+    "seconds":0.0522334091,
     "class_name":"WordPerDictionary"
   },
   {
     "stage":"dimension",
     "name":"register-informal-speech-swear",
     "status":"ok",
-    "seconds":0.3511656784,
+    "seconds":0.3373910002,
     "class_name":"WordPerDictionary"
   },
   {
     "stage":"dimension",
     "name":"register-informal-speech-colloquialisms",
     "status":"ok",
-    "seconds":1.5025766492,
+    "seconds":1.4377723634,
     "class_name":"WordPerDictionary"
   },
   {
     "stage":"dimension",
     "name":"register-informal-speech-sms",
     "status":"ok",
-    "seconds":0.116591692,
+    "seconds":0.11198752,
     "class_name":"WordPerDictionary"
   },
   {
     "stage":"dimension",
     "name":"register-informal-speech",
     "status":"ok",
-    "seconds":2.1048954241,
+    "seconds":2.0180830061,
     "class_name":""
   },
   {
     "stage":"dimension",
     "name":"register-polite-language-cultisms",
     "status":"ok",
-    "seconds":0.0804509185,
+    "seconds":0.0783955269,
     "class_name":"WordPerDictionary"
   },
   {
     "stage":"dimension",
     "name":"register-polite-language-latinisms",
     "status":"ok",
-    "seconds":0.0725487322,
+    "seconds":0.070658002,
     "class_name":"WordPerDictionary"
   },
   {
     "stage":"dimension",
     "name":"register",
     "status":"ok",
-    "seconds":3.0625975281,
+    "seconds":2.9440886155,
     "class_name":""
   },
   {
     "stage":"dimension",
     "name":"social-media-hashtags",
     "status":"ok",
-    "seconds":0.0031980947,
+    "seconds":0.0031756051,
     "class_name":"PatternDimension"
   },
   {
     "stage":"dimension",
     "name":"social-media-mentions",
     "status":"ok",
-    "seconds":0.003195703,
+    "seconds":0.0031594373,
     "class_name":"PatternDimension"
   },
   {
     "stage":"dimension",
     "name":"social-media-mentions-in-the-middle",
     "status":"ok",
-    "seconds":0.0032071881,
+    "seconds":0.0031728223,
     "class_name":"PatternDimension"
   },
   {
     "stage":"dimension",
     "name":"social-media-urls",
     "status":"ok",
-    "seconds":0.0035097525,
+    "seconds":0.0038326047,
     "class_name":"PatternDimension"
   },
   {
     "stage":"dimension",
     "name":"social-media-jargon",
     "status":"ok",
-    "seconds":0.0611410439,
+    "seconds":0.0607915334,
     "class_name":"WordPerDictionary"
   },
   {
     "stage":"dimension",
     "name":"social-media-emoticons",
     "status":"ok",
-    "seconds":0.1330444254,
+    "seconds":0.1328914315,
     "class_name":"POSTaggingTag"
   },
   {
     "stage":"dimension",
     "name":"social-media-reply-female",
     "status":"ok",
-    "seconds":0.0121709332,
+    "seconds":0.0116211772,
     "class_name":"TwitterReplyToDimension"
   },
   {
     "stage":"dimension",
     "name":"social-media-reply-male",
     "status":"ok",
-    "seconds":0.0114523992,
+    "seconds":0.0108473673,
     "class_name":"TwitterReplyToDimension"
   },
   {
     "stage":"dimension",
     "name":"social-media",
     "status":"ok",
-    "seconds":0.2326428182,
+    "seconds":0.2313479111,
     "class_name":""
   },
   {
     "stage":"dimensions",
     "name":"compute_all",
     "status":"ok",
-    "seconds":602.2146927081,
+    "seconds":82.9824684896,
     "class_name":null
   }
 ]
