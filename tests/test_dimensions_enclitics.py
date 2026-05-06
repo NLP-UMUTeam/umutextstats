@@ -54,3 +54,4 @@ def test_no_match():
 def test_empty():
     result = compute([""])
     assert result == [0.0]
+
