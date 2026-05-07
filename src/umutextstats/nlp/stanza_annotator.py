@@ -71,14 +71,19 @@ class StanzaAnnotator:
 
 
 def format_tagged_pos(doc) -> str:
-    return ", ".join(
-        ", ".join(
-            f"{w.text}__({w.xpos if w.xpos else w.upos})"
-            + (f"({w.feats})" if w.feats else "")
-            for w in sent.words
-        )
-        for sent in doc.sentences
-    )
+    items = []
+
+    for sent in doc.sentences:
+        for word in sent.words:
+            tag = word.upos or word.xpos or ""
+            feats = word.feats or ""
+
+            if feats:
+                items.append(f"{word.text}__({tag})({feats})")
+            else:
+                items.append(f"{word.text}__({tag})")
+
+    return ", ".join(items)
 
 
 def format_tagged_ner(doc) -> str:

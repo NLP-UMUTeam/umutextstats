@@ -24,10 +24,22 @@ class WordPerDictionary(BaseDimension):
         self.use_regex = use_regex
         self.dictionary_loader = dictionary_loader or DictionaryLoader()
 
-        entries = self.dictionary_loader.load(dictionary_name)
+        dictionary_names = [
+            name.strip()
+            for name in dictionary_name.split("|")
+            if name.strip()
+        ]
 
-        self.entries = entries.words
-        self.exceptions = entries.exceptions
+        words = []
+        exceptions = []
+
+        for name in dictionary_names:
+            entries = self.dictionary_loader.load(name)
+            words.extend(entries.words)
+            exceptions.extend(entries.exceptions)
+
+        self.entries = words
+        self.exceptions = exceptions
 
         if self.use_regex:
             self.patterns = self._compile_patterns(self.entries, kind="word")

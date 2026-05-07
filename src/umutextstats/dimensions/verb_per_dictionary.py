@@ -70,12 +70,21 @@ class VerbPerDictionary(BaseDimension):
         dictionary_loader: DictionaryLoader | None = None,
     ):
         super().__init__(key=key, input_column=input_column)
-
+        
         self.dictionary_name = dictionary_name
         self.percentage = percentage
         self.dictionary_loader = dictionary_loader or DictionaryLoader()
 
-        entries = self.dictionary_loader.load(dictionary_name)
+        dictionary_names = [
+            name.strip()
+            for name in dictionary_name.split("|")
+            if name.strip()
+        ]
+
+        entries = []
+        for name in dictionary_names:
+            entries = self.dictionary_loader.load(name)
+
 
         # This class intentionally ignores regex mode.
         self.words = {entry.lower() for entry in entries.words}

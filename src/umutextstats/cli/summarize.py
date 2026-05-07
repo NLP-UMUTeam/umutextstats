@@ -7,6 +7,11 @@ import argparse
 import pandas as pd
 
 from umutextstats.output import write_output
+from umutextstats.summary.ranking import (
+    get_sparse_features,
+    get_zero_only_features,
+    rank_features,
+)
 from umutextstats.summary.summarize import (
     summarize_features,
     summarize_features_long,
@@ -37,22 +42,92 @@ def add_summarize_arguments(parser: argparse.ArgumentParser) -> None:
         ),
     )
 
+    parser.add_argument(
+        "--rank-by",
+        default=None,
+        help=(
+            "Return a feature ranking using the selected statistic, "
+            "for example: mean, sum, std, max, nonzero_ratio."
+        ),
+    )
+
+    parser.add_argument(
+        "--top",
+        type=int,
+        default=20,
+        help="Number of top ranked features to return when using --rank-by.",
+    )
+
+    parser.add_argument(
+        "--bottom",
+        type=int,
+        default=None,
+        help="Return bottom N features instead of top N when using --rank-by.",
+    )
+
+    parser.add_argument(
+        "--zero-only",
+        action="store_true",
+        help="Return only features whose nonzero_count is 0.",
+    )
+
+    parser.add_argument(
+        "--sparse-threshold",
+        type=float,
+        default=None,
+        help=(
+            "Return features with nonzero_ratio less than or equal "
+            "to this threshold, for example 0.01."
+        ),
+    )
+
+
+def should_use_long_format(args: argparse.Namespace) -> bool:
+    output = args.output.lower()
+
+    if args.format == "long":
+        return True
+
+    if args.format == "nested":
+        return False
+
+    return output.endswith(".csv")
+
 
 def run_summarize(args: argparse.Namespace) -> None:
     features = pd.read_csv(args.input)
 
-    output = args.output.lower()
+    summary = summarize_features(features)
 
-    if args.format == "long":
-        summary = summarize_features_long(features)
+    if args.zero_only:
+        result = get_zero_only_features(summary)
 
-    elif args.format == "nested":
-        summary = summarize_features(features)
+    elif args.sparse_threshold is not None:
+        result = get_sparse_features(
+            summary,
+            threshold=args.sparse_threshold,
+        )
 
-    elif output.endswith(".csv"):
-        summary = summarize_features_long(features)
+    elif args.rank_by:
+        if args.bottom is not None:
+            result = rank_features(
+                summary,
+                by=args.rank_by,
+                top=args.bottom,
+                ascending=True,
+            )
+        else:
+            result = rank_features(
+                summary,
+                by=args.rank_by,
+                top=args.top,
+                ascending=False,
+            )
+
+    elif should_use_long_format(args):
+        result = summarize_features_long(features)
 
     else:
-        summary = summarize_features(features)
+        result = summary
 
-    write_output(summary, args.output)
+    write_output(result, args.output)

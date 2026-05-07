@@ -1829,7 +1829,7 @@
                                 <!-- Readability -->
                                 <dimension>
                                     <key>stylometry-corpus-readability</key>
-                                    <class>ReadbilityDimension</class>
+                                    <class>ReadabilityDimension</class>
                                     <description>Measures the readability within of the text</description>
                                 </dimension>
                                 
@@ -2030,7 +2030,7 @@
                         <dimension>
                             <key>stylometry-corpus-words-with-21ltr</key>
                             <class>WordLengthDimension</class>
-                            <length>17</length>
+                            <length>21</length>
                             <comparator>=</comparator>
                             <description>The number of words equal to 21 characters</description>
                         </dimension>
@@ -2248,11 +2248,11 @@
                             <class>CharacterCountDimension</class>
                             <character>,ʻ،、︐︑﹐﹑，､</character>
                             <description>Number of commas</description>
-                        <dimension>
                         </dimension>
+                        <dimension>
                             <key>stylometry-punctuation-symbols-ellipsis</key>
                             <class>PatternDimension</class>
-                            <pattern><![CDATA[[…|\.{3,}]]]></pattern>
+                            <pattern><![CDATA[…|\.{3,}]]></pattern>
                             <separator>by-spaces</separator>
                             <useoriginalinput>true</useoriginalinput>
                             <description>Number of ellipsis</description>
@@ -2405,7 +2405,7 @@
                 <dimension>
                     <key>lexical-locations</key>
                     <class>NERTaggingTag</class>
-                    <tag>PER</tag>
+                    <tag>LOC</tag>
                     <description>Percentage of words of related to locations</description>
                 </dimension>
                 
@@ -2839,7 +2839,7 @@
                     <strategy>CompositeStrategyAvg</strategy>
                     <dimensions>
                         <dimension>
-                            <key>register-offensive-speech</key>
+                            <key>register-offensive-speech-general</key>
                             <description>Percentage of words related with offenses</description>
                             <class>WordPerDictionary</class>
                             <dictionary>offensive</dictionary>
@@ -2969,7 +2969,8 @@
                     <class>WordPerDictionary</class>
                     <disabledregexp>true</disabledregexp>
                     <useoriginalinput>true</useoriginalinput>
-                    <description>Number of hyperlinks</description>
+                    <description>Number of social media jargon expressions</description>
+                    <dictionary>social-media-jargon</dictionary>
                 </dimension>
                 
                 <dimension>
