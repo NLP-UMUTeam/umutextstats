@@ -40,17 +40,8 @@ def compute(strategy):
 # --- SUM ---
 def test_composite_sum():
     result = compute("CompositeStrategySum")
-
     assert list(result["parent"]) == [12, 5]
 
-
-def test_composite_sum_alias():
-    result = compute("SUM")
-
-    assert list(result["parent"]) == [12, 5]
-
-
-# --- AVG ---
 def test_composite_avg():
     result = compute("CompositeStrategyAvg")
     assert list(result["parent"]) == [6.0, 2.5]
@@ -68,3 +59,24 @@ def test_composite_min():
 def test_composite_unknown_defaults_to_sum():
     result = compute("whatever")
     assert list(result["parent"]) == [12, 5]
+    
+def test_composite_keeps_child_columns():
+    result = compute("CompositeStrategySum")
+
+    assert list(result["length"]) == [10, 4]
+    assert list(result["words"]) == [2, 1]
+    assert list(result["parent"]) == [12, 5]
+    
+    
+def test_composite_with_empty_text():
+    df = pd.DataFrame({
+        "text_norm": [
+            "",
+            "hola mundo",
+        ]
+    })
+
+    engine = DimensionEngine(make_config("CompositeStrategySum"))
+    result = engine.compute(df)
+
+    assert list(result["parent"]) == [0, 12]

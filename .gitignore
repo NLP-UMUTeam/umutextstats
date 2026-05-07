@@ -1,6 +1,6 @@
 .venv/
 .cache/
-__pycache__/
+__pycache__
 *.py[cod]
 .cache/
 *.csv

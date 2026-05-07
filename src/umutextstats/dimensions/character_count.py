@@ -9,7 +9,7 @@ class CharacterCountDimension(BaseDimension):
         input_column: str = "text_norm",
     ):
         super().__init__(key=key, input_column=input_column)
-        self.chars = list(chars or "")
+        self.chars = set(chars or "")
 
     def compute(self, df):
         texts = df[self.input_column].fillna("").astype(str)
