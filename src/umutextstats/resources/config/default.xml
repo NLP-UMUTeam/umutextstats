@@ -2275,7 +2275,7 @@
                         <dimension>
                             <key>stylometry-punctuation-symbols-space</key>
                             <class>CharacterCountDimension</class>
-                            <character> </character>
+                            <character>\s</character>
                             <description>Number of spaces</description>
                         </dimension>
 

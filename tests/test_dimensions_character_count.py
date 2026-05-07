@@ -88,3 +88,25 @@ def test_multiple_rows_with_unicode():
     result = compute(["niño", "camión", ""], "ó")
 
     assert result == [0.0, 16.666666666666668, 0.0]
+
+
+def test_whitespace_regex_counts_spaces():
+    assert compute(["hola mundo"], r"\s") == [10.0]
+
+
+def test_whitespace_regex_counts_newlines():
+    assert compute(["hola\nmundo"], r"\s") == [10.0]
+
+
+def test_whitespace_regex_counts_tabs():
+    assert compute(["hola\tmundo"], r"\s") == [10.0]
+
+
+def test_whitespace_regex_counts_mixed_whitespace():
+    assert compute(["a b\tc\nd"], r"\s") == [50.0]
+
+
+def test_whitespace_regex_counts_mixed_whitespace():
+    result = compute(["a b\tc\nd"], r"\s")
+
+    assert result[0] == 100 * 3 / 7

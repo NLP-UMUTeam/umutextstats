@@ -1,3 +1,5 @@
+import regex as re
+
 from umutextstats.dimensions.base import BaseDimension
 
 
@@ -9,7 +11,15 @@ class CharacterCountDimension(BaseDimension):
         input_column: str = "text_norm",
     ):
         super().__init__(key=key, input_column=input_column)
-        self.chars = set(chars or "")
+
+        self.raw_chars = chars or ""
+
+        if self.raw_chars == r"\s":
+            self.pattern = re.compile(r"\s")
+            self.chars = None
+        else:
+            self.pattern = None
+            self.chars = set(self.raw_chars)
 
     def compute(self, df):
         texts = df[self.input_column].fillna("").astype(str)
@@ -23,7 +33,13 @@ class CharacterCountDimension(BaseDimension):
         return result
 
     def _count_chars(self, text: str) -> int:
-        if not text or not self.chars:
+        if not text:
+            return 0
+
+        if self.pattern is not None:
+            return len(self.pattern.findall(text))
+
+        if not self.chars:
             return 0
 
         return sum(text.count(char) for char in self.chars)
