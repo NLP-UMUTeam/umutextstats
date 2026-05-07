@@ -1,3 +1,7 @@
+<p align="center">
+  <img src="docs/umutextstats-logo.png" alt="UMUTextStats logo" width="500"/>
+</p>
+
 # UMUTextStats Python
 
 Work in progress Python port of **UMUTextStats**, a linguistic feature extraction tool similar to LIWC. 
