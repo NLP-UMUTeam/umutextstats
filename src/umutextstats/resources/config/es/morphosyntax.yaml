@@ -1,0 +1,723 @@
+dimensions:
+- key: morphosyntax
+  children:
+  - key: morphosyntax-gender
+    children:
+    - key: morphosyntax-gender-words-feminine
+      class: POSTaggingTag
+      description: Percentage of grammatically feminine words
+      universal: Gender=Fem
+    - key: morphosyntax-gender-words-masculine
+      class: POSTaggingTag
+      description: Percentage of grammatically masculine words. In Spanish, masculine gender is the unmarked or inclusive form
+      universal: Gender=Masc
+  - key: morphosyntax-number
+    children:
+    - key: morphosyntax-number-singular
+      class: POSTaggingTag
+      description: Counts how many singular words there are in the text
+      universal: Number=Sing
+    - key: morphosyntax-number-plural
+      class: POSTaggingTag
+      description: Counts how many plural words there are in the text
+      universal: Number=Plur
+  - key: morphosyntax-affixes
+    children:
+    - key: morphosyntax-affixes-suffixes
+      class: CompositeDimension
+      strategy: CompositeStrategySum
+      description: Counts how many words includes suffixes
+      children:
+      - key: morphosyntax-affixes-suffixes-nominals
+        class: WordPerDictionary
+        description: Counts how many words includes nominals suffixes
+        dictionary: suffixes-nominals
+      - key: morphosyntax-affixes-suffixes-adjectivizers
+        class: WordPerDictionary
+        description: Counts how many words includes adjectivizers suffixes
+        dictionary: suffixes-adjectivizers
+      - key: morphosyntax-affixes-suffixes-verbalizers
+        class: WordPerDictionary
+        description: Counts how many words includes verbalizers suffixes
+        dictionary: suffixes-verbalizers
+      - key: morphosyntax-affixes-suffixes-adverbializers
+        class: WordPerDictionary
+        description: Counts how many words includes adverbializers suffixes
+        dictionary: suffixes-adverbializers
+      - key: morphosyntax-affixes-suffixes-augmentative
+        class: WordPerDictionary
+        description: Counts how many words includes augmentative suffixes
+        dictionary: suffixes-augmentative
+      - key: morphosyntax-affixes-suffixes-diminutives
+        class: WordPerDictionary
+        description: Counts how many words includes diminutives suffixes
+        dictionary: suffixes-diminutives
+      - key: morphosyntax-affixes-suffixes-despective
+        class: WordPerDictionary
+        description: Counts how many words includes despective suffixes
+        dictionary: suffixes-despective
+    - key: morphosyntax-affixes-prefixes
+      class: WordPerDictionary
+      description: Counts how many words includes prefixes
+      dictionary: prefixes
+  - key: morphosyntax-morphology
+    children:
+    - key: morphosyntax-morphology-nouns
+      class: CompositeDimension
+      strategy: CompositeStrategySum
+      description: Percentage of PoS nouns
+      children:
+      - key: morphosyntax-morphology-nouns-common
+        class: POSTaggingTag
+        description: Percentage of PoS common nouns
+        tag: NOUN
+      - key: morphosyntax-morphology-nouns-proper
+        class: POSTaggingTag
+        description: Percentage of PoS proper nouns
+        tag: PROPN
+      - key: morphosyntax-morphology-nouns-male
+        class: WordPerDictionary
+        description: Percentage of male names
+        dictionary: named-entities-male-names
+      - key: morphosyntax-morphology-nouns-female
+        class: WordPerDictionary
+        description: Percentage of female names
+        dictionary: named-entities-female-names
+      - key: morphosyntax-morphology-nouns-dates
+        class: CompositeDimension
+        strategy: CompositeStrategySum
+        description: Sum of the dates percentage
+        children:
+        - key: morphosyntax-morphology-nouns-dates-ymd
+          class: PatternDimension
+          description: Percentage of dates (ymd)
+          pattern: (1[1-9]|2[0-9])(\d\d)?[- \/.](0[1-9]|1[012])[- \/.](0[1-9]|[12][0-9]|3[01])
+          separator: by-word
+        - key: morphosyntax-morphology-nouns-dates-dmt
+          class: PatternDimension
+          description: Percentage of dates (dmt)
+          pattern: (0[1-9]|[12][0-9]|3[01])[- \/.](0?[1-9]|1[012])[- \/.](1[1-9]|2[0-9])(\d\d)?
+          separator: by-word
+        - key: morphosyntax-morphology-nouns-dates-mdy
+          class: PatternDimension
+          description: Percentage of dates (mdy)
+          pattern: ^(0[1-9]|1[012])[- \/.](0[1-9]|[12][0-9]|3[01])[- \/.](1[0-9]|2[0-9])(\d\d)?$
+          separator: by-word
+        - key: morphosyntax-morphology-nouns-dates-textual-short
+          class: PatternDimension
+          description: Percentage of dates (short-format)
+          pattern: \d{1,2}[\-\s](ene|feb|mar|abr|may|jun|jul|ago|sep|oct|nov|dic)(\-\d{2,4})?
+          separator: by-word
+        - key: morphosyntax-morphology-nouns-dates-textual-long
+          class: PatternDimension
+          description: Percentage of dates (long-format)
+          pattern: (0[1-9]|[12][0-9]|3[01])\sde\s(enero|febrero|marzo|abril|mayo|junio|julio|agosto|septiembre|octubre|noviembre|diciembre)\sde\s(1[1-9]|2[0-9])(\d\d)?
+          separator: by-word
+        - key: morphosyntax-morphology-nouns-dates-textual-days
+          class: PatternDimension
+          description: Percentage of day names
+          pattern: (lunes|martes|miércoles|jueves|viernes)
+          separator: by-word
+      - key: morphosyntax-morphology-nouns-numerals
+        class: POSTaggingTag
+        description: Percentage of PoS numerals
+        tag: NUM
+    - key: morphosyntax-morphology-nouns-topics
+      children:
+      - key: morphosyntax-morphology-nouns-topics-capitals
+        class: WordPerDictionary
+        description: Number of capitals
+        dictionary: named-entities-capitals
+        percentage: false
+      - key: morphosyntax-morphology-nouns-topics-countries
+        class: WordPerDictionary
+        description: Number of countries
+        dictionary: named-entities-countries
+        percentage: false
+      - key: morphosyntax-morphology-nouns-topics-demonyms
+        class: WordPerDictionary
+        description: Number of demonyms; that is, to refer to inhabitants of a particular place
+        dictionary: named-entities-demonyms
+        percentage: false
+      - key: morphosyntax-morphology-nouns-topics-languages
+        class: WordPerDictionary
+        description: Number of words that refer to languages
+        dictionary: named-entities-languages
+        percentage: false
+      - key: morphosyntax-morphology-nouns-topics-honorifics
+        class: WordPerDictionary
+        description: Number of words that refer to honorifs; that is, titles that conveys esteem, courtesy, or respect for position or rank when used in addressing or referring to a person. Sometimes, the term "honorific" is used in a more specific sense to refer to an honorary academic title.
+        dictionary: named-entities-honorifics
+        percentage: false
+      - key: morphosyntax-morphology-nouns-topics-colors
+        class: WordPerDictionary
+        description: Number of words that refer to colors.
+        dictionary: named-entities-colors
+        percentage: false
+    - key: morphosyntax-morphology-adjectives
+      class: CompositeDimension
+      strategy: CompositeStrategySum
+      children:
+      - key: morphosyntax-morphology-adjectives-qualifying
+        class: WordPerDictionary
+        description: Percentage of qualifying adjectives
+        dictionary: adjectives-qualifying
+      - key: morphosyntax-morphology-adjectives-ordinals
+        class: WordPerDictionary
+        description: Percentage of ordinals adjectives
+        dictionary: adjectives-ordinals
+      - key: morphosyntax-morphology-adjectives-superlative
+        class: WordPerDictionary
+        description: Percentage of superlative adjectives
+        dictionary: adjectives-superlative
+      - key: morphosyntax-morphology-adjectives-despective
+        class: WordPerDictionary
+        description: Percentage of despective adjectives
+        dictionary: adjectives-despective
+    - key: morphosyntax-morphology-adverbs
+      class: CompositeDimension
+      strategy: CompositeStrategySum
+      description: Percentage of adverbs
+      children:
+      - key: morphosyntax-morphology-adverbs-interrogative
+        class: WordPerDictionary
+        description: Percentage of interrogative adverbs
+        dictionary: adverbs-interrogative
+      - key: morphosyntax-morphology-adverbs-doubt-or-desire
+        class: WordPerDictionary
+        description: Percentage of adverbs that expresses doubt or desire
+        dictionary: adverbs-doubt-or-desire
+      - key: morphosyntax-morphology-adverbs-negation
+        class: WordPerDictionary
+        description: Percentage of negation adverbs
+        dictionary: adverbs-negation
+      - key: morphosyntax-morphology-adverbs-affirmation
+        class: WordPerDictionary
+        description: Percentage of affirmation adverbs
+        dictionary: adverbs-affirmation
+      - key: morphosyntax-morphology-adverbs-others
+        class: WordPerDictionary
+        description: Percentage of adverbs that do not belong to the rest of the categories
+        dictionary: adverbs-others
+    - key: morphosyntax-morphology-determiners
+      class: CompositeDimension
+      strategy: CompositeStrategySum
+      children:
+      - key: morphosyntax-morphology-determiners-articles
+        class: POSTaggingTag
+        description: Percentage of PoS determiners articles
+        universal: PronType=Art
+        tag: DET
+      - key: morphosyntax-morphology-determiners-demostrative
+        class: POSTaggingTag
+        description: Percentage of PoS determiners demostrative
+        universal: PronType=Dem
+        tag: DET
+      - key: morphosyntax-morphology-determiners-emphatic
+        class: POSTaggingTag
+        description: Percentage of PoS emphatic determiners
+        universal: PronType=Emp
+        tag: DET
+      - key: morphosyntax-morphology-determiners-possessive
+        class: POSTaggingTag
+        description: Percentage of PoS possessive determiners
+        universal: PronType=Prs
+        tag: DET
+      - key: morphosyntax-morphology-determiners-indefinite
+        class: POSTaggingTag
+        description: Percentage of PoS indefinite determiners
+        universal: PronType=Ind
+        tag: DET
+      - key: morphosyntax-morphology-determiners-exclamatory
+        class: POSTaggingTag
+        description: Percentage of PoS exclamatory determiners
+        universal: PronType=Exc
+        tag: DET
+      - key: morphosyntax-morphology-determiners-interrogative
+        class: POSTaggingTag
+        description: Percentage of PoS interrogative determiners
+        universal: PronType=Int
+        tag: DET
+      - key: morphosyntax-morphology-determiners-negative
+        class: POSTaggingTag
+        description: Percentage of PoS negative determiners
+        universal: PronType=Neg
+        tag: DET
+      - key: morphosyntax-morphology-determiners-reciprocal
+        class: POSTaggingTag
+        description: Percentage of PoS reciprocal determiners
+        universal: PronType=Rcp
+        tag: DET
+      - key: morphosyntax-morphology-determiners-relative
+        class: POSTaggingTag
+        description: Percentage of PoS relative determiners
+        universal: PronType=Rel
+        tag: DET
+      - key: morphosyntax-morphology-determiners-total
+        class: POSTaggingTag
+        description: Percentage of PoS total determiners
+        universal: PronType=Tot
+        tag: DET
+    - key: morphosyntax-morphology-pronouns
+      class: CompositeDimension
+      strategy: CompositeStrategySum
+      description: Personal and impersonal pronouns
+      children:
+      - key: morphosyntax-morphology-pronouns-personal
+        class: CompositeDimension
+        strategy: CompositeStrategyAvg
+        description: Personal pronouns
+        children:
+        - key: morphosyntax-morphology-pronouns-personal-number
+          class: CompositeDimension
+          strategy: CompositeStrategySum
+          description: Personal pronouns based on number
+          children:
+          - key: morphosyntax-morphology-pronouns-personal-number-singular
+            class: POSTaggingTag
+            description: Personal pronouns in singular
+            universal: Number=Sing|PronType=Prs
+            tag: PRON
+          - key: morphosyntax-morphology-pronouns-personal-number-plural
+            class: POSTaggingTag
+            description: Personal pronouns in plural
+            universal: Number=Plur|PronType=Prs
+            tag: PRON
+        - key: morphosyntax-morphology-pronouns-personal-person
+          class: CompositeDimension
+          strategy: CompositeStrategySum
+          description: Personal pronouns based on person
+          children:
+          - key: morphosyntax-morphology-pronouns-personal-person-first
+            class: POSTaggingTag
+            description: Personal pronouns based on first person
+            universal: Person=1|PronType=Prs
+            tag: PRON
+          - key: morphosyntax-morphology-pronouns-personal-person-second
+            class: POSTaggingTag
+            description: Personal pronouns based on second person
+            universal: Person=2|PronType=Prs
+            tag: PRON
+          - key: morphosyntax-morphology-pronouns-personal-person-third
+            class: POSTaggingTag
+            description: Personal pronouns based on third person
+            universal: Person=3|PronType=Prs
+            tag: PRON
+        - key: morphosyntax-morphology-pronouns-personal-gender
+          class: CompositeDimension
+          strategy: CompositeStrategySum
+          description: Personal pronouns based on gender
+          children:
+          - key: morphosyntax-morphology-pronouns-personal-gender-male
+            class: WordPerDictionary
+            description: Male personal pronouns
+            dictionary: personal-pronouns-gender-male
+          - key: morphosyntax-morphology-pronouns-personal-gender-female
+            class: WordPerDictionary
+            description: Female personal pronouns
+            dictionary: personal-pronouns-gender-female
+          - key: morphosyntax-morphology-pronouns-personal-gender-neutral
+            class: WordPerDictionary
+            description: Gender-neutral personal pronouns
+            dictionary: personal-pronouns-gender-neutral
+        - key: morphosyntax-morphology-pronouns-personal-enclitics
+          class: EncliticsPersonalPronounsDictionary
+          description: Personal pronouns with enclitics. These pronouns are those attached to verbs so that it can play a role.
+          dictionaries: verbs-infinitive|verbs-gerund|verbs-participe
+      - key: morphosyntax-morphology-pronouns-impersonal
+        class: WordPerDictionary
+        description: Impersonal pronouns
+        dictionary: personal-pronouns-impersonal
+      - key: morphosyntax-morphology-pronouns-indefinite
+        class: POSTaggingTag
+        description: Indefinite pronouns
+        universal: PronType=Ind
+        tag: PRON
+      - key: morphosyntax-morphology-pronouns-relative
+        class: POSTaggingTag
+        description: Interrogative relative
+        universal: PronType=Rel
+        tag: PRON
+      - key: morphosyntax-morphology-pronouns-interrogative
+        class: POSTaggingTag
+        description: Interrogative pronouns
+        universal: PronType=Int
+        tag: PRON
+      - key: morphosyntax-morphology-pronouns-reciprocal
+        class: POSTaggingTag
+        description: Reciprocal pronouns
+        universal: PronType=Rcp
+        tag: PRON
+      - key: morphosyntax-morphology-pronouns-demonstrative
+        class: POSTaggingTag
+        description: Demonstrative relative
+        universal: PronType=Dem
+        tag: PRON
+      - key: morphosyntax-morphology-pronouns-total
+        class: POSTaggingTag
+        description: Total pronouns
+        universal: PronType=Tot
+        tag: PRON
+      - key: morphosyntax-morphology-pronouns-negative
+        class: POSTaggingTag
+        description: Negative pronouns
+        universal: PronType=Neg
+        tag: PRON
+    - key: morphosyntax-morphology-prepositions
+      class: CompositeDimension
+      strategy: CompositeStrategySum
+      description: Personal and impersonal pronouns
+      children:
+      - key: morphosyntax-morphology-prepositions-individual
+        class: WordPerDictionary
+        description: Percentage of prepositions
+        dictionary: prepositions
+      - key: morphosyntax-morphology-prepositions-locutions
+        class: WordPerDictionary
+        description: Percentage of prepositional locutions
+        dictionary: prepositions-locutions
+    - key: morphosyntax-morphology-conjunctions
+      class: CompositeDimension
+      strategy: CompositeStrategySum
+      children:
+      - key: morphosyntax-morphology-conjunctions-coordinating
+        class: POSTaggingTag
+        description: Percentage of coordinating conjuctions
+        tag: CCONJ
+      - key: morphosyntax-morphology-conjunctions-subordinating
+        class: POSTaggingTag
+        description: Percentage of subordinating conjuctions
+        tag: SCONJ
+    - key: morphosyntax-morphology-interjections
+      class: POSTaggingTag
+      description: Percentage of interjections
+      tag: INTJ
+    - key: morphosyntax-morphology-verbs
+      children:
+      - key: morphosyntax-morphology-verbs-periphrasis
+        class: CompositeDimension
+        strategy: CompositeStrategySum
+        description: Percentage of verbal periphrasis. That is, verbal constructions made of two verb forms.
+        children:
+        - key: morphosyntax-morphology-verbs-periphrasis-temporal-aspect
+          class: CompositeDimension
+          strategy: CompositeStrategySum
+          description: Percentage of verbal periphrasis based on a temporal aspect
+          children:
+          - key: morphosyntax-morphology-verbs-periphrasis-temporal-aspect-temporal
+            class: CompositeDimension
+            strategy: CompositeStrategySum
+            description: Percentage of verbal periphrasis based on a temporal aspect
+            children:
+            - key: morphosyntax-morphology-verbs-periphrasis-temporal-aspect-temporal-immediate-posteriority
+              class: PeriphrasisDimension
+              description: 'Percentage of verbal periphrasis based on a temporal aspect: immediate posteriority'
+              auxiliar_verbs: ir(a)+infinitive
+            - key: morphosyntax-morphology-verbs-periphrasis-temporal-aspect-temporal-recent-posteriority
+              class: PeriphrasisDimension
+              description: 'Percentage of verbal periphrasis based on a temporal aspect: recent posteriority'
+              auxiliar_verbs: acabar(de)+infinitive,terminar(de)+infinitive
+          - key: morphosyntax-morphology-verbs-periphrasis-temporal-aspect-phase
+            class: CompositeDimension
+            strategy: CompositeStrategySum
+            description: Percentage of verbal periphrasis based on a phase aspect
+            children:
+            - key: morphosyntax-morphology-verbs-periphrasis-temporal-aspect-temporal-habit
+              class: PeriphrasisDimension
+              description: Percentage of verbal periphrasis for expressing temporal habits
+              auxiliar_verbs: soler+infinitive,acostumbrar(a)+infinitive,volver(a)+infinitive,seguir+gerund,continuar+gerund,llevar+participe,tener+participe
+            - key: morphosyntax-morphology-verbs-periphrasis-temporal-aspect-temporal-inminent
+              class: PeriphrasisDimension
+              description: Percentage of verbal periphrasis for expressing inminent actions
+              auxiliar_verbs: estar(por|para|a punto de)+infinitive
+              mode: infinitive
+            - key: morphosyntax-morphology-verbs-periphrasis-temporal-aspect-temporal-initial
+              class: PeriphrasisDimension
+              description: Percentage of verbal periphrasis for indicating that one action is going to start
+              auxiliar_verbs: empezar(a)+infinitive,comenzar(a)+infinitive,poner(a)+infinitive,entrar(a)+infinitive
+            - key: morphosyntax-morphology-verbs-periphrasis-temporal-aspect-temporal-current
+              class: PeriphrasisDimension
+              description: Percentage of verbal periphrasis for indicating that one action what is taking place
+              auxiliar_verbs: estar+gerund,ir+gerund,seguir+gerund,venir+gerund,llevar+gerund,pasar+gerund
+            - key: morphosyntax-morphology-verbs-periphrasis-temporal-aspect-temporal-ending
+              class: PeriphrasisDimension
+              description: Percentage of verbal periphrasis for indicating that one action is going to end
+              auxiliar_verbs: dejar(de)+infinitive,cesar(de)+infinitive,acabar(de)+infinitive,terminar(de)+infinitive,parar(a|de)+infinitive,estar+participe,tener+participe,llevar+participe
+            - key: morphosyntax-morphology-verbs-periphrasis-temporal-aspect-temporal-transitional
+              class: PeriphrasisDimension
+              description: Percentage of verbal periphrasis for indicating that one action is going to change
+              auxiliar_verbs: pasar(a)+infinitive,conseguir+infinitive
+            - key: morphosyntax-morphology-verbs-periphrasis-temporal-aspect-temporal-scalar
+              class: PeriphrasisDimension
+              description: Percentage of verbal periphrasis for indicating scalar actions
+              auxiliar_verbs: empezar(por)+infinitive,acabar(por)+infinitive,terminar(por)+infinitive,llegar(a)+infinitive
+        - key: morphosyntax-morphology-verbs-periphrasis-modals
+          class: CompositeDimension
+          strategy: CompositeStrategySum
+          description: Percentage of verbal periphrasis for indicating mode
+          children:
+          - key: morphosyntax-morphology-verbs-periphrasis-modals-obligation
+            class: PeriphrasisDimension
+            description: Percentage of verbal periphrasis for indicating obligation
+            auxiliar_verbs: deber+infinitive,tener(que)+infinitive,haber(de|que)+infinitive
+          - key: morphosyntax-morphology-verbs-periphrasis-modals-hability
+            class: PeriphrasisDimension
+            description: Percentage of verbal periphrasis for indicating hability
+            auxiliar_verbs: dar(por)+infinitive,poder(de)+infinitive
+          - key: morphosyntax-morphology-verbs-periphrasis-modals-probability
+            class: PeriphrasisDimension
+            description: Percentage of verbal periphrasis for indicating probability
+            auxiliar_verbs: deber(de)+infinitive,haber(de)+infinitive,poder(de)+infinitive
+          - key: morphosyntax-morphology-verbs-periphrasis-modals-certainty
+            class: PeriphrasisDimension
+            description: Percentage of verbal periphrasis for indicating certainty
+            auxiliar_verbs: tener(que)+infinitive
+          - key: morphosyntax-morphology-verbs-periphrasis-modals-approach
+            class: PeriphrasisDimension
+            description: Percentage of verbal periphrasis for indicating approaches
+            auxiliar_verbs: venir(a)+infinitive
+      - key: morphosyntax-morphology-verbs-number
+        class: CompositeDimension
+        strategy: CompositeStrategySum
+        description: Percentage of verbs based on numbers
+        children:
+        - key: morphosyntax-morphology-verbs-number-singular
+          class: CompositeDimension
+          strategy: CompositeStrategySum
+          description: Percentage of singular verbs
+          children:
+          - key: morphosyntax-morphology-verbs-number-singular-first
+            class: WordPerDictionary
+            description: Percentage of singular verbs in first person
+            dictionary: verbs-singular-first
+            disabled_regexp: true
+          - key: morphosyntax-morphology-verbs-number-singular-second
+            class: WordPerDictionary
+            description: Percentage of singular verbs in second person
+            dictionary: verbs-singular-second
+            disabled_regexp: true
+          - key: morphosyntax-morphology-verbs-number-singular-third
+            class: WordPerDictionary
+            description: Percentage of singular verbs in third person
+            dictionary: verbs-singular-third
+            disabled_regexp: true
+        - key: morphosyntax-morphology-verbs-number-plural
+          class: CompositeDimension
+          strategy: CompositeStrategySum
+          description: Percentage of plural verbs
+          children:
+          - key: morphosyntax-morphology-verbs-number-plural-first
+            class: WordPerDictionary
+            description: Percentage of plural verbs in first person
+            dictionary: verbs-plural-first
+            disabled_regexp: true
+          - key: morphosyntax-morphology-verbs-number-plural-second
+            class: WordPerDictionary
+            description: Percentage of plural verbs in second person
+            dictionary: verbs-plural-second
+            disabled_regexp: true
+          - key: morphosyntax-morphology-verbs-number-plural-third
+            class: WordPerDictionary
+            description: Percentage of plural verbs in third person
+            dictionary: verbs-plural-third
+            disabled_regexp: true
+      - key: morphosyntax-morphology-verbs-transitivity
+        children:
+        - key: morphosyntax-morphology-verbs-transitive
+          class: WordPerDictionary
+          description: Percentage of transitive verbs
+          dictionary: verbs-transitive
+        - key: morphosyntax-morphology-verbs-intransitive
+          class: WordPerDictionary
+          description: Percentage of intransitive verbs
+          dictionary: verbs-intransitive
+      - key: morphosyntax-morphology-verbs-inflection
+        children:
+        - key: morphosyntax-morphology-verbs-inflection-regular
+          class: WordPerDictionary
+          description: Percentage of regulary verbs
+          dictionary: verbs-regular
+        - key: morphosyntax-morphology-verbs-inflection-irregular
+          class: WordPerDictionary
+          description: Percentage of irregulary verbs
+          dictionary: verbs-irregular
+      - key: morphosyntax-morphology-verbs-function
+        children:
+        - key: morphosyntax-morphology-verbs-function-main
+          class: POSTaggingTag
+          description: Percentage of main verbs
+          tag: VERB
+        - key: morphosyntax-morphology-verbs-function-copulative
+          class: WordPerDictionary
+          description: Percentage of copulative verbs
+          dictionary: verbs-copulative
+        - key: morphosyntax-morphology-verbs-function-auxiliary
+          class: POSTaggingTag
+          description: Percentage of auxiliary verbs
+          universal: VerbForm
+          tag: AUX
+      - key: morphosyntax-morphology-verbs-nonfinite
+        children:
+        - key: morphosyntax-morphology-verbs-nonfinite-infinitive
+          class: VerbPerDictionary
+          description: Percentage of infinitive verbs
+          dictionary: verbs-infinitive
+        - key: morphosyntax-morphology-verbs-nonfinite-gerund
+          class: VerbPerDictionary
+          description: Percentage of gerund verbs
+          dictionary: verbs-gerund
+        - key: morphosyntax-morphology-verbs-nonfinite-participle
+          class: VerbPerDictionary
+          description: Percentage of participle verbs
+          dictionary: verbs-participe
+      - key: morphosyntax-morphology-verbs-tense
+        children:
+        - key: morphosyntax-morphology-verbs-tense-past
+          class: POSTaggingTag
+          description: Counts how many words are past
+          universal: Tense=Past
+          tag: VERB
+        - key: morphosyntax-morphology-verbs-tense-present
+          class: POSTaggingTag
+          description: Counts how many words are present focus
+          universal: Tense=Pres
+          tag: VERB
+        - key: morphosyntax-morphology-verbs-tense-future
+          class: POSTaggingTag
+          description: Counts how many words are future focus
+          universal: Tense=Fut
+          tag: VERB
+      - key: morphosyntax-morphology-verbs-mode
+        children:
+        - key: morphosyntax-morphology-verbs-mode-indicative
+          class: VerbPerDictionary
+          description: Counts how many words are in indicative
+          dictionaries: verbs-indicative-simple-present|verbs-indicative-simple-future|verbs-indicative-simple-past|verbs-indicative-compound-present-perfect|verbs-indicative-compound-past-perfect|verbs-indicative-compound-pluperfect|verbs-indicative-compound-past-perfect-tense|verbs-indicative-compound-future-perfect|verbs-indicative-compound-future-perfect
+        - key: morphosyntax-morphology-verbs-mode-subjunctive
+          class: VerbPerDictionary
+          description: Counts how many words are in subjunctive
+          dictionaries: verbs-subjunctive-simple-present|verbs-subjunctive-simple-past|verbs-subjunctive-simple-future|verbs-subjunctive-simple-past-other|verbs-subjunctive-compound-pluperfect|verbs-subjunctive-compound-future-perfect|verbs-subjunctive-compound-plusperfect-2|verbs-subjunctive-compound-past-perfect
+        - key: morphosyntax-morphology-verbs-imperative
+          class: VerbPerDictionary
+          description: Percentage of imperative verbs
+          dictionary: verbs-imperative
+        - key: morphosyntax-morphology-verbs-conditional
+          class: VerbPerDictionary
+          description: Percentage of conditional verbs
+          dictionaries: verbs-indicative-simple-conditional|verbs-indicative-compound-conditional-perfect
+      - key: morphosyntax-morphology-verbs-indicative-simple
+        class: CompositeDimension
+        strategy: CompositeStrategySum
+        description: Percentage of verbs in indicative simple
+        children:
+        - key: morphosyntax-morphology-verbs-indicative-simple-present
+          class: VerbPerDictionary
+          description: Percentage of verbs in present indicative simple
+          dictionary: verbs-indicative-simple-present
+        - key: morphosyntax-morphology-verbs-indicative-simple-past
+          class: VerbPerDictionary
+          description: Percentage of verbs in past indicative simple
+          dictionary: verbs-indicative-simple-past
+        - key: morphosyntax-morphology-verbs-indicative-simple-future
+          class: VerbPerDictionary
+          description: Percentage of verbs in future indicative simple
+          dictionary: verbs-indicative-simple-future
+        - key: morphosyntax-morphology-verbs-indicative-simple-conditional
+          class: VerbPerDictionary
+          description: Percentage of verbs in conditional indicative simple
+          dictionary: verbs-indicative-simple-conditional
+        - key: morphosyntax-morphology-verbs-indicative-simple-imperative
+          class: VerbPerDictionary
+          description: Percentage of verbs in imperative simple
+          dictionary: verbs-indicative-simple-imperative
+      - key: morphosyntax-morphology-verbs-subjunctive-simple
+        class: CompositeDimension
+        strategy: CompositeStrategySum
+        description: Percentage of verbs in subjunctive simple
+        children:
+        - key: morphosyntax-morphology-verbs-subjunctive-simple-present
+          class: VerbPerDictionary
+          description: Percentage of verbs in present subjunctive simple
+          dictionary: verbs-subjunctive-simple-present
+        - key: morphosyntax-morphology-verbs-subjunctive-simple-past
+          class: VerbPerDictionary
+          description: Percentage of verbs in past subjunctive simple
+          dictionary: verbs-subjunctive-simple-past
+        - key: morphosyntax-morphology-verbs-subjunctive-simple-future
+          class: VerbPerDictionary
+          description: Percentage of verbs in future subjunctive simple
+          dictionary: verbs-subjunctive-simple-future
+        - key: morphosyntax-morphology-verbs-subjunctive-simple-past-other
+          class: VerbPerDictionary
+          description: Percentage of verbs in other past forms of subjunctive simple
+          dictionary: verbs-subjunctive-simple-past-other
+      - key: morphosyntax-morphology-verbs-indicative-compound
+        class: CompositeDimension
+        strategy: CompositeStrategySum
+        description: Percentage of compound verbs in indicative
+        children:
+        - key: morphosyntax-morphology-verbs-indicative-compound-present-perfect
+          class: VerbPerDictionary
+          description: Percentage of compound verbs in indicative in present perfect
+          dictionary: verbs-indicative-compound-present-perfect
+        - key: morphosyntax-morphology-verbs-indicative-compound-pluperfect
+          class: VerbPerDictionary
+          description: Percentage of compound verbs in indicative in pluperfect
+          dictionary: verbs-indicative-compound-pluperfect
+        - key: morphosyntax-morphology-verbs-indicative-compound-past-perfect-tense
+          class: VerbPerDictionary
+          description: Percentage of compound verbs in indicative in past perfect tense
+          dictionary: verbs-indicative-compound-past-perfect-tense
+        - key: morphosyntax-morphology-verbs-indicative-compound-future-perfect
+          class: VerbPerDictionary
+          description: Percentage of compound verbs in indicative in future perfect
+          dictionary: verbs-indicative-compound-future-perfect
+        - key: morphosyntax-morphology-verbs-indicative-compound-conditional-perfect
+          class: VerbPerDictionary
+          description: Percentage of compound verbs in indicative in conditional perfect
+          dictionary: verbs-indicative-compound-conditional-perfect
+        - key: morphosyntax-morphology-verbs-indicative-compound-past-perfect
+          class: VerbPerDictionary
+          description: Percentage of compound verbs in indicative in past perfect
+          dictionary: verbs-indicative-compound-past-perfect
+      - key: morphosyntax-morphology-verbs-subjunctive-compound
+        class: CompositeDimension
+        strategy: CompositeStrategySum
+        description: Percentage of compound verbs in subjunctive
+        children:
+        - key: morphosyntax-morphology-verbs-subjunctive-compound-pluperfect
+          class: VerbPerDictionary
+          description: Percentage of compound verbs in pluperfect subjunctive
+          dictionary: verbs-subjunctive-compound-pluperfect
+        - key: morphosyntax-morphology-verbs-subjunctive-compound-future-perfect
+          class: VerbPerDictionary
+          description: Percentage of compound verbs in future perfect in subjunctive
+          dictionary: verbs-subjunctive-compound-future-perfect
+        - key: morphosyntax-morphology-verbs-subjunctive-compound-plusperfect-2
+          class: VerbPerDictionary
+          description: Percentage of compound verbs in future perfect in subjunctive (alternative version)
+          dictionary: verbs-subjunctive-compound-plusperfect-2
+        - key: morphosyntax-morphology-verbs-subjunctive-compound-past-perfect
+          class: VerbPerDictionary
+          description: Percentage of compound verbs in past perfect in subjunctive
+          dictionary: verbs-subjunctive-compound-past-perfect
+    - key: morphosyntax-ratios-nominal-to-verbal
+      class: RatioDimension
+      description: Nominal load over verbal load
+      numerator: morphosyntax-morphology-nouns
+      denominator: morphosyntax-morphology-verbs
+    - key: morphosyntax-ratios-modifiers-to-nouns
+      class: RatioDimension
+      description: Modifier load over nouns
+      numerator: "morphosyntax-morphology-adjectives|\n                                morphosyntax-morphology-adverbs"
+      denominator: morphosyntax-morphology-nouns
+    - key: morphosyntax-ratios-function-to-content
+      class: RatioDimension
+      description: Function word load over content word load
+      numerator: "morphosyntax-morphology-determiners|\n                                morphosyntax-morphology-prepositions|\n                                morphosyntax-morphology-conjunctions"
+      denominator: "morphosyntax-morphology-nouns|\n                                morphosyntax-morphology-verbs|\n                                morphosyntax-morphology-adjectives|\n                                morphosyntax-morphology-adverbs"
+    - key: morphosyntax-ratios-pronouns-to-nouns
+      class: RatioDimension
+      description: Pronoun load over noun load
+      numerator: morphosyntax-morphology-pronouns
+      denominator: morphosyntax-morphology-nouns

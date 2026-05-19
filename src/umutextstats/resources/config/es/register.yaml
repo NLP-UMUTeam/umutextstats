@@ -1,0 +1,53 @@
+dimensions:
+- key: register
+  children:
+  - key: register-offensive-speech
+    strategy: CompositeStrategyAvg
+    children:
+    - key: register-offensive-speech-general
+      class: WordPerDictionary
+      description: Percentage of words related with offenses
+      dictionary: offensive
+    - key: register-offensive-speech-soft
+      class: WordPerDictionary
+      description: Percentage of words related with soft offenses
+      dictionary: offensive_soft
+    - key: register-offensive-speech-strong
+      class: WordPerDictionary
+      description: Percentage of words related with strong offenses
+      dictionary: offensive_strong
+  - key: register-informal-speech
+    strategy: CompositeStrategyAvg
+    description: Average of expressions related to informal speech
+    children:
+    - key: register-informal-speech-assent
+      class: WordPerDictionary
+      description: Expressions related to expressions of approval or agreement.
+      dictionary: assent
+    - key: register-informal-speech-nonfluencies
+      class: WordPerDictionary
+      description: Percentage of non-fluent words and expressions.
+      dictionary: non-fluent-texts
+    - key: register-informal-speech-swear
+      class: WordPerDictionary
+      description: Percentage of swear words and expressions.
+      dictionary: swear
+    - key: register-informal-speech-colloquialisms
+      class: WordPerDictionary
+      description: Percentage of colloquialisms.
+      dictionary: colloquialisms
+    - key: register-informal-speech-sms
+      class: WordPerDictionary
+      description: Percentage of informal speech with a style of short messages on the Internet
+      dictionary: sms
+      use_original_input: true
+  - key: register-polite-language-cultisms
+    class: WordPerDictionary
+    description: Percentage of cultism
+    dictionary: polite-language-cultisms
+    title: cultisms
+  - key: register-polite-language-latinisms
+    class: WordPerDictionary
+    description: Percentage of latinisms
+    dictionary: polite-language-latinisms
+    title: latinisms

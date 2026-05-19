@@ -87,3 +87,29 @@ def load_yaml_config(path: str | Path) -> UMUTextStatsConfig:
             for dimension in data.get("dimensions", [])
         ],
     )
+
+
+def load_yaml_config(path: str | Path) -> UMUTextStatsConfig:
+    path = Path(path)
+
+    with path.open("r", encoding="utf-8") as file:
+        data = yaml.safe_load(file) or {}
+
+    directory_folder = data.get("directory_folder")
+    dimensions_data = list(data.get("dimensions", []))
+
+    for include in data.get("includes", []):
+        include_path = path.parent / include
+
+        with include_path.open("r", encoding="utf-8") as file:
+            include_data = yaml.safe_load(file) or {}
+
+        dimensions_data.extend(include_data.get("dimensions", []))
+
+    return UMUTextStatsConfig(
+        directory_folder=directory_folder,
+        dimensions=[
+            _load_dimension(dimension)
+            for dimension in dimensions_data
+        ],
+    )

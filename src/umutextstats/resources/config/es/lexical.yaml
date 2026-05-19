@@ -1,0 +1,211 @@
+dimensions:
+- key: lexical
+  children:
+  - key: lexical-locations
+    class: NERTaggingTag
+    description: Percentage of words of related to locations
+    tag: LOC
+  - key: lexical-organisations
+    class: NERTaggingTag
+    description: Percentage of words of related to organisations
+    tag: ORG
+  - key: lexical-persons
+    class: NERTaggingTag
+    description: Percentage of words of related to persons
+    tag: PER
+  - key: lexical-others
+    class: NERTaggingTag
+    description: Percentage of words of related to other named entities
+    tag: MISC
+  - key: lexical-animals
+    class: WordPerDictionary
+    description: Percentage of words of related to animals
+    dictionary: animals
+  - key: lexical-weapons
+    class: WordPerDictionary
+    description: Percentage of words of related to weapons
+    dictionary: weapons
+  - key: lexical-food
+    class: WordPerDictionary
+    description: Percentage of words of related to food
+    dictionary: food
+  - key: lexical-jobs
+    class: WordPerDictionary
+    description: Percentage of words of related to jobs
+    dictionary: jobs
+  - key: lexical-crime
+    class: WordPerDictionary
+    description: Percentage of words of related to crime
+    dictionary: crime
+  - key: lexical-personal-money
+    class: WordPerDictionary
+    description: Percentage of words of related to money
+    dictionary: money
+  - key: lexical-personal-religion
+    class: WordPerDictionary
+    description: Percentage of words of related to religion
+    dictionary: religion
+  - key: lexical-personal-work
+    class: WordPerDictionary
+    description: Percentage of words of related to work
+    dictionary: work
+  - key: lexical-clothes
+    class: WordPerDictionary
+    description: Percentage of words of related to clothes
+    dictionary: clothes
+  - key: lexical-body
+    class: WordPerDictionary
+    description: Percentage of words of related to the body
+    dictionary: body
+  - key: lexical-body-male-genitalia
+    class: WordPerDictionary
+    description: Percentage of words of related to male genitalia
+    dictionary: misogyny-male-genitalia
+  - key: lexical-body-female-genitalia
+    class: WordPerDictionary
+    description: Percentage of words of related to female genitalia
+    dictionary: misogyny-female-genitalia
+  - key: lexical-health
+    class: WordPerDictionary
+    description: Percentage of words of related to health
+    dictionary: health
+  - key: lexical-ingesting
+    class: WordPerDictionary
+    description: Percentage of words of related to ingesting food and drinks
+    dictionary: ingesting
+  - key: lexical-sex
+    class: WordPerDictionary
+    description: Percentage of words of related to sex
+    dictionary: sex
+  - key: lexical-death
+    class: WordPerDictionary
+    description: Percentage of words of related to death
+    dictionary: death
+  - key: lexical-home
+    class: WordPerDictionary
+    description: Percentage of words of related to home
+    dictionary: home
+  - key: lexical-ner-person-dominance
+    class: RatioDimension
+    description: Person entity dominance over non-person entities
+    numerator: lexical-persons
+    denominator: lexical-locations|lexical-organisations|lexical-others
+  - key: lexical-ner-institutional-load
+    class: RatioDimension
+    description: Organization entity dominance over other named entities
+    numerator: lexical-organisations
+    denominator: lexical-persons|lexical-locations|lexical-others
+  - key: lexical-ner-geographical-load
+    class: RatioDimension
+    description: Location entity dominance over other named entities
+    numerator: lexical-locations
+    denominator: lexical-persons|lexical-organisations|lexical-others
+  - key: lexical-ner-entity-specificity
+    class: RatioDimension
+    description: Specific named entity load over miscellaneous entities
+    numerator: lexical-persons|lexical-locations|lexical-organisations
+    denominator: lexical-others
+  - key: lexical-social
+    children:
+    - key: lexical-social-inclusive
+      class: WordPerDictionary
+      description: Percentage of words of inclusive language
+      dictionary: words-inclusive
+    - key: lexical-social-analytic
+      class: WordPerDictionary
+      description: Percentage of words and expresions related to analytic thinking
+      dictionary: analytic
+    - key: lexical-social-affiliation
+      class: WordPerDictionary
+      description: Percentage of words and expresions related to affiliation
+      dictionary: affiliation
+    - key: lexical-social-achievement
+      class: WordPerDictionary
+      description: Percentage of words and expresions related to achievement
+      dictionary: achievement
+    - key: lexical-social-risk
+      class: WordPerDictionary
+      description: Percentage of words and expresions related to risk
+      dictionary: risk
+    - key: lexical-social-social-family
+      class: WordPerDictionary
+      description: Percentage of words and expresions related to family
+      dictionary: family
+    - key: lexical-social-friendship
+      class: WordPerDictionary
+      description: Percentage of words and expresions related to friendship
+      dictionary: friendship
+    - key: lexical-social-social-female
+      class: WordPerDictionary
+      description: Percentage of words and expresions related to social female groups and individuals
+      dictionary: female
+    - key: lexical-social-social-male
+      class: WordPerDictionary
+      description: Percentage of words and expresions related to social male groups and individuals
+      dictionary: male
+    - key: lexical-social-cognitive
+      class: CompositeDimension
+      strategy: CompositeStrategyAvg
+      description: Percentage of words and expresions related to cognitive processes
+      children:
+      - key: lexical-social-cognitive-insight
+        class: WordPerDictionary
+        description: Percentage of words and expresions related to insights
+        dictionary: insight
+      - key: lexical-social-cognitive-cause
+        class: WordPerDictionary
+        description: Percentage of words and expresions related to causes
+        dictionary: cause
+      - key: lexical-social-cognitive-discrepancies
+        class: WordPerDictionary
+        description: Percentage of words and expresions related to discrepancies
+        dictionary: discrepancies
+      - key: lexical-social-cognitive-tentativeness
+        class: WordPerDictionary
+        description: Percentage of words and expresions related to tentativeness
+        dictionary: tentativeness
+      - key: lexical-social-cognitive-certainty
+        class: WordPerDictionary
+        description: Percentage of words and expresions related to certainty
+        dictionary: certainty
+    - key: lexical-social-perceptual-processes
+      class: CompositeDimension
+      strategy: CompositeStrategyAvg
+      description: Percentage of words and expresions related to feelings and perceptions
+      children:
+      - key: lexical-social-perceptual-explore
+        class: WordPerDictionary
+        description: Percentage of words and expresions related to explore and adventure
+        dictionary: exploration
+      - key: lexical-social-perceptual-surprise
+        class: WordPerDictionary
+        description: Percentage of words and expresions related to surprise
+        dictionary: surprise
+      - key: lexical-social-perceptual-feel
+        class: WordPerDictionary
+        description: Percentage of words and expresions related to the sense of feeling
+        dictionary: feel
+      - key: lexical-social-perceptual-hear
+        class: WordPerDictionary
+        description: Percentage of words and expresions related to the sense of hearing
+        dictionary: hear
+      - key: lexical-social-perceptual-see
+        class: WordPerDictionary
+        description: Percentage of words and expresions related to the sense of seeing
+        dictionary: see
+    - key: lexical-social-relativity
+      strategy: CompositeStrategyAvg
+      description: Percentage of words and expresions related to relative processes
+      children:
+      - key: lexical-social-relativity-movement
+        class: WordPerDictionary
+        description: Percentage of words and expresions related to movement
+        dictionary: movement
+      - key: lexical-social-relativity-space
+        class: WordPerDictionary
+        description: Percentage of words and expresions related to space
+        dictionary: space
+      - key: lexical-social-relativity-time
+        class: WordPerDictionary
+        description: Percentage of words and expresions related to time
+        dictionary: time

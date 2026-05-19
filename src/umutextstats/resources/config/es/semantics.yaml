@@ -1,0 +1,21 @@
+dimensions:
+- key: semantics
+  children:
+  - key: semantics-onomatopoeia
+    class: WordPerDictionary
+    description: List of onomatopoeia; that is, the formation of a word from a sound associated with what is named.
+    dictionary: onomatopoeia
+    use_original_input: true
+    percentage: false
+  - key: semantics-euphemisms
+    class: WordPerDictionary
+    description: List of euphemisms; that is, mild expressions that replaces another that is considered too harsh.
+    dictionary: euphemisms
+  - key: semantics-dysfemisms
+    class: WordPerDictionary
+    description: List of dysfemisms; that is, expressions with derogatory connotations.
+    dictionary: dysfemisms
+  - key: semantics-synecdocs
+    class: WordPerDictionary
+    description: List of synecdoche; that are figures of speech in which a part is made to represent the whole
+    dictionary: synecdocs

@@ -1,0 +1,48 @@
+dimensions:
+- key: psycholinguistic-processes
+  class: CompositeDimension
+  strategy: CompositeStrategyAvg
+  description: Average of psycholinguistic processes
+  children:
+  - key: psycholinguistic-processes-positive
+    class: CompositeDimension
+    strategy: CompositeStrategyMax
+    description: Percentage of positive emotions
+    children:
+    - key: psycholinguistic-processes-positive-general
+      class: WordPerDictionary
+      description: Percentage of positive emotions
+      dictionary: positive
+    - key: psycholinguistic-processes-positive-pleasure
+      class: WordPerDictionary
+      description: Percentage of positive emotions
+      dictionary: pleasure
+    - key: psycholinguistic-processes-positive-emoticons
+      class: WordPerDictionary
+      description: Percentage of positive emotions
+      dictionary: positive-emoticons
+  - key: psycholinguistic-processes-negative
+    class: CompositeDimension
+    strategy: CompositeStrategyMax
+    description: Percentage of words related with negative psycholinguistic processes
+    children:
+    - key: psycholinguistic-processes-negative-general
+      class: WordPerDictionary
+      description: Percentage of words related with negative feelings
+      dictionary: negative
+    - key: psycholinguistic-processes-negative-anxiety
+      class: WordPerDictionary
+      description: Percentage of words related with anxiety
+      dictionary: anxiety
+    - key: psycholinguistic-processes-negative-anger
+      class: WordPerDictionary
+      description: Percentage of words related with anger
+      dictionary: anger
+    - key: psycholinguistic-processes-negative-sad
+      class: WordPerDictionary
+      description: Percentage of words related with sadness
+      dictionary: sad
+    - key: psycholinguistic-processes-negative-emoticons
+      class: WordPerDictionary
+      description: Percentage of negative emotions
+      dictionary: negative-emoticons

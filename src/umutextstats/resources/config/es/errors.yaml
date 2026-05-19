@@ -1,0 +1,65 @@
+dimensions:
+- key: errors
+  children:
+  - key: errors-orthographics
+    class: CompositeDimension
+    strategy: CompositeStrategyAvg
+    description: Orthographic errors
+    children:
+    - key: errors-orthographics-sentences-starting-in-lowercase
+      class: ErrorCapitalizationStartingWithLowerCaseDimension
+      description: Percentage of sentences that start in lowercase
+    - key: errors-orthographics-misspelled-words
+      class: ErrorMispellingDimension
+      description: Percentage of misspelled words
+      use_original_input: true
+    - key: errors-orthographics-misspelled-accents-words
+      class: ErrorMispellingAccentsDimension
+      description: Percentage of poorly accented words
+      use_original_input: true
+  - key: errors-stylistics
+    class: CompositeDimension
+    strategy: CompositeStrategySum
+    description: Stylistic errors
+    children:
+    - key: errors-sentences-starting-with-numbers
+      class: ErrorStyleSentencesStartingWithNumbers
+      description: Sentences that starts with numbers
+    - key: errors-sentences-starting-with-the-same-word
+      class: ErrorStyleSentencesStartingWithTheSameWord
+      description: Sentences that starts with the same word
+  - key: errors-performance
+    class: CompositeDimension
+    strategy: CompositeStrategySum
+    description: Performance errors
+    children:
+    - key: errors-performance-duplicated-words
+      class: ErrorMiscTwoOrMoreEqualWordsDimension
+      description: Number of duplicated words
+    - key: errors-performance-dot-after-exclamation-or-interrogation
+      class: PatternDimension
+      description: Counts how many sentences have a dot after "!" or "?"
+      pattern: '[\p{L}\p{N}\s]+[\?\!]+\.'
+      percentage: false
+      separator: by-sentence
+    - key: errors-performance-two-or-more-consecutive-commas
+      class: PatternDimension
+      description: Two or more consecutive commas
+      pattern: \,{2,}
+      percentage: false
+      separator: whole
+    - key: errors-performance-two-or-more-consecutive-periods
+      class: PatternDimension
+      description: Two or more consecutive periods
+      pattern: \.{2,}
+      percentage: false
+      separator: whole
+    - key: errors-performance-common-errors
+      class: WordPerDictionary
+      description: List of common errors in Spanish
+      dictionary: errors-performance-common-errors
+      percentage: false
+    - key: errors-performance-redundant-expressions
+      class: WordPerDictionary
+      description: Percentage of redundant expressions
+      dictionary: redundant-expressions

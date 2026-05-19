@@ -1,0 +1,203 @@
+dimensions:
+- key: syntax
+  children:
+  - key: syntax-passive-voice
+    class: PassiveVoiceDependencyDimension
+    description: Percentage of sentences using passive voice
+  - key: syntax-dependencies
+    class: CompositeDimension
+    strategy: CompositeStrategyAvg
+    description: Average of Universal Dependencies syntactic relations
+    children:
+    - key: syntax-dependencies-subjects
+      class: DependencyTag
+      description: Percentage of nominal subjects
+      deprel: nsubj
+    - key: syntax-dependencies-objects
+      class: DependencyTag
+      description: Percentage of direct objects
+      deprel: obj
+    - key: syntax-dependencies-indirect-objects
+      class: DependencyTag
+      description: Percentage of indirect objects
+      deprel: iobj
+    - key: syntax-dependencies-obliques
+      class: DependencyTag
+      description: Percentage of oblique complements
+      deprel: obl
+    - key: syntax-dependencies-adjectival-modifiers
+      class: DependencyTag
+      description: Percentage of adjectival modifiers
+      deprel: amod
+    - key: syntax-dependencies-adverbial-modifiers
+      class: DependencyTag
+      description: Percentage of adverbial modifiers
+      deprel: advmod
+    - key: syntax-dependencies-nominal-modifiers
+      class: DependencyTag
+      description: Percentage of nominal modifiers
+      deprel: nmod
+    - key: syntax-dependencies-appositions
+      class: DependencyTag
+      description: Percentage of appositions
+      deprel: appos
+    - key: syntax-dependencies-coordination
+      class: DependencyTag
+      description: Percentage of coordinated elements
+      deprel: conj
+    - key: syntax-dependencies-coordinating-conjunctions
+      class: DependencyTag
+      description: Percentage of coordinating conjunction links
+      deprel: cc
+    - key: syntax-dependencies-clausal-complements
+      class: DependencyTag
+      description: Percentage of clausal complements
+      deprel: ccomp
+    - key: syntax-dependencies-open-clausal-complements
+      class: DependencyTag
+      description: Percentage of open clausal complements
+      deprel: xcomp
+    - key: syntax-dependencies-adverbial-clauses
+      class: DependencyTag
+      description: Percentage of adverbial clauses
+      deprel: advcl
+    - key: syntax-dependencies-relative-clauses
+      class: DependencyTag
+      description: Percentage of relative clauses
+      deprel: acl:relcl
+    - key: syntax-dependencies-parataxis
+      class: DependencyTag
+      description: Percentage of parataxis relations
+      deprel: parataxis
+    - key: syntax-dependencies-determiners
+      class: DependencyTag
+      description: Percentage of determiners
+      deprel: det
+    - key: syntax-dependencies-case-markers
+      class: DependencyTag
+      description: Percentage of case markers and prepositions
+      deprel: case
+    - key: syntax-dependencies-markers
+      class: DependencyTag
+      description: Percentage of subordinate clause markers
+      deprel: mark
+    - key: syntax-dependencies-discourse
+      class: DependencyTag
+      description: Percentage of discourse elements
+      deprel: discourse
+    - key: syntax-dependencies-vocatives
+      class: DependencyTag
+      description: Percentage of vocatives
+      deprel: vocative
+  - key: syntax-ratios
+    class: CompositeDimension
+    strategy: CompositeStrategyAvg
+    description: Average of syntactic ratio dimensions
+    children:
+    - key: syntax-ratios-core-arguments
+      class: RatioDimension
+      description: Ratio of core arguments over all complements
+      numerator: "syntax-dependencies-subjects|\n                                syntax-dependencies-objects|\n                                syntax-dependencies-indirect-objects"
+      denominator: "syntax-dependencies-subjects|\n                                syntax-dependencies-objects|\n                                syntax-dependencies-indirect-objects|\n                                syntax-dependencies-obliques"
+    - key: syntax-ratios-subordination
+      class: RatioDimension
+      description: Ratio of subordinate structures over general syntactic structure
+      numerator: "syntax-dependencies-clausal-complements|\n                                syntax-dependencies-open-clausal-complements|\n                                syntax-dependencies-adverbial-clauses|\n                                syntax-dependencies-relative-clauses"
+      denominator: "syntax-dependencies-subjects|\n                                syntax-dependencies-objects|\n                                syntax-dependencies-obliques|\n                                syntax-dependencies-coordination|\n                                syntax-dependencies-parataxis"
+    - key: syntax-ratios-modification-density
+      class: RatioDimension
+      description: Modifier density relative to core arguments
+      numerator: "syntax-dependencies-adjectival-modifiers|\n                                syntax-dependencies-adverbial-modifiers|\n                                syntax-dependencies-nominal-modifiers"
+      denominator: "syntax-dependencies-subjects|\n                                syntax-dependencies-objects"
+    - key: syntax-ratios-coordination-density
+      class: RatioDimension
+      description: Coordination density relative to argument structure
+      numerator: "syntax-dependencies-coordination|\n                                syntax-dependencies-coordinating-conjunctions"
+      denominator: "syntax-dependencies-subjects|\n                                syntax-dependencies-objects|\n                                syntax-dependencies-obliques"
+    - key: syntax-ratios-determination
+      class: RatioDimension
+      description: Determination load over nominal arguments
+      numerator: syntax-dependencies-determiners
+      denominator: "syntax-dependencies-subjects|\n                                syntax-dependencies-objects"
+    - key: syntax-ratios-clausal-density
+      class: RatioDimension
+      description: Global clausal density
+      numerator: "syntax-dependencies-clausal-complements|\n                                syntax-dependencies-open-clausal-complements|\n                                syntax-dependencies-adverbial-clauses|\n                                syntax-dependencies-relative-clauses|\n                                syntax-dependencies-parataxis"
+      denominator: "syntax-dependencies-subjects|\n                                syntax-dependencies-objects"
+    - key: syntax-ratios-nominal-complexity
+      class: RatioDimension
+      description: Nominal phrase complexity
+      numerator: "syntax-dependencies-adjectival-modifiers|\n                                syntax-dependencies-nominal-modifiers|\n                                syntax-dependencies-appositions"
+      denominator: "syntax-dependencies-subjects|\n                                syntax-dependencies-objects"
+    - key: syntax-ratios-adverbial-load
+      class: RatioDimension
+      description: Adverbial load relative to core arguments
+      numerator: "syntax-dependencies-adverbial-modifiers|\n                                syntax-dependencies-adverbial-clauses"
+      denominator: "syntax-dependencies-subjects|\n                                syntax-dependencies-objects"
+    - key: syntax-ratios-prepositional-load
+      class: RatioDimension
+      description: Prepositional and oblique structure density
+      numerator: "syntax-dependencies-case-markers|\n                                syntax-dependencies-obliques"
+      denominator: "syntax-dependencies-subjects|\n                                syntax-dependencies-objects"
+  - key: syntax-complexity
+    class: CompositeDimension
+    strategy: CompositeStrategyAvg
+    description: Syntactic complexity based on dependency structure
+    children:
+    - key: syntax-complexity-dependency-depth-max
+      class: DependencyDepthDimension
+      description: Maximum dependency tree depth
+      mode: max
+    - key: syntax-complexity-dependency-depth-mean
+      class: DependencyDepthDimension
+      description: Mean dependency tree depth
+      mode: mean
+    - key: syntax-complexity-dependency-distance-mean
+      class: DependencyDistanceDimension
+      description: Mean linear dependency distance
+      mode: mean
+    - key: syntax-complexity-dependency-distance-max
+      class: DependencyDistanceDimension
+      description: Maximum linear dependency distance
+      mode: max
+  - key: syntax-root
+    class: CompositeDimension
+    strategy: CompositeStrategyAvg
+    description: Distribution of sentence root POS tags
+    children:
+    - key: syntax-root-verb
+      class: RootPOSTagDimension
+      description: Percentage of sentences whose root is a verb
+      tag: VERB
+    - key: syntax-root-noun
+      class: RootPOSTagDimension
+      description: Percentage of sentences whose root is a common noun
+      tag: NOUN
+    - key: syntax-root-proper-noun
+      class: RootPOSTagDimension
+      description: Percentage of sentences whose root is a proper noun
+      tag: PROPN
+    - key: syntax-root-adjective
+      class: RootPOSTagDimension
+      description: Percentage of sentences whose root is an adjective
+      tag: ADJ
+    - key: syntax-root-auxiliary
+      class: RootPOSTagDimension
+      description: Percentage of sentences whose root is an auxiliary
+      tag: AUX
+    - key: syntax-root-interjection
+      class: RootPOSTagDimension
+      description: Percentage of sentences whose root is an interjection
+      tag: INTJ
+    - key: syntax-root-adverb
+      class: RootPOSTagDimension
+      description: Percentage of sentences whose root is an adverb
+      tag: ADV
+    - key: syntax-root-pronoun
+      class: RootPOSTagDimension
+      description: Percentage of sentences whose root is a pronoun
+      tag: PRON
+    - key: syntax-root-numeral
+      class: RootPOSTagDimension
+      description: Percentage of sentences whose root is a numeral
+      tag: NUM

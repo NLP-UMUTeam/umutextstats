@@ -1,0 +1,146 @@
+dimensions:
+- key: pragmatics
+  children:
+  - key: pragmatics-figurative-language
+    children:
+    - key: pragmatics-figurative-language-hyperboles
+      class: WordPerDictionary
+      description: Number of expressions that contains hyperboles
+      dictionary: hyperboles
+      percentage: false
+    - key: pragmatics-figurative-language-idiomatics-expressions
+      class: WordPerDictionary
+      description: Number of idiomatic expressions
+      dictionary: idiomatic-expressions
+      percentage: false
+    - key: pragmatics-figurative-language-rhetorical-questions
+      class: WordPerDictionary
+      description: Number of rhetorical questions
+      dictionary: rhetorical-questions
+      percentage: false
+    - key: pragmatics-figurative-language-verbal-irony
+      class: WordPerDictionary
+      description: Number of expressions that contains verbal irony
+      dictionary: verbal-irony
+      percentage: false
+    - key: pragmatics-figurative-language-understatements
+      class: WordPerDictionary
+      description: Number of expressions of understatements
+      dictionary: understatements
+      percentage: false
+    - key: pragmatics-figurative-language-metaphors
+      class: WordPerDictionary
+      dictionary: metaphors
+      percentage: false
+    - key: pragmatics-figurative-language-similes
+      class: WordPerDictionary
+      description: Number of similes
+      dictionary: similes
+      percentage: false
+  - key: pragmatics-discourse-markers
+    children:
+    - key: pragmatics-discourse-markers-structuring
+      class: CompositeDimension
+      strategy: CompositeStrategySum
+      description: Number of discourse markers using for structuring the text
+      children:
+      - key: pragmatics-discourse-markers-structuring-commenters
+        class: WordPerDictionary
+        description: Number of discourse markers using for structuring with commenters
+        dictionary: pragmatics-discourse-markers-structuring-commenters
+        percentage: false
+      - key: pragmatics-discourse-markers-structuring-order
+        class: WordPerDictionary
+        description: Number of discourse markers using for ordering
+        dictionary: pragmatics-discourse-markers-structuring-order
+        percentage: false
+    - key: pragmatics-discourse-markers-connectors
+      class: CompositeDimension
+      strategy: CompositeStrategySum
+      description: Number of discourse markers for connecting ideas
+      children:
+      - key: pragmatics-discourse-markers-connectors-additive
+        class: WordPerDictionary
+        description: Number of discourse markers for adding ideas
+        dictionary: pragmatics-discourse-markers-connectors-additive
+        percentage: false
+      - key: pragmatics-discourse-markers-connectors-consecutive
+        class: WordPerDictionary
+        description: Number of discourse markers for connecting ideas
+        dictionary: pragmatics-discourse-markers-connectors-consecutive
+        percentage: false
+      - key: pragmatics-discourse-markers-connectors-counter-augmentative
+        class: WordPerDictionary
+        description: Number of discourse markers for augmentation
+        dictionary: pragmatics-discourse-markers-connectors-counter-augmentative
+        percentage: false
+    - key: pragmatics-discourse-markers-reformers
+      class: CompositeDimension
+      strategy: CompositeStrategySum
+      description: Number of discourse markers used for reforming
+      children:
+      - key: pragmatics-discourse-markers-reformers-explanatory
+        class: WordPerDictionary
+        description: Number of discourse markers used for explaining
+        dictionary: pragmatics-discourse-markers-reformers-explanatory
+        percentage: false
+      - key: pragmatics-discourse-markers-reformers-corrective
+        class: WordPerDictionary
+        description: Number of discourse markers used for correcting
+        dictionary: pragmatics-discourse-markers-reformers-corrective
+        percentage: false
+      - key: pragmatics-discourse-markers-reformers-distance
+        class: WordPerDictionary
+        description: Number of discourse markers used to move away from the treated fact
+        dictionary: pragmatics-discourse-markers-reformers-distance
+        percentage: false
+      - key: pragmatics-discourse-markers-reformers-recapitulative
+        class: WordPerDictionary
+        description: Number of discourse markers used to recapitulative
+        dictionary: pragmatics-discourse-markers-reformers-recapitulative
+        percentage: false
+    - key: pragmatics-discourse-markers-argumentative
+      class: CompositeDimension
+      strategy: CompositeStrategySum
+      description: Number of discourse markers used to argument
+      children:
+      - key: pragmatics-discourse-markers-argumentative-reinforcement
+        class: WordPerDictionary
+        description: Number of discourse markers used to reinforce an argument
+        dictionary: pragmatics-discourse-markers-argumentative-reinforcement
+        percentage: false
+      - key: pragmatics-discourse-markers-argumentative-concretion
+        class: WordPerDictionary
+        description: Number of discourse markers used to specify an argument
+        dictionary: pragmatics-discourse-markers-argumentative-concretion
+        percentage: false
+    - key: pragmatics-discourse-markers-conversational-bookmarks
+      class: WordPerDictionary
+      description: Number of discourse markers used as bookmars or pause a conversation
+      dictionary: pragmatics-discourse-markers-conversational-bookmarks
+      percentage: false
+  - key: pragmatics-courtesy-forms
+    class: CompositeDimension
+    strategy: CompositeStrategySum
+    description: Percentage of courtesy forms
+    children:
+    - key: pragmatics-courtesy-forms-greetings
+      class: WordPerDictionary
+      description: Percentage of expressions used for greetings
+      dictionary: pragmatics-courtesy-forms-greetings
+    - key: pragmatics-courtesy-forms-farewell
+      class: WordPerDictionary
+      description: Percentage of expressions used for farewell
+      dictionary: pragmatics-courtesy-forms-farewell
+    - key: pragmatics-courtesy-forms-requirements
+      class: WordPerDictionary
+      description: Percentage of expressions used for requirements
+      dictionary: pragmatics-courtesy-forms-requirements
+    - key: pragmatics-courtesy-forms-general
+      class: WordPerDictionary
+      description: Percentage of expressions used for requirements
+      dictionary: pragmatics-courtesy-forms-general
+    - key: pragmatics-courtesy-forms-condolences
+      class: WordPerDictionary
+      description: Percentage of expressions used for expressing condolences
+      dictionary: pragmatics-courtesy-forms-condolences

@@ -1,0 +1,371 @@
+dimensions:
+- key: stylometry
+  children:
+  - key: stylometry-corpus
+    children:
+    - key: stylometry-corpus-length
+      class: LengthDimension
+      description: Counts the length of the text
+    - key: stylometry-corpus-TTR
+      class: RTIEDimension
+      description: Standardized ratios TTR
+      separator: whole
+    - key: stylometry-corpus-TTR-standard
+      class: RTIEDimension
+      description: TTR (by chunks)
+      separator: by-chunks
+    - key: stylometry-corpus-TTR-deviation
+      class: RTIEDeviationDimension
+      description: TTR (by chunks)
+      separator: by-chunks
+    - key: stylometry-corpus-words-count
+      class: WordCountDimension
+      description: Counts how many words there are in the text
+    - key: stylometry-corpus-syllabes-count
+      class: SyllableCountDimension
+      description: Counts how many syllabes there are in the text
+    - key: stylometry-corpus-syllabes-per-word
+      class: SyllablePerWordDimension
+      description: Counts how many syllabes there per word
+    - key: stylometry-corpus-words-per-sentence
+      class: WordPerSentenceDimension
+      description: The average number of words per sentence
+    - key: stylometry-corpus-uppercase
+      class: WordCase
+      description: The average number of words written in uppercase
+      comparator: upper
+    - key: stylometry-corpus-titlecase
+      class: WordCase
+      description: The average number of words written in titlecase
+      comparator: title
+    - key: stylometry-corpus-writing-style
+      children:
+      - key: stylometry-corpus-readability
+        class: ReadabilityDimension
+        description: Measures the readability within of the text
+      - key: stylometry-corpus-inflesz
+        class: PerspicuityDimension
+        description: Measures the perspicuity within of the text
+    - key: stylometry-corpus-expressions-quoted
+      class: PatternDimension
+      description: Counts how many quoted expressions
+      pattern: '["“‘''«][\p{L}\p{N}\s\-\,\.]{4,64}[”"’''»]'
+      percentage: false
+      separator: whole
+    - key: stylometry-corpus-expressions-within-parenthesis
+      class: PatternDimension
+      description: Counts how many expressions within paranthesis
+      pattern: \([\p{L}\p{N}\s\-\,\.]{4,64}\)
+      percentage: false
+    - key: stylometry-corpus-expressions-within-asterisks
+      class: PatternDimension
+      description: Counts how many expressions within asterisks
+      pattern: \*[\p{L}\p{N}\s\-\,\.]{4,64}\*
+      percentage: false
+    - key: stylometry-corpus-words-length-avg
+      class: AverageWordLengthDimension
+      description: The average length of the words
+    - key: stylometry-corpus-words-longer-6tr
+      class: WordLengthDimension
+      description: The number of words bigger than 6 characters
+      comparator: '>='
+      length: '6'
+    - key: stylometry-corpus-words-with-1ltr
+      class: WordLengthDimension
+      description: The number of words equal to 1 characters
+      length: '1'
+      comparator: '='
+    - key: stylometry-corpus-words-with-2ltr
+      class: WordLengthDimension
+      description: The number of words equal to 2 characters
+      length: '2'
+      comparator: '='
+    - key: stylometry-corpus-words-with-3ltr
+      class: WordLengthDimension
+      description: The number of words equal to 3 characters
+      comparator: '='
+      length: '3'
+    - key: stylometry-corpus-words-with-4ltr
+      class: WordLengthDimension
+      description: The number of word sequal to 4 characters
+      comparator: '='
+      length: '4'
+    - key: stylometry-corpus-words-with-5ltr
+      class: WordLengthDimension
+      description: The number of words equal to 5 characters
+      comparator: '='
+      length: '5'
+    - key: stylometry-corpus-words-with-6ltr
+      class: WordLengthDimension
+      description: The number of words equal to 6 characters
+      comparator: '='
+      length: '6'
+    - key: stylometry-corpus-words-with-7ltr
+      class: WordLengthDimension
+      description: The number of words equal to 7 characters
+      comparator: '='
+      length: '7'
+    - key: stylometry-corpus-words-with-8ltr
+      class: WordLengthDimension
+      description: The number of words equal to 8 characters
+      length: '8'
+      comparator: '='
+    - key: stylometry-corpus-words-with-9ltr
+      class: WordLengthDimension
+      description: The number of words equal to 9 characters
+      length: '9'
+      comparator: '='
+    - key: stylometry-corpus-words-with-10ltr
+      class: WordLengthDimension
+      description: The number of words equal to 10 characters
+      length: '10'
+      comparator: '='
+    - key: stylometry-corpus-words-with-11ltr
+      class: WordLengthDimension
+      description: The number of words equal to 11 characters
+      length: '11'
+      comparator: '='
+    - key: stylometry-corpus-words-with-12ltr
+      class: WordLengthDimension
+      description: The number of words equal to 12 characters
+      length: '12'
+      comparator: '='
+    - key: stylometry-corpus-words-with-13ltr
+      class: WordLengthDimension
+      description: The number of words equal to 13 characters
+      length: '13'
+      comparator: '='
+    - key: stylometry-corpus-words-with-14ltr
+      class: WordLengthDimension
+      description: The number of words equal to 14 characters
+      length: '14'
+      comparator: '='
+    - key: stylometry-corpus-words-with-15ltr
+      class: WordLengthDimension
+      description: The number of words equal to 15 characters
+      length: '15'
+      comparator: '='
+    - key: stylometry-corpus-words-with-16ltr
+      class: WordLengthDimension
+      description: The number of words equal to 16 characters
+      length: '16'
+      comparator: '='
+    - key: stylometry-corpus-words-with-17ltr
+      class: WordLengthDimension
+      description: The number of words equal to 17 characters
+      length: '17'
+      comparator: '='
+    - key: stylometry-corpus-words-with-18ltr
+      class: WordLengthDimension
+      description: The number of words equal to 18 characters
+      length: '18'
+      comparator: '='
+    - key: stylometry-corpus-words-with-19ltr
+      class: WordLengthDimension
+      description: The number of words equal to 19 characters
+      length: '19'
+      comparator: '='
+    - key: stylometry-corpus-words-with-20ltr
+      class: WordLengthDimension
+      description: The number of words equal to 20 characters
+      length: '20'
+      comparator: '='
+    - key: stylometry-corpus-words-with-21ltr
+      class: WordLengthDimension
+      description: The number of words equal to 21 characters
+      length: '21'
+      comparator: '='
+    - key: stylometry-corpus-words-with-22ltr
+      class: WordLengthDimension
+      description: The number of words equal to 22 characters
+      length: '22'
+      comparator: '='
+    - key: stylometry-corpus-words-with-23ltr
+      class: WordLengthDimension
+      description: The number of words equal to 23 characters
+      length: '23'
+      comparator: '='
+    - key: stylometry-corpus-words-with-24ltr
+      class: WordLengthDimension
+      description: The number of words equal to 24 characters
+      length: '24'
+      comparator: '='
+    - key: stylometry-corpus-words-with-25ltr
+      class: WordLengthDimension
+      description: The number of words equal to 25 characters
+      length: '25'
+      comparator: '='
+  - key: stylometry-sentences
+    children:
+    - key: stylometry-sentences-count
+      class: SentenceCountDimension
+      description: Counts how many sentences there are in the text
+    - key: stylometry-sentences-exclamative-percentage
+      class: PatternDimension
+      description: Counts how many exclamative sentences there are in the text
+      pattern: '[\p{L}\p{N}\s]+[\!]+'
+      separator: by-sentence
+    - key: stylometry-sentences-exclamative-percentage-emphasis
+      class: PatternDimension
+      description: Counts how many exclamative sentences there are in the text
+      pattern: '[\p{L}\p{N}\s]+[\!]{2,}'
+      separator: by-sentence
+    - key: stylometry-sentences-interrogative-percentage
+      class: PatternDimension
+      description: Counts how many exclamative sentences there are in the text with more than "?"
+      pattern: '[\p{L}\p{N}\s]+[\?]+'
+      separator: by-sentence
+    - key: stylometry-sentences-interrogative-percentage-emphasis
+      class: PatternDimension
+      description: Counts how many interrogative sentences there are in the text with more than one "?"
+      pattern: '[\p{L}\p{N}\s]+[\?]{2,}'
+      separator: by-sentence
+    - key: stylometry-sentences-quotes-percentage
+      class: PatternDimension
+      description: Counts how many quoted sentences
+      pattern: ^[“"][\p{L}\p{N}\s]+["”]$
+      separator: by-sentence
+    - key: stylometry-sentences-conversations
+      class: PatternDimension
+      description: Counts how many sentences simulate a conversation
+      pattern: \-[\s\¿]*\p{L}+
+      separator: by-sentence
+  - key: stylometry-punctuation-symbols
+    children:
+    - key: stylometry-punctuation-symbols-prime
+      class: CharacterCountDimension
+      description: Number of prime symbols
+      character: ′‴″
+    - key: stylometry-punctuation-symbols-currencies
+      class: CharacterCountDimension
+      description: Number of symbols used as currency symbols
+      character: €$£
+    - key: stylometry-punctuation-symbols-apostrophe
+      class: CharacterCountDimension
+      description: Apostrohpes, can be used to measure units or in Elision of words
+      character: ’'
+    - key: stylometry-punctuation-symbols-brackets-open
+      class: CharacterCountDimension
+      description: Number of open curly brackets
+      character: '{[(〔'
+    - key: stylometry-punctuation-symbols-curly-brackets-close
+      class: CharacterCountDimension
+      description: Number of closed curly brackets
+      character: '}])〕'
+    - key: stylometry-punctuation-symbols-quotation-open
+      class: CharacterCountDimension
+      description: Number of quotation open symbols
+      character: '"“‘''«'
+    - key: stylometry-punctuation-symbols-quotation-close
+      class: CharacterCountDimension
+      description: Number of quotation close symbols
+      character: ”"’'»
+    - key: stylometry-punctuation-symbols-colons
+      class: CharacterCountDimension
+      description: Number of colons
+      character: :ː：∶
+      removeemojis: 'true'
+    - key: stylometry-punctuation-symbols-semicolons
+      class: CharacterCountDimension
+      description: Number of semicolons
+      character: ;
+    - key: stylometry-punctuation-symbols-dashes
+      class: CharacterCountDimension
+      description: Number of dashed
+      character: '-'
+    - key: stylometry-punctuation-symbols-low-dashes
+      class: CharacterCountDimension
+      description: Number of low dashed
+      character: _
+    - key: stylometry-punctuation-symbols-fullstop
+      class: CharacterCountDimension
+      description: Number of fullstops
+      character: .
+    - key: stylometry-punctuation-symbols-commas
+      class: CharacterCountDimension
+      description: Number of commas
+      character: ',ʻ،、︐︑﹐﹑，､'
+    - key: stylometry-punctuation-symbols-ellipsis
+      class: PatternDimension
+      description: Number of ellipsis
+      pattern: …|\.{3,}
+      use_original_input: true
+      separator: by-spaces
+    - key: stylometry-punctuation-symbols-open-question
+      class: CharacterCountDimension
+      description: Number of open question symbol
+      character: ¿
+    - key: stylometry-punctuation-symbols-open-exclamation
+      class: CharacterCountDimension
+      description: Number of open exclamation symbol
+      character: ¡
+    - key: stylometry-punctuation-symbols-space
+      class: CharacterCountDimension
+      description: Number of spaces
+      character: \s
+    - key: stylometry-punctuation-symbols-interdot
+      class: CharacterCountDimension
+      description: Number of interdots
+      character: ·
+    - key: stylometry-punctuation-symbols-percentages
+      class: CharacterCountDimension
+      description: Number of percentages
+      character: '%‰‱'
+    - key: stylometry-punctuation-symbols-ampersand
+      class: CharacterCountDimension
+      description: Number of ampersands
+      character: '&'
+    - key: stylometry-punctuation-symbols-at-sign
+      class: CharacterCountDimension
+      description: Number of at sign symbols
+      character: '@'
+    - key: stylometry-punctuation-symbols-backslash
+      class: CharacterCountDimension
+      description: Number of backslash symbols
+      character: \
+    - key: stylometry-punctuation-symbols-pipe
+      class: CharacterCountDimension
+      description: Number of pipe symbols
+      character: '|¦'
+    - key: stylometry-punctuation-symbols-bullet
+      class: CharacterCountDimension
+      description: Number of bullet symbols
+      character: •
+    - key: stylometry-punctuation-symbols-caret
+      class: CharacterCountDimension
+      description: Number of caret symbols
+      character: ^^‸⁁＾
+    - key: stylometry-punctuation-symbols-degree
+      class: CharacterCountDimension
+      description: Number of degree symbols
+      character: º
+    - key: stylometry-punctuation-symbols-ditto-mark
+      class: CharacterCountDimension
+      description: Number of ditto marks, that expresses that the words or figures above it are to be repeated
+      character: ”
+    - key: stylometry-punctuation-symbols-hash
+      class: CharacterCountDimension
+      description: Number of hash symbols
+      character: '#'
+    - key: stylometry-punctuation-symbols-numero-sign
+      class: PatternDimension
+      description: Number of numero signs
+      pattern: (№|Nº|No,|No\.|no.)
+    - key: stylometry-punctuation-symbols-pilcrow
+      class: CharacterCountDimension
+      description: Number of pilcrow symbol, that are typographical characters that mark the star of a paragraph
+      character: ¶
+    - key: stylometry-punctuation-symbols-trademarks
+      class: CharacterCountDimension
+      description: Number of copyright or trademark signs
+      character: ©®™
+    - key: stylometry-punctuation-symbols-mathematical-signs
+      class: CharacterCountDimension
+      description: Number of mathematical signs
+      character: −-≠+×*·+÷=≈~
+    - key: stylometry-punctuation-symbols-line-breaks
+      class: PatternDimension
+      description: Number of line breaks
+      pattern: '[\r\n]'
+      use_original_input: true
+      separator: whole

@@ -1,0 +1,10 @@
+dimensions:
+- key: phonetics
+  class: CompositeDimension
+  strategy: CompositeStrategySum
+  children:
+  - key: phonetics-expressive-lengthening
+    class: PatternDimension
+    description: Drawing out or emphasizing a verbalized word, giving it character
+    pattern: (.)\1{3,}
+    use_original_input: true

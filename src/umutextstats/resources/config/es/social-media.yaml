@@ -1,0 +1,48 @@
+dimensions:
+- key: social-media
+  children:
+  - key: social-media-hashtags
+    class: PatternDimension
+    description: Number of hashtags
+    pattern: (\s|\A)#(\p{L}+)
+    use_original_input: true
+    percentage: false
+    separator: by-word
+  - key: social-media-mentions
+    class: PatternDimension
+    description: Number of mentions
+    pattern: (\s|\A)@([\p{L}\p{N}]+)
+    use_original_input: true
+    percentage: false
+  - key: social-media-mentions-in-the-middle
+    class: PatternDimension
+    description: Number of mentions in the middle of the text
+    pattern: (?<!^)(\s|\A)@([\p{L}\p{N}]+)
+    use_original_input: true
+    percentage: false
+    separator: whole
+  - key: social-media-urls
+    class: PatternDimension
+    description: Number of hyperlinks
+    pattern: http
+    use_original_input: true
+    percentage: false
+  - key: social-media-jargon
+    class: WordPerDictionary
+    description: Number of social media jargon expressions
+    dictionary: social-media-jargon
+    use_original_input: true
+    disabled_regexp: true
+  - key: social-media-emoticons
+    class: POSTaggingTag
+    description: Number of emoticons
+    percentage: false
+    tag: word
+  - key: social-media-reply-female
+    class: TwitterReplyToDimension
+    description: Number of replies directed to a female name account
+    dictionary: named-entities-female-names
+  - key: social-media-reply-male
+    class: TwitterReplyToDimension
+    description: Number of replies directed to a male name account
+    dictionary: named-entities-male-names
