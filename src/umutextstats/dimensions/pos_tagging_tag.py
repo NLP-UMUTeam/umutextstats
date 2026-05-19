@@ -40,23 +40,29 @@ class POSTaggingTag(BaseDimension):
 
         return (100 * matches) / total_words
 
+    def _split_feats(self, feats: str | None) -> set[str]:
+        if not feats:
+            return set()
+
+        return {
+            feat.strip()
+            for feat in feats.split("|")
+            if feat.strip()
+        }
+
+
     def _matches(self, item: dict[str, str]) -> bool:
         tag = item["tag"]
-        feats = item["feats"]
+        feats = self._split_feats(item["feats"])
+        required_feats = self._split_feats(self.postagger_universal)
 
-        if self.postagger_tag and self.postagger_universal:
-            return (
-                tag == self.postagger_tag
-                and self.postagger_universal in feats
-            )
+        if self.postagger_tag and tag != self.postagger_tag:
+            return False
 
-        if self.postagger_tag:
-            return tag == self.postagger_tag
+        if required_feats:
+            return required_feats.issubset(feats)
 
-        if self.postagger_universal:
-            return self.postagger_universal in feats
-
-        return False
+        return bool(self.postagger_tag)
 
     def _parse_tagged_pos(self, tagged_text: str) -> list[dict[str, str]]:
         if not tagged_text:

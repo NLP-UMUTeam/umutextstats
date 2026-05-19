@@ -10,6 +10,7 @@ from umutextstats.cli.aggregate import add_aggregate_arguments, run_aggregate
 from umutextstats.cli.cache import add_cache_arguments, run_cache
 from umutextstats.cli.config import add_config_arguments, run_config
 from umutextstats.cli.explain import add_explain_arguments, run_explain
+from umutextstats.cli.inspect import add_inspect_arguments, run_inspect
 
 
 def build_parser() -> argparse.ArgumentParser:
@@ -66,7 +67,15 @@ def build_parser() -> argparse.ArgumentParser:
     add_explain_arguments(explain_parser)
     explain_parser.set_defaults(func=run_explain)
 
+    inspect_parser = subparsers.add_parser(
+        "inspect",
+        help="Inspect matches for a single dimension",
+    )
+    add_inspect_arguments(inspect_parser)
+    inspect_parser.set_defaults(func=run_inspect)
+
     return parser
+
 
 
 def main() -> None:

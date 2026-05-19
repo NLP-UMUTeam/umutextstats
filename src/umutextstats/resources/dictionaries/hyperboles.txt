@@ -53,7 +53,7 @@ oreja a oreja
 en las nubes
 diluvio
 
-NEG:supervisar
+NEG:supervis\p{L}+
 NEG:tribunal superior
 
 # polysyndeton

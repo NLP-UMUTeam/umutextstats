@@ -4,7 +4,18 @@ dimensions:
   strategy: CompositeStrategySum
   children:
   - key: phonetics-expressive-lengthening
-    class: PatternDimension
-    description: Drawing out or emphasizing a verbalized word, giving it character
-    pattern: (.)\1{3,}
-    use_original_input: true
+    class: CompositeDimension
+    strategy: CompositeStrategySum
+    description: Drawing out or emphasizing verbalized words or repeated emojis
+    children:
+    - key: phonetics-expressive-lengthening-text
+      class: PatternDimension
+      description: Drawing out or emphasizing a verbalized word with repeated letters
+      pattern: (\p{L})\1{3,}
+      use_original_input: true
+
+    - key: phonetics-expressive-lengthening-emojis
+      class: PatternDimension
+      description: Repetition of the same emoji for expressive emphasis
+      pattern: (\p{Extended_Pictographic})\1{2,}
+      use_original_input: true

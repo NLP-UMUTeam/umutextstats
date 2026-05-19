@@ -13,7 +13,7 @@ def default_config_path() -> Path:
         files("umutextstats")
         / "resources"
         / "config"
-        / "default.xml"
+        / "default.yaml"
     )
 
 

@@ -45,7 +45,7 @@ class DictionaryLoader:
                 continue
 
             if line.startswith("NEG:"):
-                exception = line[1:].strip()
+                exception = line[4:].strip()
                 if exception:
                     exceptions.append(exception)
             else:

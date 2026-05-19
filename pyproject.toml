@@ -21,7 +21,8 @@ dependencies = [
     "pyarrow>=15.0",
     "regex>=2024.0",
     "pydantic>=2",
-    "PyYAML>=6"
+    "PyYAML>=6",
+    "rich>=13"
 ]
 
 [project.optional-dependencies]
