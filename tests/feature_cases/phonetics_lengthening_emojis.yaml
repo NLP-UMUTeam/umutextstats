@@ -1,0 +1,25 @@
+cases:
+- text: 😂😂😂😂
+  expected_min: 1
+  annotations:
+    tagged_pos: 😂😂😂__(X), 😂__(PUNCT)
+- text: 😭😭😭😭
+  expected_min: 1
+  annotations:
+    tagged_pos: 😭😭😭__(X), 😭__(PUNCT)
+- text: hola 😂😂😂😂
+  expected_min: 1
+  annotations:
+    tagged_pos: hola__(NOUN)(Gender=Fem|Number=Sing), 😂😂😂__(X), 😂__(PUNCT)
+- text: 😂😂
+  expected: 0
+  annotations:
+    tagged_pos: 😂__(PUNCT), 😂__(PUNCT)
+- text: Soooooy feliz
+  expected: 0
+  annotations:
+    tagged_pos: Soooooy__(PROPN), feliz__(ADJ)(Number=Sing)
+- text: hola mundo
+  expected: 0
+  annotations:
+    tagged_pos: hola__(NOUN)(Gender=Masc|Number=Sing), mundo__(NOUN)(Gender=Masc|Number=Sing)

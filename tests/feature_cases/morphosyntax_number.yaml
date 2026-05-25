@@ -1,0 +1,27 @@
+cases:
+- text: La casa blanca.
+  expected_min: 2
+  annotations:
+    tagged_pos: La__(DET)(Definite=Def|Gender=Fem|Number=Sing|PronType=Art), casa__(NOUN)(Gender=Fem|Number=Sing),
+      blanca__(ADJ)(Gender=Fem|Number=Sing), .__(PUNCT)(PunctType=Peri)
+- text: Las casas blancas.
+  expected_min: 2
+  annotations:
+    tagged_pos: Las__(DET)(Definite=Def|Gender=Fem|Number=Plur|PronType=Art), casas__(NOUN)(Gender=Fem|Number=Plur),
+      blancas__(ADJ)(Gender=Fem|Number=Plur), .__(PUNCT)(PunctType=Peri)
+- text: El perro y los gatos corren.
+  expected_min: 3
+  annotations:
+    tagged_pos: El__(DET)(Definite=Def|Gender=Masc|Number=Sing|PronType=Art), perro__(NOUN)(Gender=Masc|Number=Sing),
+      y__(CCONJ), los__(DET)(Definite=Def|Gender=Masc|Number=Plur|PronType=Art), gatos__(NOUN)(Gender=Masc|Number=Plur),
+      corren__(VERB)(Mood=Ind|Number=Plur|Person=3|Tense=Pres|VerbForm=Fin), .__(PUNCT)(PunctType=Peri)
+- text: Yo te lo dije.
+  expected_min: 3
+  annotations:
+    tagged_pos: Yo__(PRON)(Case=Nom|Number=Sing|Person=1|PronType=Prs), te__(PRON)(Case=Dat|Number=Sing|Person=2|PrepCase=Npr|PronType=Prs),
+      lo__(PRON)(Case=Acc|Gender=Masc|Number=Sing|Person=3|PrepCase=Npr|PronType=Prs),
+      dije__(VERB)(Mood=Ind|Number=Sing|Person=1|Tense=Past|VerbForm=Fin), .__(PUNCT)(PunctType=Peri)
+- text: Rápidamente ayer.
+  expected: 0
+  annotations:
+    tagged_pos: Rápidamente__(ADV), ayer__(ADV), .__(PUNCT)(PunctType=Peri)

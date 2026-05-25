@@ -8,9 +8,12 @@ class DimensionConfig:
     strategy: str | None = None
     description: str | None = None
     dictionary: str | None = None
+    validation: dict | None = None
     pattern: str | None = None
     universal: str | None = None
     use_original_input: bool = False
+    pos_tag: str | None = None
+    pos_input_column: str | None = None
     percentage: bool = True
     disabled_regexp: bool = False
     children: list["DimensionConfig"] = field(default_factory=list)

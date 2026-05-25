@@ -1,0 +1,26 @@
+cases:
+- text: casita
+  expected_min: 1
+  annotations:
+    tagged_pos: casita__(NOUN)(Gender=Fem|Number=Sing)
+- text: grandísimo
+  expected_min: 1
+  annotations:
+    tagged_pos: grandísimo__(ADJ)(Gender=Masc|Number=Sing)
+- text: perrazo
+  expected_min: 1
+  annotations:
+    tagged_pos: perrazo__(NOUN)(Gender=Masc|Number=Sing)
+- text: lentamente
+  expected_min: 1
+  annotations:
+    tagged_pos: lentamente__(ADV)
+- text: desagradable
+  expected_min: 1
+  annotations:
+    tagged_pos: desagradable__(ADJ)(Number=Sing)
+- text: casa perro mesa
+  expected: 0
+  annotations:
+    tagged_pos: casa__(NOUN)(Gender=Fem|Number=Sing), perro__(NOUN)(Gender=Masc|Number=Sing),
+      mesa__(NOUN)(Gender=Fem|Number=Sing)

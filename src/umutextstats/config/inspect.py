@@ -27,7 +27,8 @@ class DimensionInspection:
     matches: list[InspectMatch]
     discarded_matches: list[InspectMatch] | None = None
     debug_text: str | None = None
-
+    internal_representation: str | None = None
+    description: str | None = None
 
 def inspect_dimension_text(
     config: UMUTextStatsConfig,
@@ -49,6 +50,13 @@ def inspect_dimension_text(
 
     if dimension.class_name == "POSTaggingTag":
         return _inspect_pos_tagging_dimension(dimension, text)
+
+    if dimension.children:
+        return _inspect_composite_dimension(config, dimension, text)
+
+    raise ValueError(
+        f"Dimension class is not inspectable yet: {dimension.class_name}"
+    )
 
     raise ValueError(
         f"Dimension class is not inspectable yet: {dimension.class_name}"
@@ -89,6 +97,15 @@ def _inspect_dictionary_dimension(dimension, text: str) -> DimensionInspection:
     if not dictionary_name:
         raise ValueError(f"Dictionary dimension without dictionary: {dimension.key}")
 
+    pos_tag = getattr(dimension, "pos_tag", None) or dimension.params.get("pos_tag")
+
+    if _looks_like_tagged_pos(text):
+        tagged_pos = text
+        source_text = _plain_text_from_tagged_pos(tagged_pos)
+    else:
+        tagged_pos = None
+        source_text = text
+
     use_regex = not dimension.disabled_regexp
 
     matches: list[InspectMatch] = []
@@ -99,43 +116,54 @@ def _inspect_dictionary_dimension(dimension, text: str) -> DimensionInspection:
 
         if use_regex:
             positive_matches = _find_dictionary_regex_matches(
-                text=text,
+                text=source_text,
                 entries=entries.words,
                 dictionary_name=name,
             )
 
             exception_matches = _find_dictionary_regex_matches(
-                text=text,
+                text=source_text,
                 entries=entries.exceptions,
                 dictionary_name=name,
             )
-
-            kept, discarded = _remove_exception_matches(
-                positive_matches,
-                exception_matches,
-            )
-
-            matches.extend(kept)
-            discarded_matches.extend(discarded)
-
         else:
             positive_matches = _find_dictionary_plain_matches(
-                text=text,
+                text=source_text,
                 entries=entries.words,
             )
 
             exception_matches = _find_dictionary_plain_matches(
-                text=text,
+                text=source_text,
                 entries=entries.exceptions,
             )
 
-            kept, discarded = _remove_exception_matches(
-                positive_matches,
-                exception_matches,
+        if pos_tag:
+            if not tagged_pos:
+                annotator = StanzaAnnotator()
+                doc = annotator.annotate_texts([source_text])[0]
+                tagged_pos = format_tagged_pos(doc)
+
+            positive_matches = _filter_matches_by_pos_tag(
+                matches=positive_matches,
+                tagged_pos=tagged_pos,
+                text=source_text,
+                pos_tag=pos_tag,
             )
 
-            matches.extend(kept)
-            discarded_matches.extend(discarded)
+            exception_matches = _filter_matches_by_pos_tag(
+                matches=exception_matches,
+                tagged_pos=tagged_pos,
+                text=source_text,
+                pos_tag=pos_tag,
+            )
+
+        kept, discarded = _remove_exception_matches(
+            positive_matches,
+            exception_matches,
+        )
+
+        matches.extend(kept)
+        discarded_matches.extend(discarded)
 
     return DimensionInspection(
         key=dimension.key,
@@ -144,9 +172,9 @@ def _inspect_dictionary_dimension(dimension, text: str) -> DimensionInspection:
         dictionary=dictionary_name,
         matches=matches,
         discarded_matches=discarded_matches,
-        debug_text=f"Loaded dictionary: {dictionary_name}"
+        debug_text=tagged_pos or f"Loaded dictionary: {dictionary_name}",
+        internal_representation=tagged_pos,
     )
-
 
 def render_inspection(
     inspection: DimensionInspection,
@@ -332,17 +360,53 @@ def _remove_exception_matches(
     return kept, discarded
 
 
-def _inspect_pos_tagging_dimension(dimension, text: str) -> DimensionInspection:
+def _looks_like_tagged_pos(text: str) -> bool:
+    return "__(" in text
+
+
+def _plain_text_from_tagged_pos(tagged_pos: str) -> str:
+    words = []
+
+    for sentence in tagged_pos.split(" || "):
+        for raw_item in sentence.split(", "):
+            raw_item = raw_item.strip()
+
+            if not raw_item:
+                continue
+
+            word = raw_item.split("__(", 1)[0]
+            words.append(word)
+
+    text = " ".join(words)
+
+    return (
+        text.replace(" .", ".")
+        .replace(" ,", ",")
+        .replace(" ;", ";")
+        .replace(" :", ":")
+        .replace(" ?", "?")
+        .replace(" !", "!")
+    )
+
+def _inspect_pos_tagging_dimension(
+    dimension,
+    text: str,
+) -> DimensionInspection:
     tag = dimension.params.get("tag")
     universal = dimension.universal or dimension.params.get("universal")
 
-    annotator = StanzaAnnotator()
-    doc = annotator.annotate_texts([text])[0]
-    tagged_pos = format_tagged_pos(doc)
+    if _looks_like_tagged_pos(text):
+        tagged_pos = text
+        source_text = _plain_text_from_tagged_pos(tagged_pos)
+    else:
+        source_text = text
+        annotator = StanzaAnnotator()
+        doc = annotator.annotate_texts([text])[0]
+        tagged_pos = format_tagged_pos(doc)
 
     parsed_items = _parse_tagged_pos_with_offsets(
         tagged_pos=tagged_pos,
-        text=text,
+        text=source_text,
     )
 
     matches = []
@@ -369,6 +433,7 @@ def _inspect_pos_tagging_dimension(dimension, text: str) -> DimensionInspection:
         matches=matches,
         discarded_matches=[],
         debug_text=tagged_pos,
+        internal_representation=tagged_pos,
     )
 
 
@@ -444,3 +509,88 @@ def _pos_item_matches(
         return required_feats.issubset(item_feats)
 
     return bool(tag)
+    
+    
+def _inspect_composite_dimension(
+    config: UMUTextStatsConfig,
+    dimension: DimensionConfig,
+    text: str,
+) -> DimensionInspection:
+    matches = []
+    discarded_matches = []
+    internal_representation = []
+
+    for child in dimension.children:
+        try:
+            child_inspection = inspect_dimension_text(
+                config=config,
+                key=child.key,
+                text=text,
+            )
+        except ValueError:
+            continue
+
+        matches.extend(child_inspection.matches)
+
+        if child_inspection.discarded_matches:
+            discarded_matches.extend(child_inspection.discarded_matches)
+
+        if child_inspection.internal_representation:
+            internal_representation.append(
+                f"{child.key}:\n{child_inspection.internal_representation}"
+            )
+
+    matches = _deduplicate_matches(matches)
+    discarded_matches = _deduplicate_matches(discarded_matches)
+
+    return DimensionInspection(
+        key=dimension.key,
+        class_name=dimension.class_name or "CompositeDimension",
+        pattern=None,
+        dictionary=None,
+        matches=matches,
+        discarded_matches=discarded_matches,
+        debug_text=None,
+        internal_representation="\n\n".join(internal_representation) or None,
+        description=dimension.description,
+    )
+    
+    
+def _deduplicate_matches(matches: list[InspectMatch]) -> list[InspectMatch]:
+    seen = set()
+    unique = []
+
+    for match in matches:
+        key = (match.start, match.end, match.match)
+
+        if key in seen:
+            continue
+
+        seen.add(key)
+        unique.append(match)
+
+    return sorted(unique, key=lambda item: (item.start, item.end, item.match))
+    
+    
+def _filter_matches_by_pos_tag(
+    matches: list[InspectMatch],
+    tagged_pos: str,
+    text: str,
+    pos_tag: str,
+) -> list[InspectMatch]:
+    parsed_items = _parse_tagged_pos_with_offsets(
+        tagged_pos=tagged_pos,
+        text=text,
+    )
+
+    allowed_spans = {
+        (item["start"], item["end"])
+        for item in parsed_items
+        if item["tag"] == pos_tag
+    }
+
+    return [
+        match
+        for match in matches
+        if (match.start, match.end) in allowed_spans
+    ]

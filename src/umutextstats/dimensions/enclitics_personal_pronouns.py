@@ -4,8 +4,7 @@ import regex as re
 from umutextstats.dictionaries import DictionaryLoader
 from umutextstats.dimensions.base import BaseDimension
 from umutextstats.text.tokenization import get_lexical_tokens
-
-ENCLITIC_PATTERN = r"([mts]e(l[aoe]s?)?|l[oae]s?|[mn]os?)"
+from umutextstats.text.patterns import ENCLITIC_PATTERN
 
 
 def remove_accents(text: str) -> str:

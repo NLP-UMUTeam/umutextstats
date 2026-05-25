@@ -5,14 +5,17 @@ import pandas as pd
 from umutextstats.dictionaries import DictionaryLoader
 from umutextstats.dimensions.base import BaseDimension
 from umutextstats.text.tokenization import get_lexical_tokens
+from umutextstats.text.patterns import POS_ITEM_REGEX
 
 
-class WordPerDictionary(BaseDimension):
+class WordPerDictionary(BaseDimension): 
     def __init__(
         self,
         key: str,
         dictionary_name: str,
         input_column: str = "text_norm",
+        pos_tag: str | None = None,
+        pos_input_column: str = "tagged_pos",
         percentage: bool = True,
         use_regex: bool = True,
         dictionary_loader: DictionaryLoader | None = None,
@@ -22,6 +25,8 @@ class WordPerDictionary(BaseDimension):
         self.dictionary_name = dictionary_name
         self.percentage = percentage
         self.use_regex = use_regex
+        self.pos_tag = pos_tag
+        self.pos_input_column = pos_input_column
         self.dictionary_loader = dictionary_loader or DictionaryLoader()
 
         dictionary_names = [
@@ -96,7 +101,15 @@ class WordPerDictionary(BaseDimension):
     def compute(self, df):
         texts = df[self.input_column].fillna("").astype(str)
 
-        counts = texts.apply(self._count_text)
+        if self.pos_tag:
+            tagged_texts = df[self.pos_input_column].fillna("").astype(str)
+            counts = [
+                self._count_text_with_pos(text, tagged_pos)
+                for text, tagged_pos in zip(texts, tagged_texts)
+            ]
+            counts = pd.Series(counts, index=df.index)
+        else:
+            counts = texts.apply(self._count_text)
 
         if not self.percentage:
             return counts
@@ -119,3 +132,87 @@ class WordPerDictionary(BaseDimension):
         )
 
         return pd.Series(percentages, index=counts.index)
+        
+        
+    def _count_text_with_pos(
+        self,
+        text: str,
+        tagged_pos: str,
+    ) -> int:
+        if not text or not tagged_pos:
+            return 0
+
+        allowed_words = [
+            item["word"].lower()
+            for item in self._parse_tagged_pos(tagged_pos)
+            if item["tag"] == self.pos_tag
+        ]
+
+        if not allowed_words:
+            return 0
+
+        if self.use_regex:
+            positive_count = 0
+            exception_count = 0
+
+            positive_words = allowed_words.copy()
+            exception_words = allowed_words.copy()
+
+            for pattern in self.patterns:
+                for match in pattern.finditer(text):
+                    matched_text = match.group(0).lower()
+
+                    if matched_text in positive_words:
+                        positive_count += 1
+                        positive_words.remove(matched_text)
+
+            for pattern in self.exception_patterns:
+                for match in pattern.finditer(text):
+                    matched_text = match.group(0).lower()
+
+                    if matched_text in exception_words:
+                        exception_count += 1
+                        exception_words.remove(matched_text)
+
+            return max(0, positive_count - exception_count)
+
+        source_words = get_lexical_tokens(text)
+        available_words = allowed_words.copy()
+        count = 0
+
+        for word in source_words:
+            if word not in available_words:
+                continue
+
+            available_words.remove(word)
+
+            if word in self.words:
+                count += 1
+
+            if word in self.exception_words:
+                count -= 1
+
+        return max(0, count)
+        
+    def _parse_tagged_pos(self, tagged_pos: str) -> list[dict[str, str]]:
+        if not tagged_pos:
+            return []
+
+        items = []
+
+        for sentence in tagged_pos.split(" || "):
+            for raw_item in sentence.split(", "):
+                match = POS_ITEM_REGEX.fullmatch(raw_item.strip())
+
+                if not match:
+                    continue
+
+                items.append(
+                    {
+                        "word": match.group("word") or "",
+                        "tag": match.group("tag") or "",
+                        "feats": match.group("feats") or "",
+                    }
+                )
+
+        return items

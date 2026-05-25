@@ -13,9 +13,13 @@ dimensions:
       description: Drawing out or emphasizing a verbalized word with repeated letters
       pattern: (\p{L})\1{3,}
       use_original_input: true
+      validation:
+        cases: tests/feature_cases/phonetics_lengthening.yaml
 
     - key: phonetics-expressive-lengthening-emojis
       class: PatternDimension
       description: Repetition of the same emoji for expressive emphasis
       pattern: (\p{Extended_Pictographic})\1{2,}
       use_original_input: true
+      validation:
+        cases: tests/feature_cases/phonetics_lengthening_emojis.yaml

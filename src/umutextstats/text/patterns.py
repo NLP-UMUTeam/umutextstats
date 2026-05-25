@@ -29,6 +29,12 @@ SYLLABIFIABLE_WORD_REGEX = re.compile(
 SENTENCE_END_REGEX = re.compile(r"[.!?]+", re.UNICODE)
 SENTENCE_REGEX = re.compile (r"[^.!?]+[.!?]*", re.UNICODE)
 
+POS_ITEM_REGEX = re.compile(
+    r"(?P<word>.+?)__\((?P<tag>[^)]*)\)(?:\((?P<feats>[^)]*)\))?"
+)
+
+ENCLITIC_PATTERN = r"([mts]e(l[aoe]s?)?|l[oae]s?|[mn]os?)"
+
 ABBREVIATIONS = {
     "sr", "sra", "srta",
     "dr", "dra",

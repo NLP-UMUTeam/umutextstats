@@ -2,6 +2,8 @@ dimensions:
 - key: morphosyntax
   children:
   - key: morphosyntax-gender
+    validation:
+      cases: tests/feature_cases/morphosyntax_gender.yaml
     children:
     - key: morphosyntax-gender-words-feminine
       class: POSTaggingTag
@@ -11,7 +13,10 @@ dimensions:
       class: POSTaggingTag
       description: Percentage of grammatically masculine words. In Spanish, masculine gender is the unmarked or inclusive form
       universal: Gender=Masc
+
   - key: morphosyntax-number
+    validation:
+      cases: tests/feature_cases/morphosyntax_number.yaml  
     children:
     - key: morphosyntax-number-singular
       class: POSTaggingTag
@@ -21,7 +26,10 @@ dimensions:
       class: POSTaggingTag
       description: Counts how many plural words there are in the text
       universal: Number=Plur
+
   - key: morphosyntax-affixes
+    validation:
+      cases: tests/feature_cases/morphosyntax_affixes_suffixes.yaml  
     children:
     - key: morphosyntax-affixes-suffixes
       class: CompositeDimension
@@ -32,10 +40,15 @@ dimensions:
         class: WordPerDictionary
         description: Counts how many words includes nominals suffixes
         dictionary: suffixes-nominals
+
       - key: morphosyntax-affixes-suffixes-adjectivizers
         class: WordPerDictionary
-        description: Counts how many words includes adjectivizers suffixes
+        description: Percentage of adjectives with adjectivizing suffixes
         dictionary: suffixes-adjectivizers
+        pos_tag: ADJ
+        validation:
+          cases: tests/feature_cases/morphosyntax_affixes_suffixes_adjectivizers.yaml
+
       - key: morphosyntax-affixes-suffixes-verbalizers
         class: WordPerDictionary
         description: Counts how many words includes verbalizers suffixes
@@ -60,6 +73,7 @@ dimensions:
       class: WordPerDictionary
       description: Counts how many words includes prefixes
       dictionary: prefixes
+
   - key: morphosyntax-morphology
     children:
     - key: morphosyntax-morphology-nouns

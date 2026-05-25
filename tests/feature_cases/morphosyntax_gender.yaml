@@ -1,0 +1,33 @@
+cases:
+- text: La casa blanca.
+  expected_min: 2
+  annotations:
+    tagged_pos: La__(DET)(Definite=Def|Gender=Fem|Number=Sing|PronType=Art), casa__(NOUN)(Gender=Fem|Number=Sing),
+      blanca__(ADJ)(Gender=Fem|Number=Sing), .__(PUNCT)(PunctType=Peri)
+- text: El perro negro.
+  expected_min: 2
+  annotations:
+    tagged_pos: El__(DET)(Definite=Def|Gender=Masc|Number=Sing|PronType=Art), perro__(NOUN)(Gender=Masc|Number=Sing),
+      negro__(ADJ)(Gender=Masc|Number=Sing), .__(PUNCT)(PunctType=Peri)
+- text: Las casas blancas y los perros negros.
+  expected_min: 4
+  annotations:
+    tagged_pos: Las__(DET)(Definite=Def|Gender=Fem|Number=Plur|PronType=Art), casas__(NOUN)(Gender=Fem|Number=Plur),
+      blancas__(ADJ)(Gender=Fem|Number=Plur), y__(CCONJ), los__(DET)(Definite=Def|Gender=Masc|Number=Plur|PronType=Art),
+      perros__(NOUN)(Gender=Masc|Number=Plur), negros__(ADJ)(Gender=Masc|Number=Plur),
+      .__(PUNCT)(PunctType=Peri)
+- text: El periodista inteligente.
+  expected_min: 1
+  annotations:
+    tagged_pos: El__(DET)(Definite=Def|Gender=Masc|Number=Sing|PronType=Art), periodista__(NOUN)(Number=Sing),
+      inteligente__(ADJ)(Number=Sing), .__(PUNCT)(PunctType=Peri)
+- text: La periodista inteligente.
+  expected_min: 1
+  annotations:
+    tagged_pos: La__(DET)(Definite=Def|Gender=Fem|Number=Sing|PronType=Art), periodista__(NOUN)(Number=Sing),
+      inteligente__(ADJ)(Number=Sing), .__(PUNCT)(PunctType=Peri)
+- text: Yo fui allí.
+  expected: 0
+  annotations:
+    tagged_pos: Yo__(PRON)(Case=Nom|Number=Sing|Person=1|PronType=Prs), fui__(VERB)(Mood=Ind|Number=Sing|Person=1|Tense=Past|VerbForm=Fin),
+      allí__(ADV), .__(PUNCT)(PunctType=Peri)

@@ -1,0 +1,40 @@
+cases:
+  - text: "amable"
+    expected_min: 1
+    annotations:
+      tagged_pos: "amable__(ADJ)(Number=Sing)"
+
+  - text: "posible"
+    expected_min: 1
+    annotations:
+      tagged_pos: "posible__(ADJ)(Number=Sing)"
+
+  - text: "terrible"
+    expected_min: 1
+    annotations:
+      tagged_pos: "terrible__(ADJ)(Number=Sing)"
+
+  - text: "grandísimo"
+    expected_min: 1
+    annotations:
+      tagged_pos: "grandísimo__(ADJ)(Gender=Masc|Number=Sing)"
+
+  - text: "normal"
+    expected_min: 1
+    annotations:
+      tagged_pos: "normal__(ADJ)(Number=Sing)"
+
+  - text: "animal"
+    expected: 0
+    annotations:
+      tagged_pos: "animal__(NOUN)(Gender=Masc|Number=Sing)"
+
+  - text: "ciudad"
+    expected: 0
+    annotations:
+      tagged_pos: "ciudad__(NOUN)(Gender=Fem|Number=Sing)"
+
+  - text: "casa"
+    expected: 0
+    annotations:
+      tagged_pos: "casa__(NOUN)(Gender=Fem|Number=Sing)"

@@ -2,10 +2,7 @@ import regex as re
 
 from umutextstats.dimensions.base import BaseDimension
 
-
-POS_ITEM_REGEX = re.compile(
-    r"(?P<word>.+?)__\((?P<tag>[^)]*)\)(?:\((?P<feats>[^)]*)\))?"
-)
+from umutextstats.text.patterns import POS_ITEM_REGEX
 
 
 class POSTaggingTag(BaseDimension):

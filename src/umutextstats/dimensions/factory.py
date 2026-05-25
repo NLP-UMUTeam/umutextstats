@@ -61,6 +61,8 @@ def build_word_per_dictionary(
         input_column=input_column,
         percentage=percentage_param(dimension),
         use_regex=not disabled_regexp_param(dimension),
+        pos_tag=param(dimension, "pos_tag", None),
+        pos_input_column=param(dimension, "pos_input_column", "tagged_pos"),
     )
 
 
