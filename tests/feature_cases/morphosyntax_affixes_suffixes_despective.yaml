@@ -1,0 +1,26 @@
+cases:
+- text: Vivían en una casucha abandonada.
+  expected_min: 1
+  annotations:
+    tagged_pos: Vivían__(VERB)(Mood=Ind|Number=Plur|Person=3|Tense=Imp|VerbForm=Fin),
+      en__(ADP), una__(DET)(Definite=Ind|Gender=Fem|Number=Sing|PronType=Art), casucha__(NOUN)(Gender=Fem|Number=Sing),
+      abandonada__(ADJ)(Gender=Fem|Number=Sing|VerbForm=Part), .__(PUNCT)(PunctType=Peri)
+- text: Ese poetastro volvió a mentir.
+  expected_min: 1
+  annotations:
+    tagged_pos: Ese__(DET)(Gender=Masc|Number=Sing|PronType=Dem), poetastro__(NOUN)(Gender=Masc|Number=Sing),
+      volvió__(VERB)(Mood=Ind|Number=Sing|Person=3|Tense=Past|VerbForm=Fin), a__(ADP),
+      mentir__(VERB)(VerbForm=Inf), .__(PUNCT)(PunctType=Peri)
+- text: El libraco estaba lleno de polvo.
+  expected_min: 1
+  annotations:
+    tagged_pos: El__(DET)(Definite=Def|Gender=Masc|Number=Sing|PronType=Art), libraco__(NOUN)(Gender=Masc|Number=Sing),
+      estaba__(AUX)(Mood=Ind|Number=Sing|Person=3|Tense=Imp|VerbForm=Fin), lleno__(ADJ)(Gender=Masc|Number=Sing),
+      de__(ADP), polvo__(NOUN)(Gender=Masc|Number=Sing), .__(PUNCT)(PunctType=Peri)
+- text: Compró un cochazo viejo y ruidoso.
+  expected: 0
+  annotations:
+    tagged_pos: Compró__(VERB)(Mood=Ind|Number=Sing|Person=3|Tense=Past|VerbForm=Fin),
+      un__(DET)(Definite=Ind|Gender=Masc|Number=Sing|PronType=Art), cochazo__(NOUN)(Gender=Masc|Number=Sing),
+      viejo__(ADJ)(Gender=Masc|Number=Sing), y__(CCONJ), ruidoso__(ADJ)(Gender=Masc|Number=Sing),
+      .__(PUNCT)(PunctType=Peri)

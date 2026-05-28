@@ -61,7 +61,7 @@ def _load_dimension(data: dict[str, Any]) -> DimensionConfig:
         pattern=data.get("pattern"),
         universal=data.get("universal"),
         pos_tag=data.get("pos_tag"),
-        pos_input_column=data.get("pos_input_column"),
+        pos_input_column=data.get("pos_input_column", "tagged_pos"),
         validation=data.get("validation"),
         use_original_input=_as_bool(
             data.get("use_original_input", data.get("useoriginalinput")),
@@ -78,22 +78,6 @@ def _load_dimension(data: dict[str, Any]) -> DimensionConfig:
         ],
         params=params,
     )
-
-
-def load_yaml_config(path: str | Path) -> UMUTextStatsConfig:
-    path = Path(path)
-
-    with path.open("r", encoding="utf-8") as file:
-        data = yaml.safe_load(file)
-
-    return UMUTextStatsConfig(
-        directory_folder=data.get("directory_folder"),
-        dimensions=[
-            _load_dimension(dimension)
-            for dimension in data.get("dimensions", [])
-        ],
-    )
-
 
 def load_yaml_config(path: str | Path) -> UMUTextStatsConfig:
     path = Path(path)

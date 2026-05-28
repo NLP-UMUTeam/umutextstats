@@ -5,7 +5,7 @@ import regex as re
 
 from umutextstats.dimensions.base import BaseDimension
 from umutextstats.text.tokenization import get_lexical_tokens
-from umutextstats.text.patterns import SENTENCE_REGEX
+from umutextstats.text.patterns import SENTENCE_SPAN_REGEX
 
 
 class RTIEBaseDimension(BaseDimension):
@@ -63,7 +63,7 @@ class RTIEBaseDimension(BaseDimension):
     def _sentences(self, text: str) -> list[str]:
         return [
             match.group(0).strip()
-            for match in SENTENCE_REGEX.finditer(text)
+            for match in SENTENCE_SPAN_REGEX.finditer(text)
             if match.group(0).strip()
         ]
 

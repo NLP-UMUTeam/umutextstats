@@ -40,6 +40,9 @@ dimensions:
         class: WordPerDictionary
         description: Counts how many words includes nominals suffixes
         dictionary: suffixes-nominals
+        pos_tag: NOUN
+        validation:
+          cases: tests/feature_cases/morphosyntax_affixes_suffixes_nominals.yaml
 
       - key: morphosyntax-affixes-suffixes-adjectivizers
         class: WordPerDictionary
@@ -53,26 +56,59 @@ dimensions:
         class: WordPerDictionary
         description: Counts how many words includes verbalizers suffixes
         dictionary: suffixes-verbalizers
+        pos_tag: VERB
+        validation:
+          cases: tests/feature_cases/morphosyntax_affixes_suffixes_verbalizers.yaml
+        
       - key: morphosyntax-affixes-suffixes-adverbializers
         class: WordPerDictionary
         description: Counts how many words includes adverbializers suffixes
         dictionary: suffixes-adverbializers
+        pos_tag: ADV
+        validation:
+          cases: tests/feature_cases/morphosyntax_affixes_suffixes_adverbializers.yaml
+        
       - key: morphosyntax-affixes-suffixes-augmentative
         class: WordPerDictionary
         description: Counts how many words includes augmentative suffixes
         dictionary: suffixes-augmentative
+        pos_tag:
+          - NOUN
+          - ADJ
+        validation:
+          cases: tests/feature_cases/morphosyntax_affixes_suffixes_augmentative.yaml
+        
       - key: morphosyntax-affixes-suffixes-diminutives
         class: WordPerDictionary
         description: Counts how many words includes diminutives suffixes
         dictionary: suffixes-diminutives
+        pos_tag:
+          - NOUN
+          - ADJ
+        validation:
+          cases: tests/feature_cases/morphosyntax_affixes_suffixes_diminutives.yaml
+        
       - key: morphosyntax-affixes-suffixes-despective
         class: WordPerDictionary
         description: Counts how many words includes despective suffixes
         dictionary: suffixes-despective
+        pos_tag:
+          - NOUN
+          - ADJ
+        validation:
+          cases: tests/feature_cases/morphosyntax_affixes_suffixes_despective.yaml
+        
     - key: morphosyntax-affixes-prefixes
       class: WordPerDictionary
       description: Counts how many words includes prefixes
       dictionary: prefixes
+      pos_tag:
+        - NOUN
+        - ADJ
+        - VERB
+        - ADV
+      validation:
+        cases: tests/feature_cases/morphosyntax_affixes_prefixes.yaml
 
   - key: morphosyntax-morphology
     children:
@@ -85,18 +121,28 @@ dimensions:
         class: POSTaggingTag
         description: Percentage of PoS common nouns
         tag: NOUN
+        validation:
+          cases: tests/feature_cases/morphosyntax_morphology_nouns_common.yaml
+        
       - key: morphosyntax-morphology-nouns-proper
         class: POSTaggingTag
         description: Percentage of PoS proper nouns
         tag: PROPN
+        validation:
+          cases: tests/feature_cases/morphosyntax_morphology_nouns_proper.yaml
+        
       - key: morphosyntax-morphology-nouns-male
         class: WordPerDictionary
         description: Percentage of male names
         dictionary: named-entities-male-names
+        pos_tag: NOUN
+        
       - key: morphosyntax-morphology-nouns-female
         class: WordPerDictionary
         description: Percentage of female names
         dictionary: named-entities-female-names
+        pos_tag: NOUN
+        
       - key: morphosyntax-morphology-nouns-dates
         class: CompositeDimension
         strategy: CompositeStrategySum
@@ -132,10 +178,12 @@ dimensions:
           description: Percentage of day names
           pattern: (lunes|martes|miércoles|jueves|viernes)
           separator: by-word
+
       - key: morphosyntax-morphology-nouns-numerals
         class: POSTaggingTag
         description: Percentage of PoS numerals
         tag: NUM
+
     - key: morphosyntax-morphology-nouns-topics
       children:
       - key: morphosyntax-morphology-nouns-topics-capitals
@@ -143,31 +191,43 @@ dimensions:
         description: Number of capitals
         dictionary: named-entities-capitals
         percentage: false
+        pos_tag: NOUN
+        
       - key: morphosyntax-morphology-nouns-topics-countries
         class: WordPerDictionary
         description: Number of countries
         dictionary: named-entities-countries
         percentage: false
+        pos_tag: NOUN
+        
       - key: morphosyntax-morphology-nouns-topics-demonyms
         class: WordPerDictionary
         description: Number of demonyms; that is, to refer to inhabitants of a particular place
         dictionary: named-entities-demonyms
         percentage: false
+        pos_tag: NOUN
+        
       - key: morphosyntax-morphology-nouns-topics-languages
         class: WordPerDictionary
         description: Number of words that refer to languages
         dictionary: named-entities-languages
         percentage: false
+        pos_tag: NOUN
+        
       - key: morphosyntax-morphology-nouns-topics-honorifics
         class: WordPerDictionary
         description: Number of words that refer to honorifs; that is, titles that conveys esteem, courtesy, or respect for position or rank when used in addressing or referring to a person. Sometimes, the term "honorific" is used in a more specific sense to refer to an honorary academic title.
         dictionary: named-entities-honorifics
         percentage: false
+        pos_tag: NOUN
+
       - key: morphosyntax-morphology-nouns-topics-colors
         class: WordPerDictionary
         description: Number of words that refer to colors.
         dictionary: named-entities-colors
         percentage: false
+        pos_tag: NOUN
+
     - key: morphosyntax-morphology-adjectives
       class: CompositeDimension
       strategy: CompositeStrategySum
@@ -176,18 +236,26 @@ dimensions:
         class: WordPerDictionary
         description: Percentage of qualifying adjectives
         dictionary: adjectives-qualifying
+        pos_tag: ADJ
+        
       - key: morphosyntax-morphology-adjectives-ordinals
         class: WordPerDictionary
         description: Percentage of ordinals adjectives
         dictionary: adjectives-ordinals
+        pos_tag: ADJ
+        
       - key: morphosyntax-morphology-adjectives-superlative
         class: WordPerDictionary
         description: Percentage of superlative adjectives
         dictionary: adjectives-superlative
+        pos_tag: ADJ
+        
       - key: morphosyntax-morphology-adjectives-despective
         class: WordPerDictionary
         description: Percentage of despective adjectives
         dictionary: adjectives-despective
+        pos_tag: ADJ
+        
     - key: morphosyntax-morphology-adverbs
       class: CompositeDimension
       strategy: CompositeStrategySum
@@ -197,22 +265,32 @@ dimensions:
         class: WordPerDictionary
         description: Percentage of interrogative adverbs
         dictionary: adverbs-interrogative
+        pos_tag: ADV
+        
       - key: morphosyntax-morphology-adverbs-doubt-or-desire
         class: WordPerDictionary
         description: Percentage of adverbs that expresses doubt or desire
         dictionary: adverbs-doubt-or-desire
+        pos_tag: ADV
+        
       - key: morphosyntax-morphology-adverbs-negation
         class: WordPerDictionary
         description: Percentage of negation adverbs
         dictionary: adverbs-negation
+        pos_tag: ADV
+
       - key: morphosyntax-morphology-adverbs-affirmation
         class: WordPerDictionary
         description: Percentage of affirmation adverbs
         dictionary: adverbs-affirmation
+        pos_tag: ADV
+        
       - key: morphosyntax-morphology-adverbs-others
         class: WordPerDictionary
         description: Percentage of adverbs that do not belong to the rest of the categories
         dictionary: adverbs-others
+        pos_tag: ADV
+        
     - key: morphosyntax-morphology-determiners
       class: CompositeDimension
       strategy: CompositeStrategySum
@@ -222,56 +300,69 @@ dimensions:
         description: Percentage of PoS determiners articles
         universal: PronType=Art
         tag: DET
+        validation:
+            cases: tests/feature_cases/morphosyntax_morphology_determiners_articles.yaml
+
       - key: morphosyntax-morphology-determiners-demostrative
         class: POSTaggingTag
         description: Percentage of PoS determiners demostrative
         universal: PronType=Dem
         tag: DET
+
       - key: morphosyntax-morphology-determiners-emphatic
         class: POSTaggingTag
         description: Percentage of PoS emphatic determiners
         universal: PronType=Emp
         tag: DET
+
       - key: morphosyntax-morphology-determiners-possessive
         class: POSTaggingTag
         description: Percentage of PoS possessive determiners
         universal: PronType=Prs
         tag: DET
+
       - key: morphosyntax-morphology-determiners-indefinite
         class: POSTaggingTag
         description: Percentage of PoS indefinite determiners
         universal: PronType=Ind
         tag: DET
+
       - key: morphosyntax-morphology-determiners-exclamatory
         class: POSTaggingTag
         description: Percentage of PoS exclamatory determiners
         universal: PronType=Exc
         tag: DET
+
       - key: morphosyntax-morphology-determiners-interrogative
         class: POSTaggingTag
         description: Percentage of PoS interrogative determiners
         universal: PronType=Int
         tag: DET
+
       - key: morphosyntax-morphology-determiners-negative
         class: POSTaggingTag
         description: Percentage of PoS negative determiners
         universal: PronType=Neg
         tag: DET
+
       - key: morphosyntax-morphology-determiners-reciprocal
         class: POSTaggingTag
         description: Percentage of PoS reciprocal determiners
         universal: PronType=Rcp
         tag: DET
+
       - key: morphosyntax-morphology-determiners-relative
         class: POSTaggingTag
         description: Percentage of PoS relative determiners
         universal: PronType=Rel
         tag: DET
+
       - key: morphosyntax-morphology-determiners-total
         class: POSTaggingTag
         description: Percentage of PoS total determiners
         universal: PronType=Tot
         tag: DET
+
     - key: morphosyntax-morphology-pronouns
       class: CompositeDimension
       strategy: CompositeStrategySum
@@ -292,11 +383,13 @@ dimensions:
             description: Personal pronouns in singular
             universal: Number=Sing|PronType=Prs
             tag: PRON
+
           - key: morphosyntax-morphology-pronouns-personal-number-plural
             class: POSTaggingTag
             description: Personal pronouns in plural
             universal: Number=Plur|PronType=Prs
             tag: PRON
+
         - key: morphosyntax-morphology-pronouns-personal-person
           class: CompositeDimension
           strategy: CompositeStrategySum
@@ -307,16 +400,19 @@ dimensions:
             description: Personal pronouns based on first person
             universal: Person=1|PronType=Prs
             tag: PRON
+
           - key: morphosyntax-morphology-pronouns-personal-person-second
             class: POSTaggingTag
             description: Personal pronouns based on second person
             universal: Person=2|PronType=Prs
             tag: PRON
+
           - key: morphosyntax-morphology-pronouns-personal-person-third
             class: POSTaggingTag
             description: Personal pronouns based on third person
             universal: Person=3|PronType=Prs
             tag: PRON
+
         - key: morphosyntax-morphology-pronouns-personal-gender
           class: CompositeDimension
           strategy: CompositeStrategySum
@@ -338,15 +434,18 @@ dimensions:
           class: EncliticsPersonalPronounsDictionary
           description: Personal pronouns with enclitics. These pronouns are those attached to verbs so that it can play a role.
           dictionaries: verbs-infinitive|verbs-gerund|verbs-participe
+
       - key: morphosyntax-morphology-pronouns-impersonal
         class: WordPerDictionary
         description: Impersonal pronouns
         dictionary: personal-pronouns-impersonal
+
       - key: morphosyntax-morphology-pronouns-indefinite
         class: POSTaggingTag
         description: Indefinite pronouns
         universal: PronType=Ind
         tag: PRON
+
       - key: morphosyntax-morphology-pronouns-relative
         class: POSTaggingTag
         description: Interrogative relative

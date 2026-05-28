@@ -3,3 +3,10 @@
 \p{L}{2,}az[oa]s?
 \p{L}{2,}at[oa]s?
 \p{L}{2,}arr(ón|ones|onas?)
+
+NEG:zapatos?
+NEG:pelotas?
+NEG:coraz(ón|ones|ona|onas)
+NEG:rat(ón|ones)
+NEG:bot(ón|ones)
+NEG:campe(ón|ones)

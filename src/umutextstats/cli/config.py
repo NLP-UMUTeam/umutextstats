@@ -2,6 +2,7 @@ from __future__ import annotations
 
 import argparse
 
+from umutextstats.cli.command import CommandSpec
 from umutextstats.config.convert import convert_config
 from umutextstats.config.loader import load_config
 from umutextstats.config.validator import validate_config
@@ -73,3 +74,11 @@ def run_config_validate(args: argparse.Namespace) -> None:
 def run_config_tree(args: argparse.Namespace) -> None:
     config = load_config(args.config_path)
     print(render_config_tree(config, max_depth=args.max_depth))
+
+
+COMMAND = CommandSpec(
+    name="config",
+    help="Configuration utilities",
+    add_arguments=add_config_arguments,
+    run=run_config,
+)

@@ -4,7 +4,7 @@ import regex as re
 from umutextstats.dictionaries import DictionaryLoader
 from umutextstats.dimensions.base import BaseDimension
 from umutextstats.text.tokenization import get_lexical_tokens
-from umutextstats.text.patterns import ENCLITIC_PATTERN
+from umutextstats.text.patterns import ENCLITIC_REGEX
 
 
 def remove_accents(text: str) -> str:
@@ -30,7 +30,7 @@ class EncliticsPersonalPronounsDictionary(BaseDimension):
 
         self.patterns = [
             re.compile(
-                rf"(?<!\p{{L}}){re.escape(verb)}{ENCLITIC_PATTERN}(?!\p{{L}})",
+                rf"(?<!\p{{L}}){re.escape(verb)}{ENCLITIC_REGEX}(?!\p{{L}})",
                 re.IGNORECASE,
             )
             for verb in self.verbs

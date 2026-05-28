@@ -1,10 +1,8 @@
 import regex as re
 
 from umutextstats.dimensions.base import BaseDimension
-
-
-SENTENCE_REGEX = re.compile(r"[^.!?]+[.!?]*", re.UNICODE)
-MENTION_REGEX = re.compile(r"@\w+", re.UNICODE)
+from umutextstats.text.patterns import SENTENCE_SPAN_REGEX
+from umutextstats.text.patterns import MENTION_REGEX
 
 
 class ErrorCapitalizationStartingWithLowerCaseDimension(BaseDimension):
@@ -40,7 +38,7 @@ class ErrorCapitalizationStartingWithLowerCaseDimension(BaseDimension):
     def _split_sentences(self, text: str) -> list[str]:
         sentences = []
 
-        for match in SENTENCE_REGEX.finditer(text):
+        for match in SENTENCE_SPAN_REGEX.finditer(text):
             sentence = match.group(0).strip()
 
             if not sentence:

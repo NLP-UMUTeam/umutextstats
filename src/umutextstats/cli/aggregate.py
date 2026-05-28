@@ -5,6 +5,7 @@ import sys
 
 import pandas as pd
 
+from umutextstats.cli.command import CommandSpec
 from umutextstats.output import write_output
 from umutextstats.summary.aggregate import aggregate_features
 
@@ -93,3 +94,10 @@ def run_aggregate(args: argparse.Namespace) -> None:
         write_output(aggregate, args.output)
     else:
         print(aggregate.to_json(orient="records", indent=2))
+
+COMMAND = CommandSpec(
+    name="aggregate",
+    help="Compute grouped statistics",
+    add_arguments=add_aggregate_arguments,
+    run=run_aggregate,
+)

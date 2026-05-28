@@ -4,16 +4,18 @@ dimensions:
   - key: social-media-hashtags
     class: PatternDimension
     description: Number of hashtags
-    pattern: (\s|\A)#(\p{L}+)
+    pattern: (?<!\S)#[\p{L}\p{N}_]+
     use_original_input: true
     percentage: false
     separator: by-word
+
   - key: social-media-mentions
     class: PatternDimension
     description: Number of mentions
-    pattern: (\s|\A)@([\p{L}\p{N}]+)
+    pattern: (?<!\S)@[\p{L}\p{N}_]+
     use_original_input: true
     percentage: false
+
   - key: social-media-mentions-in-the-middle
     class: PatternDimension
     description: Number of mentions in the middle of the text
@@ -21,28 +23,93 @@ dimensions:
     use_original_input: true
     percentage: false
     separator: whole
+
   - key: social-media-urls
     class: PatternDimension
     description: Number of hyperlinks
-    pattern: http
+    pattern: https?://\S+|www\.\S+
     use_original_input: true
     percentage: false
+
   - key: social-media-jargon
     class: WordPerDictionary
     description: Number of social media jargon expressions
     dictionary: social-media-jargon
     use_original_input: true
     disabled_regexp: true
-  - key: social-media-emoticons
-    class: POSTaggingTag
-    description: Number of emoticons
+    
+  - key: social-media-emojis
+    class: PatternDimension
+    description: Number of Unicode emojis and pictographic symbols commonly used in social media communication
+    pattern: \p{Extended_Pictographic}
+    use_original_input: true
     percentage: false
-    tag: word
-  - key: social-media-reply-female
-    class: TwitterReplyToDimension
-    description: Number of replies directed to a female name account
-    dictionary: named-entities-female-names
-  - key: social-media-reply-male
-    class: TwitterReplyToDimension
-    description: Number of replies directed to a male name account
-    dictionary: named-entities-male-names
+    separator: by-word
+    validation:
+      cases: tests/feature_cases/social_media_emojis.yaml
+      
+  - key: social-media-emoticons-ascii
+    class: PatternDimension
+    description: Number of ASCII emoticons such as :) :( :D or <3
+    pattern: (?:(?<![\p{L}\p{N}_])(?:[:;=8][-o*']?[\)\(dDpP/:\}\{@\|])|(?<![\p{L}\p{N}_])[xX]D|<3)
+    use_original_input: true
+    percentage: false
+    separator: by-word
+    validation:
+      cases: tests/feature_cases/social_media_emoticons_ascii.yaml
+
+  - key: social-media-reposts
+    class: PatternDimension
+    description: Number of repost or forwarding markers such as RT or via
+    pattern: (?i)(?<!\p{L})(rt|via)(?!\p{L})
+    use_original_input: true
+    percentage: false
+    separator: by-word
+
+  - key: social-media-thread-markers
+    class: PatternDimension
+    description: Number of thread or chained-post markers such as 1/5, hilo, or thread
+    pattern: (?i)(\b\d+/\d+\b|\bhilo\b|\bthread\b)
+    use_original_input: true
+    percentage: false
+    separator: by-word
+
+  - key: social-media-platform-markers
+    class: PatternDimension
+    description: Number of platform-specific social media markers and interaction terms
+    pattern: (?i)(\blike\b|\bretweet\b|\bshare\b|\bfollow\b|\bsubscribe\b|\bviral\b|\btrend(?:ing)?\b|\bfyp\b)
+    use_original_input: true
+    percentage: false
+    separator: by-word
+
+  - key: social-media-laughter
+    class: PatternDimension
+    description: Number of textual laughter expressions commonly used in informal online communication
+    pattern: (?i)\b(ja)+|(?:ha)+|(?:he)+|(?:hi)+|(?:xd+|jajaja+|hahaha+)\b
+    use_original_input: true
+    percentage: false
+    separator: by-word
+
+  - key: social-media-intensifiers
+    class: PatternDimension
+    description: Number of exaggerated orthographic markers such as repeated punctuation or elongated vowels
+    pattern: ([!?]{2,}|[aeiouáéíóú]{3,}|[A-Z]{4,})
+    use_original_input: true
+    percentage: false
+    separator: by-word
+
+  - key: social-media-cashtags
+    class: PatternDimension
+    description: Number of cashtags used to reference stocks or cryptocurrencies
+    pattern: (?<!\S)\$[\p{Lu}]{1,10}
+    use_original_input: true
+    percentage: false
+    separator: by-word
+
+  - key: social-media-community-markers
+    class: PatternDimension
+    description: Number of online community markers such as subreddit or Discord references
+    pattern: (?i)(r/\w+|u/\w+|discord(?:\.gg)?/\S+)
+    use_original_input: true
+    percentage: false
+    separator: by-word

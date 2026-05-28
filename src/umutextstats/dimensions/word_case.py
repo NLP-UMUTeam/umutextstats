@@ -1,11 +1,10 @@
 import regex as re
 
 from umutextstats.dimensions.base import BaseDimension
+from umutextstats.text.patterns import URL_REGEX
+from umutextstats.text.patterns import LEADING_MENTION_REGEX
+from umutextstats.text.patterns import WORD_TOKEN_REGEX
 
-
-URL_REGEX = re.compile(r"https?://\S+|www\.\S+", re.IGNORECASE)
-MENTION_BEGINNING_REGEX = re.compile(r"^\s*@\w+\s*", re.UNICODE)
-WORD_REGEX_CASE = re.compile(r"@?\b[\p{L}\p{N}]+\b", re.UNICODE)
 
 
 class WordCase(BaseDimension):
@@ -28,9 +27,9 @@ class WordCase(BaseDimension):
 
     def _compute_text(self, text: str) -> float:
         text = URL_REGEX.sub("", text)
-        text = MENTION_BEGINNING_REGEX.sub("", text).strip()
+        text = LEADING_MENTION_REGEX.sub("", text).strip()
 
-        words = WORD_REGEX_CASE.findall(text)
+        words = WORD_TOKEN_REGEX.findall(text)
 
         if self.comparator == "title":
             words = [

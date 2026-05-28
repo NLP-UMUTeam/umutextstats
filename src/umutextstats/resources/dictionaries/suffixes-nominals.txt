@@ -1,9 +1,9 @@
 # Source: https://www.studocu.com/es/document/uned/morfologia-de-la-lengua-espanola/apuntes/sufijos-nominales-y-adjetivales-prefijos-y-sufijos-verbales-interfijos/6460330/view
+# Más cortos
 \p{L}{2,}(aci(ón|ones))
 \p{L}{2,}adas?
 \p{L}{2,}ados?
 \p{L}{2,}ajes?
-\p{L}{2,}al(es)?
 \p{L}{2,}(amenta|amienta|imenta)s?
 \p{L}{2,}(a?mento|a?miento|imento)s?
 \p{L}{2,}(ancia|encia|iencia)s?
@@ -16,7 +16,7 @@
 \p{L}{2,}atos?
 \p{L}{2,}azgos?
 \p{L}{2,}azos?
-\p{L}{2,}(edad|edad|idad|iedad|tad)(es)?
+\p{L}{2,}(edad|idad|iedad|tad|dad)(es)?
 \p{L}{2,}duras?
 \p{L}{2,}enas?
 \p{L}{2,}eos?
@@ -24,16 +24,12 @@
 \p{L}{2,}eríos?
 \p{L}{2,}er[oa]s?
 \p{L}{2,}esas?
-\p{L}{2,}(ez|eces)
+\p{L}{2,}(ez|eces|ezas?)
 \p{L}{2,}eznos?
-\p{L}{2,}ías?
 \p{L}{2,}icas?
 \p{L}{2,}icias?
 \p{L}{2,}icios?
 \p{L}{2,}idas?
-\p{L}{2,}idos?
-\p{L}{2,}il(es)?
-\p{L}{2,}ín(es)?
 \p{L}{2,}inas?
 \p{L}{2,}inos?
 \p{L}{2,}íos?
@@ -55,3 +51,10 @@
 \p{L}{2,}umbres?
 \p{L}{2,}uras?
 \p{L}{2,}z(ón|ones)
+
+# Más largos
+\p{L}{4,}al(es)?
+\p{L}{42}il(es)?
+\p{L}{4,}ín(es)?
+\p{L}{4,}ías?
+\p{L}{4,}idos?

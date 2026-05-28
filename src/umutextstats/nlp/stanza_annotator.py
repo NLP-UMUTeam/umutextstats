@@ -18,6 +18,7 @@ class StanzaAnnotator:
     def __post_init__(self):
         try:
             import stanza
+            from stanza.pipeline.core import DownloadMethod
         except ImportError as exc:
             raise ImportError(
                 "Stanza is not installed. Install it with: pip install -e '.[nlp]'"
@@ -34,6 +35,7 @@ class StanzaAnnotator:
             use_gpu=self.use_gpu,
             pos_batch_size=self.pos_batch_size,
             ner_batch_size=self.ner_batch_size,
+            download_method=DownloadMethod.REUSE_RESOURCES,
         )
 
     def annotate_texts(self, texts: list[str]):

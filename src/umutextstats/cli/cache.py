@@ -7,6 +7,7 @@ import shutil
 import time
 from pathlib import Path
 
+from umutextstats.cli.command import CommandSpec
 from umutextstats.cache import CacheManager
 
 
@@ -185,3 +186,10 @@ def remove_empty_dirs(root: Path) -> None:
                 path.rmdir()
             except OSError:
                 pass
+
+COMMAND = CommandSpec(
+    name="cache",
+    help="Cache management commands",
+    add_arguments=add_cache_arguments,
+    run=run_cache,
+)

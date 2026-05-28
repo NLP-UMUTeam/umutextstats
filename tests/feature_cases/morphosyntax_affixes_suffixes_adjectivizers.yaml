@@ -1,40 +1,81 @@
 cases:
-  - text: "amable"
-    expected_min: 1
-    annotations:
-      tagged_pos: "amable__(ADJ)(Number=Sing)"
-
-  - text: "posible"
-    expected_min: 1
-    annotations:
-      tagged_pos: "posible__(ADJ)(Number=Sing)"
-
-  - text: "terrible"
-    expected_min: 1
-    annotations:
-      tagged_pos: "terrible__(ADJ)(Number=Sing)"
-
-  - text: "grandísimo"
-    expected_min: 1
-    annotations:
-      tagged_pos: "grandísimo__(ADJ)(Gender=Masc|Number=Sing)"
-
-  - text: "normal"
-    expected_min: 1
-    annotations:
-      tagged_pos: "normal__(ADJ)(Number=Sing)"
-
-  - text: "animal"
-    expected: 0
-    annotations:
-      tagged_pos: "animal__(NOUN)(Gender=Masc|Number=Sing)"
-
-  - text: "ciudad"
-    expected: 0
-    annotations:
-      tagged_pos: "ciudad__(NOUN)(Gender=Fem|Number=Sing)"
-
-  - text: "casa"
-    expected: 0
-    annotations:
-      tagged_pos: "casa__(NOUN)(Gender=Fem|Number=Sing)"
+- text: amable
+  expected_min: 1
+  annotations:
+    tagged_pos: amable__(ADJ)(Number=Sing)
+- text: posible
+  expected_min: 1
+  annotations:
+    tagged_pos: posible__(ADJ)(Number=Sing)
+- text: terrible
+  expected_min: 1
+  annotations:
+    tagged_pos: terrible__(ADJ)(Number=Sing)
+- text: grandísimo
+  expected_min: 1
+  annotations:
+    tagged_pos: grandísimo__(ADJ)(Gender=Masc|Number=Sing)
+- text: normal
+  expected_min: 1
+  annotations:
+    tagged_pos: normal__(ADJ)(Number=Sing)
+- text: animal
+  expected: 0
+  annotations:
+    tagged_pos: animal__(NOUN)(Gender=Masc|Number=Sing)
+- text: ciudad
+  expected: 0
+  annotations:
+    tagged_pos: ciudad__(NOUN)(Gender=Fem|Number=Sing)
+- text: casa
+  expected: 0
+  annotations:
+    tagged_pos: casa__(NOUN)(Gender=Fem|Number=Sing)
+- text: La persona amable ayudó a todos.
+  expected_min: 1
+  annotations:
+    tagged_pos: La__(DET)(Definite=Def|Gender=Fem|Number=Sing|PronType=Art), persona__(NOUN)(Gender=Fem|Number=Sing),
+      amable__(ADJ)(Number=Sing), ayudó__(VERB)(Mood=Ind|Number=Sing|Person=3|Tense=Past|VerbForm=Fin),
+      a__(ADP), todos__(PRON)(Gender=Masc|Number=Plur|PronType=Tot), .__(PUNCT)(PunctType=Peri)
+- text: Fue una situación terrible.
+  expected_min: 1
+  annotations:
+    tagged_pos: Fue__(AUX)(Mood=Ind|Number=Sing|Person=3|Tense=Past|VerbForm=Fin),
+      una__(DET)(Definite=Ind|Gender=Fem|Number=Sing|PronType=Art), situación__(NOUN)(Gender=Fem|Number=Sing),
+      terrible__(ADJ)(Number=Sing), .__(PUNCT)(PunctType=Peri)
+- text: El resultado fue increíble.
+  expected_min: 1
+  annotations:
+    tagged_pos: El__(DET)(Definite=Def|Gender=Masc|Number=Sing|PronType=Art), resultado__(NOUN)(Gender=Masc|Number=Sing),
+      fue__(AUX)(Mood=Ind|Number=Sing|Person=3|Tense=Past|VerbForm=Fin), increíble__(ADJ)(Number=Sing),
+      .__(PUNCT)(PunctType=Peri)
+- text: Era un hombre grandísimo.
+  expected_min: 1
+  annotations:
+    tagged_pos: Era__(AUX)(Mood=Ind|Number=Sing|Person=3|Tense=Imp|VerbForm=Fin),
+      un__(DET)(Definite=Ind|Gender=Masc|Number=Sing|PronType=Art), hombre__(NOUN)(Gender=Masc|Number=Sing),
+      grandísimo__(ADJ)(Gender=Masc|Number=Sing), .__(PUNCT)(PunctType=Peri)
+- text: La reacción fue desastrosa.
+  expected_min: 1
+  annotations:
+    tagged_pos: La__(DET)(Definite=Def|Gender=Fem|Number=Sing|PronType=Art), reacción__(NOUN)(Gender=Fem|Number=Sing),
+      fue__(AUX)(Mood=Ind|Number=Sing|Person=3|Tense=Past|VerbForm=Fin), desastrosa__(ADJ)(Gender=Fem|Number=Sing),
+      .__(PUNCT)(PunctType=Peri)
+- text: El animal cruzó la carretera.
+  expected: 0
+  annotations:
+    tagged_pos: El__(DET)(Definite=Def|Gender=Masc|Number=Sing|PronType=Art), animal__(NOUN)(Gender=Masc|Number=Sing),
+      cruzó__(VERB)(Mood=Ind|Number=Sing|Person=3|Tense=Past|VerbForm=Fin), la__(DET)(Definite=Def|Gender=Fem|Number=Sing|PronType=Art),
+      carretera__(NOUN)(Gender=Fem|Number=Sing), .__(PUNCT)(PunctType=Peri)
+- text: El animal cruzó la carretera.
+  expected: 0
+  annotations:
+    tagged_pos: El__(DET)(Definite=Def|Gender=Masc|Number=Sing|PronType=Art), animal__(NOUN)(Gender=Masc|Number=Sing),
+      cruzó__(VERB)(Mood=Ind|Number=Sing|Person=3|Tense=Past|VerbForm=Fin), la__(DET)(Definite=Def|Gender=Fem|Number=Sing|PronType=Art),
+      carretera__(NOUN)(Gender=Fem|Number=Sing), .__(PUNCT)(PunctType=Peri)
+- text: La ciudad permaneció en silencio.
+  expected: 0
+  annotations:
+    tagged_pos: La__(DET)(Definite=Def|Gender=Fem|Number=Sing|PronType=Art), ciudad__(NOUN)(Gender=Fem|Number=Sing),
+      permaneció__(VERB)(Mood=Ind|Number=Sing|Person=3|Tense=Past|VerbForm=Fin), en__(ADP),
+      silencio__(NOUN)(Gender=Masc|Number=Sing), .__(PUNCT)(PunctType=Peri)

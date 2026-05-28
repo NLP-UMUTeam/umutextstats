@@ -1,0 +1,24 @@
+cases:
+- text: La casa estaba vacía.
+  expected_min: 1
+  annotations:
+    tagged_pos: La__(DET)(Definite=Def|Gender=Fem|Number=Sing|PronType=Art), casa__(NOUN)(Gender=Fem|Number=Sing),
+      estaba__(AUX)(Mood=Ind|Number=Sing|Person=3|Tense=Imp|VerbForm=Fin), vacía__(ADJ)(Gender=Fem|Number=Sing),
+      .__(PUNCT)(PunctType=Peri)
+- text: El perro cruzó la calle.
+  expected_min: 2
+  annotations:
+    tagged_pos: El__(DET)(Definite=Def|Gender=Masc|Number=Sing|PronType=Art), perro__(NOUN)(Gender=Masc|Number=Sing),
+      cruzó__(VERB)(Mood=Ind|Number=Sing|Person=3|Tense=Past|VerbForm=Fin), la__(DET)(Definite=Def|Gender=Fem|Number=Sing|PronType=Art),
+      calle__(NOUN)(Gender=Fem|Number=Sing), .__(PUNCT)(PunctType=Peri)
+- text: María visitó Madrid.
+  expected: 0
+  annotations:
+    tagged_pos: María__(PROPN), visitó__(VERB)(Mood=Ind|Number=Sing|Person=3|Tense=Past|VerbForm=Fin),
+      Madrid__(PROPN), .__(PUNCT)(PunctType=Peri)
+- text: Ella llegó tarde.
+  expected: 0
+  annotations:
+    tagged_pos: Ella__(PRON)(Case=Acc,Nom|Gender=Fem|Number=Sing|Person=3|PronType=Prs),
+      llegó__(VERB)(Mood=Ind|Number=Sing|Person=3|Tense=Past|VerbForm=Fin), tarde__(ADV),
+      .__(PUNCT)(PunctType=Peri)

@@ -4,9 +4,7 @@ import regex as re
 
 from umutextstats.dictionaries import DictionaryLoader
 from umutextstats.dimensions.base import BaseDimension
-
-
-SENTENCE_REGEX = re.compile(r"[^.!?]+[.!?]*", re.UNICODE)
+from umutextstats.text.patterns import SENTENCE_SPAN_REGEX
 
 
 class SentencePerDictionary(BaseDimension):
@@ -78,6 +76,6 @@ class SentencePerDictionary(BaseDimension):
     def _split_sentences(self, text: str) -> list[str]:
         return [
             match.group(0).strip()
-            for match in SENTENCE_REGEX.finditer(text)
+            for match in SENTENCE_SPAN_REGEX.finditer(text)
             if match.group(0).strip()
         ]

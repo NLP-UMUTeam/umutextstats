@@ -1,9 +1,7 @@
 import regex as re
 
 from umutextstats.dimensions.base import BaseDimension
-
-
-NER_ITEM_REGEX = re.compile(r"(?P<tag>[A-Z]+)\((?P<text>.*?)\)")
+from umutextstats.text.patterns import NER_ITEM_REGEX
 
 
 class NERTaggingTag(BaseDimension):

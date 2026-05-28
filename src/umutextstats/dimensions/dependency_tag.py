@@ -1,11 +1,7 @@
 import regex as re
 
 from umutextstats.dimensions.base import BaseDimension
-
-
-DEP_ITEM_REGEX = re.compile(
-    r"(?P<word>.+?)__\((?P<deprel>[^)]*)\)\((?P<head>[^)]*)\)"
-)
+from umutextstats.text.patterns import DEPENDENCY_ITEM_REGEX
 
 
 class DependencyTag(BaseDimension):
@@ -51,7 +47,7 @@ class DependencyTag(BaseDimension):
         items = []
 
         for raw_item in tagged_text.split(", "):
-            match = DEP_ITEM_REGEX.fullmatch(raw_item.strip())
+            match = DEPENDENCY_ITEM_REGEX.fullmatch(raw_item.strip())
 
             if not match:
                 continue

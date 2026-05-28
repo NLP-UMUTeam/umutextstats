@@ -326,3 +326,54 @@ def test_pos_filter_percentage_uses_word_count_column_if_available():
     result = list(dim.compute(df))
 
     assert result == [50.0]
+    
+    
+def test_pos_filter_accepts_multiple_pos_tags_regex():
+    result = compute(
+        texts=["casita pequeñita rápidamente"],
+        entries=[r"\p{L}{2,}itas?"],
+        percentage=False,
+        use_regex=True,
+        tagged_pos=[
+            "casita__(NOUN)(Gender=Fem|Number=Sing), "
+            "pequeñita__(ADJ)(Gender=Fem|Number=Sing), "
+            "rápidamente__(ADV)"
+        ],
+        pos_tag=["NOUN", "ADJ"],
+    )
+
+    assert result == [2]
+
+
+def test_pos_filter_multiple_pos_tags_ignores_non_allowed_pos():
+    result = compute(
+        texts=["casita pequeñita rápidamente"],
+        entries=[r"\p{L}{2,}itas?"],
+        percentage=False,
+        use_regex=True,
+        tagged_pos=[
+            "casita__(NOUN)(Gender=Fem|Number=Sing), "
+            "pequeñita__(ADJ)(Gender=Fem|Number=Sing), "
+            "rápidamente__(ADV)"
+        ],
+        pos_tag=["NOUN"],
+    )
+
+    assert result == [1]
+
+
+def test_pos_filter_accepts_multiple_pos_tags_plain_mode():
+    result = compute(
+        texts=["casita pequeñita rápidamente"],
+        entries=["casita", "pequeñita", "rápidamente"],
+        percentage=False,
+        use_regex=False,
+        tagged_pos=[
+            "casita__(NOUN)(Gender=Fem|Number=Sing), "
+            "pequeñita__(ADJ)(Gender=Fem|Number=Sing), "
+            "rápidamente__(ADV)"
+        ],
+        pos_tag=["NOUN", "ADJ"],
+    )
+
+    assert result == [2]

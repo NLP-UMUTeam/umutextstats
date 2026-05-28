@@ -5,6 +5,7 @@ from __future__ import annotations
 import argparse
 import json
 
+from umutextstats.cli.command import CommandSpec
 from umutextstats.config import load_config
 from umutextstats.config.explain import (
     explanation_to_dict,
@@ -52,3 +53,9 @@ def run_explain(args: argparse.Namespace) -> None:
     print(render_dimension_explanation(explanation))
 
 
+COMMAND = CommandSpec(
+    name="explain",
+    help="Explain a dimension",
+    add_arguments=add_explain_arguments,
+    run=run_explain,
+)

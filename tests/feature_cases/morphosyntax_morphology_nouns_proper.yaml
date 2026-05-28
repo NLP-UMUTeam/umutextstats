@@ -1,0 +1,29 @@
+cases:
+- text: María visitó Madrid.
+  expected_min: 2
+  annotations:
+    tagged_pos: María__(PROPN), visitó__(VERB)(Mood=Ind|Number=Sing|Person=3|Tense=Past|VerbForm=Fin),
+      Madrid__(PROPN), .__(PUNCT)(PunctType=Peri)
+- text: Google abrió una oficina en Barcelona.
+  expected_min: 2
+  annotations:
+    tagged_pos: Google__(PROPN), abrió__(VERB)(Mood=Ind|Number=Sing|Person=3|Tense=Past|VerbForm=Fin),
+      una__(DET)(Definite=Ind|Gender=Fem|Number=Sing|PronType=Art), oficina__(NOUN)(Gender=Fem|Number=Sing),
+      en__(ADP), Barcelona__(PROPN), .__(PUNCT)(PunctType=Peri)
+- text: Juan y Ana llegaron temprano.
+  expected_min: 2
+  annotations:
+    tagged_pos: Juan__(PROPN), y__(CCONJ), Ana__(PROPN), llegaron__(VERB)(Mood=Ind|Number=Plur|Person=3|Tense=Past|VerbForm=Fin),
+      temprano__(ADV), .__(PUNCT)(PunctType=Peri)
+- text: La casa estaba vacía.
+  expected: 0
+  annotations:
+    tagged_pos: La__(DET)(Definite=Def|Gender=Fem|Number=Sing|PronType=Art), casa__(NOUN)(Gender=Fem|Number=Sing),
+      estaba__(AUX)(Mood=Ind|Number=Sing|Person=3|Tense=Imp|VerbForm=Fin), vacía__(ADJ)(Gender=Fem|Number=Sing),
+      .__(PUNCT)(PunctType=Peri)
+- text: Ella llegó tarde.
+  expected: 0
+  annotations:
+    tagged_pos: Ella__(PRON)(Case=Acc,Nom|Gender=Fem|Number=Sing|Person=3|PronType=Prs),
+      llegó__(VERB)(Mood=Ind|Number=Sing|Person=3|Tense=Past|VerbForm=Fin), tarde__(ADV),
+      .__(PUNCT)(PunctType=Peri)

@@ -576,17 +576,23 @@ def _filter_matches_by_pos_tag(
     matches: list[InspectMatch],
     tagged_pos: str,
     text: str,
-    pos_tag: str,
+    pos_tag: str | list[str],
 ) -> list[InspectMatch]:
     parsed_items = _parse_tagged_pos_with_offsets(
         tagged_pos=tagged_pos,
         text=text,
     )
 
+    allowed_tags = (
+        pos_tag
+        if isinstance(pos_tag, list)
+        else [pos_tag]
+    )
+
     allowed_spans = {
         (item["start"], item["end"])
         for item in parsed_items
-        if item["tag"] == pos_tag
+        if item["tag"] in allowed_tags
     }
 
     return [

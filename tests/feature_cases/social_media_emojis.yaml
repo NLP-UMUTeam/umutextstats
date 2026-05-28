@@ -1,0 +1,18 @@
+cases:
+  - text: "Me encanta esto 😍"
+    expected_min: 1
+
+  - text: "😂😂😂 qué bueno"
+    expected_min: 3
+
+  - text: "Vamos a la playa 🏖️ mañana"
+    expected_min: 1
+
+  - text: "Trabajo terminado ✅"
+    expected_min: 1
+
+  - text: "Hola mundo"
+    expected: 0
+
+  - text: "Esto no tiene emojis."
+    expected: 0

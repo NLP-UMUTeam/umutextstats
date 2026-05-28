@@ -1,0 +1,57 @@
+cases:
+  - text: "Hola :)"
+    expected_min: 1
+
+  - text: "Esto es increíble :D"
+    expected_min: 1
+
+  - text: "No me gusta :( "
+    expected_min: 1
+
+  - text: "Te quiero <3"
+    expected_min: 1
+
+  - text: "xD jajajaja"
+    expected_min: 1
+
+  - text: ";) guiño"
+    expected_min: 1
+
+  - text: "Hola mundo"
+    expected: 0
+
+  - text: "La temperatura es 3:2"
+    expected: 0
+
+  - text: "Uso paréntesis () normalmente"
+    expected: 0
+    
+  - text: "La relación es 16:9."
+    expected: 0
+
+  - text: "La hora es 10:30."
+    expected: 0
+
+  - text: "Usa print(x) en Python."
+    expected: 0
+
+  - text: "La función f(x) devuelve x + 1."
+    expected: 0
+
+  - text: "Array[0] contiene el primer valor."
+    expected: 0
+
+  - text: "JSON: {\"ok\": true}"
+    expected: 0
+
+  - text: "Ruta C:\\Users\\pepe\\test"
+    expected: 0
+
+  - text: "Error: (code 500)"
+    expected: 0
+
+  - text: "Markdown usa [texto](url)."
+    expected: 0
+
+  - text: "Comando: echo :)"
+    expected_min: 1

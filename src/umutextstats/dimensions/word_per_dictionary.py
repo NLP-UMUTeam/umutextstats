@@ -14,8 +14,8 @@ class WordPerDictionary(BaseDimension):
         key: str,
         dictionary_name: str,
         input_column: str = "text_norm",
-        pos_tag: str | None = None,
-        pos_input_column: str = "tagged_pos",
+        pos_tag: str | list[str] | None = None,
+        pos_input_column: str | None = "tagged_pos",
         percentage: bool = True,
         use_regex: bool = True,
         dictionary_loader: DictionaryLoader | None = None,
@@ -25,9 +25,13 @@ class WordPerDictionary(BaseDimension):
         self.dictionary_name = dictionary_name
         self.percentage = percentage
         self.use_regex = use_regex
-        self.pos_tag = pos_tag
         self.pos_input_column = pos_input_column
         self.dictionary_loader = dictionary_loader or DictionaryLoader()
+        
+        if isinstance(pos_tag, str):
+            pos_tag = [pos_tag]
+
+        self.pos_tag = pos_tag or None
 
         dictionary_names = [
             name.strip()
@@ -115,20 +119,20 @@ class WordPerDictionary(BaseDimension):
             return counts
 
         if "word_count" in df.columns:
-            total_words = df["word_count"]
+            word_totals  = df["word_count"]
         else:
-            total_words = texts.apply(lambda text: len(get_lexical_tokens(text)))
+            word_totals  = texts.apply(lambda text: len(get_lexical_tokens(text)))
 
         counts_array = counts.to_numpy(dtype=float)
-        total_words_array = total_words.to_numpy(dtype=float)
+        word_totals_array = word_totals .to_numpy(dtype=float)
 
         percentages = np.zeros_like(counts_array, dtype=float)
 
         np.divide(
             100.0 * counts_array,
-            total_words_array,
+            word_totals_array,
             out=percentages,
-            where=total_words_array != 0,
+            where=word_totals_array != 0,
         )
 
         return pd.Series(percentages, index=counts.index)
@@ -145,7 +149,7 @@ class WordPerDictionary(BaseDimension):
         allowed_words = [
             item["word"].lower()
             for item in self._parse_tagged_pos(tagged_pos)
-            if item["tag"] == self.pos_tag
+            if item["tag"] in self.pos_tag
         ]
 
         if not allowed_words:

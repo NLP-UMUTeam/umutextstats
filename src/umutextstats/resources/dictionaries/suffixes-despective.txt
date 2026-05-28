@@ -1,5 +1,5 @@
 # @link https://es.wikipedia.org/wiki/Despectivo
-\p{L}{3,}(ach?[oa])s?
+\p{L}{3,}([au]ch?[oa])s?
 \p{L}{3,}(aj[oa])s?
 \p{L}{3,}(ango)s?
 \p{L}{3,}(asc[oa])s?

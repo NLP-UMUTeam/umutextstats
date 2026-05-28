@@ -3,6 +3,7 @@ from __future__ import annotations
 import argparse
 from pathlib import Path
 
+from umutextstats.cli.command import CommandSpec
 from rich.console import Console
 from umutextstats.config import load_config
 from umutextstats.config.inspect import (
@@ -48,3 +49,11 @@ def run_inspect(args: argparse.Namespace) -> None:
 
     console = Console()
     console.print(render_inspection(inspection, text))
+
+
+COMMAND = CommandSpec(
+    name="inspect",
+    help="Inspect a dimension",
+    add_arguments=add_inspect_arguments,
+    run=run_inspect,
+)

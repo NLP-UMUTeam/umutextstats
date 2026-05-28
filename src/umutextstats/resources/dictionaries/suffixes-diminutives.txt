@@ -8,3 +8,14 @@
 \p{L}{2,}ij[oa]s?
 \p{L}{2,}izn[oa]s?
 \p{L}{2,}etas?
+
+NEG:visitas?
+NEG:bonitas?
+NEG:favoritas?
+NEG:maletas?
+NEG:camisetas?
+NEG:recetas?
+NEG:planeta?
+NEG:poeta?
+medicinas?
+esquinas?

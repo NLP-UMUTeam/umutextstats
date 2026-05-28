@@ -5,9 +5,7 @@ import regex as re
 
 from umutextstats.dictionaries import DictionaryLoader
 from umutextstats.dimensions.base import BaseDimension
-
-
-FIRST_TOKEN_REGEX = re.compile(r"\S+", re.UNICODE)
+from umutextstats.text.patterns import FIRST_TOKEN_REGEX
 
 
 def remove_accents(text: str) -> str:

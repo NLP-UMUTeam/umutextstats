@@ -1,0 +1,38 @@
+cases:
+- text: La casa estaba vacía.
+  expected_min: 1
+  annotations:
+    tagged_pos: La__(DET)(Definite=Def|Gender=Fem|Number=Sing|PronType=Art), casa__(NOUN)(Gender=Fem|Number=Sing),
+      estaba__(AUX)(Mood=Ind|Number=Sing|Person=3|Tense=Imp|VerbForm=Fin), vacía__(ADJ)(Gender=Fem|Number=Sing),
+      .__(PUNCT)(PunctType=Peri)
+- text: Los perros corrían por el parque.
+  expected_min: 2
+  annotations:
+    tagged_pos: Los__(DET)(Definite=Def|Gender=Masc|Number=Plur|PronType=Art), perros__(NOUN)(Gender=Masc|Number=Plur),
+      corrían__(VERB)(Mood=Ind|Number=Plur|Person=3|Tense=Imp|VerbForm=Fin), por__(ADP),
+      el__(DET)(Definite=Def|Gender=Masc|Number=Sing|PronType=Art), parque__(NOUN)(Gender=Masc|Number=Sing),
+      .__(PUNCT)(PunctType=Peri)
+- text: Un hombre abrió la puerta.
+  expected_min: 2
+  annotations:
+    tagged_pos: Un__(DET)(Definite=Ind|Gender=Masc|Number=Sing|PronType=Art), hombre__(NOUN)(Gender=Masc|Number=Sing),
+      abrió__(VERB)(Mood=Ind|Number=Sing|Person=3|Tense=Past|VerbForm=Fin), la__(DET)(Definite=Def|Gender=Fem|Number=Sing|PronType=Art),
+      puerta__(NOUN)(Gender=Fem|Number=Sing), .__(PUNCT)(PunctType=Peri)
+- text: Este libro era interesante.
+  expected: 0
+  annotations:
+    tagged_pos: Este__(DET)(Gender=Masc|Number=Sing|PronType=Dem), libro__(NOUN)(Gender=Masc|Number=Sing),
+      era__(AUX)(Mood=Ind|Number=Sing|Person=3|Tense=Imp|VerbForm=Fin), interesante__(ADJ)(Number=Sing),
+      .__(PUNCT)(PunctType=Peri)
+- text: Mi hermana llegó temprano.
+  expected: 0
+  annotations:
+    tagged_pos: Mi__(DET)(Number=Sing|Number[psor]=Sing|Person=1|Poss=Yes|PronType=Prs),
+      hermana__(NOUN)(Gender=Fem|Number=Sing), llegó__(VERB)(Mood=Ind|Number=Sing|Person=3|Tense=Past|VerbForm=Fin),
+      temprano__(ADV), .__(PUNCT)(PunctType=Peri)
+- text: Alguien llamó a la puerta.
+  expected_min: 1
+  annotations:
+    tagged_pos: Alguien__(PRON)(Number=Sing|PronType=Ind), llamó__(VERB)(Mood=Ind|Number=Sing|Person=3|Tense=Past|VerbForm=Fin),
+      a__(ADP), la__(DET)(Definite=Def|Gender=Fem|Number=Sing|PronType=Art), puerta__(NOUN)(Gender=Fem|Number=Sing),
+      .__(PUNCT)(PunctType=Peri)

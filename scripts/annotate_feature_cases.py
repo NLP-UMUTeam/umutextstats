@@ -4,6 +4,8 @@ from pathlib import Path
 
 import yaml
 
+from tqdm import tqdm
+
 from umutextstats.config.loader import load_config
 from umutextstats.nlp.stanza_annotator import (
     StanzaAnnotator,
@@ -34,7 +36,10 @@ def main():
 
     changed = 0
 
-    for relative_path in paths:
+    for relative_path in tqdm(
+        paths,
+        desc="Annotating feature cases",
+    ):
         path = root / relative_path
 
         if not path.exists():
@@ -47,11 +52,6 @@ def main():
         case_indexes = []
 
         for i, case in enumerate(cases):
-            annotations = case.get("annotations") or {}
-
-            if annotations.get("tagged_pos"):
-                continue
-
             texts_to_annotate.append(case["text"])
             case_indexes.append(i)
 

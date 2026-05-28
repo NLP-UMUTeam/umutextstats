@@ -1,0 +1,38 @@
+cases:
+- text: La casita estaba limpia.
+  expected_min: 1
+  annotations:
+    tagged_pos: La__(DET)(Definite=Def|Gender=Fem|Number=Sing|PronType=Art), casita__(NOUN)(Gender=Fem|Number=Sing),
+      estaba__(AUX)(Mood=Ind|Number=Sing|Person=3|Tense=Imp|VerbForm=Fin), limpia__(ADJ)(Gender=Fem|Number=Sing),
+      .__(PUNCT)(PunctType=Peri)
+- text: El perrito dormía en el sofá.
+  expected_min: 1
+  annotations:
+    tagged_pos: El__(DET)(Definite=Def|Gender=Masc|Number=Sing|PronType=Art), perrito__(NOUN)(Gender=Masc|Number=Sing),
+      dormía__(VERB)(Mood=Ind|Number=Sing|Person=3|Tense=Imp|VerbForm=Fin), en__(ADP),
+      el__(DET)(Definite=Def|Gender=Masc|Number=Sing|PronType=Art), sofá__(NOUN)(Gender=Masc|Number=Sing),
+      .__(PUNCT)(PunctType=Peri)
+- text: Era una niña pequeñita.
+  expected_min: 1
+  annotations:
+    tagged_pos: Era__(AUX)(Mood=Ind|Number=Sing|Person=3|Tense=Imp|VerbForm=Fin),
+      una__(DET)(Definite=Ind|Gender=Fem|Number=Sing|PronType=Art), niña__(NOUN)(Gender=Fem|Number=Sing),
+      pequeñita__(ADJ)(Gender=Fem|Number=Sing), .__(PUNCT)(PunctType=Peri)
+- text: Trajo un momentito de calma.
+  expected_min: 1
+  annotations:
+    tagged_pos: Trajo__(VERB)(Mood=Ind|Number=Sing|Person=3|Tense=Past|VerbForm=Fin),
+      un__(DET)(Definite=Ind|Gender=Masc|Number=Sing|PronType=Art), momentito__(NOUN)(Gender=Masc|Number=Sing),
+      de__(ADP), calma__(NOUN)(Gender=Fem|Number=Sing), .__(PUNCT)(PunctType=Peri)
+- text: El gato dormía tranquilo.
+  expected: 0
+  annotations:
+    tagged_pos: El__(DET)(Definite=Def|Gender=Masc|Number=Sing|PronType=Art), gato__(NOUN)(Gender=Masc|Number=Sing),
+      dormía__(VERB)(Mood=Ind|Number=Sing|Person=3|Tense=Imp|VerbForm=Fin), tranquilo__(ADJ)(Gender=Masc|Number=Sing),
+      .__(PUNCT)(PunctType=Peri)
+- text: La visita llegó tarde.
+  expected: 0
+  annotations:
+    tagged_pos: La__(DET)(Definite=Def|Gender=Fem|Number=Sing|PronType=Art), visita__(NOUN)(Gender=Fem|Number=Sing),
+      llegó__(VERB)(Mood=Ind|Number=Sing|Person=3|Tense=Past|VerbForm=Fin), tarde__(ADV),
+      .__(PUNCT)(PunctType=Peri)

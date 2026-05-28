@@ -7,7 +7,7 @@ import regex as re
 from umutextstats.text.patterns import (
     ABBREVIATIONS,
     SENTENCE_END_REGEX,
-    SENTENCE_REGEX,
+    SENTENCE_SPAN_REGEX,
 )
 
 
@@ -26,7 +26,7 @@ def get_sentences(text: str) -> tuple[str, ...]:
 
     sentences = [
         sentence.strip()
-        for sentence in SENTENCE_REGEX.findall(text)
+        for sentence in SENTENCE_SPAN_REGEX.findall(text)
         if sentence.strip()
     ]
 

@@ -1,0 +1,78 @@
+cases:
+- text: educación
+  expected_min: 1
+  annotations:
+    tagged_pos: educación__(NOUN)(Gender=Fem|Number=Sing)
+- text: pensamiento
+  expected_min: 1
+  annotations:
+    tagged_pos: pensamiento__(NOUN)(Gender=Masc|Number=Sing)
+- text: esperanza
+  expected_min: 1
+  annotations:
+    tagged_pos: esperanza__(NOUN)(Gender=Fem|Number=Sing)
+- text: bondad
+  expected_min: 1
+  annotations:
+    tagged_pos: bondad__(NOUN)(Gender=Fem|Number=Sing)
+- text: belleza
+  expected_min: 1
+  annotations:
+    tagged_pos: belleza__(NOUN)(Gender=Fem|Number=Sing)
+- text: movimiento
+  expected_min: 1
+  annotations:
+    tagged_pos: movimiento__(NOUN)(Gender=Masc|Number=Sing)
+- text: social
+  expected: 0
+  annotations:
+    tagged_pos: social__(ADJ)(Number=Sing)
+- text: normal
+  expected: 0
+  annotations:
+    tagged_pos: normal__(ADJ)(Number=Sing)
+- text: comieron
+  expected: 0
+  annotations:
+    tagged_pos: comieron__(VERB)(Mood=Ind|Number=Plur|Person=3|Tense=Past|VerbForm=Fin)
+- text: La educación mejora la vida de las personas.
+  expected_min: 1
+  annotations:
+    tagged_pos: La__(DET)(Definite=Def|Gender=Fem|Number=Sing|PronType=Art), educación__(NOUN)(Gender=Fem|Number=Sing),
+      mejora__(VERB)(Mood=Ind|Number=Sing|Person=3|Tense=Pres|VerbForm=Fin), la__(DET)(Definite=Def|Gender=Fem|Number=Sing|PronType=Art),
+      vida__(NOUN)(Gender=Fem|Number=Sing), de__(ADP), las__(DET)(Definite=Def|Gender=Fem|Number=Plur|PronType=Art),
+      personas__(NOUN)(Gender=Fem|Number=Plur), .__(PUNCT)(PunctType=Peri)
+- text: Su pensamiento cambió con el tiempo.
+  expected_min: 1
+  annotations:
+    tagged_pos: Su__(DET)(Number=Sing|Person=3|Poss=Yes|PronType=Prs), pensamiento__(NOUN)(Gender=Masc|Number=Sing),
+      cambió__(VERB)(Mood=Ind|Number=Sing|Person=3|Tense=Past|VerbForm=Fin), con__(ADP),
+      el__(DET)(Definite=Def|Gender=Masc|Number=Sing|PronType=Art), tiempo__(NOUN)(Gender=Masc|Number=Sing),
+      .__(PUNCT)(PunctType=Peri)
+- text: La esperanza sostuvo al grupo durante años.
+  expected_min: 1
+  annotations:
+    tagged_pos: La__(DET)(Definite=Def|Gender=Fem|Number=Sing|PronType=Art), esperanza__(NOUN)(Gender=Fem|Number=Sing),
+      sostuvo__(VERB)(Mood=Ind|Number=Sing|Person=3|Tense=Past|VerbForm=Fin), a__(ADP),
+      el__(DET)(Definite=Def|Gender=Masc|Number=Sing|PronType=Art), grupo__(NOUN)(Gender=Masc|Number=Sing),
+      durante__(ADP), años__(NOUN)(Gender=Masc|Number=Plur), .__(PUNCT)(PunctType=Peri)
+- text: La bondad aparece en pequeños gestos.
+  expected_min: 1
+  annotations:
+    tagged_pos: La__(DET)(Definite=Def|Gender=Fem|Number=Sing|PronType=Art), bondad__(NOUN)(Gender=Fem|Number=Sing),
+      aparece__(VERB)(Mood=Ind|Number=Sing|Person=3|Tense=Pres|VerbForm=Fin), en__(ADP),
+      pequeños__(ADJ)(Gender=Masc|Number=Plur), gestos__(NOUN)(Gender=Masc|Number=Plur),
+      .__(PUNCT)(PunctType=Peri)
+- text: La belleza del paisaje sorprendió a todos.
+  expected_min: 1
+  annotations:
+    tagged_pos: La__(DET)(Definite=Def|Gender=Fem|Number=Sing|PronType=Art), belleza__(NOUN)(Gender=Fem|Number=Sing),
+      de__(ADP), el__(DET)(Definite=Def|Gender=Masc|Number=Sing|PronType=Art), paisaje__(NOUN)(Gender=Masc|Number=Sing),
+      sorprendió__(VERB)(Mood=Ind|Number=Sing|Person=3|Tense=Past|VerbForm=Fin), a__(ADP),
+      todos__(PRON)(Gender=Masc|Number=Plur|PronType=Tot), .__(PUNCT)(PunctType=Peri)
+- text: El informe normal llegó tarde.
+  expected: 0
+  annotations:
+    tagged_pos: El__(DET)(Definite=Def|Gender=Masc|Number=Sing|PronType=Art), informe__(NOUN)(Gender=Masc|Number=Sing),
+      normal__(ADJ)(Number=Sing), llegó__(VERB)(Mood=Ind|Number=Sing|Person=3|Tense=Past|VerbForm=Fin),
+      tarde__(ADV), .__(PUNCT)(PunctType=Peri)

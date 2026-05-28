@@ -1,0 +1,31 @@
+cases:
+- text: Caminó lentamente por la calle.
+  expected_min: 1
+  annotations:
+    tagged_pos: Caminó__(VERB)(Mood=Ind|Number=Sing|Person=3|Tense=Past|VerbForm=Fin),
+      lentamente__(ADV), por__(ADP), la__(DET)(Definite=Def|Gender=Fem|Number=Sing|PronType=Art),
+      calle__(NOUN)(Gender=Fem|Number=Sing), .__(PUNCT)(PunctType=Peri)
+- text: Respondió rápidamente a la pregunta.
+  expected_min: 1
+  annotations:
+    tagged_pos: Respondió__(VERB)(Mood=Ind|Number=Sing|Person=3|Tense=Past|VerbForm=Fin),
+      rápidamente__(ADV), a__(ADP), la__(DET)(Definite=Def|Gender=Fem|Number=Sing|PronType=Art),
+      pregunta__(NOUN)(Gender=Fem|Number=Sing), .__(PUNCT)(PunctType=Peri)
+- text: Actuó claramente contra las normas.
+  expected_min: 1
+  annotations:
+    tagged_pos: Actuó__(VERB)(Mood=Ind|Number=Sing|Person=3|Tense=Past|VerbForm=Fin),
+      claramente__(ADV), contra__(ADP), las__(DET)(Definite=Def|Gender=Fem|Number=Plur|PronType=Art),
+      normas__(NOUN)(Gender=Fem|Number=Plur), .__(PUNCT)(PunctType=Peri)
+- text: Fue una respuesta lenta.
+  expected: 0
+  annotations:
+    tagged_pos: Fue__(AUX)(Mood=Ind|Number=Sing|Person=3|Tense=Past|VerbForm=Fin),
+      una__(DET)(Definite=Ind|Gender=Fem|Number=Sing|PronType=Art), respuesta__(NOUN)(Gender=Fem|Number=Sing),
+      lenta__(ADJ)(Gender=Fem|Number=Sing), .__(PUNCT)(PunctType=Peri)
+- text: Mente es una palabra común.
+  expected: 0
+  annotations:
+    tagged_pos: Mente__(PROPN), es__(AUX)(Mood=Ind|Number=Sing|Person=3|Tense=Pres|VerbForm=Fin),
+      una__(DET)(Definite=Ind|Gender=Fem|Number=Sing|PronType=Art), palabra__(NOUN)(Gender=Fem|Number=Sing),
+      común__(ADJ)(Number=Sing), .__(PUNCT)(PunctType=Peri)

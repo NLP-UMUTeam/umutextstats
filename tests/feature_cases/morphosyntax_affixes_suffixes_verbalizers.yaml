@@ -1,0 +1,43 @@
+cases:
+- text: Quiero pasear por la tarde.
+  expected_min: 1
+  annotations:
+    tagged_pos: Quiero__(VERB)(Mood=Ind|Number=Sing|Person=1|Tense=Pres|VerbForm=Fin),
+      pasear__(VERB)(VerbForm=Inf), por__(ADP), la__(DET)(Definite=Def|Gender=Fem|Number=Sing|PronType=Art),
+      tarde__(NOUN)(Gender=Fem|Number=Sing), .__(PUNCT)(PunctType=Peri)
+- text: La empresa quiere modernizar el sistema.
+  expected_min: 1
+  annotations:
+    tagged_pos: La__(DET)(Definite=Def|Gender=Fem|Number=Sing|PronType=Art), empresa__(NOUN)(Gender=Fem|Number=Sing),
+      quiere__(VERB)(Mood=Ind|Number=Sing|Person=3|Tense=Pres|VerbForm=Fin), modernizar__(VERB)(VerbForm=Inf),
+      el__(DET)(Definite=Def|Gender=Masc|Number=Sing|PronType=Art), sistema__(NOUN)(Gender=Masc|Number=Sing),
+      .__(PUNCT)(PunctType=Peri)
+- text: Necesitamos simplificar el proceso.
+  expected_min: 1
+  annotations:
+    tagged_pos: Necesitamos__(VERB)(Mood=Ind|Number=Plur|Person=1|Tense=Pres|VerbForm=Fin),
+      simplificar__(VERB)(VerbForm=Inf), el__(DET)(Definite=Def|Gender=Masc|Number=Sing|PronType=Art),
+      proceso__(NOUN)(Gender=Masc|Number=Sing), .__(PUNCT)(PunctType=Peri)
+- text: El niño empezó a envejecer lentamente.
+  expected_min: 1
+  annotations:
+    tagged_pos: El__(DET)(Definite=Def|Gender=Masc|Number=Sing|PronType=Art), niño__(NOUN)(Gender=Masc|Number=Sing),
+      empezó__(VERB)(Mood=Ind|Number=Sing|Person=3|Tense=Past|VerbForm=Fin), a__(ADP),
+      envejecer__(VERB)(VerbForm=Inf), lentamente__(ADV), .__(PUNCT)(PunctType=Peri)
+- text: El paseo fue largo.
+  expected: 0
+  annotations:
+    tagged_pos: El__(DET)(Definite=Def|Gender=Masc|Number=Sing|PronType=Art), paseo__(NOUN)(Gender=Masc|Number=Sing),
+      fue__(AUX)(Mood=Ind|Number=Sing|Person=3|Tense=Past|VerbForm=Fin), largo__(ADJ)(Gender=Masc|Number=Sing),
+      .__(PUNCT)(PunctType=Peri)
+- text: Mar llegó temprano.
+  expected: 0
+  annotations:
+    tagged_pos: Mar__(PROPN), llegó__(VERB)(Mood=Ind|Number=Sing|Person=3|Tense=Past|VerbForm=Fin),
+      temprano__(ADV), .__(PUNCT)(PunctType=Peri)
+- text: La empresa Iberificar creció rápidamente.
+  expected: 0
+  annotations:
+    tagged_pos: La__(DET)(Definite=Def|Gender=Fem|Number=Sing|PronType=Art), empresa__(NOUN)(Gender=Fem|Number=Sing),
+      Iberificar__(PROPN), creció__(VERB)(Mood=Ind|Number=Sing|Person=3|Tense=Past|VerbForm=Fin),
+      rápidamente__(ADV), .__(PUNCT)(PunctType=Peri)

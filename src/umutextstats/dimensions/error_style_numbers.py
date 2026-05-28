@@ -2,9 +2,8 @@ import regex as re
 
 from umutextstats.dimensions.base import BaseDimension
 
-
-SENTENCE_REGEX = re.compile(r"[^.!?]+[.!?]*", re.UNICODE)
-FIRST_TOKEN_REGEX = re.compile(r"\b[\p{L}\p{N}]+(?:[.,]\d+)?\b", re.UNICODE)
+from umutextstats.text.patterns import SENTENCE_SPAN_REGEX
+from umutextstats.text.patterns import INITIAL_TOKEN_REGEX
 
 
 class ErrorStyleSentencesStartingWithNumbers(BaseDimension):
@@ -41,7 +40,7 @@ class ErrorStyleSentencesStartingWithNumbers(BaseDimension):
     def _split_sentences(self, text: str) -> list[str]:
         sentences = []
 
-        for match in SENTENCE_REGEX.finditer(text):
+        for match in SENTENCE_SPAN_REGEX.finditer(text):
             sentence = match.group(0).strip()
 
             if not sentence:
@@ -55,7 +54,7 @@ class ErrorStyleSentencesStartingWithNumbers(BaseDimension):
         return sentences
 
     def _starts_with_number(self, sentence: str) -> bool:
-        match = FIRST_TOKEN_REGEX.search(sentence)
+        match = INITIAL_TOKEN_REGEX.search(sentence)
 
         if not match:
             return False

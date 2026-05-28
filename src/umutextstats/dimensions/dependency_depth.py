@@ -3,12 +3,7 @@ from __future__ import annotations
 import regex as re
 
 from umutextstats.dimensions.base import BaseDimension
-
-
-DEP_ITEM_REGEX = re.compile(
-    r"(?P<word>.+?)__\((?P<deprel>[^)]*)\)\((?P<head>[^)]*)\)"
-)
-
+from umutextstats.text.patterns import DEPENDENCY_ITEM_REGEX
 
 class DependencyDepthDimension(BaseDimension):
     def __init__(
@@ -94,7 +89,7 @@ class DependencyDepthDimension(BaseDimension):
         items = []
 
         for index, raw_item in enumerate(tagged_text.split(", "), start=1):
-            match = DEP_ITEM_REGEX.fullmatch(raw_item.strip())
+            match = DEPENDENCY_ITEM_REGEX.fullmatch(raw_item.strip())
 
             if not match:
                 continue

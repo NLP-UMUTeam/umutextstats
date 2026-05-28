@@ -4,13 +4,24 @@ from __future__ import annotations
 
 import argparse
 
-from umutextstats.cli.analyze import add_analyze_arguments, run_analyze
-from umutextstats.cli.summarize import add_summarize_arguments, run_summarize
-from umutextstats.cli.aggregate import add_aggregate_arguments, run_aggregate
-from umutextstats.cli.cache import add_cache_arguments, run_cache
-from umutextstats.cli.config import add_config_arguments, run_config
-from umutextstats.cli.explain import add_explain_arguments, run_explain
-from umutextstats.cli.inspect import add_inspect_arguments, run_inspect
+from umutextstats.cli.aggregate import COMMAND as AGGREGATE_COMMAND
+from umutextstats.cli.analyze import COMMAND as ANALYZE_COMMAND
+from umutextstats.cli.cache import COMMAND as CACHE_COMMAND
+from umutextstats.cli.config import COMMAND as CONFIG_COMMAND
+from umutextstats.cli.explain import COMMAND as EXPLAIN_COMMAND
+from umutextstats.cli.inspect import COMMAND as INSPECT_COMMAND
+from umutextstats.cli.summarize import COMMAND as SUMMARIZE_COMMAND
+
+
+COMMANDS = [
+    ANALYZE_COMMAND,
+    SUMMARIZE_COMMAND,
+    AGGREGATE_COMMAND,
+    CACHE_COMMAND,
+    CONFIG_COMMAND,
+    EXPLAIN_COMMAND,
+    INSPECT_COMMAND,
+]
 
 
 def build_parser() -> argparse.ArgumentParser:
@@ -21,58 +32,13 @@ def build_parser() -> argparse.ArgumentParser:
 
     subparsers = parser.add_subparsers(dest="command", required=True)
 
-    analyze_parser = subparsers.add_parser(
-        "analyze",
-        help="Extract linguistic features",
-    )
-    add_analyze_arguments(analyze_parser)
-    analyze_parser.set_defaults(func=run_analyze)
-
-    summarize_parser = subparsers.add_parser(
-        "summarize",
-        help="Compute summary statistics",
-    )
-    add_summarize_arguments(summarize_parser)
-    summarize_parser.set_defaults(func=run_summarize)
-    
-    aggregate_parser = subparsers.add_parser(
-        "aggregate",
-        help="Compute grouped statistics",
-    )
-
-    add_aggregate_arguments(aggregate_parser)
-    aggregate_parser.set_defaults(func=run_aggregate)
-
-
-    cache_parser = subparsers.add_parser(
-        "cache",
-        help="Cache management commands",
-    )
-    add_cache_arguments(cache_parser)
-    cache_parser.set_defaults(func=run_cache)
-
-
-    config_parser = subparsers.add_parser(
-        "config",
-        help="Configuration utilities",
-    )
-    add_config_arguments(config_parser)
-    config_parser.set_defaults(func=run_config)
-
-
-    explain_parser = subparsers.add_parser(
-        "explain",
-        help="Explain a linguistic dimension",
-    )
-    add_explain_arguments(explain_parser)
-    explain_parser.set_defaults(func=run_explain)
-
-    inspect_parser = subparsers.add_parser(
-        "inspect",
-        help="Inspect matches for a single dimension",
-    )
-    add_inspect_arguments(inspect_parser)
-    inspect_parser.set_defaults(func=run_inspect)
+    for command in COMMANDS:
+        command_parser = subparsers.add_parser(
+            command.name,
+            help=command.help,
+        )
+        command.add_arguments(command_parser)
+        command_parser.set_defaults(func=command.run)
 
     return parser
 

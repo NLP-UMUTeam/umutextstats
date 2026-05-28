@@ -1,0 +1,31 @@
+cases:
+- text: El sistema antihielo funcionó correctamente.
+  expected_min: 1
+  annotations:
+    tagged_pos: El__(DET)(Definite=Def|Gender=Masc|Number=Sing|PronType=Art), sistema__(NOUN)(Gender=Masc|Number=Sing),
+      antihielo__(ADJ)(Gender=Masc|Number=Sing), funcionó__(VERB)(Mood=Ind|Number=Sing|Person=3|Tense=Past|VerbForm=Fin),
+      correctamente__(ADV), .__(PUNCT)(PunctType=Peri)
+- text: La bicicleta era automática.
+  expected_min: 1
+  annotations:
+    tagged_pos: La__(DET)(Definite=Def|Gender=Fem|Number=Sing|PronType=Art), bicicleta__(NOUN)(Gender=Fem|Number=Sing),
+      era__(AUX)(Mood=Ind|Number=Sing|Person=3|Tense=Imp|VerbForm=Fin), automática__(ADJ)(Gender=Fem|Number=Sing),
+      .__(PUNCT)(PunctType=Peri)
+- text: El proyecto interdisciplinar empezó ayer.
+  expected_min: 1
+  annotations:
+    tagged_pos: El__(DET)(Definite=Def|Gender=Masc|Number=Sing|PronType=Art), proyecto__(NOUN)(Gender=Masc|Number=Sing),
+      interdisciplinar__(ADJ)(Number=Sing), empezó__(VERB)(Mood=Ind|Number=Sing|Person=3|Tense=Past|VerbForm=Fin),
+      ayer__(ADV), .__(PUNCT)(PunctType=Peri)
+- text: Hicieron una revisión microscópica.
+  expected_min: 1
+  annotations:
+    tagged_pos: Hicieron__(VERB)(Mood=Ind|Number=Plur|Person=3|Tense=Past|VerbForm=Fin),
+      una__(DET)(Definite=Ind|Gender=Fem|Number=Sing|PronType=Art), revisión__(NOUN)(Gender=Fem|Number=Sing),
+      microscópica__(ADJ)(Gender=Fem|Number=Sing), .__(PUNCT)(PunctType=Peri)
+- text: La empresa exportó material.
+  expected_min: 1
+  annotations:
+    tagged_pos: La__(DET)(Definite=Def|Gender=Fem|Number=Sing|PronType=Art), empresa__(NOUN)(Gender=Fem|Number=Sing),
+      exportó__(VERB)(Mood=Ind|Number=Sing|Person=3|Tense=Past|VerbForm=Fin), material__(NOUN)(Gender=Masc|Number=Sing),
+      .__(PUNCT)(PunctType=Peri)

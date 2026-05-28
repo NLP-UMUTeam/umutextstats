@@ -4,6 +4,7 @@ from __future__ import annotations
 
 import argparse
 
+from umutextstats.cli.command import CommandSpec
 from umutextstats.cache import CacheManager
 from umutextstats.config import load_config
 from umutextstats.dimensions import DimensionEngine
@@ -228,3 +229,11 @@ def run_analyze(args: argparse.Namespace) -> None:
     
     if args.stats:
         write_output(profiler.dataframe(), args.stats)
+
+
+COMMAND = CommandSpec(
+    name="analyze",
+    help="Extract linguistic features",
+    add_arguments=add_analyze_arguments,
+    run=run_analyze,
+)

@@ -5,6 +5,8 @@ import sys
 
 import pandas as pd
 
+from umutextstats.cli.command import CommandSpec
+
 from umutextstats.output import write_output
 from umutextstats.summary.ranking import (
     get_sparse_features,
@@ -141,3 +143,11 @@ def run_summarize(args: argparse.Namespace) -> None:
         write_output(result, args.output)
     else:
         print(result.to_csv(index=False))
+
+
+COMMAND = CommandSpec(
+    name="summarize",
+    help="Compute summary statistics",
+    add_arguments=add_summarize_arguments,
+    run=run_summarize,
+)

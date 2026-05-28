@@ -3,7 +3,7 @@ import regex as re
 from umutextstats.dimensions.base import BaseDimension
 from umutextstats.dimensions.syllable_count import count_syllables_text
 from umutextstats.text.tokenization import get_lexical_tokens
-from umutextstats.text.patterns import SENTENCE_REGEX
+from umutextstats.text.patterns import SENTENCE_SPAN_REGEX
 
 
 class ReadbilityDimension(BaseDimension):
@@ -35,7 +35,7 @@ class ReadbilityDimension(BaseDimension):
         if not text:
             return 0
 
-        count = len(SENTENCE_REGEX.findall(text))
+        count = len(SENTENCE_SPAN_REGEX.findall(text))
 
         if count == 0:
             return 1
