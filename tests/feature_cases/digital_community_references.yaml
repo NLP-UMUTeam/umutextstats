@@ -1,0 +1,60 @@
+cases:
+- text: "Lo vi en r/python"
+  expected: 1
+  annotations:
+    tagged_pos: Lo__(PRON), vi__(VERB), en__(ADP), r/python__(PROPN)
+
+- text: "Pregunta para u/pepe"
+  expected: 1
+  annotations:
+    tagged_pos: Pregunta__(NOUN), para__(ADP), u/pepe__(PROPN)
+
+- text: "r/python y r/machinelearning"
+  expected: 2
+  annotations:
+    tagged_pos: r/python__(PROPN), y__(CCONJ), r/machinelearning__(PROPN)
+
+- text: "u/ana y u/luis comentaron"
+  expected: 2
+  annotations:
+    tagged_pos: u/ana__(PROPN), y__(CCONJ), u/luis__(PROPN), comentaron__(VERB)
+
+- text: "Únete a discord.gg/abcdef"
+  expected: 1
+  annotations:
+    tagged_pos: Únete__(VERB), a__(ADP), discord.gg/abcdef__(PROPN)
+
+- text: "discord/servidor"
+  expected: 1
+  annotations:
+    tagged_pos: discord/servidor__(PROPN)
+
+- text: "No es comunidad r/"
+  expected: 0
+  annotations:
+    tagged_pos: No__(ADV), es__(VERB), comunidad__(NOUN), r/__(X)
+
+- text: "No es usuario u/"
+  expected: 0
+  annotations:
+    tagged_pos: No__(ADV), es__(VERB), usuario__(NOUN), u/__(X)
+
+- text: "Ruta de fichero /home/u/test"
+  expected: 0
+  annotations:
+    tagged_pos: Ruta__(NOUN), de__(ADP), fichero__(NOUN), /home/u/test__(X)
+
+- text: "Correo user@example.com"
+  expected: 0
+  annotations:
+    tagged_pos: Correo__(NOUN), user@example.com__(X)
+
+- text: "Paréntesis (r/python)"
+  expected: 1
+  annotations:
+    tagged_pos: '(__PUNCT), r/python__(PROPN), )__(PUNCT)'
+
+- text: null
+  expected: 0
+  annotations:
+    tagged_pos: ''

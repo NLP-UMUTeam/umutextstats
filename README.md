@@ -154,6 +154,24 @@ umutextstats aggregate \
   -o aggregate_by_author.json
 ```
 
+### Inspecting dimensions
+
+Use `inspect` to understand why a dimension matched a text. The command highlights the elements that contributed to the score and is useful for debugging dictionaries, regex patterns, and linguistic rules.
+
+Inspect hashtags:
+
+```bash
+echo "Me encanta #Python y #NLP" | umutextstats inspect digital-addressivity-hashtags -
+```
+
+Use a custom configuration
+```
+umutextstats inspect \
+    digital-platform-language-jargon \
+    tweet.txt \
+    --config configs/social_media.yaml
+```
+
 ---
 
 # Output Formats

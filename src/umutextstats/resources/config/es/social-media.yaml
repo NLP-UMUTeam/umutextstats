@@ -1,115 +1,144 @@
 dimensions:
-- key: social-media
+- key: digital-communication
+  description: Linguistic and structural markers characteristic of digital communication, online interaction, and computer-mediated discourse
   children:
-  - key: social-media-hashtags
-    class: PatternDimension
-    description: Number of hashtags
-    pattern: (?<!\S)#[\p{L}\p{N}_]+
-    use_original_input: true
-    percentage: false
-    separator: by-word
 
-  - key: social-media-mentions
-    class: PatternDimension
-    description: Number of mentions
-    pattern: (?<!\S)@[\p{L}\p{N}_]+
-    use_original_input: true
-    percentage: false
+  - key: digital-addressivity
+    description: Markers used to address, reference, tag, or index users, communities, or entities in online communication
+    children:
 
-  - key: social-media-mentions-in-the-middle
-    class: PatternDimension
-    description: Number of mentions in the middle of the text
-    pattern: (?<!^)(\s|\A)@([\p{L}\p{N}]+)
-    use_original_input: true
-    percentage: false
-    separator: whole
+    - key: digital-addressivity-hashtags
+      class: PatternDimension
+      description: Number of hashtags
+      pattern: '(?<!\S)#[\p{L}\p{N}_]+'
+      use_original_input: true
+      percentage: false
+      separator: whole
+      validation:
+        cases: tests/feature_cases/digital_addressivity_hashtags.yaml
 
-  - key: social-media-urls
-    class: PatternDimension
-    description: Number of hyperlinks
-    pattern: https?://\S+|www\.\S+
-    use_original_input: true
-    percentage: false
+    - key: digital-addressivity-mentions
+      class: PatternDimension
+      description: Number of user mentions
+      pattern: '(?<!\S)@[\p{L}\p{N}_]+'
+      use_original_input: true
+      percentage: false
+      separator: by-word
+      validation:
+        cases: tests/feature_cases/digital_addressivity_mentions.yaml
 
-  - key: social-media-jargon
-    class: WordPerDictionary
-    description: Number of social media jargon expressions
-    dictionary: social-media-jargon
-    use_original_input: true
-    disabled_regexp: true
-    
-  - key: social-media-emojis
-    class: PatternDimension
-    description: Number of Unicode emojis and pictographic symbols commonly used in social media communication
-    pattern: \p{Extended_Pictographic}
-    use_original_input: true
-    percentage: false
-    separator: by-word
-    validation:
-      cases: tests/feature_cases/social_media_emojis.yaml
-      
-  - key: social-media-emoticons-ascii
-    class: PatternDimension
-    description: Number of ASCII emoticons such as :) :( :D or <3
-    pattern: (?:(?<![\p{L}\p{N}_])(?:[:;=8][-o*']?[\)\(dDpP/:\}\{@\|])|(?<![\p{L}\p{N}_])[xX]D|<3)
-    use_original_input: true
-    percentage: false
-    separator: by-word
-    validation:
-      cases: tests/feature_cases/social_media_emoticons_ascii.yaml
+    - key: digital-addressivity-mentions-medial
+      class: PatternDimension
+      description: Number of mentions appearing inside the message rather than at the beginning
+      pattern: '(?<!^)(\s|\A)@([\p{L}\p{N}_]+)'
+      use_original_input: true
+      percentage: false
+      separator: whole
 
-  - key: social-media-reposts
-    class: PatternDimension
-    description: Number of repost or forwarding markers such as RT or via
-    pattern: (?i)(?<!\p{L})(rt|via)(?!\p{L})
-    use_original_input: true
-    percentage: false
-    separator: by-word
+    - key: digital-addressivity-cashtags
+      class: PatternDimension
+      description: Number of cashtags referencing stocks or cryptocurrencies
+      pattern: '(?<!\S)\$[\p{Lu}]{1,10}(?![\p{L}\p{N}_])'
+      use_original_input: true
+      percentage: false
+      separator: by-word
+      validation:
+        cases: tests/feature_cases/digital_addressivity_cashtags.yaml      
 
-  - key: social-media-thread-markers
-    class: PatternDimension
-    description: Number of thread or chained-post markers such as 1/5, hilo, or thread
-    pattern: (?i)(\b\d+/\d+\b|\bhilo\b|\bthread\b)
-    use_original_input: true
-    percentage: false
-    separator: by-word
+    - key: digital-addressivity-community-references
+      class: PatternDimension
+      description: Number of online community references such as subreddit or user references
+      pattern: '(?i)(?<![\p{L}\p{N}_/])(r/[\p{L}\p{N}_]+|u/[\p{L}\p{N}_]+|discord(?:\.gg|\.com/invite)?/\S+)'
+      use_original_input: true
+      percentage: false
+      separator: by-word
+      validation:
+        cases: tests/feature_cases/digital_community_references.yaml         
+        
+  - key: digital-linking
+    description: Markers related to hyperlinking, external references, and networked navigation in digital texts
+    children:
 
-  - key: social-media-platform-markers
-    class: PatternDimension
-    description: Number of platform-specific social media markers and interaction terms
-    pattern: (?i)(\blike\b|\bretweet\b|\bshare\b|\bfollow\b|\bsubscribe\b|\bviral\b|\btrend(?:ing)?\b|\bfyp\b)
-    use_original_input: true
-    percentage: false
-    separator: by-word
+    - key: digital-linking-urls
+      class: PatternDimension
+      description: Number of hyperlinks
+      pattern: 'https?://\S+|www\.\S+'
+      use_original_input: true
+      percentage: false
 
-  - key: social-media-laughter
-    class: PatternDimension
-    description: Number of textual laughter expressions commonly used in informal online communication
-    pattern: (?i)\b(ja)+|(?:ha)+|(?:he)+|(?:hi)+|(?:xd+|jajaja+|hahaha+)\b
-    use_original_input: true
-    percentage: false
-    separator: by-word
+    - key: digital-linking-shortened-urls
+      class: PatternDimension
+      description: Number of shortened URLs
+      pattern: '(?i)\b(?:bit\.ly|t\.co|goo\.gl|tinyurl\.com)/\S+'
+      use_original_input: true
+      percentage: false
 
-  - key: social-media-intensifiers
-    class: PatternDimension
-    description: Number of exaggerated orthographic markers such as repeated punctuation or elongated vowels
-    pattern: ([!?]{2,}|[aeiouáéíóú]{3,}|[A-Z]{4,})
-    use_original_input: true
-    percentage: false
-    separator: by-word
+    - key: digital-linking-invite-links
+      class: PatternDimension
+      description: Number of invitation links such as Discord or Telegram invites
+      pattern: '(?i)(discord(?:\.gg|\.com/invite)/\S+|t\.me/\S+)'
+      use_original_input: true
+      percentage: false
 
-  - key: social-media-cashtags
-    class: PatternDimension
-    description: Number of cashtags used to reference stocks or cryptocurrencies
-    pattern: (?<!\S)\$[\p{Lu}]{1,10}
-    use_original_input: true
-    percentage: false
-    separator: by-word
 
-  - key: social-media-community-markers
-    class: PatternDimension
-    description: Number of online community markers such as subreddit or Discord references
-    pattern: (?i)(r/\w+|u/\w+|discord(?:\.gg)?/\S+)
-    use_original_input: true
-    percentage: false
-    separator: by-word
+  - key: digital-paralinguistics
+    description: Non-verbal and visually expressive textual elements commonly used in computer-mediated communication
+    children:
+
+    - key: digital-paralinguistics-emojis
+      class: PatternDimension
+      description: Number of Unicode emojis and pictographic symbols
+      pattern: '\p{Extended_Pictographic}'
+      use_original_input: true
+      percentage: false
+      separator: by-word
+
+    - key: digital-paralinguistics-ascii-emoticons
+      class: PatternDimension
+      description: Number of ASCII emoticons
+      pattern: >-
+        (?:(?<![\p{L}\p{N}_])(?:[:;=8][-o*']?[\)\(dDpP/:\}\{@\|])|(?<![\p{L}\p{N}_])[xX]D|<3)
+      use_original_input: true
+      percentage: false
+      separator: by-word
+
+
+  - key: digital-interaction-structure
+    description: Structural markers associated with interaction flow, reposting, threading, and quoting in online discourse
+    children:
+
+    - key: digital-interaction-structure-reposts
+      class: PatternDimension
+      description: Number of repost or forwarding markers
+      pattern: '(?i)(?<!\p{L})(rt|via)(?!\p{L})'
+      use_original_input: true
+      percentage: false
+      separator: by-word
+
+    - key: digital-interaction-structure-thread-markers
+      class: PatternDimension
+      description: Number of thread or chained-post markers
+      pattern: '(?i)(\b\d+/\d+\b|\bhilo\b|\bthread\b)'
+      use_original_input: true
+      percentage: false
+      separator: by-word
+
+    - key: digital-interaction-structure-quote-markers
+      class: PatternDimension
+      description: Number of quoting markers in digital communication
+      pattern: '(?m)^(>+)'
+      use_original_input: true
+      percentage: false
+      separator: whole
+
+
+  - key: digital-platform-language
+    description: Lexical markers and expressions associated with internet culture, online platforms, and digitally native language use
+    children:
+
+    - key: digital-platform-language-jargon
+      class: WordPerDictionary
+      description: Number of internet and platform-related jargon expressions
+      dictionary: digital-platform-language-general
+      use_original_input: true
+      disabled_regexp: true

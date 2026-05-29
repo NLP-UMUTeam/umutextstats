@@ -1,0 +1,55 @@
+cases:
+- text: "Compré $AAPL"
+  expected: 1
+  annotations:
+    tagged_pos: Compré__(VERB), $AAPL__(PROPN)
+
+- text: "$TSLA y $NVDA suben"
+  expected: 2
+  annotations:
+    tagged_pos: $TSLA__(PROPN), y__(CCONJ), $NVDA__(PROPN), suben__(VERB)
+
+- text: "Bitcoin y $BTC"
+  expected: 1
+  annotations:
+    tagged_pos: Bitcoin__(PROPN), y__(CCONJ), $BTC__(PROPN)
+
+- text: "Minúsculas $aapl"
+  expected: 0
+  annotations:
+    tagged_pos: Minúsculas__(NOUN), $aapl__(X)
+
+- text: "Pegado texto$AAPL"
+  expected: 0
+  annotations:
+    tagged_pos: texto$AAPL__(X)
+
+- text: "Solo dólar $"
+  expected: 0
+  annotations:
+    tagged_pos: $__(SYM)
+
+- text: "Demasiado largo $ABCDEFGHIJK"
+  expected: 0
+  annotations:
+    tagged_pos: $ABCDEFGHIJK__(PROPN)
+
+- text: "Número $123"
+  expected: 0
+  annotations:
+    tagged_pos: $123__(NUM)
+
+- text: "Puntuación ($AAPL)"
+  expected: 0
+  annotations:
+    tagged_pos: '(__PUNCT), $AAPL__(PROPN), )__(PUNCT)'
+
+- text: "Final $META"
+  expected: 1
+  annotations:
+    tagged_pos: Final__(NOUN), $META__(PROPN)
+
+- text: null
+  expected: 0
+  annotations:
+    tagged_pos: ''

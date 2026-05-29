@@ -43,6 +43,6 @@ def test_default_yaml_loads_expected_top_level_dimensions():
         "lexical",
         "psycholinguistic-processes",
         "register",
-        "social-media",
+        "digital-communication",
         "syntax",
     ]

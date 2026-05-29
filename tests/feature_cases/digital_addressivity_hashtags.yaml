@@ -1,0 +1,66 @@
+cases:
+- text: Me encanta
+  expected: 0
+  annotations:
+    tagged_pos: Me__(PRON)(Case=Dat|Number=Sing|Person=1|PrepCase=Npr|PronType=Prs),
+      encanta__(VERB)(Mood=Ind|Number=Sing|Person=3|Tense=Pres|VerbForm=Fin)
+- text: null
+  expected: 0
+  annotations:
+    tagged_pos: ''
+- text: 'Me encanta #Python'
+  expected: 1
+  annotations:
+    tagged_pos: 'Me__(PRON)(Case=Dat|Number=Sing|Person=1|PrepCase=Npr|PronType=Prs),
+      encanta__(VERB)(Mood=Ind|Number=Sing|Person=3|Tense=Pres|VerbForm=Fin), #Python__(PROPN)'
+- text: '#BuenosDias #café #Murcia2026'
+  expected: 3
+  annotations:
+    tagged_pos: '#__(PUNCT), BuenosDias__(PROPN), #café__(PROPN), #Murcia2026__(PROPN)'
+- text: Esto no es un hashtag#pegado
+  expected: 0
+  annotations:
+    tagged_pos: Esto__(PRON)(Number=Sing|PronType=Dem), no__(ADV)(Polarity=Neg), es__(AUX)(Mood=Ind|Number=Sing|Person=3|Tense=Pres|VerbForm=Fin),
+      un__(DET)(Definite=Ind|Gender=Masc|Number=Sing|PronType=Art), hashtag#pegado__(NOUN)(Gender=Masc|Number=Sing)
+- text: Email con almohadilla a#b
+  expected: 0
+  annotations:
+    tagged_pos: Email__(PROPN), con__(ADP), almohadilla__(NOUN)(Gender=Fem|Number=Sing),
+      a#b__(X)
+- text: 'Hashtag con guion #muy-bueno'
+  expected: 1
+  annotations:
+    tagged_pos: 'Hashtag__(PROPN), con__(ADP), guion__(NOUN)(Gender=Masc|Number=Sing),
+      #muy-bueno__(ADJ)(Gender=Masc|Number=Sing)'
+- text: 'Hashtag vacío #'
+  expected: 0
+  annotations:
+    tagged_pos: 'Hashtag__(PROPN), vacío__(ADJ)(Gender=Masc|Number=Sing), #__(PUNCT)'
+- text: 'Solo símbolo #!'
+  expected: 0
+  annotations:
+    tagged_pos: 'Solo__(ADV), símbolo__(NOUN)(Gender=Masc|Number=Sing), #__(PUNCT),
+      !__(PUNCT)(PunctSide=Fin|PunctType=Excl)'
+- text: 'Con underscore #muy_bueno'
+  expected: 1
+  annotations:
+    tagged_pos: 'Con__(ADP), underscore__(NOUN)(Gender=Masc|Number=Sing), #muy_bueno__(PROPN)'
+- text: 'Con número #2026'
+  expected: 1
+  annotations:
+    tagged_pos: 'Con__(ADP), número__(NOUN)(Gender=Masc|Number=Sing), #2026__(NUM)(NumForm=Digit|NumType=Card)'
+- text: 'Dos pegados #uno#dos'
+  expected: 1
+  annotations:
+    tagged_pos: 'Dos__(NUM)(NumForm=Word|NumType=Card|Number=Plur), pegados__(ADJ)(Gender=Masc|Number=Plur|VerbForm=Part),
+      #uno#dos__(NOUN)'
+- text: Paréntesis (#tema)
+  expected: 0
+  annotations:
+    tagged_pos: 'Paréntesis__(PROPN), (__(PUNCT)(PunctSide=Ini|PunctType=Brck), #tema__(NOUN)(Gender=Masc|Number=Sing),
+      )__(PUNCT)(PunctSide=Fin|PunctType=Brck)'
+- text: 'Final con hashtag #fin'
+  expected: 1
+  annotations:
+    tagged_pos: 'Final__(NOUN)(Gender=Masc|Number=Sing), con__(ADP), hashtag__(NOUN)(Gender=Masc|Number=Sing),
+      #fin__(PROPN)'

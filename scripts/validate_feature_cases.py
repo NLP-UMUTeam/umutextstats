@@ -7,9 +7,21 @@ import yaml
 from rich.console import Console
 from rich.table import Table
 
+from umutextstats.dimensions.input_resolution import resolve_dimension_input
+from umutextstats.io.text import ensure_text
 from umutextstats.config.inspect import inspect_dimension_text
 from umutextstats.config.loader import load_config
 
+def build_case_row(case):
+    text = ensure_text(case.get("text", ""))
+    annotations = case.get("annotations") or {}
+
+    return {
+        "text": text,
+        "text_raw": text,
+        "text_norm": text,
+        **annotations,
+    }
 
 def iter_dimensions(dimensions):
     for dimension in dimensions:
@@ -22,6 +34,22 @@ def iter_dimensions(dimensions):
                 yield dimension, Path(cases_path)
 
         yield from iter_dimensions(dimension.children)
+
+
+def dimension_requires_tagged_pos(dimension):
+    if dimension.class_name == "POSTaggingTag":
+        return True
+
+    if dimension.class_name in {"WordPerDictionary", "VerbPerDictionary"}:
+        return bool(
+            getattr(dimension, "pos_tag", None)
+            or dimension.params.get("pos_tag")
+        )
+
+    if dimension.children:
+        return all(dimension_requires_tagged_pos(child) for child in dimension.children)
+
+    return False
 
 
 console = Console()
@@ -108,12 +136,8 @@ def main():
             total_cases += 1
             case_failed = False
 
-            annotations = case.get("annotations") or {}
-
-            inspection_text = case["text"]
-
-            if annotations.get("tagged_pos"):
-                inspection_text = annotations["tagged_pos"]
+            row = build_case_row(case)
+            inspection_text = resolve_dimension_input(dimension, row)
 
             inspection = inspect_dimension_text(
                 config=config,
@@ -173,6 +197,9 @@ def main():
 
     print("")
     print("All feature cases passed.")
+
+
+
 
 
 if __name__ == "__main__":

@@ -5,6 +5,7 @@ from rich.console import Group
 from rich.text import Text
 from dataclasses import dataclass
 
+from umutextstats.io.text import ensure_text
 from umutextstats.config.explain import find_dimension
 from umutextstats.config.models import UMUTextStatsConfig
 from umutextstats.dictionaries import DictionaryLoader
@@ -35,6 +36,8 @@ def inspect_dimension_text(
     key: str,
     text: str,
 ) -> DimensionInspection:
+    text = ensure_text(text)
+
     explanation = find_dimension(config, key)
 
     if explanation is None:
@@ -139,9 +142,11 @@ def _inspect_dictionary_dimension(dimension, text: str) -> DimensionInspection:
 
         if pos_tag:
             if not tagged_pos:
-                annotator = StanzaAnnotator()
-                doc = annotator.annotate_texts([source_text])[0]
-                tagged_pos = format_tagged_pos(doc)
+                raise ValueError(
+                    f"Dictionary inspection for '{dimension.key}' requires "
+                    "a tagged_pos-like input because the dimension uses pos_tag. "
+                    "Provide annotations.tagged_pos in the feature case."
+                )
 
             positive_matches = _filter_matches_by_pos_tag(
                 matches=positive_matches,
@@ -395,14 +400,15 @@ def _inspect_pos_tagging_dimension(
     tag = dimension.params.get("tag")
     universal = dimension.universal or dimension.params.get("universal")
 
-    if _looks_like_tagged_pos(text):
-        tagged_pos = text
-        source_text = _plain_text_from_tagged_pos(tagged_pos)
-    else:
-        source_text = text
-        annotator = StanzaAnnotator()
-        doc = annotator.annotate_texts([text])[0]
-        tagged_pos = format_tagged_pos(doc)
+    if not _looks_like_tagged_pos(text):
+        raise ValueError(
+            f"POSTaggingTag inspection for '{dimension.key}' requires "
+            "a tagged_pos-like input. Provide it through annotations.tagged_pos "
+            "in feature cases or inspect an already annotated column."
+        )
+
+    tagged_pos = text
+    source_text = _plain_text_from_tagged_pos(tagged_pos)
 
     parsed_items = _parse_tagged_pos_with_offsets(
         tagged_pos=tagged_pos,
@@ -435,7 +441,6 @@ def _inspect_pos_tagging_dimension(
         debug_text=tagged_pos,
         internal_representation=tagged_pos,
     )
-
 
 def _parse_tagged_pos_with_offsets(
     tagged_pos: str,
@@ -600,3 +605,4 @@ def _filter_matches_by_pos_tag(
         for match in matches
         if (match.start, match.end) in allowed_spans
     ]
+

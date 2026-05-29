@@ -2,6 +2,8 @@ import sys
 
 import pandas as pd
 
+from umutextstats.io.text import ensure_text
+
 
 class StdinInputResolver:
     def supports(self, path):
@@ -15,7 +17,7 @@ class StdinInputResolver:
 
         df = df.copy()
 
-        df["text_raw"] = df[text_column].fillna("").astype(str)
+        df["text_raw"] = df[text_column].map(ensure_text)
         df["text"] = df["text_raw"]
 
         if "id" not in df.columns:

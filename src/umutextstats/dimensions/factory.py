@@ -2,6 +2,7 @@ from __future__ import annotations
 
 from typing import Callable
 
+from umutextstats.dimensions.input_resolution import resolve_input_column
 from umutextstats.dimensions.registry import normalize_class_name
 from umutextstats.config.models import DimensionConfig
 from umutextstats.config.params import (
@@ -36,17 +37,6 @@ def build_dimension(
     return dimension_cls(
         key=dimension.key,
         input_column=input_column,
-    )
-
-
-def resolve_input_column(
-    dimension: DimensionConfig,
-    default_input_column: str = "text_norm",
-) -> str:
-    return (
-        "text_raw"
-        if dimension.use_original_input
-        else default_input_column
     )
 
 
