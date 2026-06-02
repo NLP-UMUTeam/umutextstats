@@ -33,3 +33,10 @@ dimensions:
       pattern: '(?m)^\s*$'
       use_original_input: true
       separator: whole
+
+  - key: document-structure-dialogue-paragraphs
+    class: PatternDimension
+    description: Percentage of paragraphs starting with dialogue dash
+    pattern: '^\s*[—–-]\s*'
+    use_original_input: true
+    separator: by-paragraph

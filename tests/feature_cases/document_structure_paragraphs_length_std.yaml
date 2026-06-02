@@ -1,0 +1,25 @@
+cases:
+- text: "Uno dos tres."
+  expected: 0.0
+  input_column: text_raw
+
+- text: "Uno dos.\n\nTres cuatro."
+  expected: 0.0
+  input_column: text_raw
+
+- text: "Uno dos.\n\nTres cuatro cinco seis."
+  expected: 1.0
+  input_column: text_raw
+
+- text: "Uno.\n\nDos tres.\n\nCuatro cinco seis."
+  expected_min: 0.81
+  expected_max: 0.82
+  input_column: text_raw
+
+- text: ""
+  expected: 0.0
+  input_column: text_raw
+
+- text: null
+  expected: 0.0
+  input_column: text_raw

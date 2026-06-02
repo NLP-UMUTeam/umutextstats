@@ -9,8 +9,7 @@ from umutextstats.io.text import ensure_text
 from umutextstats.config.explain import find_dimension
 from umutextstats.config.models import UMUTextStatsConfig
 from umutextstats.dictionaries import DictionaryLoader
-from umutextstats.dimensions.pos_tagging_tag import POS_ITEM_REGEX
-from umutextstats.nlp.stanza_annotator import StanzaAnnotator, format_tagged_pos
+from umutextstats.text.patterns import POS_ITEM_REGEX
 
 @dataclass(frozen=True)
 class InspectMatch:
@@ -30,6 +29,21 @@ class DimensionInspection:
     debug_text: str | None = None
     internal_representation: str | None = None
     description: str | None = None
+
+
+def _inspect_not_supported_dimension(
+    dimension,
+    text: str,
+) -> DimensionInspection:
+    return DimensionInspection(
+        key=dimension.key,
+        class_name=dimension.class_name,
+        pattern=None,
+        dictionary=None,
+        matches=[],
+        discarded_matches=[],
+        debug_text=f"Inspection not implemented for {dimension.class_name}",
+    )
 
 def inspect_dimension_text(
     config: UMUTextStatsConfig,
@@ -54,17 +68,27 @@ def inspect_dimension_text(
     if dimension.class_name == "POSTaggingTag":
         return _inspect_pos_tagging_dimension(dimension, text)
 
+    if dimension.class_name == "ParagraphCountDimension":
+        return _inspect_paragraph_count_dimension(dimension, text)
+
     if dimension.children:
         return _inspect_composite_dimension(config, dimension, text)
 
-    raise ValueError(
-        f"Dimension class is not inspectable yet: {dimension.class_name}"
-    )
+    return _inspect_not_supported_dimension(dimension, text)
 
-    raise ValueError(
-        f"Dimension class is not inspectable yet: {dimension.class_name}"
-    )
 
+def _inspect_paragraph_count_dimension(dimension, text: str) -> DimensionInspection:
+    matches = []
+
+    return DimensionInspection(
+        key=dimension.key,
+        class_name=dimension.class_name,
+        pattern=None,
+        dictionary=None,
+        matches=matches,
+        discarded_matches=[],
+        debug_text="paragraphs separated by one or more blank lines",
+    )
 
 def _inspect_pattern_dimension(dimension, text: str) -> DimensionInspection:
     if not dimension.pattern:

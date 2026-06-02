@@ -1,0 +1,32 @@
+cases:
+- text: "—Hola."
+  expected: 100.0
+  input_column: text_raw
+
+- text: "- Hola."
+  expected: 100.0
+  input_column: text_raw
+
+- text: "– Hola."
+  expected: 100.0
+  input_column: text_raw
+
+- text: "Narración normal."
+  expected: 0.0
+  input_column: text_raw
+
+- text: "—Hola.\n\nNarración normal."
+  expected: 50.0
+  input_column: text_raw
+
+- text: "Narración normal.\n\n—Hola."
+  expected: 50.0
+  input_column: text_raw
+
+- text: ""
+  expected: 0.0
+  input_column: text_raw
+
+- text: null
+  expected: 0.0
+  input_column: text_raw

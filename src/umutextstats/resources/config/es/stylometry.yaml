@@ -107,7 +107,7 @@ dimensions:
     - key: stylometry-sentences-conversations
       class: PatternDimension
       description: Counts how many sentences simulate a conversation
-      pattern: '\-[\s\¿]*\p{L}+'
+      pattern: '[-—–][\s\¿¡]*\p{L}+'
       separator: by-sentence
 
   - key: stylometry-punctuation
@@ -151,8 +151,8 @@ dimensions:
       character: ';'
     - key: stylometry-punctuation-dashes
       class: CharacterCountDimension
-      description: Number of dashed
-      character: '-'
+      description: Number of dash symbols
+      character: '-—–'
     - key: stylometry-punctuation-low-dashes
       class: CharacterCountDimension
       description: Number of low dashed

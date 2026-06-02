@@ -1,0 +1,28 @@
+cases:
+- text: "Un solo párrafo."
+  expected: 1
+  input_column: text_raw
+
+- text: "Primer párrafo.\n\nSegundo párrafo."
+  expected: 2
+  input_column: text_raw
+
+- text: "Primer párrafo.\nSigue siendo el mismo párrafo."
+  expected: 1
+  input_column: text_raw
+
+- text: "Primer párrafo.\n\n\nSegundo párrafo."
+  expected: 2
+  input_column: text_raw
+
+- text: "Primer párrafo.\n   \nSegundo párrafo."
+  expected: 2
+  input_column: text_raw
+
+- text: ""
+  expected: 0
+  input_column: text_raw
+
+- text: null
+  expected: 0
+  input_column: text_raw
