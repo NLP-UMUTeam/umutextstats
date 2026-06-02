@@ -186,7 +186,6 @@ def run_analyze(args: argparse.Namespace) -> None:
             head=args.head,
         )
 
-
     if not args.no_stanza:
         with profiler.track("nlp", "stanza"):
             df = annotate_dataframe_with_stanza(

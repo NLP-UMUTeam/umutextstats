@@ -339,6 +339,16 @@ def build_word_length_dimension(
     )
 
 
+def build_document_structure_dimension(
+    dimension: DimensionConfig,
+    dimension_cls,
+    input_column: str,
+):
+    return dimension_cls(
+        key=dimension.key,
+        input_column="text_raw",
+    )
+
 DimensionBuilder = Callable[[DimensionConfig, object, str], object]
 
 
@@ -369,4 +379,7 @@ DIMENSION_BUILDERS: dict[str | None, DimensionBuilder] = {
     "WordUniqueDimension": build_word_unique_dimension,
     "WordCase": build_word_case,
     "WordLengthDimension": build_word_length_dimension,
+    "ParagraphCountDimension": build_document_structure_dimension,
+    "AverageParagraphLengthDimension": build_document_structure_dimension,
+    "ParagraphLengthDeviationDimension": build_document_structure_dimension,    
 }

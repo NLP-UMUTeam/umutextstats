@@ -1,5 +1,3 @@
-# src/umutextstats/text/sentence.py
-
 from functools import lru_cache
 
 import regex as re

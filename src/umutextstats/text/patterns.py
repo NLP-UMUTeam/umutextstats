@@ -152,6 +152,12 @@ NER_ITEM_REGEX = re.compile(
 
 
 """
+Matches paragraph separators defined as one or more blank lines.
+"""
+PARAGRAPH_SEPARATOR_REGEX = re.compile(r"\n\s*\n+", re.UNICODE)
+
+
+"""
 Matches part-of-speech tagged items encoded as:
 
     word__(TAG)

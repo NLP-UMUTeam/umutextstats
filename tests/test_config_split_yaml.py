@@ -40,6 +40,7 @@ def test_default_yaml_loads_expected_top_level_dimensions():
         "semantics",
         "pragmatics",
         "stylometry",
+        "document-structure",
         "lexical",
         "psycholinguistic-processes",
         "register",

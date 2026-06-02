@@ -1,0 +1,35 @@
+dimensions:
+- key: document-structure
+  children:
+
+  - key: document-structure-paragraphs
+    children:
+
+    - key: document-structure-paragraphs-count
+      class: ParagraphCountDimension
+      description: Counts how many paragraphs there are in the text
+
+    - key: document-structure-paragraphs-length-avg
+      class: AverageParagraphLengthDimension
+      description: Calculates the average length of paragraphs
+
+    - key: document-structure-paragraphs-length-std
+      class: ParagraphLengthDeviationDimension
+      description: Calculates the standard deviation of paragraph lengths
+
+  - key: document-structure-layout
+    children:
+
+    - key: document-structure-layout-line-breaks
+      class: PatternDimension
+      description: Number of line breaks
+      pattern: '[\r\n]'
+      use_original_input: true
+      separator: whole
+
+    - key: document-structure-layout-blank-lines
+      class: PatternDimension
+      description: Number of blank lines
+      pattern: '(?m)^\s*$'
+      use_original_input: true
+      separator: whole

@@ -42,6 +42,8 @@ from umutextstats.dimensions.dependency_depth import DependencyDepthDimension
 from umutextstats.dimensions.dependency_distance import DependencyDistanceDimension
 from umutextstats.dimensions.root_pos_tag import RootPOSTagDimension
 from umutextstats.dimensions.passive_voice_dependency import PassiveVoiceDependencyDimension
+from umutextstats.dimensions.document_structure_paragraphs import ParagraphCountDimension, AverageParagraphLengthDimension, ParagraphLengthDeviationDimension
+
 
 # =========================
 # Registry
@@ -85,7 +87,10 @@ DIMENSION_REGISTRY: dict[str, Type[BaseDimension]] = {
     "DependencyDepthDimension": DependencyDepthDimension,
     "DependencyDistanceDimension": DependencyDistanceDimension,
     "RootPOSTagDimension": RootPOSTagDimension,
-    "PassiveVoiceDependencyDimension": PassiveVoiceDependencyDimension
+    "PassiveVoiceDependencyDimension": PassiveVoiceDependencyDimension,
+    "ParagraphCountDimension": ParagraphCountDimension,
+    "AverageParagraphLengthDimension": AverageParagraphLengthDimension,
+    "ParagraphLengthDeviationDimension": ParagraphLengthDeviationDimension,
 }
 
 

@@ -55,17 +55,17 @@ dimensions:
     - key: stylometry-corpus-expressions-within-parenthesis
       class: PatternDimension
       description: Counts how many expressions within paranthesis
-      pattern: \([\p{L}\p{N}\s\-\,\.]{4,64}\)
+      pattern: '\([\p{L}\p{N}\s\-\,\.]{4,64}\)'
       percentage: false
     - key: stylometry-corpus-expressions-within-asterisks
       class: PatternDimension
       description: Counts how many expressions within asterisks
-      pattern: \*[\p{L}\p{N}\s\-\,\.]{4,64}\*
+      pattern: '\*[\p{L}\p{N}\s\-\,\.]{4,64}\*'
       percentage: false
     - key: stylometry-corpus-words-length-avg
       class: AverageWordLengthDimension
       description: The average length of the words
-    - key: stylometry-corpus-words-longer-6tr
+    - key: stylometry-corpus-words-longer-6ltr
       class: WordLengthDimension
       description: The number of words bigger than 6 characters
       comparator: '>='
@@ -223,149 +223,143 @@ dimensions:
     - key: stylometry-sentences-quotes-percentage
       class: PatternDimension
       description: Counts how many quoted sentences
-      pattern: ^[“"][\p{L}\p{N}\s]+["”]$
+      pattern: '^[“"][\p{L}\p{N}\s]+["”]$'
       separator: by-sentence
     - key: stylometry-sentences-conversations
       class: PatternDimension
       description: Counts how many sentences simulate a conversation
-      pattern: \-[\s\¿]*\p{L}+
+      pattern: '\-[\s\¿]*\p{L}+'
       separator: by-sentence
-  - key: stylometry-punctuation-symbols
+  - key: stylometry-punctuation
     children:
-    - key: stylometry-punctuation-symbols-prime
+    - key: stylometry-punctuation-prime
       class: CharacterCountDimension
       description: Number of prime symbols
-      character: ′‴″
-    - key: stylometry-punctuation-symbols-currencies
+      character: '′‴″'
+    - key: stylometry-punctuation-currencies
       class: CharacterCountDimension
       description: Number of symbols used as currency symbols
-      character: €$£
-    - key: stylometry-punctuation-symbols-apostrophe
+      character: '€$£'
+    - key: stylometry-punctuation-apostrophe
       class: CharacterCountDimension
       description: Apostrohpes, can be used to measure units or in Elision of words
-      character: ’'
-    - key: stylometry-punctuation-symbols-brackets-open
+      character: '’'''
+    - key: stylometry-punctuation-brackets-open
       class: CharacterCountDimension
       description: Number of open curly brackets
       character: '{[(〔'
-    - key: stylometry-punctuation-symbols-curly-brackets-close
+    - key: stylometry-punctuation-curly-brackets-close
       class: CharacterCountDimension
       description: Number of closed curly brackets
       character: '}])〕'
-    - key: stylometry-punctuation-symbols-quotation-open
+    - key: stylometry-punctuation-quotation-open
       class: CharacterCountDimension
       description: Number of quotation open symbols
-      character: '"“‘''«'
-    - key: stylometry-punctuation-symbols-quotation-close
+      character: '"“‘''''«'
+    - key: stylometry-punctuation-quotation-close
       class: CharacterCountDimension
       description: Number of quotation close symbols
-      character: ”"’'»
-    - key: stylometry-punctuation-symbols-colons
+      character: '”"’''»'
+    - key: stylometry-punctuation-colons
       class: CharacterCountDimension
       description: Number of colons
-      character: :ː：∶
+      character: ':ː：∶'
       removeemojis: 'true'
-    - key: stylometry-punctuation-symbols-semicolons
+    - key: stylometry-punctuation-semicolons
       class: CharacterCountDimension
       description: Number of semicolons
-      character: ;
-    - key: stylometry-punctuation-symbols-dashes
+      character: ';'
+    - key: stylometry-punctuation-dashes
       class: CharacterCountDimension
       description: Number of dashed
       character: '-'
-    - key: stylometry-punctuation-symbols-low-dashes
+    - key: stylometry-punctuation-low-dashes
       class: CharacterCountDimension
       description: Number of low dashed
-      character: _
-    - key: stylometry-punctuation-symbols-fullstop
+      character: '_'
+    - key: stylometry-punctuation-fullstop
       class: CharacterCountDimension
       description: Number of fullstops
-      character: .
-    - key: stylometry-punctuation-symbols-commas
+      character: '.'
+    - key: stylometry-punctuation-commas
       class: CharacterCountDimension
       description: Number of commas
       character: ',ʻ،、︐︑﹐﹑，､'
-    - key: stylometry-punctuation-symbols-ellipsis
+    - key: stylometry-punctuation-ellipsis
       class: PatternDimension
       description: Number of ellipsis
-      pattern: …|\.{3,}
+      pattern: '…|\.{3,}'
       use_original_input: true
       separator: by-spaces
-    - key: stylometry-punctuation-symbols-open-question
+    - key: stylometry-punctuation-open-question
       class: CharacterCountDimension
       description: Number of open question symbol
-      character: ¿
-    - key: stylometry-punctuation-symbols-open-exclamation
+      character: '¿'
+    - key: stylometry-punctuation-open-exclamation
       class: CharacterCountDimension
       description: Number of open exclamation symbol
-      character: ¡
-    - key: stylometry-punctuation-symbols-space
+      character: '¡'
+    - key: stylometry-punctuation-space
       class: CharacterCountDimension
       description: Number of spaces
-      character: \s
-    - key: stylometry-punctuation-symbols-interdot
+      character: '\s'
+    - key: stylometry-punctuation-interdot
       class: CharacterCountDimension
       description: Number of interdots
-      character: ·
-    - key: stylometry-punctuation-symbols-percentages
+      character: '·'
+    - key: stylometry-punctuation-percentages
       class: CharacterCountDimension
       description: Number of percentages
       character: '%‰‱'
-    - key: stylometry-punctuation-symbols-ampersand
+    - key: stylometry-punctuation-ampersand
       class: CharacterCountDimension
       description: Number of ampersands
       character: '&'
-    - key: stylometry-punctuation-symbols-at-sign
+    - key: stylometry-punctuation-at-sign
       class: CharacterCountDimension
       description: Number of at sign symbols
       character: '@'
-    - key: stylometry-punctuation-symbols-backslash
+    - key: stylometry-punctuation-backslash
       class: CharacterCountDimension
       description: Number of backslash symbols
-      character: \
-    - key: stylometry-punctuation-symbols-pipe
+      character: '\'
+    - key: stylometry-punctuation-pipe
       class: CharacterCountDimension
       description: Number of pipe symbols
       character: '|¦'
-    - key: stylometry-punctuation-symbols-bullet
+    - key: stylometry-punctuation-bullet
       class: CharacterCountDimension
       description: Number of bullet symbols
-      character: •
-    - key: stylometry-punctuation-symbols-caret
+      character: '•'
+    - key: stylometry-punctuation-caret
       class: CharacterCountDimension
       description: Number of caret symbols
-      character: ^^‸⁁＾
-    - key: stylometry-punctuation-symbols-degree
+      character: '^^‸⁁＾'
+    - key: stylometry-punctuation-degree
       class: CharacterCountDimension
       description: Number of degree symbols
-      character: º
-    - key: stylometry-punctuation-symbols-ditto-mark
+      character: 'º'
+    - key: stylometry-punctuation-ditto-mark
       class: CharacterCountDimension
       description: Number of ditto marks, that expresses that the words or figures above it are to be repeated
-      character: ”
-    - key: stylometry-punctuation-symbols-hash
+      character: '”'
+    - key: stylometry-punctuation-hash
       class: CharacterCountDimension
       description: Number of hash symbols
       character: '#'
-    - key: stylometry-punctuation-symbols-numero-sign
+    - key: stylometry-punctuation-numero-sign
       class: PatternDimension
       description: Number of numero signs
-      pattern: (№|Nº|No,|No\.|no.)
-    - key: stylometry-punctuation-symbols-pilcrow
+      pattern: '(№|Nº|No,|No\.|no.)'
+    - key: stylometry-punctuation-pilcrow
       class: CharacterCountDimension
       description: Number of pilcrow symbol, that are typographical characters that mark the star of a paragraph
-      character: ¶
-    - key: stylometry-punctuation-symbols-trademarks
+      character: '¶'
+    - key: stylometry-punctuation-trademarks
       class: CharacterCountDimension
       description: Number of copyright or trademark signs
-      character: ©®™
-    - key: stylometry-punctuation-symbols-mathematical-signs
+      character: '©®™'
+    - key: stylometry-punctuation-mathematical-signs
       class: CharacterCountDimension
       description: Number of mathematical signs
-      character: −-≠+×*·+÷=≈~
-    - key: stylometry-punctuation-symbols-line-breaks
-      class: PatternDimension
-      description: Number of line breaks
-      pattern: '[\r\n]'
-      use_original_input: true
-      separator: whole
+      character: '−-≠+×*·+÷=≈~'

@@ -1,10 +1,7 @@
 import regex as re
 
 from umutextstats.dimensions.base import BaseDimension
-from umutextstats.text.patterns import URL_REGEX
-from umutextstats.text.patterns import LEADING_MENTION_REGEX
-from umutextstats.text.patterns import WORD_TOKEN_REGEX
-
+from umutextstats.text.patterns import URL_REGEX, LEADING_MENTION_REGEX, WORD_TOKEN_REGEX
 
 
 class WordCase(BaseDimension):

@@ -1,8 +1,7 @@
 import regex as re
 
 from umutextstats.dimensions.base import BaseDimension
-from umutextstats.text.patterns import SENTENCE_SPAN_REGEX
-from umutextstats.text.patterns import MENTION_REGEX
+from umutextstats.text.patterns import SENTENCE_SPAN_REGEX, MENTION_REGEX
 
 
 class ErrorCapitalizationStartingWithLowerCaseDimension(BaseDimension):

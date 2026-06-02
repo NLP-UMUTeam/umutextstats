@@ -6,6 +6,7 @@ includes:
 - es/semantics.yaml
 - es/pragmatics.yaml
 - es/stylometry.yaml
+- es/document-structure.yaml
 - es/lexical.yaml
 - es/psycholinguistic-processes.yaml
 - es/register.yaml
