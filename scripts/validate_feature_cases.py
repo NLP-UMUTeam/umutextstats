@@ -1,13 +1,13 @@
-# scripts/validate_feature_cases.py
-
 from pathlib import Path
 
 import yaml
 import argparse
+import pandas as pd
 
 from rich.console import Console
 from rich.table import Table
 
+from umutextstats.dimensions.factory import build_runtime_dimension
 from umutextstats.dimensions.input_resolution import resolve_dimension_input
 from umutextstats.io.text import ensure_text
 from umutextstats.config.inspect import inspect_dimension_text
@@ -102,6 +102,15 @@ def print_stats_table(stats):
     console.print(table)
 
 
+def compute_dimension_case(dimension, row):
+    runtime_dimension = build_runtime_dimension(dimension)
+
+    df = pd.DataFrame([row])
+    result = runtime_dimension.compute(df)
+    return result.iloc[0] if hasattr(result, "iloc") else result[0]
+
+
+
 def main():
 
     args = parse_args()
@@ -109,6 +118,8 @@ def main():
     config = load_config()
     root = Path(__file__).parent.parent
 
+    total_dimensions = 0
+    covered_dimensions = 0
     total_cases = 0
     failures = []
     stats = []
@@ -118,20 +129,16 @@ def main():
         if args.only and not dimension.key.startswith(args.only):
             continue
         
+        if dimension.children:
+            continue
+
+        total_dimensions += 1
+
         full_cases_path = root / cases_path
 
 
         if not full_cases_path.exists():
             if source == "missing":
-                stats.append(
-                    {
-                        "dimension": dimension.key,
-                        "file": str(cases_path),
-                        "cases": 0,
-                        "passed": 0,
-                        "failed": 0,
-                    }
-                )
                 continue
 
             failed += 1
@@ -149,6 +156,7 @@ def main():
             )
             continue
 
+        covered_dimensions += 1
         passed = 0
         failed = 0
 
@@ -195,15 +203,7 @@ def main():
             case_failed = False
 
             row = build_case_row(case)
-            inspection_text = resolve_dimension_input(dimension, row)
-
-            inspection = inspect_dimension_text(
-                config=config,
-                key=dimension.key,
-                text=inspection_text,
-            )
-
-            matches = len(inspection.matches)
+            value = compute_dimension_case(dimension, row)
 
             if "expected_min" in case and case["expected_min"] <= 0:
                 failures.append(
@@ -212,22 +212,29 @@ def main():
                 )
                 case_failed = True
 
-            if "expected" in case and matches != case["expected"]:
-                failures.append(
-                    f"{dimension.key}[{i}]: expected {case['expected']} "
-                    f"matches, got {matches}. Text: {case['text']!r}"
-                )
+            if "expected" in case and value != case["expected"]:
                 case_failed = True
 
-            if "expected_min" in case and matches < case["expected_min"]:
-                failures.append(
-                    f"{dimension.key}[{i}]: expected at least "
-                    f"{case['expected_min']} matches, got {matches}. "
-                    f"Text: {case['text']!r}"
-                )
+            if "expected_min" in case and value < case["expected_min"]:
                 case_failed = True
 
             if case_failed:
+                inspection_text = resolve_dimension_input(dimension, row)
+
+                inspection = inspect_dimension_text(
+                    config=config,
+                    key=dimension.key,
+                    text=inspection_text,
+                    annotations=case.get("annotations"),
+                )
+
+                failures.append(
+                    f"{dimension.key}[{i}]: expected {case.get('expected', case.get('expected_min'))}, "
+                    f"got {value}. Text: {case['text']!r}. "
+                    f"Matches: {[m.match for m in inspection.matches]}. "
+                    f"Discarded: {[m.match for m in inspection.discarded_matches]}"
+                )
+
                 failed += 1
             else:
                 passed += 1
@@ -244,6 +251,7 @@ def main():
 
     print(f"Validated feature cases: {total_cases}")
     print_stats_table(stats)
+    print(f"Covered dimensions: {covered_dimensions} / {total_dimensions} ({covered_dimensions / total_dimensions:.1%})")
 
     if failures:
         print("")

@@ -1,4 +1,4 @@
-from umutextstats.dimensions.pos_tagging_tag import POS_ITEM_REGEX
+from umutextstats.text.patterns import POS_ITEM_REGEX
 from umutextstats.dimensions.word_per_dictionary import WordPerDictionary
 
 

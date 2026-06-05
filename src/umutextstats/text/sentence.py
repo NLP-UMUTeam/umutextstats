@@ -8,7 +8,6 @@ from umutextstats.text.patterns import (
     SENTENCE_SPAN_REGEX,
 )
 
-
 @lru_cache(maxsize=50_000)
 def get_sentences(text: str) -> tuple[str, ...]:
     """

@@ -1,5 +1,3 @@
-# src/umutextstats/dimensions/pattern.py
-
 import regex as re
 
 from umutextstats.dimensions.base import BaseDimension
@@ -25,10 +23,19 @@ class PatternDimension(BaseDimension):
                 f"Regex error: {exc}"
             ) from exc
 
+    def iter_matches(self, text: str):
+        """Yield regex matches used by this dimension."""
+        text = "" if text is None else str(text)
+        yield from self.regex.finditer(text)
+
+    def count_matches(self, text: str) -> int:
+        """Count regex matches used by this dimension."""
+        return sum(1 for _ in self.iter_matches(text))
+
     def compute(self, df):
         texts = df[self.input_column].fillna("").astype(str)
 
-        counts = texts.apply(lambda text: len(self.regex.findall(text)))
+        counts = texts.apply(self.count_matches)
 
         if not self.percentage:
             return counts

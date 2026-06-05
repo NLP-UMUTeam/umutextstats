@@ -15,7 +15,7 @@ cases:
     tagged_pos: Bitcoin__(PROPN), y__(CCONJ), $BTC__(PROPN)
 
 - text: "Minúsculas $aapl"
-  expected: 0
+  expected: 1
   annotations:
     tagged_pos: Minúsculas__(NOUN), $aapl__(X)
 

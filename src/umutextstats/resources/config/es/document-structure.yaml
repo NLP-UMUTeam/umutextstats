@@ -35,8 +35,5 @@ dimensions:
       separator: whole
 
   - key: document-structure-dialogue-paragraphs
-    class: PatternDimension
+    class: DialogueParagraphPercentageDimension
     description: Percentage of paragraphs starting with dialogue dash
-    pattern: '^\s*[—–-]\s*'
-    use_original_input: true
-    separator: by-paragraph

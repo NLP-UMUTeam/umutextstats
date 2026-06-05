@@ -1,10 +1,7 @@
-# src/umutextstats/dimensions/registry.py
-
 from typing import Type
 
 from umutextstats.dimensions.base import BaseDimension
 
-# Importa aquí las dimensiones implementadas
 from umutextstats.dimensions.length import LengthDimension
 from umutextstats.dimensions.sentence_count import SentenceCountDimension
 from umutextstats.dimensions.syllable_count import SyllableCountDimension
@@ -42,7 +39,7 @@ from umutextstats.dimensions.dependency_depth import DependencyDepthDimension
 from umutextstats.dimensions.dependency_distance import DependencyDistanceDimension
 from umutextstats.dimensions.root_pos_tag import RootPOSTagDimension
 from umutextstats.dimensions.passive_voice_dependency import PassiveVoiceDependencyDimension
-from umutextstats.dimensions.document_structure_paragraphs import ParagraphCountDimension, AverageParagraphLengthDimension, ParagraphLengthDeviationDimension
+from umutextstats.dimensions.document_structure_paragraphs import ParagraphCountDimension, AverageParagraphLengthDimension, ParagraphLengthDeviationDimension, DialogueParagraphPercentageDimension
 
 
 # =========================
@@ -91,6 +88,7 @@ DIMENSION_REGISTRY: dict[str, Type[BaseDimension]] = {
     "ParagraphCountDimension": ParagraphCountDimension,
     "AverageParagraphLengthDimension": AverageParagraphLengthDimension,
     "ParagraphLengthDeviationDimension": ParagraphLengthDeviationDimension,
+    "DialogueParagraphPercentageDimension": DialogueParagraphPercentageDimension
 }
 
 

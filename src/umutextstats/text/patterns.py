@@ -156,6 +156,15 @@ Matches paragraph separators defined as one or more blank lines.
 """
 PARAGRAPH_SEPARATOR_REGEX = re.compile(r"\n\s*\n+", re.UNICODE)
 
+"""
+Matches paragraph separators with dialogue markers, defined as one or more blank lines followed by an optional dialogue marker (—, –, or -).
+"""
+
+DIALOGUE_PARAGRAPH_REGEX = re.compile(
+    r"^\s*[—–-]\s*",
+    re.UNICODE,
+)
+
 
 """
 Matches part-of-speech tagged items encoded as:

@@ -1,5 +1,5 @@
 from umutextstats.config.models import DimensionConfig
-from umutextstats.dimensions.factory import build_dimension
+from umutextstats.dimensions.factory import build_dimension_instance
 from umutextstats.dimensions.pattern import PatternDimension
 from umutextstats.dimensions.word_per_dictionary import WordPerDictionary
 from umutextstats.dimensions.pos_tagging_tag import POSTaggingTag
@@ -12,7 +12,7 @@ def test_build_pattern_dimension():
         pattern="abc",
     )
 
-    dimension = build_dimension(
+    dimension = build_dimension_instance(
         dimension=config,
         dimension_cls=PatternDimension,
     )
@@ -29,7 +29,7 @@ def test_build_word_per_dictionary_dimension():
         dictionary="animals",
     )
 
-    dimension = build_dimension(
+    dimension = build_dimension_instance(
         dimension=config,
         dimension_cls=WordPerDictionary,
     )
@@ -46,7 +46,7 @@ def test_build_pos_tagging_tag_dimension():
         params={"tag": "PRON", "universal": "PronType=Prs"},
     )
 
-    dimension = build_dimension(
+    dimension = build_dimension_instance(
         dimension=config,
         dimension_cls=POSTaggingTag,
     )

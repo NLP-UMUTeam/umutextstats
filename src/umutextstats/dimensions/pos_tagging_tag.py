@@ -1,8 +1,10 @@
-import regex as re
-
 from umutextstats.dimensions.base import BaseDimension
-
-from umutextstats.text.patterns import POS_ITEM_REGEX
+from umutextstats.text.pos import (
+    POSItem,
+    parse_tagged_pos,
+    parse_tagged_pos_with_offsets,
+    pos_item_matches,
+)
 
 
 class POSTaggingTag(BaseDimension):
@@ -26,7 +28,7 @@ class POSTaggingTag(BaseDimension):
         )
 
     def _compute_text(self, tagged_text: str) -> float:
-        items = self._parse_tagged_pos(tagged_text)
+        items = parse_tagged_pos(tagged_text)
 
         total_words = len(items)
 
@@ -37,49 +39,28 @@ class POSTaggingTag(BaseDimension):
 
         return (100 * matches) / total_words
 
-    def _split_feats(self, feats: str | None) -> set[str]:
-        if not feats:
-            return set()
+    def _matches(self, item: POSItem) -> bool:
+        return pos_item_matches(
+            item=item,
+            tag=self.postagger_tag,
+            universal=self.postagger_universal,
+        )
 
-        return {
-            feat.strip()
-            for feat in feats.split("|")
-            if feat.strip()
-        }
+    def iter_matches(self, tagged_text: str):
+        for item in parse_tagged_pos_with_offsets(tagged_text):
+            if self._matches(item):
+                yield _POSMatch(item)
 
 
-    def _matches(self, item: dict[str, str]) -> bool:
-        tag = item["tag"]
-        feats = self._split_feats(item["feats"])
-        required_feats = self._split_feats(self.postagger_universal)
+class _POSMatch:
+    def __init__(self, item: POSItem):
+        self.item = item
 
-        if self.postagger_tag and tag != self.postagger_tag:
-            return False
+    def group(self, index=0):
+        return self.item.word
 
-        if required_feats:
-            return required_feats.issubset(feats)
+    def start(self):
+        return self.item.start or 0
 
-        return bool(self.postagger_tag)
-
-    def _parse_tagged_pos(self, tagged_text: str) -> list[dict[str, str]]:
-        if not tagged_text:
-            return []
-
-        items = []
-
-        for sentence in tagged_text.split(" || "):
-            for raw_item in sentence.split(", "):
-                match = POS_ITEM_REGEX.fullmatch(raw_item.strip())
-
-                if not match:
-                    continue
-
-                items.append(
-                    {
-                        "word": match.group("word"),
-                        "tag": match.group("tag") or "",
-                        "feats": match.group("feats") or "",
-                    }
-                )
-
-        return items
+    def end(self):
+        return self.item.end or 0

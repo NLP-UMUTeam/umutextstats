@@ -1,9 +1,7 @@
-# src/umutextstats/dimensions/periphrasis.py
-
 import regex as re
 
+from umutextstats.text.patterns import POS_ITEM_REGEX
 from umutextstats.dimensions.base import BaseDimension
-from umutextstats.dimensions.pos_tagging_tag import POS_ITEM_REGEX
 from umutextstats.text.tokenization import get_lexical_tokens
 
 

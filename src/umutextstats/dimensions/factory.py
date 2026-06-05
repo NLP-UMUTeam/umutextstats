@@ -3,7 +3,7 @@ from __future__ import annotations
 from typing import Callable
 
 from umutextstats.dimensions.input_resolution import resolve_input_column
-from umutextstats.dimensions.registry import normalize_class_name
+from umutextstats.dimensions.registry import normalize_class_name, resolve_dimension
 from umutextstats.config.models import DimensionConfig
 from umutextstats.config.params import (
     dictionary_param,
@@ -13,7 +13,23 @@ from umutextstats.config.params import (
 )
 
 
-def build_dimension(
+def build_runtime_dimension(
+    dimension: DimensionConfig,
+    default_input_column: str = "text_norm",
+):
+    if not dimension.class_name:
+        return None
+
+    dimension_cls = resolve_dimension(dimension.class_name)
+
+    return build_dimension_instance(
+        dimension=dimension,
+        dimension_cls=dimension_cls,
+        default_input_column=default_input_column,
+    )
+
+
+def build_dimension_instance(
     dimension: DimensionConfig,
     dimension_cls,
     default_input_column: str = "text_norm",

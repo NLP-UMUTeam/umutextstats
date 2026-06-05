@@ -6,7 +6,7 @@ import pandas as pd
 from umutextstats.config.models import DimensionConfig, UMUTextStatsConfig
 from umutextstats.dimensions.registry import resolve_dimension, normalize_class_name
 from umutextstats.config.params import param, split_param_list
-from umutextstats.dimensions.factory import build_dimension
+from umutextstats.dimensions.factory import build_dimension_instance
 
 class DimensionEngine:
     def __init__(
@@ -87,7 +87,7 @@ class DimensionEngine:
                     data[key] = [""] * len(df)
                 return
 
-            instance = build_dimension(
+            instance = build_dimension_instance (
                 dimension=dimension,
                 dimension_cls=dimension_cls,
                 default_input_column=self.input_column,
@@ -95,6 +95,7 @@ class DimensionEngine:
             data[key] = instance.compute(df)
 
     def _compute_composite_dimension(self, dimension, data, n_rows):
+
         strategy = (dimension.strategy or "CompositeStrategyNone").upper()
 
         child_keys = [

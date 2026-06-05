@@ -23,3 +23,30 @@ def count_paragraph_words(paragraph: str) -> int:
 def paragraph_lengths(text: str) -> list[int]:
     """Return paragraph lengths measured in lexical tokens."""
     return [count_paragraph_words(paragraph) for paragraph in split_paragraphs(text)]
+
+
+def iter_paragraph_spans(text: str):
+    text = "" if text is None else str(text)
+    start = 0
+
+    for separator in PARAGRAPH_SEPARATOR_REGEX.finditer(text):
+        end = separator.start()
+        paragraph = text[start:end]
+
+        stripped = paragraph.strip()
+        if stripped:
+            leading = len(paragraph) - len(paragraph.lstrip())
+            trailing = len(paragraph) - len(paragraph.rstrip())
+
+            yield stripped, start + leading, end - trailing
+
+        start = separator.end()
+
+    paragraph = text[start:]
+    stripped = paragraph.strip()
+
+    if stripped:
+        leading = len(paragraph) - len(paragraph.lstrip())
+        trailing = len(paragraph) - len(paragraph.rstrip())
+
+        yield stripped, start + leading, len(text) - trailing

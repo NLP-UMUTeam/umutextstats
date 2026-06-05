@@ -2,8 +2,6 @@ dimensions:
 - key: morphosyntax
   children:
   - key: morphosyntax-gender
-    validation:
-      cases: tests/feature_cases/morphosyntax_gender.yaml
     children:
     - key: morphosyntax-gender-words-feminine
       class: POSTaggingTag
@@ -15,8 +13,6 @@ dimensions:
       universal: Gender=Masc
 
   - key: morphosyntax-number
-    validation:
-      cases: tests/feature_cases/morphosyntax_number.yaml  
     children:
     - key: morphosyntax-number-singular
       class: POSTaggingTag
@@ -28,8 +24,6 @@ dimensions:
       universal: Number=Plur
 
   - key: morphosyntax-affixes
-    validation:
-      cases: tests/feature_cases/morphosyntax_affixes_suffixes.yaml  
     children:
     - key: morphosyntax-affixes-suffixes
       class: CompositeDimension
@@ -41,32 +35,24 @@ dimensions:
         description: Counts how many words includes nominals suffixes
         dictionary: suffixes-nominals
         pos_tag: NOUN
-        validation:
-          cases: tests/feature_cases/morphosyntax_affixes_suffixes_nominals.yaml
 
       - key: morphosyntax-affixes-suffixes-adjectivizers
         class: WordPerDictionary
         description: Percentage of adjectives with adjectivizing suffixes
         dictionary: suffixes-adjectivizers
         pos_tag: ADJ
-        validation:
-          cases: tests/feature_cases/morphosyntax_affixes_suffixes_adjectivizers.yaml
 
       - key: morphosyntax-affixes-suffixes-verbalizers
         class: WordPerDictionary
         description: Counts how many words includes verbalizers suffixes
         dictionary: suffixes-verbalizers
         pos_tag: VERB
-        validation:
-          cases: tests/feature_cases/morphosyntax_affixes_suffixes_verbalizers.yaml
         
       - key: morphosyntax-affixes-suffixes-adverbializers
         class: WordPerDictionary
         description: Counts how many words includes adverbializers suffixes
         dictionary: suffixes-adverbializers
         pos_tag: ADV
-        validation:
-          cases: tests/feature_cases/morphosyntax_affixes_suffixes_adverbializers.yaml
         
       - key: morphosyntax-affixes-suffixes-augmentative
         class: WordPerDictionary
@@ -75,8 +61,6 @@ dimensions:
         pos_tag:
           - NOUN
           - ADJ
-        validation:
-          cases: tests/feature_cases/morphosyntax_affixes_suffixes_augmentative.yaml
         
       - key: morphosyntax-affixes-suffixes-diminutives
         class: WordPerDictionary
@@ -85,8 +69,6 @@ dimensions:
         pos_tag:
           - NOUN
           - ADJ
-        validation:
-          cases: tests/feature_cases/morphosyntax_affixes_suffixes_diminutives.yaml
         
       - key: morphosyntax-affixes-suffixes-despective
         class: WordPerDictionary
@@ -95,8 +77,6 @@ dimensions:
         pos_tag:
           - NOUN
           - ADJ
-        validation:
-          cases: tests/feature_cases/morphosyntax_affixes_suffixes_despective.yaml
         
     - key: morphosyntax-affixes-prefixes
       class: WordPerDictionary
@@ -107,8 +87,6 @@ dimensions:
         - ADJ
         - VERB
         - ADV
-      validation:
-        cases: tests/feature_cases/morphosyntax_affixes_prefixes.yaml
 
   - key: morphosyntax-morphology
     children:
@@ -121,15 +99,11 @@ dimensions:
         class: POSTaggingTag
         description: Percentage of PoS common nouns
         tag: NOUN
-        validation:
-          cases: tests/feature_cases/morphosyntax_morphology_nouns_common.yaml
         
       - key: morphosyntax-morphology-nouns-proper
         class: POSTaggingTag
         description: Percentage of PoS proper nouns
         tag: PROPN
-        validation:
-          cases: tests/feature_cases/morphosyntax_morphology_nouns_proper.yaml
         
       - key: morphosyntax-morphology-nouns-male
         class: WordPerDictionary
@@ -300,8 +274,6 @@ dimensions:
         description: Percentage of PoS determiners articles
         universal: PronType=Art
         tag: DET
-        validation:
-            cases: tests/feature_cases/morphosyntax_morphology_determiners_articles.yaml
 
       - key: morphosyntax-morphology-determiners-demostrative
         class: POSTaggingTag

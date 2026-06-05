@@ -7,8 +7,8 @@ from dataclasses import dataclass
 
 from umutextstats.io.text import ensure_text
 from umutextstats.config.explain import find_dimension
+from umutextstats.dimensions.factory import build_runtime_dimension
 from umutextstats.config.models import UMUTextStatsConfig
-from umutextstats.dictionaries import DictionaryLoader
 from umutextstats.text.patterns import POS_ITEM_REGEX
 
 @dataclass(frozen=True)
@@ -45,10 +45,13 @@ def _inspect_not_supported_dimension(
         debug_text=f"Inspection not implemented for {dimension.class_name}",
     )
 
+
+
 def inspect_dimension_text(
     config: UMUTextStatsConfig,
     key: str,
     text: str,
+    annotations: dict | None = None,
 ) -> DimensionInspection:
     text = ensure_text(text)
 
@@ -58,23 +61,99 @@ def inspect_dimension_text(
         raise ValueError(f"Dimension not found: {key}")
 
     dimension = explanation.dimension
-
-    if dimension.class_name == "PatternDimension":
-        return _inspect_pattern_dimension(dimension, text)
-
-    if dimension.class_name in {"WordPerDictionary", "VerbPerDictionary"}:
-        return _inspect_dictionary_dimension(dimension, text)
-
-    if dimension.class_name == "POSTaggingTag":
-        return _inspect_pos_tagging_dimension(dimension, text)
-
-    if dimension.class_name == "ParagraphCountDimension":
-        return _inspect_paragraph_count_dimension(dimension, text)
-
     if dimension.children:
         return _inspect_composite_dimension(config, dimension, text)
 
+    runtime_dimension = build_runtime_dimension(dimension)
+
+    tagged_pos = None
+    if annotations:
+        tagged_pos = annotations.get("tagged_pos")
+    
+
+    if runtime_dimension is not None and hasattr(runtime_dimension, "iter_matches"):
+        return _inspect_iterable_dimension(
+            dimension=dimension,
+            runtime_dimension=runtime_dimension,
+            text=text,
+            tagged_pos=tagged_pos,
+        )    
+
+
     return _inspect_not_supported_dimension(dimension, text)
+
+
+def _inspect_iterable_dimension(
+    dimension,
+    runtime_dimension,
+    text: str,
+    tagged_pos: str | None = None,
+) -> DimensionInspection:
+    if hasattr(runtime_dimension, "iter_matches_with_context"):
+        match_iter = runtime_dimension.iter_matches_with_context(
+            text,
+            tagged_pos=tagged_pos,
+        )
+    else:
+        match_iter = runtime_dimension.iter_matches(text)
+
+    matches = [
+        InspectMatch(
+            match=match.group(0),
+            start=match.start(),
+            end=match.end(),
+        )
+        for match in match_iter
+    ]
+
+    if hasattr(runtime_dimension, "iter_discarded_matches_with_context"):
+        discarded_iter = runtime_dimension.iter_discarded_matches_with_context(
+            text,
+            tagged_pos=tagged_pos,
+        )
+    elif hasattr(runtime_dimension, "iter_discarded_matches"):
+        discarded_iter = runtime_dimension.iter_discarded_matches(text)
+    else:
+        discarded_iter = []
+
+    discarded_matches = [
+        InspectMatch(
+            match=match.group(0),
+            start=match.start(),
+            end=match.end(),
+        )
+        for match in discarded_iter
+    ]
+
+    return DimensionInspection(
+        key=dimension.key,
+        class_name=dimension.class_name,
+        pattern=dimension.pattern,
+        dictionary=(
+            dimension.dictionary
+            or dimension.params.get("dictionary")
+            or dimension.params.get("dictionaries")
+        ),
+        matches=matches,
+        discarded_matches=discarded_matches,
+        debug_text=_inspection_debug_text(dimension),
+    )
+
+
+def _inspection_debug_text(dimension) -> str:
+    if dimension.pattern:
+        return dimension.pattern
+
+    dictionary = (
+        dimension.dictionary
+        or dimension.params.get("dictionary")
+        or dimension.params.get("dictionaries")
+    )
+
+    if dictionary:
+        return f"Loaded dictionary: {dictionary}"
+
+    return f"Inspection not implemented for {dimension.class_name}"
 
 
 def _inspect_paragraph_count_dimension(dimension, text: str) -> DimensionInspection:
@@ -90,120 +169,7 @@ def _inspect_paragraph_count_dimension(dimension, text: str) -> DimensionInspect
         debug_text="paragraphs separated by one or more blank lines",
     )
 
-def _inspect_pattern_dimension(dimension, text: str) -> DimensionInspection:
-    if not dimension.pattern:
-        raise ValueError(f"PatternDimension without pattern: {dimension.key}")
 
-    matches = [
-        InspectMatch(
-            match=match.group(0),
-            start=match.start(),
-            end=match.end(),
-        )
-        for match in re.finditer(dimension.pattern, text)
-    ]
-
-    return DimensionInspection(
-        key=dimension.key,
-        class_name=dimension.class_name,
-        pattern=None,
-        dictionary=None,
-        matches=matches,
-        discarded_matches=[],
-        debug_text=dimension.pattern,
-    )
-
-
-def _inspect_dictionary_dimension(dimension, text: str) -> DimensionInspection:
-    dictionary_name = (
-        dimension.dictionary
-        or dimension.params.get("dictionary")
-        or dimension.params.get("dictionaries")
-    )
-
-    if not dictionary_name:
-        raise ValueError(f"Dictionary dimension without dictionary: {dimension.key}")
-
-    pos_tag = getattr(dimension, "pos_tag", None) or dimension.params.get("pos_tag")
-
-    if _looks_like_tagged_pos(text):
-        tagged_pos = text
-        source_text = _plain_text_from_tagged_pos(tagged_pos)
-    else:
-        tagged_pos = None
-        source_text = text
-
-    use_regex = not dimension.disabled_regexp
-
-    matches: list[InspectMatch] = []
-    discarded_matches: list[InspectMatch] = []
-
-    for name in _split_dictionary_names(dictionary_name):
-        entries = DictionaryLoader().load(name)
-
-        if use_regex:
-            positive_matches = _find_dictionary_regex_matches(
-                text=source_text,
-                entries=entries.words,
-                dictionary_name=name,
-            )
-
-            exception_matches = _find_dictionary_regex_matches(
-                text=source_text,
-                entries=entries.exceptions,
-                dictionary_name=name,
-            )
-        else:
-            positive_matches = _find_dictionary_plain_matches(
-                text=source_text,
-                entries=entries.words,
-            )
-
-            exception_matches = _find_dictionary_plain_matches(
-                text=source_text,
-                entries=entries.exceptions,
-            )
-
-        if pos_tag:
-            if not tagged_pos:
-                raise ValueError(
-                    f"Dictionary inspection for '{dimension.key}' requires "
-                    "a tagged_pos-like input because the dimension uses pos_tag. "
-                    "Provide annotations.tagged_pos in the feature case."
-                )
-
-            positive_matches = _filter_matches_by_pos_tag(
-                matches=positive_matches,
-                tagged_pos=tagged_pos,
-                text=source_text,
-                pos_tag=pos_tag,
-            )
-
-            exception_matches = _filter_matches_by_pos_tag(
-                matches=exception_matches,
-                tagged_pos=tagged_pos,
-                text=source_text,
-                pos_tag=pos_tag,
-            )
-
-        kept, discarded = _remove_exception_matches(
-            positive_matches,
-            exception_matches,
-        )
-
-        matches.extend(kept)
-        discarded_matches.extend(discarded)
-
-    return DimensionInspection(
-        key=dimension.key,
-        class_name=dimension.class_name,
-        pattern=None,
-        dictionary=dictionary_name,
-        matches=matches,
-        discarded_matches=discarded_matches,
-        debug_text=tagged_pos or f"Loaded dictionary: {dictionary_name}",
-        internal_representation=tagged_pos,
-    )
 
 def render_inspection(
     inspection: DimensionInspection,
@@ -275,12 +241,6 @@ def highlight_matches(text: str, matches: list[InspectMatch]) -> Text:
     return highlighted
 
 
-def _split_dictionary_names(dictionary_name: str) -> list[str]:
-    return [
-        name.strip()
-        for name in dictionary_name.split("|")
-        if name.strip()
-    ]
 
 
 def _find_dictionary_plain_matches(
@@ -303,90 +263,6 @@ def _find_dictionary_plain_matches(
 
     return matches
 
-def _split_dictionary_names(dictionary_name: str) -> list[str]:
-    return [
-        name.strip()
-        for name in dictionary_name.split("|")
-        if name.strip()
-    ]
-
-
-def _find_dictionary_regex_matches(
-    text: str,
-    entries: list[str],
-    dictionary_name: str,
-) -> list[InspectMatch]:
-    matches: list[InspectMatch] = []
-
-    for line_number, entry in enumerate(entries, start=1):
-        pattern = rf"(?<!\p{{L}}){entry}(?!\p{{L}})"
-
-        try:
-            compiled = re.compile(pattern, re.IGNORECASE)
-        except re.error as exc:
-            raise ValueError(
-                f"Invalid regex in dictionary '{dictionary_name}' "
-                f"at line {line_number}: {entry!r}. "
-                f"Compiled pattern: {pattern!r}. "
-                f"Regex error: {exc}"
-            ) from exc
-
-        for match in compiled.finditer(text):
-            matches.append(
-                InspectMatch(
-                    match=match.group(0),
-                    start=match.start(),
-                    end=match.end(),
-                )
-            )
-
-    return matches
-
-
-def _find_dictionary_plain_matches(
-    text: str,
-    entries: list[str],
-) -> list[InspectMatch]:
-    matches: list[InspectMatch] = []
-
-    for entry in entries:
-        pattern = rf"(?<!\p{{L}}){re.escape(entry)}(?!\p{{L}})"
-
-        for match in re.finditer(pattern, text, flags=re.IGNORECASE):
-            matches.append(
-                InspectMatch(
-                    match=match.group(0),
-                    start=match.start(),
-                    end=match.end(),
-                )
-            )
-
-    return matches
-
-
-def _remove_exception_matches(
-    positive_matches: list[InspectMatch],
-    exception_matches: list[InspectMatch],
-) -> tuple[list[InspectMatch], list[InspectMatch]]:
-    if not exception_matches:
-        return positive_matches, []
-
-    kept = []
-    discarded = []
-
-    for positive in positive_matches:
-        is_exception = any(
-            positive.start >= exception.start
-            and positive.end <= exception.end
-            for exception in exception_matches
-        )
-
-        if is_exception:
-            discarded.append(positive)
-        else:
-            kept.append(positive)
-
-    return kept, discarded
 
 
 def _looks_like_tagged_pos(text: str) -> bool:
@@ -417,54 +293,6 @@ def _plain_text_from_tagged_pos(tagged_pos: str) -> str:
         .replace(" !", "!")
     )
 
-def _inspect_pos_tagging_dimension(
-    dimension,
-    text: str,
-) -> DimensionInspection:
-    tag = dimension.params.get("tag")
-    universal = dimension.universal or dimension.params.get("universal")
-
-    if not _looks_like_tagged_pos(text):
-        raise ValueError(
-            f"POSTaggingTag inspection for '{dimension.key}' requires "
-            "a tagged_pos-like input. Provide it through annotations.tagged_pos "
-            "in feature cases or inspect an already annotated column."
-        )
-
-    tagged_pos = text
-    source_text = _plain_text_from_tagged_pos(tagged_pos)
-
-    parsed_items = _parse_tagged_pos_with_offsets(
-        tagged_pos=tagged_pos,
-        text=source_text,
-    )
-
-    matches = []
-
-    for item in parsed_items:
-        if _pos_item_matches(
-            item=item,
-            tag=tag,
-            universal=universal,
-        ):
-            matches.append(
-                InspectMatch(
-                    match=item["word"],
-                    start=item["start"],
-                    end=item["end"],
-                )
-            )
-
-    return DimensionInspection(
-        key=dimension.key,
-        class_name=dimension.class_name,
-        pattern=None,
-        dictionary=None,
-        matches=matches,
-        discarded_matches=[],
-        debug_text=tagged_pos,
-        internal_representation=tagged_pos,
-    )
 
 def _parse_tagged_pos_with_offsets(
     tagged_pos: str,
