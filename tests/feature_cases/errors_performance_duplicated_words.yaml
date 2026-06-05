@@ -1,0 +1,18 @@
+cases:
+- text: "Esto es una prueba."
+  expected: 0
+
+- text: "Esto es es una prueba."
+  expected: 1
+
+- text: "Muy muy bueno."
+  expected: 1
+
+- text: "No no no quiero."
+  expected: 1
+
+- text: "Hola, hola mundo."
+  expected: 0
+
+- text: null
+  expected: 0

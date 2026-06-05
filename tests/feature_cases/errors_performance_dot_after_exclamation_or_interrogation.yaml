@@ -1,0 +1,21 @@
+cases:
+- text: "¡Hola!."
+  expected: 1
+
+- text: "¿Qué tal?."
+  expected: 1
+
+- text: "¡Hola!"
+  expected: 0
+
+- text: "¿Qué tal?"
+  expected: 0
+
+- text: "¡Hola!. ¿Qué tal?."
+  expected: 2
+
+- text: "Wow!."
+  expected: 1
+
+- text: null
+  expected: 0

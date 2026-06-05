@@ -1,0 +1,18 @@
+cases:
+- text: "Hola mundo. Hola otra vez."
+  expected: 1
+
+- text: "Hola mundo. Adiós mundo."
+  expected: 0
+
+- text: "El perro corre. El gato salta. El niño juega."
+  expected: 2
+
+- text: "Casa grande. casa pequeña."
+  expected: 1
+
+- text: "¿Hola? ¡Hola!"
+  expected: 1
+
+- text: null
+  expected: 0

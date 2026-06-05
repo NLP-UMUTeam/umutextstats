@@ -1,0 +1,18 @@
+cases:
+- text: "A grosso modo, está bien."
+  expected: 1
+
+- text: "Contra más estudias, mejor."
+  expected: 1
+
+- text: "Preveer el problema es importante."
+  expected: 1
+
+- text: "Habían muchas personas."
+  expected: 1
+
+- text: "A grandes rasgos, está bien."
+  expected: 0
+
+- text: null
+  expected: 0

@@ -1,0 +1,18 @@
+cases:
+- text: "Este texto está correctamente escrito."
+  expected: 0
+
+- text: "Este txto tiene un error."
+  expected: 20
+
+- text: "La csa es grande."
+  expected: 25
+
+- text: "Holaaa mundooo."
+  expected: 100
+
+- text: "Murcia UMU OpenAI."
+  expected: 0
+
+- text: null
+  expected: 0

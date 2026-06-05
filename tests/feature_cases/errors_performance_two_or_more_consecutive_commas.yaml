@@ -1,0 +1,18 @@
+cases:
+- text: "Hola, mundo."
+  expected: 0
+
+- text: "Hola,, mundo."
+  expected: 1
+
+- text: "Hola,,, mundo."
+  expected: 1
+
+- text: "Uno,, dos,, tres."
+  expected: 2
+
+- text: "Hola, , mundo."
+  expected: 0
+
+- text: null
+  expected: 0

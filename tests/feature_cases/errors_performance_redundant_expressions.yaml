@@ -1,0 +1,21 @@
+cases:
+- text: "Sube arriba."
+  expected: 1
+
+- text: "Baja abajo."
+  expected: 1
+
+- text: "Entra dentro."
+  expected: 1
+
+- text: "Sal fuera."
+  expected: 1
+
+- text: "Lo vi con mis propios ojos."
+  expected: 1
+
+- text: "Sube la escalera."
+  expected: 0
+
+- text: null
+  expected: 0
