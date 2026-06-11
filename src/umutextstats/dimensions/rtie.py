@@ -4,6 +4,7 @@ import statistics
 
 import pandas as pd
 
+from umutextstats.dimensions.mixins import TextComputeMixin
 from umutextstats.config.params import param
 from umutextstats.inspection.scalar_inspectable_dimension import (
     ScalarInspectableDimension,
@@ -12,7 +13,7 @@ from umutextstats.text.patterns import SENTENCE_SPAN_REGEX
 from umutextstats.text.tokenization import get_lexical_tokens
 
 
-class RTIEBaseDimension(ScalarInspectableDimension):
+class RTIEBaseDimension(TextComputeMixin, ScalarInspectableDimension):
     """
     Base class for RTIE-style lexical diversity dimensions.
 
@@ -45,28 +46,6 @@ class RTIEBaseDimension(ScalarInspectableDimension):
             input_column=input_column,
             separator=param(dimension, "separator", "by-chunks"),
             chunk_size=int(param(dimension, "chunk_size", 1000) or 1000),
-        )
-
-    def compute_single(
-        self,
-        row: pd.Series,
-    ) -> float:
-        """
-        Compute the RTIE value for a single row.
-        """
-        return self._compute_text(
-            self.get_text(row)
-        )
-
-    def compute(
-        self,
-        df: pd.DataFrame,
-    ) -> pd.Series:
-        """
-        Compute the RTIE value for all rows.
-        """
-        return self.get_text_series(df).apply(
-            self._compute_text
         )
 
     def _ratios(

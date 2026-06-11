@@ -2,6 +2,8 @@ from __future__ import annotations
 
 import pandas as pd
 
+from umutextstats.dimensions.mixins import TextComputeMixin
+
 from umutextstats.config.params import param
 from umutextstats.inspection.scalar_inspectable_dimension import (
     ScalarInspectableDimension,
@@ -9,7 +11,7 @@ from umutextstats.inspection.scalar_inspectable_dimension import (
 from umutextstats.text.patterns import DEPENDENCY_ITEM_REGEX
 
 
-class DependencyDepthDimension(ScalarInspectableDimension):
+class DependencyDepthDimension(TextComputeMixin, ScalarInspectableDimension):
     def __init__(
         self,
         key: str,
@@ -30,19 +32,7 @@ class DependencyDepthDimension(ScalarInspectableDimension):
             input_column=input_column,
             mode=param(dimension, "mode", "max"),
         )
-
-    def compute_single(
-        self,
-        row: pd.Series,
-    ) -> float:
-        return self._compute_text(self.get_text(row))
-
-    def compute(
-        self,
-        df: pd.DataFrame,
-    ) -> pd.Series:
-        return self.get_text_series(df).apply(self._compute_text)
-
+    
     def _compute_text(
         self,
         tagged_text: str,
@@ -178,7 +168,7 @@ class DependencyDistanceDimension(ScalarInspectableDimension):
         return float(sum(distances) / len(distances))
 
 
-class DependencyTag(ScalarInspectableDimension):
+class DependencyTag(TextComputeMixin, ScalarInspectableDimension):
     def __init__(
         self,
         key: str,
@@ -199,18 +189,6 @@ class DependencyTag(ScalarInspectableDimension):
             input_column=input_column,
             deprel=param(dimension, "deprel"),
         )
-
-    def compute_single(
-        self,
-        row: pd.Series,
-    ) -> float:
-        return self._compute_text(self.get_text(row))
-
-    def compute(
-        self,
-        df: pd.DataFrame,
-    ) -> pd.Series:
-        return self.get_text_series(df).apply(self._compute_text)
 
     def _compute_text(
         self,

@@ -1,5 +1,6 @@
 import pandas as pd
 
+from umutextstats.dimensions.mixins import TextComputeMixin
 from umutextstats.config.params import dictionary_param, percentage_param
 from umutextstats.dictionaries import DictionaryLoader
 from umutextstats.inspection.scalar_inspectable_dimension import (
@@ -66,7 +67,7 @@ AUX_VERB_HABER = {
 }
 
 
-class VerbPerDictionary(ScalarInspectableDimension):
+class VerbPerDictionary(TextComputeMixin, ScalarInspectableDimension):
     """
     Count dictionary verb matches or compute their percentage over words.
 
@@ -123,28 +124,6 @@ class VerbPerDictionary(ScalarInspectableDimension):
             dictionary_name=dictionary_param(dimension),
             input_column=input_column,
             percentage=percentage_param(dimension),
-        )
-
-    def compute_single(
-        self,
-        row: pd.Series,
-    ) -> float:
-        """
-        Compute the verb dictionary score for a single row.
-        """
-        return self._compute_text(
-            self.get_text(row)
-        )
-
-    def compute(
-        self,
-        df: pd.DataFrame,
-    ) -> pd.Series:
-        """
-        Compute the verb dictionary score for all rows.
-        """
-        return self.get_text_series(df).apply(
-            self._compute_text
         )
 
     def _compute_text(

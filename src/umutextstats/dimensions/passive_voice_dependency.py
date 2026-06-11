@@ -2,6 +2,8 @@ from __future__ import annotations
 
 from dataclasses import dataclass
 
+from umutextstats.dimensions.mixins import TextComputeMixin
+
 import pandas as pd
 
 from umutextstats.inspection.iterable_inspectable_dimension import (
@@ -40,7 +42,7 @@ class DependencyMatch:
         return self.end_pos
 
 
-class PassiveVoiceDependencyDimension(IterableInspectableDimension):
+class PassiveVoiceDependencyDimension(TextComputeMixin, IterableInspectableDimension):
     """
     Compute the percentage of dependency-tagged sentences that contain
     passive voice dependency labels.
@@ -66,24 +68,6 @@ class PassiveVoiceDependencyDimension(IterableInspectableDimension):
             key=dimension.key,
             input_column=input_column,
         )
-
-    def compute_single(
-        self,
-        row: pd.Series,
-    ) -> float:
-        """
-        Compute the passive voice percentage for a single row.
-        """
-        return self._compute_text(self.get_text(row))
-
-    def compute(
-        self,
-        df: pd.DataFrame,
-    ) -> pd.Series:
-        """
-        Compute the passive voice percentage for all rows.
-        """
-        return self.get_text_series(df).apply(self._compute_text)
 
     def _compute_text(
         self,
