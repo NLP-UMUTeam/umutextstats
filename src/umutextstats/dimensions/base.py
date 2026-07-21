@@ -3,6 +3,7 @@ from typing import Any
 
 import pandas as pd
 
+from umutextstats.dimensions.results import DimensionComputation
 
 class BaseDimension(ABC):
     """
@@ -36,6 +37,21 @@ class BaseDimension(ABC):
         Override this method for vectorized pandas implementations.
         """
         return df.apply(self.compute_single, axis=1)
+
+    def compute_result(
+        self,
+        df: pd.DataFrame,
+    ) -> DimensionComputation:
+        """
+        Compute the dimension and return its structured batch result.
+
+        Subclasses may override this method to expose numerators,
+        denominators, normalization metadata, or other calculation details
+        without repeating the main computation.
+        """
+        return DimensionComputation(
+            values=self.compute(df),
+        )
 
     def compute_single(
         self,

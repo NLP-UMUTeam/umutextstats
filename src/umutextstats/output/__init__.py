@@ -3,6 +3,10 @@
 from umutextstats.output.csv_resolver import CSVOutputResolver
 from umutextstats.output.json_resolver import JSONOutputResolver
 from umutextstats.output.resolvers import OutputResolverRegistry
+from umutextstats.output.structured_jsonl import (
+    StructuredJSONLOutputResolver,
+    write_structured_jsonl_stream,
+)
 from umutextstats.output.writer import OutputWriter
 
 
@@ -15,6 +19,7 @@ def write_output(
     registry = OutputResolverRegistry()
     registry.register(CSVOutputResolver())
     registry.register(JSONOutputResolver())
+    registry.register(StructuredJSONLOutputResolver())
 
     writer = OutputWriter(registry)
 
@@ -28,8 +33,10 @@ def write_output(
 
 __all__ = [
     "write_output",
+    "write_structured_jsonl_stream",
     "OutputWriter",
     "OutputResolverRegistry",
     "CSVOutputResolver",
     "JSONOutputResolver",
+    "StructuredJSONLOutputResolver",
 ]

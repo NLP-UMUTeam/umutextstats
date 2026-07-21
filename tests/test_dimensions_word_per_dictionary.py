@@ -15,6 +15,43 @@ class DummyDictionaryLoader:
         )
 
 
+def compute_result(
+    texts,
+    entries,
+    exceptions=None,
+    percentage=True,
+    use_regex=True,
+    tagged_pos=None,
+    pos_tag=None,
+):
+    loader = DummyDictionaryLoader(
+        entries=entries,
+        exceptions=exceptions or [],
+    )
+
+    dimension = WordPerDictionary(
+        key="test",
+        dictionary_name="test",
+        input_column="text_norm",
+        percentage=percentage,
+        use_regex=use_regex,
+        pos_tag=pos_tag,
+        pos_input_column="tagged_pos",
+        dictionary_loader=loader,
+    )
+
+    data = {
+        "text_norm": texts,
+    }
+
+    if tagged_pos is not None:
+        data["tagged_pos"] = tagged_pos
+
+    df = pd.DataFrame(data)
+
+    return dimension.compute_result(df)
+
+
 def compute(
     texts,
     entries,
@@ -120,7 +157,7 @@ def test_plain_mode():
 # Exceptions
 # =========================
 
-def test_regex_exceptions_are_subtracted():
+def test_unrelated_regex_exception_does_not_subtract():
     result = compute(
         ["logro éxito fracaso mundo"],
         ["logro", "éxito"],
@@ -129,8 +166,31 @@ def test_regex_exceptions_are_subtracted():
         use_regex=True,
     )
 
-    assert result == [1]
+    assert result == [2]
 
+
+def test_regex_exception_removes_covered_match():
+    result = compute(
+        ["logro éxito fracaso mundo"],
+        ["logro", "éxito", "fracaso"],
+        exceptions=["fracaso"],
+        percentage=False,
+        use_regex=True,
+    )
+
+    assert result == [2]
+
+
+def test_regex_wildcard_exception_removes_covered_match():
+    result = compute(
+        ["logro éxito fracasado mundo"],
+        ["logro", "éxito", r"fracas\p{L}*"],
+        exceptions=[r"fracas\p{L}*"],
+        percentage=False,
+        use_regex=True,
+    )
+
+    assert result == [2]
 
 def test_plain_exceptions_are_subtracted():
     result = compute(
@@ -377,3 +437,47 @@ def test_pos_filter_accepts_multiple_pos_tags_plain_mode():
     )
 
     assert result == [2]
+
+def test_pos_filter_evidence_matches_result_plain_mode():
+    text = "casita pequeñita rápidamente"
+
+    result = compute_result(
+        texts=[text],
+        entries=[
+            "casita",
+            "pequeñita",
+            "rápidamente",
+        ],
+        percentage=False,
+        use_regex=False,
+        tagged_pos=[
+            "casita__(NOUN)(Gender=Fem|Number=Sing), "
+            "pequeñita__(ADJ)(Gender=Fem|Number=Sing), "
+            "rápidamente__(ADV)"
+        ],
+        pos_tag=["NOUN", "ADJ"],
+    )
+
+    assert result.values.tolist() == [2]
+    assert result.numerators.tolist() == [2]
+
+    evidence = result.evidence.iloc[0]
+
+    assert evidence == [
+        {
+            "text": "casita",
+            "start": 0,
+            "end": 6,
+        },
+        {
+            "text": "pequeñita",
+            "start": 7,
+            "end": 16,
+        },
+    ]
+
+    for item in evidence:
+        assert (
+            text[item["start"]:item["end"]]
+            == item["text"]
+        )

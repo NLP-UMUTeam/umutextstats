@@ -1,0 +1,14 @@
+dimensions:
+  - key: hashtags
+    class: PatternDimension
+    description: Number of hashtags
+    pattern: '(?<!\S)#[\p{L}\p{N}_]+'
+    input_column: text_raw
+    percentage: true
+
+  - key: negative
+    class: WordPerDictionary
+    description: Achievement-related words
+    dictionary: negative
+    input_column: text_norm
+    percentage: true

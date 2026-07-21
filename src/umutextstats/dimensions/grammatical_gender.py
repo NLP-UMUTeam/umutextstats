@@ -1,3 +1,6 @@
+from __future__ import annotations
+
+import numpy as np
 import pandas as pd
 
 from umutextstats.config.params import (
@@ -6,7 +9,10 @@ from umutextstats.config.params import (
     param,
     percentage_param,
 )
-from umutextstats.dimensions.word_per_dictionary import WordPerDictionary
+from umutextstats.dimensions.results import DimensionComputation
+from umutextstats.dimensions.word_per_dictionary import (
+    WordPerDictionary,
+)
 from umutextstats.text.patterns import POS_ITEM_REGEX
 
 
@@ -23,11 +29,11 @@ ALLOWED_POS = {
 
 class GrammaticalGenderDimension(WordPerDictionary):
     """
-    Count dictionary matches only among POS-filtered words.
+    Count dictionary matches among words with allowed POS tags.
 
-    This dimension uses `tagged_pos_column` to extract words whose POS tag
-    belongs to `ALLOWED_POS`, then applies the dictionary matching logic
-    inherited from WordPerDictionary.
+    Matches are located in the original input text so extraction evidence
+    preserves real character offsets. The denominator contains only POS
+    items whose tag belongs to `ALLOWED_POS`.
     """
 
     def __init__(
@@ -44,10 +50,13 @@ class GrammaticalGenderDimension(WordPerDictionary):
             key=key,
             dictionary_name=dictionary_name,
             input_column=input_column,
+            pos_tag=sorted(ALLOWED_POS),
+            pos_input_column=tagged_pos_column,
             percentage=percentage,
             use_regex=use_regex,
             dictionary_loader=dictionary_loader,
         )
+
         self.tagged_pos_column = tagged_pos_column
 
     @classmethod
@@ -72,52 +81,183 @@ class GrammaticalGenderDimension(WordPerDictionary):
             use_regex=not disabled_regexp_param(dimension),
         )
 
+    def compute(
+        self,
+        df: pd.DataFrame,
+    ) -> pd.Series:
+        return self.compute_result(df).values
+
     def compute_single(
         self,
         row: pd.Series,
-    ) -> float:
+    ) -> float | int:
         """
-        Compute the gender dictionary score for a single row.
+        Compute the grammatical-gender score for one row.
         """
+        text = self.get_text(row)
+
         tagged_pos = self.get_text(
             row=row,
             column=self.tagged_pos_column,
         )
 
-        return self._compute_tagged_pos(tagged_pos)
+        matching_text = self._get_matching_text(
+            text=text,
+            tagged_pos=tagged_pos,
+        )
 
-    def compute(
-        self,
-        df: pd.DataFrame,
-    ) -> pd.Series:
-        """
-        Compute the gender dictionary score for all rows.
-        """
-        return self.get_text_series(
-            df=df,
-            column=self.tagged_pos_column,
-        ).apply(self._compute_tagged_pos)
+        matches = self.get_accepted_matches(
+            text=matching_text,
+            tagged_pos=tagged_pos,
+        )
 
-    def _compute_tagged_pos(
-        self,
-        tagged_pos: str,
-    ) -> float:
-        """
-        Compute dictionary matches over words filtered by POS tag.
-        """
-        filtered_words = self._get_words_filtered_by_pos(tagged_pos)
-        total_words = len(filtered_words)
-
-        if total_words == 0:
-            return 0.0
-
-        filtered_text = " ".join(filtered_words)
-        count = self._count_text(filtered_text)
+        count = len(matches)
 
         if not self.percentage:
             return count
 
-        return (100 * count) / total_words
+        total_words = len(
+            self._get_words_filtered_by_pos(
+                tagged_pos
+            )
+        )
+
+        if total_words == 0:
+            return 0.0
+
+        return (100.0 * count) / total_words
+
+
+    def compute_result(
+        self,
+        df: pd.DataFrame,
+    ) -> DimensionComputation:
+        """
+        Compute values and accepted match evidence.
+        """
+        texts = self.get_text_series(df)
+
+        tagged_texts = self.get_text_series(
+            df=df,
+            column=self.tagged_pos_column,
+        )
+
+        matching_texts = pd.Series(
+            (
+                self._get_matching_text(
+                    text=text,
+                    tagged_pos=tagged_pos,
+                )
+                for text, tagged_pos in zip(
+                    texts,
+                    tagged_texts,
+                )
+            ),
+            index=df.index,
+            dtype=object,
+        )
+
+        accepted_matches = pd.Series(
+            (
+                self.get_accepted_matches(
+                    text=matching_text,
+                    tagged_pos=tagged_pos,
+                )
+                for matching_text, tagged_pos in zip(
+                    matching_texts,
+                    tagged_texts,
+                )
+            ),
+            index=df.index,
+            dtype=object,
+        )
+
+        counts = accepted_matches.apply(len)
+
+        evidence = accepted_matches.apply(
+            self._matches_to_evidence
+        )
+
+        denominators = tagged_texts.apply(
+            lambda tagged_pos: len(
+                self._get_words_filtered_by_pos(
+                    tagged_pos
+                )
+            )
+        )
+
+        if not self.percentage:
+            return DimensionComputation(
+                values=counts,
+                numerators=counts,
+                evidence=evidence,
+                metadata={
+                    "measure": "count",
+                    "unit": "matches",
+                    "pos_filter": sorted(ALLOWED_POS),
+                },
+            )
+
+        counts_array = counts.to_numpy(dtype=float)
+        denominators_array = denominators.to_numpy(dtype=float)
+
+        percentages = np.zeros_like(
+            counts_array,
+            dtype=float,
+        )
+
+        np.divide(
+            100.0 * counts_array,
+            denominators_array,
+            out=percentages,
+            where=denominators_array != 0,
+        )
+
+        return DimensionComputation(
+            values=pd.Series(
+                percentages,
+                index=df.index,
+            ),
+            numerators=counts,
+            denominators=denominators,
+            evidence=evidence,
+            metadata={
+                "measure": "rate",
+                "normalization_unit": "allowed_pos_words",
+                "scale": 100.0,
+                "pos_filter": sorted(ALLOWED_POS),
+            },
+        )
+
+
+    def inspect(
+        self,
+        row: pd.Series,
+    ):
+        """
+        Inspect the same accepted matches used by compute and extract.
+        """
+        text = self.get_text(row)
+
+        tagged_pos = self.get_text(
+            row=row,
+            column=self.tagged_pos_column,
+        )
+
+        accepted_matches = self.get_accepted_matches(
+            text=text,
+            tagged_pos=tagged_pos,
+        )
+
+        matches = [
+            self._to_inspect_match(match)
+            for match in accepted_matches
+        ]
+
+        return self._build_inspection(
+            matches=matches,
+            discarded_matches=[],
+        )
 
     def _get_words_filtered_by_pos(
         self,
@@ -126,14 +266,16 @@ class GrammaticalGenderDimension(WordPerDictionary):
         """
         Extract lowercase words whose POS tag is allowed.
         """
-        words = []
-
         if not tagged_text:
-            return words
+            return []
+
+        words = []
 
         for sentence in tagged_text.split(" || "):
             for raw_item in sentence.split(", "):
-                match = POS_ITEM_REGEX.fullmatch(raw_item.strip())
+                match = POS_ITEM_REGEX.fullmatch(
+                    raw_item.strip()
+                )
 
                 if not match:
                     continue
@@ -142,11 +284,15 @@ class GrammaticalGenderDimension(WordPerDictionary):
                 tag = match.group("tag") or ""
 
                 if tag in ALLOWED_POS:
-                    words.append(word.lower())
+                    words.append(
+                        word.lower()
+                    )
 
         return words
 
-    def inspection_debug_text(self) -> str:
+    def inspection_debug_text(
+        self,
+    ) -> str:
         """
         Return configuration details used during inspection.
         """
@@ -156,4 +302,22 @@ class GrammaticalGenderDimension(WordPerDictionary):
             f"Tagged POS column: {self.tagged_pos_column}\n"
             f"Use regex: {self.use_regex}\n"
             f"Percentage: {self.percentage}"
+        )
+    
+    def _get_matching_text(
+        self,
+        text: str,
+        tagged_pos: str,
+    ) -> str:
+        """
+        Return the text used to locate dictionary matches.
+
+        Prefer the configured input text when available. Otherwise,
+        reconstruct a filtered text from the POS annotation.
+        """
+        if text:
+            return text
+
+        return " ".join(
+            self._get_words_filtered_by_pos(tagged_pos)
         )

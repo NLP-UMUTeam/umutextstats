@@ -2,10 +2,9 @@ import pandas as pd
 import regex as re
 
 from umutextstats.config.params import param, percentage_param
-from umutextstats.inspection.iterable_inspectable_dimension import (
-    IterableInspectableDimension,
-)
-
+from umutextstats.dimensions.results import DimensionComputation
+from umutextstats.inspection.iterable_inspectable_dimension import IterableInspectableDimension
+from umutextstats.dimensions.results import DimensionComputation
 
 class PatternDimension(IterableInspectableDimension):
     """
@@ -75,21 +74,58 @@ class PatternDimension(IterableInspectableDimension):
         """
         Compute regex match count or percentage for all rows.
         """
+        return self.compute_result(df).values
+
+    def compute_result(
+        self,
+        df: pd.DataFrame,
+    ) -> DimensionComputation:
+        """
+        Compute values, calculation details and match evidence.
+
+        Regex matching is performed once per document. The resulting
+        evidence is reused to obtain the match count.
+        """
         texts = self.get_text_series(df)
-        counts = texts.apply(self.count_matches)
+
+        evidence = texts.apply(
+            self.extract_evidence
+        )
+
+        counts = evidence.apply(len)
 
         if not self.percentage:
-            return counts
+            return DimensionComputation(
+                values=counts,
+                numerators=counts,
+                evidence=evidence,
+                metadata={
+                    "measure": "count",
+                    "unit": "matches",
+                },
+            )
 
-        total = texts.str.len()
+        totals = texts.str.len()
 
-        result = (
-            100 * counts / total.replace(0, 1)
+        values = (
+            100.0
+            * counts
+            / totals.replace(0, 1)
         ).astype(float)
 
-        result[total == 0] = 0.0
+        values[totals == 0] = 0.0
 
-        return result
+        return DimensionComputation(
+            values=values,
+            numerators=counts,
+            denominators=totals,
+            evidence=evidence,
+            metadata={
+                "measure": "rate",
+                "normalization_unit": "characters",
+                "scale": 100.0,
+            },
+        )
 
     def iter_matches(
         self,
@@ -113,3 +149,19 @@ class PatternDimension(IterableInspectableDimension):
             1
             for _ in self.iter_matches(text)
         )
+    
+    def extract_evidence(
+        self,
+        text: str,
+    ) -> list[dict]:
+        """
+        Extract serializable regex match evidence.
+        """
+        return [
+            {
+                "text": match.group(),
+                "start": match.start(),
+                "end": match.end(),
+            }
+            for match in self.iter_matches(text)
+        ]

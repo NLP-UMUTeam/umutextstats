@@ -1,4 +1,4 @@
-# cli/main.py
+# src/umutextstats/cli/main.py
 
 from __future__ import annotations
 
@@ -9,28 +9,37 @@ from umutextstats.cli.analyze import COMMAND as ANALYZE_COMMAND
 from umutextstats.cli.cache import COMMAND as CACHE_COMMAND
 from umutextstats.cli.config import COMMAND as CONFIG_COMMAND
 from umutextstats.cli.explain import COMMAND as EXPLAIN_COMMAND
+from umutextstats.cli.extract import COMMAND as EXTRACT_COMMAND
 from umutextstats.cli.inspect import COMMAND as INSPECT_COMMAND
 from umutextstats.cli.summarize import COMMAND as SUMMARIZE_COMMAND
+from umutextstats.cli.vectorize import COMMAND as VECTORIZE_COMMAND
 
 
 COMMANDS = [
     ANALYZE_COMMAND,
+    EXTRACT_COMMAND,
     SUMMARIZE_COMMAND,
     AGGREGATE_COMMAND,
     CACHE_COMMAND,
     CONFIG_COMMAND,
     EXPLAIN_COMMAND,
     INSPECT_COMMAND,
+    VECTORIZE_COMMAND,
 ]
 
 
 def build_parser() -> argparse.ArgumentParser:
     parser = argparse.ArgumentParser(
         prog="umutextstats",
-        description="UMUTextStats linguistic feature extraction tool",
+        description=(
+            "UMUTextStats linguistic feature extraction tool"
+        ),
     )
 
-    subparsers = parser.add_subparsers(dest="command", required=True)
+    subparsers = parser.add_subparsers(
+        dest="command",
+        required=True,
+    )
 
     for command in COMMANDS:
         command_parser = subparsers.add_parser(
@@ -38,10 +47,11 @@ def build_parser() -> argparse.ArgumentParser:
             help=command.help,
         )
         command.add_arguments(command_parser)
-        command_parser.set_defaults(func=command.run)
+        command_parser.set_defaults(
+            func=command.run,
+        )
 
     return parser
-
 
 
 def main() -> None:
