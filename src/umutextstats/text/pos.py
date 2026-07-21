@@ -1,4 +1,5 @@
 from dataclasses import dataclass
+from dataclasses import replace
 
 from umutextstats.text.patterns import POS_ITEM_REGEX
 
@@ -80,37 +81,32 @@ def plain_text_from_tagged_pos(tagged_pos: str) -> str:
 
 
 def parse_tagged_pos_with_offsets(
-    tagged_pos: str,
-    text: str | None = None,
+    tagged_text: str,
 ) -> list[POSItem]:
-    if not tagged_pos:
+    """
+    Parse serialized POS items preserving absolute word offsets.
+
+    Offsets refer to the word inside the complete serialized tagged text.
+    """
+    if not tagged_text:
         return []
 
-    if text is None:
-        text = plain_text_from_tagged_pos(tagged_pos)
+    items = []
 
-    items: list[POSItem] = []
-    search_start = 0
+    for match in POS_ITEM_REGEX.finditer(tagged_text):
+        word = match.group("word") or ""
+        tag = match.group("tag") or ""
+        feats = match.group("feats") or ""
 
-    for item in parse_tagged_pos(tagged_pos):
-        start = text.find(item.word, search_start)
-
-        if start == -1:
-            start = text.find(item.word)
-
-        if start == -1:
-            continue
-
-        end = start + len(item.word)
-        search_start = end
+        word_start, word_end = match.span("word")
 
         items.append(
             POSItem(
-                word=item.word,
-                tag=item.tag,
-                feats=item.feats,
-                start=start,
-                end=end,
+                word=word,
+                tag=tag,
+                feats=feats,
+                start=word_start,
+                end=word_end,
             )
         )
 
@@ -119,3 +115,51 @@ def parse_tagged_pos_with_offsets(
 
 def looks_like_tagged_pos(text: str) -> bool:
     return "__(" in text and ")" in text
+
+def parse_tagged_pos_with_offsets(
+    tagged_text: str,
+) -> list[POSItem]:
+    """
+    Parse POS items and attach absolute word offsets.
+
+    The semantic parsing is delegated to `parse_tagged_pos()`.
+    Words are then located sequentially in the complete serialized
+    annotation.
+    """
+    if not tagged_text:
+        return []
+
+    parsed_items = parse_tagged_pos(tagged_text)
+
+    items_with_offsets = []
+    cursor = 0
+
+    for item in parsed_items:
+        start = tagged_text.find(
+            item.word,
+            cursor,
+        )
+
+        if start < 0:
+            items_with_offsets.append(
+                replace(
+                    item,
+                    start=None,
+                    end=None,
+                )
+            )
+            continue
+
+        end = start + len(item.word)
+
+        items_with_offsets.append(
+            replace(
+                item,
+                start=start,
+                end=end,
+            )
+        )
+
+        cursor = end
+
+    return items_with_offsets

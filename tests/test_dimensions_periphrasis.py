@@ -143,3 +143,85 @@ def test_empty_text():
     )
 
     assert result == [0]
+
+def test_periphrasis_result_contains_evidence():
+    text = "voy a salir y estoy trabajando"
+
+    tagged_pos = (
+        "voy__(AUX)(Mood=Ind|VerbForm=Fin), "
+        "a__(ADP)(), "
+        "salir__(VERB)(VerbForm=Inf), "
+        "y__(CCONJ)(), "
+        "estoy__(AUX)(Mood=Ind|VerbForm=Fin), "
+        "trabajando__(VERB)(VerbForm=Ger)"
+    )
+
+    df = pd.DataFrame(
+        {
+            "text_norm": [text],
+            "tagged_pos": [tagged_pos],
+        }
+    )
+
+    dimension = PeriphrasisDimension(
+        key="periphrases",
+        auxiliar_verbs=(
+            "voy (a)+infinitive, "
+            "estoy+gerund"
+        ),
+    )
+
+    result = dimension.compute_result(df)
+
+    assert result.values.tolist() == [2.0]
+    assert result.numerators.tolist() == [2]
+    assert result.denominators is None
+
+    assert result.evidence.iloc[0] == [
+        {
+            "text": "voy a salir",
+            "token_start": 0,
+            "token_end": 3,
+        },
+        {
+            "text": "estoy trabajando",
+            "token_start": 4,
+            "token_end": 6,
+        },
+    ]
+
+def test_periphrasis_compute_matches_compute_result():
+    text = "voy a salir y estoy trabajando"
+
+    tagged_pos = (
+        "voy__(AUX)(Mood=Ind|VerbForm=Fin), "
+        "a__(ADP)(), "
+        "salir__(VERB)(VerbForm=Inf), "
+        "y__(CCONJ)(), "
+        "estoy__(AUX)(Mood=Ind|VerbForm=Fin), "
+        "trabajando__(VERB)(VerbForm=Ger)"
+    )
+
+    df = pd.DataFrame(
+        {
+            "text_norm": [text],
+            "tagged_pos": [tagged_pos],
+        }
+    )
+
+    dimension = PeriphrasisDimension(
+        key="periphrases",
+        auxiliar_verbs=(
+            "voy (a)+infinitive, "
+            "estoy+gerund"
+        ),
+    )
+
+    expected = dimension.compute(df)
+    actual = dimension.compute_result(df).values
+
+    pd.testing.assert_series_equal(
+        actual,
+        expected.astype(float),
+        check_names=False,
+    )

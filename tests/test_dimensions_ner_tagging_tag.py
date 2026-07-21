@@ -2,8 +2,14 @@
 
 import pandas as pd
 
-from umutextstats.dimensions.ner_tagging_tag import NERTaggingTag
+from umutextstats.text.patterns import NER_ITEM_REGEX
+from umutextstats.dimensions.ner_tagging_tag import (
+    NERTaggingTag,
+    NER_NORMALIZER_ENTITIES,
+    NER_NORMALIZER_WORDS,
+)
 
+from umutextstats.text.patterns import NER_ITEM_REGEX
 
 def compute(tagged_ner, tag, normalizer="entities"):
     df = pd.DataFrame({"tagged_ner": tagged_ner})
@@ -101,3 +107,86 @@ def test_unknown_normalizer_raises_error():
         assert False
     except ValueError as exc:
         assert "Unknown NER normalizer" in str(exc)
+
+def test_ner_result_contains_evidence():
+    tagged = "PER(Samuel), LOC(Madrid)"
+
+    df = pd.DataFrame(
+        {
+            "tagged_ner": [tagged],
+        }
+    )
+
+    dimension = NERTaggingTag(
+        key="persons",
+        tag="PER",
+        normalizer=NER_NORMALIZER_ENTITIES,
+    )
+
+    result = dimension.compute_result(df)
+
+    assert result.values.tolist() == [50.0]
+    assert result.numerators.tolist() == [1]
+    assert result.denominators.tolist() == [2]
+
+    assert result.evidence.iloc[0] == [
+        {
+            "text": "Samuel",
+            "tag": "PER",
+            "start": 4,
+            "end": 10,
+        }
+    ]
+
+    evidence = result.evidence.iloc[0][0]
+
+    assert (
+        tagged[evidence["start"]:evidence["end"]]
+        == evidence["text"]
+    )
+
+def test_ner_compute_matches_compute_result():
+    tagged = "PER(Samuel), LOC(Madrid)"
+
+    df = pd.DataFrame(
+        {
+            "tagged_ner": [tagged],
+        }
+    )
+
+    dimension = NERTaggingTag(
+        key="persons",
+        tag="PER",
+        normalizer=NER_NORMALIZER_ENTITIES,
+    )
+
+    expected = dimension.compute(df)
+    actual = dimension.compute_result(df).values
+
+    pd.testing.assert_series_equal(
+        actual,
+        expected,
+        check_dtype=False,
+        check_names=False,
+    )
+
+def test_ner_word_normalizer_is_preserved():
+    tagged = "PER(Samuel) LOC(Madrid)"
+
+    df = pd.DataFrame(
+        {
+            "tagged_ner": [tagged],
+        }
+    )
+
+    dimension = NERTaggingTag(
+        key="persons",
+        tag="PER",
+        normalizer=NER_NORMALIZER_WORDS,
+    )
+
+    result = dimension.compute_result(df)
+
+    assert result.numerators.tolist() == [1]
+    assert result.denominators.tolist() == [2]
+    assert result.values.tolist() == [50.0]

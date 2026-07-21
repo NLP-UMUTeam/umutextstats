@@ -59,3 +59,31 @@ def test_tag_and_universal():
 
 def test_empty_tagged_pos():
     assert compute([""], universal="Gender=Fem") == [0.0]
+
+def test_pos_tag_compute_matches_compute_result():
+    tagged = (
+        "casa__(NOUN)(Gender=Fem), "
+        "bonita__(ADJ)(Gender=Fem), "
+        "perro__(NOUN)(Gender=Masc)"
+    )
+
+    df = pd.DataFrame(
+        {
+            "tagged_pos": [tagged],
+        }
+    )
+
+    dimension = POSTaggingTag(
+        key="nouns",
+        postagger_tag="NOUN",
+    )
+
+    expected = dimension.compute(df)
+    actual = dimension.compute_result(df).values
+
+    pd.testing.assert_series_equal(
+        actual,
+        expected,
+        check_dtype=False,
+        check_names=False,
+    )

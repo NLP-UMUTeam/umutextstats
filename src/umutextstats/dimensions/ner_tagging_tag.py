@@ -1,9 +1,13 @@
+from __future__ import annotations
+
 from dataclasses import dataclass
 
+import numpy as np
 import pandas as pd
 
-from umutextstats.dimensions.mixins import TextComputeMixin
 from umutextstats.config.params import param
+from umutextstats.dimensions.mixins import TextComputeMixin
+from umutextstats.dimensions.results import DimensionComputation
 from umutextstats.inspection.iterable_inspectable_dimension import (
     IterableInspectableDimension,
 )
@@ -15,35 +19,55 @@ NER_NORMALIZER_ENTITIES = "entities"
 
 
 @dataclass(frozen=True)
+class NEREntity:
+    """
+    Parsed NER entity with offsets in the serialized NER input.
+    """
+
+    text: str
+    tag: str
+    start: int
+    end: int
+
+
+@dataclass(frozen=True)
 class NERMatch:
     """
     Regex-like match object used by the inspection layer.
     """
 
-    text: str
-    start_pos: int
-    end_pos: int
+    entity: NEREntity
 
-    def group(self, index: int = 0) -> str:
+    def group(
+        self,
+        index: int = 0,
+    ) -> str:
         if index != 0:
             raise IndexError(index)
 
-        return self.text
+        return self.entity.text
 
     def start(self) -> int:
-        return self.start_pos
+        return self.entity.start
 
     def end(self) -> int:
-        return self.end_pos
+        return self.entity.end
 
 
-class NERTaggingTag(TextComputeMixin, IterableInspectableDimension):
+class NERTaggingTag(
+    TextComputeMixin,
+    IterableInspectableDimension,
+):
     """
     Compute the percentage of NER entities matching a configured tag.
 
     The denominator can be either:
-    - the number of detected entities
-    - the number of whitespace-separated words in the tagged NER string
+
+    - the number of detected entities;
+    - the number of whitespace-separated words in the serialized
+      tagged NER string.
+
+    Evidence offsets refer to the serialized `tagged_ner` input.
     """
 
     def __init__(
@@ -53,7 +77,11 @@ class NERTaggingTag(TextComputeMixin, IterableInspectableDimension):
         input_column: str = "tagged_ner",
         normalizer: str = NER_NORMALIZER_ENTITIES,
     ):
-        super().__init__(key=key, input_column=input_column)
+        super().__init__(
+            key=key,
+            input_column=input_column,
+        )
+
         self.tag = tag
         self.normalizer = normalizer
 
@@ -68,7 +96,10 @@ class NERTaggingTag(TextComputeMixin, IterableInspectableDimension):
         """
         return cls(
             key=dimension.key,
-            tag=param(dimension, "tag"),
+            tag=param(
+                dimension,
+                "tag",
+            ),
             input_column=input_column,
             normalizer=param(
                 dimension,
@@ -77,46 +108,46 @@ class NERTaggingTag(TextComputeMixin, IterableInspectableDimension):
             ),
         )
 
-    def iter_matches(
+    def _analyze_text(
         self,
         tagged_ner: str,
-    ):
+    ) -> tuple[list[NEREntity], list[NEREntity]]:
         """
-        Yield matching NER entities for inspection.
+        Parse all entities and select those matching the configured tag.
+
+        This is the single source of truth for computation, inspection,
+        and structured extraction.
         """
-        tagged_ner = "" if tagged_ner is None else str(tagged_ner)
+        entities = self._parse_entities(
+            tagged_ner
+        )
 
-        for match in NER_ITEM_REGEX.finditer(tagged_ner):
-            tag = match.group("tag") or ""
-            text = match.group("text") or ""
+        if not self.tag:
+            return entities, []
 
-            if self.tag and tag != self.tag:
-                continue
+        matches = [
+            entity
+            for entity in entities
+            if entity.tag == self.tag
+        ]
 
-            yield NERMatch(
-                text=text,
-                start_pos=match.start(),
-                end_pos=match.end(),
-            )
+        return entities, matches
 
     def _compute_text(
         self,
         tagged_ner: str,
     ) -> float:
         """
-        Compute the percentage of entities matching the configured NER tag.
+        Compute the percentage of entities matching the configured tag.
         """
-        tagged_ner = "" if tagged_ner is None else str(tagged_ner)
+        tagged_ner = (
+            ""
+            if tagged_ner is None
+            else str(tagged_ner)
+        )
 
-        if not self.tag:
-            return 0.0
-
-        entities = self._parse_entities(tagged_ner)
-
-        matches = sum(
-            1
-            for entity in entities
-            if entity["tag"] == self.tag
+        entities, matches = self._analyze_text(
+            tagged_ner
         )
 
         denominator = self._get_denominator(
@@ -127,12 +158,118 @@ class NERTaggingTag(TextComputeMixin, IterableInspectableDimension):
         if denominator == 0:
             return 0.0
 
-        return (100 * matches) / denominator
+        return (
+            100.0
+            * len(matches)
+            / denominator
+        )
+
+    def compute_result(
+        self,
+        df: pd.DataFrame,
+    ) -> DimensionComputation:
+        """
+        Compute values, numerators, denominators, and NER evidence.
+        """
+        tagged_texts = self.get_text_series(df)
+
+        analyses = tagged_texts.apply(
+            self._analyze_text
+        )
+
+        entities = analyses.apply(
+            lambda analysis: analysis[0]
+        )
+
+        matched_entities = analyses.apply(
+            lambda analysis: analysis[1]
+        )
+
+        numerators = matched_entities.apply(
+            len
+        )
+
+        denominators = pd.Series(
+            (
+                self._get_denominator(
+                    tagged_ner=tagged_ner,
+                    entities=document_entities,
+                )
+                for tagged_ner, document_entities in zip(
+                    tagged_texts,
+                    entities,
+                )
+            ),
+            index=df.index,
+        )
+
+        evidence = matched_entities.apply(
+            self._entities_to_evidence
+        )
+
+        numerator_array = numerators.to_numpy(
+            dtype=float
+        )
+
+        denominator_array = denominators.to_numpy(
+            dtype=float
+        )
+
+        percentages = np.zeros_like(
+            numerator_array,
+            dtype=float,
+        )
+
+        np.divide(
+            100.0 * numerator_array,
+            denominator_array,
+            out=percentages,
+            where=denominator_array != 0,
+        )
+
+        normalization_unit = {
+            NER_NORMALIZER_ENTITIES: "ner_entities",
+            NER_NORMALIZER_WORDS: (
+                "serialized_ner_whitespace_words"
+            ),
+        }[self.normalizer]
+
+        return DimensionComputation(
+            values=pd.Series(
+                percentages,
+                index=df.index,
+            ),
+            numerators=numerators,
+            denominators=denominators,
+            evidence=evidence,
+            metadata={
+                "measure": "rate",
+                "normalization_unit": normalization_unit,
+                "scale": 100.0,
+                "evidence_offset_unit": (
+                    "serialized_ner_characters"
+                ),
+            },
+        )
+
+    def iter_matches(
+        self,
+        tagged_ner: str,
+    ):
+        """
+        Yield the same matching entities used by computation.
+        """
+        _, matches = self._analyze_text(
+            tagged_ner
+        )
+
+        for entity in matches:
+            yield NERMatch(entity)
 
     def _get_denominator(
         self,
         tagged_ner: str,
-        entities: list[dict[str, str]],
+        entities: list[NEREntity],
     ) -> int:
         """
         Return the denominator according to the configured normalizer.
@@ -143,27 +280,61 @@ class NERTaggingTag(TextComputeMixin, IterableInspectableDimension):
         if self.normalizer == NER_NORMALIZER_WORDS:
             return len(tagged_ner.split())
 
-        raise ValueError(f"Unknown NER normalizer: {self.normalizer}")
+        raise ValueError(
+            f"Unknown NER normalizer: {self.normalizer}"
+        )
 
-    def _parse_entities(
-        self,
-        tagged_ner: str,
-    ) -> list[dict[str, str]]:
+    @staticmethod
+    def _entities_to_evidence(
+        entities: list[NEREntity],
+    ) -> list[dict]:
         """
-        Parse tagged NER text into entity dictionaries.
+        Convert matching entities to serializable evidence.
+        """
+        return [
+            {
+                "text": entity.text,
+                "tag": entity.tag,
+                "start": entity.start,
+                "end": entity.end,
+            }
+            for entity in entities
+        ]
+
+    @staticmethod
+    def _parse_entities(
+        tagged_ner: str,
+    ) -> list[NEREntity]:
+        """
+        Parse NER entities with absolute offsets in `tagged_ner`.
         """
         if not tagged_ner:
             return []
 
-        return [
-            {
-                "tag": match.group("tag") or "",
-                "text": match.group("text") or "",
-            }
-            for match in NER_ITEM_REGEX.finditer(tagged_ner)
-        ]
+        entities = []
 
-    def inspection_debug_text(self) -> str:
+        for match in NER_ITEM_REGEX.finditer(
+            tagged_ner
+        ):
+            text = match.group("text") or ""
+            tag = match.group("tag") or ""
+
+            start, end = match.span("text")
+
+            entities.append(
+                NEREntity(
+                    text=text,
+                    tag=tag,
+                    start=start,
+                    end=end,
+                )
+            )
+
+        return entities
+
+    def inspection_debug_text(
+        self,
+    ) -> str:
         """
         Return configuration details used during inspection.
         """

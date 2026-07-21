@@ -1,4 +1,7 @@
-from umutextstats.config.params import param, percentage_param
+from umutextstats.config.params import (
+    param,
+    percentage_param,
+)
 from umutextstats.dimensions.pattern import PatternDimension
 
 
@@ -29,3 +32,16 @@ class POSTaggingExpression(PatternDimension):
             input_column="tagged_pos",
             percentage=percentage_param(dimension),
         )
+
+    def compute_result(
+        self,
+        df,
+    ):
+        result = super().compute_result(df)
+
+        if self.percentage:
+            result.metadata["normalization_unit"] = (
+                "serialized_pos_characters"
+            )
+
+        return result

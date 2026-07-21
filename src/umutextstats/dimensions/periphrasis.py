@@ -6,9 +6,8 @@ import pandas as pd
 import regex as re
 
 from umutextstats.config.params import param
-from umutextstats.inspection.iterable_inspectable_dimension import (
-    IterableInspectableDimension,
-)
+from umutextstats.inspection.iterable_inspectable_dimension import IterableInspectableDimension
+from umutextstats.dimensions.results import DimensionComputation
 from umutextstats.inspection.models import DimensionInspection
 from umutextstats.text.patterns import POS_ITEM_REGEX
 from umutextstats.text.tokenization import get_lexical_tokens
@@ -89,16 +88,7 @@ class PeriphrasisDimension(IterableInspectableDimension):
         """
         Compute the number of verbal periphrases for a single row.
         """
-        text = self.get_text(row)
-        tagged_pos = self.get_text(
-            row=row,
-            column=self.tagged_pos_column,
-        )
-
-        return self._compute_text(
-            text=text,
-            tagged_pos=tagged_pos,
-        )
+        return len(self._analyze_row(row))
 
     def compute(
         self,
@@ -109,28 +99,63 @@ class PeriphrasisDimension(IterableInspectableDimension):
         """
         return df.apply(self._compute_row, axis=1)
 
+    def compute_result(
+        self,
+        df: pd.DataFrame,
+    ) -> DimensionComputation:
+        """
+        Compute periphrasis counts and structured evidence.
+        """
+        analyses = df.apply(
+            self._analyze_row,
+            axis=1,
+        )
+
+        evidence = analyses.apply(
+            lambda matches: [
+                self._to_evidence(match)
+                for match in matches
+            ]
+        )
+
+        numerators = evidence.apply(len)
+
+        return DimensionComputation(
+            values=numerators.astype(float),
+            numerators=numerators,
+            evidence=evidence,
+            metadata={
+                "measure": "count",
+                "unit": "verbal_periphrases",
+                "evidence_position_unit": "lexical_token_indices",
+            },
+        )
+
+    @staticmethod
+    def _to_evidence(
+        match: PeriphrasisMatch,
+    ) -> dict:
+        """
+        Convert a detected periphrasis to structured evidence.
+
+        Positions are lexical-token indices, not character offsets.
+        """
+        return {
+            "text": match.text,
+            "token_start": match.start_pos,
+            "token_end": match.end_pos,
+        }
+
     def inspect(
         self,
         row: pd.Series,
     ) -> DimensionInspection:
         """
         Inspect the detected periphrases for a single row.
-
-        This overrides the default iterable inspection because this
-        dimension needs both text and POS annotations.
         """
-        text = self.get_text(row)
-        tagged_pos = self.get_text(
-            row=row,
-            column=self.tagged_pos_column,
-        )
-
         matches = [
             self._to_inspect_match(match)
-            for match in self._iter_periphrases(
-                text=text,
-                tagged_pos=tagged_pos,
-            )
+            for match in self._analyze_row(row)
         ]
 
         return DimensionInspection(
@@ -144,6 +169,7 @@ class PeriphrasisDimension(IterableInspectableDimension):
                 value=len(matches),
             ),
         )
+
 
     def iter_matches(
         self,
@@ -164,16 +190,7 @@ class PeriphrasisDimension(IterableInspectableDimension):
         """
         Compute the dimension from a DataFrame row.
         """
-        text = self.get_text(row)
-        tagged_pos = self.get_text(
-            row=row,
-            column=self.tagged_pos_column,
-        )
-
-        return self._compute_text(
-            text=text,
-            tagged_pos=tagged_pos,
-        )
+        return len(self._analyze_row(row))
 
     def _compute_text(
         self,
@@ -384,4 +401,25 @@ class PeriphrasisDimension(IterableInspectableDimension):
         return (
             f"Auxiliary patterns: {len(self.auxiliar_verbs)}\n"
             f"Tagged POS column: {self.tagged_pos_column}"
+        )
+    
+    def _analyze_row(
+        self,
+        row: pd.Series,
+    ) -> list[PeriphrasisMatch]:
+        """
+        Return all periphrases detected for a row.
+        """
+        text = self.get_text(row)
+
+        tagged_pos = self.get_text(
+            row=row,
+            column=self.tagged_pos_column,
+        )
+
+        return list(
+            self._iter_periphrases(
+                text=text,
+                tagged_pos=tagged_pos,
+            )
         )
