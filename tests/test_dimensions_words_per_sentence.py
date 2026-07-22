@@ -99,3 +99,63 @@ def test_apostrophe_word_counts_as_one():
 
 def test_emojis_are_not_words():
     assert compute(["hola 😊 mundo."]) == [2.0]
+
+def test_words_per_sentence_result():
+    df = pd.DataFrame(
+        {
+            "text_norm": [
+                "Uno dos tres. Cuatro cinco."
+            ]
+        }
+    )
+
+    dimension = WordPerSentenceDimension(
+        key="words_per_sentence"
+    )
+
+    result = dimension.compute_result(df)
+
+    assert result.numerators.tolist() == [5]
+    assert result.denominators.tolist() == [2]
+    assert result.values.tolist() == [2.5]
+    assert result.evidence is None
+
+def test_words_per_sentence_compute_matches_result():
+    df = pd.DataFrame(
+        {
+            "text_norm": [
+                "Uno dos tres. Cuatro cinco.",
+                "",
+                "Texto sin puntuación",
+            ]
+        }
+    )
+
+    dimension = WordPerSentenceDimension(
+        key="words_per_sentence"
+    )
+
+    expected = dimension.compute(df)
+    actual = dimension.compute_result(df).values
+
+    pd.testing.assert_series_equal(
+        actual,
+        expected,
+        check_dtype=False,
+        check_names=False,
+    )
+
+def test_words_per_sentence_empty_text():
+    df = pd.DataFrame(
+        {
+            "text_norm": [""]
+        }
+    )
+
+    result = WordPerSentenceDimension(
+        key="words_per_sentence"
+    ).compute_result(df)
+
+    assert result.values.tolist() == [0.0]
+    assert result.numerators.tolist() == [0]
+    assert result.denominators.tolist() == [0]

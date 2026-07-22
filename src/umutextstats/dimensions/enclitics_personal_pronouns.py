@@ -5,9 +5,8 @@ import regex as re
 
 from umutextstats.config.params import dictionary_param
 from umutextstats.dictionaries import DictionaryLoader
-from umutextstats.inspection.iterable_inspectable_dimension import (
-    IterableInspectableDimension,
-)
+from umutextstats.inspection.iterable_inspectable_dimension import IterableInspectableDimension
+from umutextstats.dimensions.results import DimensionComputation
 from umutextstats.text.patterns import ENCLITIC_REGEX
 from umutextstats.text.tokenization import get_lexical_tokens
 
@@ -97,7 +96,7 @@ class EncliticsPersonalPronounsDictionary(IterableInspectableDimension):
         Compute the enclitic pronoun percentage for a single row.
         """
         text = self.get_text(row)
-        count = self._count_text(text)
+        matches = self._get_matches(text)
 
         total_words = len(
             get_lexical_tokens(text)
@@ -106,7 +105,11 @@ class EncliticsPersonalPronounsDictionary(IterableInspectableDimension):
         if total_words == 0:
             return 0.0
 
-        return (100 * count) / total_words
+        return (
+            100.0
+            * len(matches)
+            / total_words
+        )
 
     def compute(
         self,
@@ -115,20 +118,7 @@ class EncliticsPersonalPronounsDictionary(IterableInspectableDimension):
         """
         Compute the enclitic pronoun percentage for all rows.
         """
-        texts = self.get_text_series(df)
-
-        counts = texts.apply(self._count_text)
-        total_words = texts.apply(
-            lambda text: len(get_lexical_tokens(text))
-        )
-
-        result = (
-            100 * counts / total_words.replace(0, 1)
-        ).astype(float)
-
-        result[total_words == 0] = 0.0
-
-        return result
+        return self.compute_result(df).values
 
     def iter_matches(
         self,
@@ -146,6 +136,73 @@ class EncliticsPersonalPronounsDictionary(IterableInspectableDimension):
         for pattern in self.patterns:
             yield from pattern.finditer(normalized_text)
 
+    def compute_result(
+        self,
+        df: pd.DataFrame,
+    ) -> DimensionComputation:
+        """
+        Compute percentages, counts, denominators, and evidence.
+        """
+        texts = self.get_text_series(df)
+
+        matches = texts.apply(
+            self._get_matches
+        )
+
+        numerators = matches.apply(len)
+
+        denominators = texts.apply(
+            lambda text: len(
+                get_lexical_tokens(text)
+            )
+        )
+
+        values = (
+            100
+            * numerators
+            / denominators.replace(0, 1)
+        ).astype(float)
+
+        values[denominators == 0] = 0.0
+
+        evidence = matches.apply(
+            self._matches_to_evidence
+        )
+
+        return DimensionComputation(
+            values=values,
+            numerators=numerators,
+            denominators=denominators,
+            evidence=evidence,
+            metadata={
+                "measure": "rate",
+                "normalization_unit": "lexical_tokens",
+                "scale": 100.0,
+                "evidence_offset_unit": (
+                    "accent_normalized_characters"
+                ),
+            },
+        )
+
+    @staticmethod
+    def _matches_to_evidence(
+        matches,
+    ) -> list[dict]:
+        """
+        Convert regex matches to serializable evidence.
+
+        Offsets refer to the lowercased, accent-normalized text used
+        during matching.
+        """
+        return [
+            {
+                "text": match.group(0),
+                "start": match.start(),
+                "end": match.end(),
+            }
+            for match in matches
+        ]
+
     def _count_text(
         self,
         text: str,
@@ -153,13 +210,7 @@ class EncliticsPersonalPronounsDictionary(IterableInspectableDimension):
         """
         Count enclitic pronoun matches in a text.
         """
-        if not text:
-            return 0
-
-        return sum(
-            1
-            for _ in self.iter_matches(text)
-        )
+        return len(self._get_matches(text))
 
     def inspection_debug_text(self) -> str:
         """
@@ -170,3 +221,12 @@ class EncliticsPersonalPronounsDictionary(IterableInspectableDimension):
             f"Compiled patterns: {len(self.patterns)}\n"
             "Text is lowercased and accents are removed before matching"
         )
+    
+    def _get_matches(
+        self,
+        text: str,
+    ) -> list:
+        """
+        Return all accepted enclitic matches in normalized text.
+        """
+        return list(self.iter_matches(text))

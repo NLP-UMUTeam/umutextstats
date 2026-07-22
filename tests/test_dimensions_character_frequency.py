@@ -103,10 +103,167 @@ def test_whitespace_regex_counts_tabs():
 
 
 def test_whitespace_regex_counts_mixed_whitespace():
-    assert compute(["a b\tc\nd"], r"\s") == [50.0]
+    assert compute(["a b\tc\nd"], r"\s") == [
+        100 * 3 / 7
+    ]
 
+def compute_result(texts, chars):
+    df = pd.DataFrame(
+        {
+            "text_norm": texts,
+        }
+    )
 
-def test_whitespace_regex_counts_mixed_whitespace():
-    result = compute(["a b\tc\nd"], r"\s")
+    dimension = CharacterFrequencyDimension(
+        key="chars",
+        chars=chars,
+    )
 
-    assert result[0] == 100 * 3 / 7
+    return dimension.compute_result(df)
+
+def test_character_result_contains_counts():
+    result = compute_result(
+        ["banana"],
+        "an",
+    )
+
+    assert result.values.tolist() == [
+        100 * 5 / 6
+    ]
+
+    assert result.numerators.tolist() == [5]
+    assert result.denominators.tolist() == [6]
+
+def test_character_result_contains_evidence():
+    text = "banana"
+
+    result = compute_result(
+        [text],
+        "an",
+    )
+
+    evidence = result.evidence.iloc[0]
+
+    assert len(evidence) == 5
+
+    assert [
+        item["text"]
+        for item in evidence
+    ] == [
+        "a",
+        "n",
+        "a",
+        "n",
+        "a",
+    ]
+
+    for item in evidence:
+        assert (
+            text[
+                item["start"]:
+                item["end"]
+            ]
+            == item["text"]
+        )
+
+def test_character_result_deduplicates_configured_chars():
+    result = compute_result(
+        ["aaaa"],
+        "aa",
+    )
+
+    assert result.values.tolist() == [100.0]
+    assert result.numerators.tolist() == [4]
+    assert result.denominators.tolist() == [4]
+    assert len(result.evidence.iloc[0]) == 4
+
+def test_whitespace_result_contains_evidence():
+    text = "a b\tc\nd"
+
+    result = compute_result(
+        [text],
+        r"\s",
+    )
+
+    assert result.numerators.tolist() == [3]
+    assert result.denominators.tolist() == [7]
+    assert result.values.tolist() == [
+        100 * 3 / 7
+    ]
+
+    assert [
+        item["text"]
+        for item in result.evidence.iloc[0]
+    ] == [
+        " ",
+        "\t",
+        "\n",
+    ]
+
+def test_empty_text_result():
+    result = compute_result(
+        [""],
+        "a",
+    )
+
+    assert result.values.tolist() == [0.0]
+    assert result.numerators.tolist() == [0]
+    assert result.denominators.tolist() == [0]
+    assert result.evidence.iloc[0] == []
+
+def test_character_compute_matches_compute_result():
+    texts = [
+        "hola",
+        "banana",
+        "",
+        "niño",
+        "a b\tc\nd",
+    ]
+
+    df = pd.DataFrame(
+        {
+            "text_norm": texts,
+        }
+    )
+
+    dimension = CharacterFrequencyDimension(
+        key="chars",
+        chars="a",
+    )
+
+    expected = dimension.compute(df)
+    actual = dimension.compute_result(df).values
+
+    pd.testing.assert_series_equal(
+        actual,
+        expected,
+        check_dtype=False,
+        check_names=False,
+    )
+
+def test_whitespace_compute_matches_compute_result():
+    df = pd.DataFrame(
+        {
+            "text_norm": [
+                "hola mundo",
+                "hola\nmundo",
+                "hola\tmundo",
+                "",
+            ],
+        }
+    )
+
+    dimension = CharacterFrequencyDimension(
+        key="whitespace",
+        chars=r"\s",
+    )
+
+    expected = dimension.compute(df)
+    actual = dimension.compute_result(df).values
+
+    pd.testing.assert_series_equal(
+        actual,
+        expected,
+        check_dtype=False,
+        check_names=False,
+    )

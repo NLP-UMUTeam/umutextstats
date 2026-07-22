@@ -5,6 +5,7 @@ import pandas as pd
 
 from umutextstats.config.models import DimensionConfig, UMUTextStatsConfig
 from umutextstats.dimensions.engine import DimensionEngine
+from umutextstats.dimensions.ratio import RatioDimension
 
 
 def make_config(
@@ -143,3 +144,29 @@ def test_ratio_dimension_with_dependency_tags():
     result = engine.compute(df)
 
     assert round(result["syntax-ratios-core-arguments"][0], 2) == 0.67
+
+def test_ratio_compute_result_from_data():
+    dimension = RatioDimension(
+        key="ratio",
+        numerator=["a", "b"],
+        denominator=["total"],
+        scale=100,
+    )
+
+    data = {
+        "a": pd.Series([2.0, 1.0]),
+        "b": pd.Series([3.0, 1.0]),
+        "total": pd.Series([20.0, 0.0]),
+    }
+
+    result = dimension.compute_result_from_data(
+        data=data,
+        n_rows=2,
+    )
+
+    assert result.values.tolist() == [25.0, 0.0]
+    assert result.numerators.tolist() == [5.0, 2.0]
+    assert result.denominators.tolist() == [20.0, 0.0]
+
+    assert result.metadata["measure"] == "ratio"
+    assert result.metadata["scale"] == 100.0

@@ -55,3 +55,101 @@ def test_empty():
     result = compute([""])
     assert result == [0.0]
 
+
+def test_enclitics_result_contains_evidence():
+    df = pd.DataFrame(
+        {
+            "text_norm": [
+                "Quiero dámelo mañana",
+            ],
+        }
+    )
+
+    dimension = EncliticsPersonalPronounsDictionary(
+        key="enclitics",
+        dictionary_name="verbs",
+        dictionary_loader=DummyDictionaryLoader(),
+    )
+
+    result = dimension.compute_result(df)
+
+    assert result.numerators.tolist() == [1]
+    assert result.denominators.tolist() == [3]
+    assert result.values.tolist() == [
+        100.0 / 3
+    ]
+
+    evidence = result.evidence.iloc[0]
+
+    assert len(evidence) == 1
+    assert evidence[0]["text"] == "damelo"
+
+    normalized = remove_accents(
+        df.iloc[0]["text_norm"].lower()
+    )
+
+    assert (
+        normalized[
+            evidence[0]["start"]:
+            evidence[0]["end"]
+        ]
+        == evidence[0]["text"]
+    )
+
+def test_enclitics_compute_single_matches_compute_result():
+    df = pd.DataFrame(
+        {
+            "text_norm": [
+                "Quiero dámelo mañana",
+                "No hay coincidencias",
+                "",
+            ],
+        }
+    )
+
+    dimension = EncliticsPersonalPronounsDictionary(
+        key="enclitics",
+        dictionary_name="verbs",
+        dictionary_loader=DummyDictionaryLoader(),
+    )
+
+    expected = df.apply(
+        dimension.compute_single,
+        axis=1,
+    )
+
+    actual = dimension.compute_result(df).values
+
+    pd.testing.assert_series_equal(
+        actual,
+        expected,
+        check_dtype=False,
+        check_names=False,
+    )
+
+def test_enclitics_result_contains_multiple_matches():
+    df = pd.DataFrame(
+        {
+            "text_norm": [
+                "Dámelo y cómetelo",
+            ],
+        }
+    )
+
+    dimension = EncliticsPersonalPronounsDictionary(
+        key="enclitics",
+        dictionary_name="verbs",
+        dictionary_loader=DummyDictionaryLoader(),
+    )
+
+    result = dimension.compute_result(df)
+
+    assert result.numerators.tolist() == [2]
+
+    assert [
+        item["text"]
+        for item in result.evidence.iloc[0]
+    ] == [
+        "damelo",
+        "cometelo",
+    ]

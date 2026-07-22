@@ -3,13 +3,14 @@ from dataclasses import dataclass
 import pandas as pd
 import regex as re
 
+from umutextstats.config.params import param
+from umutextstats.dimensions.results import DimensionComputation
 from umutextstats.inspection.iterable_inspectable_dimension import (
     IterableInspectableDimension,
 )
 from umutextstats.inspection.scalar_inspectable_dimension import (
     ScalarInspectableDimension,
 )
-from umutextstats.config.params import param
 from umutextstats.text.patterns import LEXICAL_TOKEN_REGEX
 from umutextstats.text.syllables import count_syllables_text
 
@@ -24,7 +25,10 @@ class CharacterMatch:
     start_pos: int
     end_pos: int
 
-    def group(self, index: int = 0) -> str:
+    def group(
+        self,
+        index: int = 0,
+    ) -> str:
         if index != 0:
             raise IndexError(index)
 
@@ -73,8 +77,28 @@ class WordCountDimension(ScalarInspectableDimension):
             )
         )
 
+    def compute_result(
+        self,
+        df: pd.DataFrame,
+    ) -> DimensionComputation:
+        """
+        Compute lexical-token counts with structured metadata.
+        """
+        values = self.compute(df)
 
-class CharacterFrequencyDimension(IterableInspectableDimension):
+        return DimensionComputation(
+            values=values,
+            numerators=values.copy(),
+            metadata={
+                "measure": "count",
+                "unit": "lexical_tokens",
+            },
+        )
+
+
+class CharacterFrequencyDimension(
+    IterableInspectableDimension
+):
     """
     Compute the percentage of selected characters in the configured text.
 
@@ -113,7 +137,11 @@ class CharacterFrequencyDimension(IterableInspectableDimension):
         """
         Build the dimension from configuration.
         """
-        chars = param(dimension, "character", "")
+        chars = param(
+            dimension,
+            "character",
+            "",
+        )
 
         if chars == "SPACE":
             chars = " "
@@ -138,7 +166,11 @@ class CharacterFrequencyDimension(IterableInspectableDimension):
 
         count = self._count_chars(text)
 
-        return (100 * count) / len(text)
+        return (
+            100.0
+            * count
+            / len(text)
+        )
 
     def compute(
         self,
@@ -149,16 +181,69 @@ class CharacterFrequencyDimension(IterableInspectableDimension):
         """
         texts = self.get_text_series(df)
 
-        counts = texts.apply(self._count_chars)
+        counts = texts.apply(
+            self._count_chars
+        )
+
         total_length = texts.str.len()
 
         result = (
-            100 * counts / total_length.replace(0, 1)
+            100.0
+            * counts
+            / total_length.replace(0, 1)
         ).astype(float)
 
         result[total_length == 0] = 0.0
 
         return result
+
+    def compute_result(
+        self,
+        df: pd.DataFrame,
+    ) -> DimensionComputation:
+        """
+        Compute character frequencies with counts and evidence.
+        """
+        texts = self.get_text_series(df)
+
+        matches = texts.apply(
+            lambda text: list(
+                self.iter_matches(text)
+            )
+        )
+
+        numerators = matches.apply(len)
+        denominators = texts.str.len()
+
+        values = (
+            100.0
+            * numerators
+            / denominators.replace(0, 1)
+        ).astype(float)
+
+        values[denominators == 0] = 0.0
+
+        evidence = matches.apply(
+            self._matches_to_evidence
+        )
+
+        return DimensionComputation(
+            values=values,
+            numerators=numerators,
+            denominators=denominators,
+            evidence=evidence,
+            metadata={
+                "measure": "rate",
+                "numerator_unit": (
+                    "matching_characters"
+                ),
+                "normalization_unit": "characters",
+                "scale": 100.0,
+                "evidence_offset_unit": (
+                    "text_characters"
+                ),
+            },
+        )
 
     def iter_matches(
         self,
@@ -167,7 +252,11 @@ class CharacterFrequencyDimension(IterableInspectableDimension):
         """
         Yield matching characters for inspection.
         """
-        text = "" if text is None else str(text)
+        text = (
+            ""
+            if text is None
+            else str(text)
+        )
 
         if not text:
             return
@@ -192,21 +281,29 @@ class CharacterFrequencyDimension(IterableInspectableDimension):
         text: str,
     ) -> int:
         """
-        Count selected characters in a text.
+        Count selected characters using the same matching logic
+        employed by inspection and structured extraction.
         """
-        if not text:
-            return 0
-
-        if self.pattern is not None:
-            return len(self.pattern.findall(text))
-
-        if not self.chars:
-            return 0
-
         return sum(
-            text.count(char)
-            for char in self.chars
+            1
+            for _ in self.iter_matches(text)
         )
+
+    @staticmethod
+    def _matches_to_evidence(
+        matches,
+    ) -> list[dict]:
+        """
+        Convert character matches to serializable evidence.
+        """
+        return [
+            {
+                "text": match.group(0),
+                "start": match.start(),
+                "end": match.end(),
+            }
+            for match in matches
+        ]
 
 
 class SyllableCountDimension(ScalarInspectableDimension):
@@ -239,6 +336,24 @@ class SyllableCountDimension(ScalarInspectableDimension):
 
         return self.get_text_series(df).apply(
             count_syllables_text
+        )
+
+    def compute_result(
+        self,
+        df: pd.DataFrame,
+    ) -> DimensionComputation:
+        """
+        Compute syllable counts with structured metadata.
+        """
+        values = self.compute(df)
+
+        return DimensionComputation(
+            values=values,
+            numerators=values.copy(),
+            metadata={
+                "measure": "count",
+                "unit": "syllables",
+            },
         )
 
 
@@ -283,9 +398,34 @@ class SentenceCountDimension(ScalarInspectableDimension):
             return df["sentence_count"]
 
         text = self.get_text_series(df).str.strip()
-        sentence_count = text.str.count(r"[.!?]+")
+
+        sentence_count = text.str.count(
+            r"[.!?]+"
+        )
 
         return sentence_count.where(
-            (text == "") | (sentence_count > 0),
+            (text == "")
+            | (sentence_count > 0),
             1,
+        )
+
+    def compute_result(
+        self,
+        df: pd.DataFrame,
+    ) -> DimensionComputation:
+        """
+        Compute sentence counts with structured metadata.
+        """
+        values = self.compute(df)
+
+        return DimensionComputation(
+            values=values,
+            numerators=values.copy(),
+            metadata={
+                "measure": "count",
+                "unit": "sentences",
+                "segmentation_method": (
+                    "sentence_ending_punctuation"
+                ),
+            },
         )

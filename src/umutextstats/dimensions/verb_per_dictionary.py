@@ -1,8 +1,14 @@
+from __future__ import annotations
+
 import pandas as pd
 
-from umutextstats.dimensions.mixins import TextComputeMixin
-from umutextstats.config.params import dictionary_param, percentage_param
+from umutextstats.config.params import (
+    dictionary_param,
+    percentage_param,
+)
 from umutextstats.dictionaries import DictionaryLoader
+from umutextstats.dimensions.mixins import TextComputeMixin
+from umutextstats.dimensions.results import DimensionComputation
 from umutextstats.inspection.scalar_inspectable_dimension import (
     ScalarInspectableDimension,
 )
@@ -67,7 +73,10 @@ AUX_VERB_HABER = {
 }
 
 
-class VerbPerDictionary(TextComputeMixin, ScalarInspectableDimension):
+class VerbPerDictionary(
+    TextComputeMixin,
+    ScalarInspectableDimension,
+):
     """
     Count dictionary verb matches or compute their percentage over words.
 
@@ -85,11 +94,18 @@ class VerbPerDictionary(TextComputeMixin, ScalarInspectableDimension):
         percentage: bool = True,
         dictionary_loader: DictionaryLoader | None = None,
     ):
-        super().__init__(key=key, input_column=input_column)
+        super().__init__(
+            key=key,
+            input_column=input_column,
+        )
 
         self.dictionary_name = dictionary_name
         self.percentage = percentage
-        self.dictionary_loader = dictionary_loader or DictionaryLoader()
+
+        self.dictionary_loader = (
+            dictionary_loader
+            or DictionaryLoader()
+        )
 
         dictionary_names = [
             name.strip()
@@ -103,8 +119,6 @@ class VerbPerDictionary(TextComputeMixin, ScalarInspectableDimension):
             entries = self.dictionary_loader.load(name)
             words.extend(entries.words)
 
-        # Store dictionary entries as lowercase strings once.
-        # Runtime checks then become O(1) set lookups.
         self.words = {
             entry.lower()
             for entry in words
@@ -121,9 +135,13 @@ class VerbPerDictionary(TextComputeMixin, ScalarInspectableDimension):
         """
         return cls(
             key=dimension.key,
-            dictionary_name=dictionary_param(dimension),
+            dictionary_name=dictionary_param(
+                dimension
+            ),
             input_column=input_column,
-            percentage=percentage_param(dimension),
+            percentage=percentage_param(
+                dimension
+            ),
         )
 
     def _compute_text(
@@ -131,40 +149,143 @@ class VerbPerDictionary(TextComputeMixin, ScalarInspectableDimension):
         text: str,
     ) -> float:
         """
-        Count matching verbs in a text and optionally normalize as percentage.
+        Count matching verbs and optionally normalize by word count.
         """
-        words = get_lexical_tokens(text)
-        total_words = len(words)
+        occurrences, total_words = (
+            self._analyze_text(text)
+        )
+
+        if not self.percentage:
+            return float(occurrences)
 
         if total_words == 0:
             return 0.0
 
-        occurrences = 0
-        aux_verb = ""
+        return (
+            100.0
+            * occurrences
+            / total_words
+        )
 
-        for word in words:
-            word = word.lower()
-            candidate = f"{aux_verb}{word}"
+    def compute_result(
+        self,
+        df: pd.DataFrame,
+    ) -> DimensionComputation:
+        """
+        Compute dictionary-verb values and their components.
+        """
+        texts = self.get_text_series(df)
+
+        analyses = texts.apply(
+            self._analyze_text
+        )
+
+        numerators = analyses.apply(
+            lambda analysis: analysis[0]
+        )
+
+        total_words = analyses.apply(
+            lambda analysis: analysis[1]
+        )
+
+        common_metadata = {
+            "dictionary": self.dictionary_name,
+            "dictionary_entries": len(self.words),
+            "matching_method": (
+                "simple_or_haber_compound"
+            ),
+        }
+
+        if not self.percentage:
+            return DimensionComputation(
+                values=numerators.astype(float),
+                numerators=numerators,
+                metadata={
+                    **common_metadata,
+                    "measure": "count",
+                    "unit": (
+                        "matching_dictionary_verbs"
+                    ),
+                },
+            )
+
+        values = pd.Series(
+            [
+                (
+                    100.0
+                    * numerator
+                    / denominator
+                    if denominator
+                    else 0.0
+                )
+                for numerator, denominator in zip(
+                    numerators,
+                    total_words,
+                )
+            ],
+            index=df.index,
+            dtype=float,
+        )
+
+        return DimensionComputation(
+            values=values,
+            numerators=numerators,
+            denominators=total_words,
+            metadata={
+                **common_metadata,
+                "measure": "rate",
+                "numerator_unit": (
+                    "matching_dictionary_verbs"
+                ),
+                "normalization_unit": (
+                    "lexical_tokens"
+                ),
+                "scale": 100.0,
+            },
+        )
+
+    def _analyze_text(
+        self,
+        text: str,
+    ) -> tuple[int, int]:
+        """
+        Return matching verb occurrences and total lexical-token count.
+
+        Simple entries are matched directly. Compound entries are matched
+        by combining a preceding form of `haber` with the current token.
+        """
+        words = get_lexical_tokens(text)
+        total_words = len(words)
+
+        occurrences = 0
+        auxiliary = ""
+
+        for raw_word in words:
+            word = raw_word.lower()
+
+            candidate = (
+                f"{auxiliary}{word}"
+            )
 
             if candidate in self.words:
                 occurrences += 1
 
             if word in AUX_VERB_HABER:
-                aux_verb = f"{word} "
+                auxiliary = f"{word} "
             else:
-                aux_verb = ""
+                auxiliary = ""
 
-        if not self.percentage:
-            return occurrences
+        return occurrences, total_words
 
-        return (100 * occurrences) / total_words
-
-    def inspection_debug_text(self) -> str:
+    def inspection_debug_text(
+        self,
+    ) -> str:
         """
         Return configuration details used during inspection.
         """
         return (
             f"Loaded dictionary: {self.dictionary_name}\n"
             f"Dictionary entries: {len(self.words)}\n"
-            "Matches simple verbs and haber + participle/periphrastic entries"
+            "Matches simple verbs and haber + participle/"
+            "periphrastic entries"
         )

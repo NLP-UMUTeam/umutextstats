@@ -27,9 +27,13 @@ class ExtractionEngine:
     """
     Compute configured dimensions as structured batch results.
 
-    Atomic dimensions keep using their existing `compute(df)` methods.
-    Composite dimensions are calculated from the values of previously
-    computed child results.
+    Atomic dimensions are computed from the input DataFrame.
+
+    Derived dimensions are computed from values produced by previously
+    evaluated dimensions.
+
+    Composite dimensions are calculated from their configured child
+    dimensions.
     """
 
     def __init__(
@@ -56,7 +60,9 @@ class ExtractionEngine:
         results: dict[str, BatchDimensionResult] = {}
 
         dimensions = list(
-            self._iter_dimensions(self.config.dimensions)
+            self._iter_dimensions(
+                self.config.dimensions
+            )
         )
 
         iterator = tqdm(
@@ -67,7 +73,9 @@ class ExtractionEngine:
         )
 
         for dimension in iterator:
-            iterator.set_postfix_str(dimension.key)
+            iterator.set_postfix_str(
+                dimension.key
+            )
 
             self._compute_dimension(
                 df=df,
@@ -107,7 +115,7 @@ class ExtractionEngine:
         results: dict[str, BatchDimensionResult],
     ) -> None:
         """
-        Compute one atomic or composite dimension.
+        Compute one atomic, derived, or composite dimension.
         """
         key = dimension.key
 
@@ -129,15 +137,19 @@ class ExtractionEngine:
             )
 
             if dimension.children:
-                results[key] = self._compute_composite_dimension(
-                    dimension=dimension,
-                    results=results,
-                    n_rows=len(df),
-                    index=df.index,
+                results[key] = (
+                    self._compute_composite_dimension(
+                        dimension=dimension,
+                        results=results,
+                        n_rows=len(df),
+                        index=df.index,
+                    )
                 )
                 return
 
-            instance = self._build_instance(dimension)
+            instance = self._build_instance(
+                dimension
+            )
 
             if instance is None:
                 self._handle_unimplemented_dimension(
@@ -148,32 +160,77 @@ class ExtractionEngine:
                 )
                 return
 
-            if hasattr(instance, "compute_from_data"):
-                computation_values = instance.compute_from_data(
-                    data=self._plain_values(results),
-                    n_rows=len(df),
+            if hasattr(
+                instance,
+                "compute_result_from_data",
+            ):
+                computation = (
+                    instance.compute_result_from_data(
+                        data=self._plain_values(
+                            results
+                        ),
+                        n_rows=len(df),
+                    )
                 )
 
-                numerators = None
-                denominators = None
-                evidence = None
-                computation_metadata = {}
+                kind = "derived"
+
+            elif hasattr(
+                instance,
+                "compute_from_data",
+            ):
+                computation_values = (
+                    instance.compute_from_data(
+                        data=self._plain_values(
+                            results
+                        ),
+                        n_rows=len(df),
+                    )
+                )
+
+                computation = None
+                kind = "derived"
 
             else:
-                computation = instance.compute_result(df)
+                computation = instance.compute_result(
+                    df
+                )
 
-                computation_values = computation.values
-                numerators = computation.numerators
-                denominators = computation.denominators
-                evidence = computation.evidence
-                computation_metadata = computation.metadata
+                kind = "atomic"
 
             metadata = self._dimension_metadata(
                 dimension=dimension,
                 instance=instance,
             )
 
-            metadata.update(computation_metadata)
+            if computation is not None:
+                computation_values = (
+                    computation.values
+                )
+
+                numerators = (
+                    computation.numerators
+                )
+
+                denominators = (
+                    computation.denominators
+                )
+
+                evidence = computation.evidence
+
+                computation_metadata = (
+                    computation.metadata
+                )
+
+            else:
+                numerators = None
+                denominators = None
+                evidence = None
+                computation_metadata = {}
+
+            metadata.update(
+                computation_metadata
+            )
 
             results[key] = BatchDimensionResult(
                 key=key,
@@ -181,31 +238,19 @@ class ExtractionEngine:
                     values=computation_values,
                     index=df.index,
                 ),
-                numerators=(
-                    self._ensure_series(
-                        values=numerators,
-                        index=df.index,
-                    )
-                    if numerators is not None
-                    else None
+                numerators=self._optional_series(
+                    values=numerators,
+                    index=df.index,
                 ),
-                denominators=(
-                    self._ensure_series(
-                        values=denominators,
-                        index=df.index,
-                    )
-                    if denominators is not None
-                    else None
+                denominators=self._optional_series(
+                    values=denominators,
+                    index=df.index,
                 ),
-                evidence=(
-                    self._ensure_series(
-                        values=evidence,
-                        index=df.index,
-                    )
-                    if evidence is not None
-                    else None
+                evidence=self._optional_series(
+                    values=evidence,
+                    index=df.index,
                 ),
-                kind="atomic",
+                kind=kind,
                 metadata=metadata,
             )
 
@@ -265,9 +310,13 @@ class ExtractionEngine:
         metadata.update(
             {
                 "strategy": instance.strategy,
-                "children": list(instance.children),
+                "children": list(
+                    instance.children
+                ),
                 "used_children": used_children,
-                "missing_children": missing_children,
+                "missing_children": (
+                    missing_children
+                ),
             }
         )
 
@@ -323,36 +372,62 @@ class ExtractionEngine:
         return build_dimension_instance(
             dimension=dimension,
             dimension_cls=dimension_cls,
-            default_input_column=self.input_column,
+            default_input_column=(
+                self.input_column
+            ),
         )
 
+    @staticmethod
     def _plain_values(
-        self,
-        results: dict[str, BatchDimensionResult],
+        results: dict[
+            str,
+            BatchDimensionResult,
+        ],
     ) -> dict[str, pd.Series]:
         """
-        Return the value Series expected by existing composite dimensions.
+        Return value Series expected by derived and composite dimensions.
         """
         return {
             key: result.values
             for key, result in results.items()
         }
 
-    def _ensure_series(
+    def _optional_series(
         self,
+        values,
+        index: pd.Index,
+    ) -> pd.Series | None:
+        """
+        Normalize an optional dimension output as an aligned Series.
+        """
+        if values is None:
+            return None
+
+        return self._ensure_series(
+            values=values,
+            index=index,
+        )
+
+    @staticmethod
+    def _ensure_series(
         values,
         index: pd.Index,
     ) -> pd.Series:
         """
         Normalize dimension output as a Series aligned with the input.
         """
-        if isinstance(values, pd.Series):
+        if isinstance(
+            values,
+            pd.Series,
+        ):
             result = values.copy()
 
             if len(result) != len(index):
                 raise ValueError(
-                    "Dimension returned a Series with an unexpected "
-                    f"length: expected {len(index)}, got {len(result)}"
+                    "Dimension returned a Series "
+                    "with an unexpected length: "
+                    f"expected {len(index)}, "
+                    f"got {len(result)}"
                 )
 
             result.index = index
@@ -365,8 +440,10 @@ class ExtractionEngine:
 
         if len(result) != len(index):
             raise ValueError(
-                "Dimension returned an output with an unexpected "
-                f"length: expected {len(index)}, got {len(result)}"
+                "Dimension returned an output "
+                "with an unexpected length: "
+                f"expected {len(index)}, "
+                f"got {len(result)}"
             )
 
         return result
@@ -387,19 +464,23 @@ class ExtractionEngine:
             name=key,
             class_name=class_name or "",
         )
-    
 
+    @staticmethod
     def _dimension_metadata(
-        self,
         dimension: DimensionConfig,
         *,
         instance=None,
     ) -> dict:
+        """
+        Return configuration and runtime metadata for a dimension.
+        """
         metadata = {
             "class_name": (
                 instance.__class__.__name__
                 if instance is not None
-                else normalize_class_name(dimension.class_name)
+                else normalize_class_name(
+                    dimension.class_name
+                )
             ),
         }
 
@@ -409,17 +490,26 @@ class ExtractionEngine:
             "dictionary": dimension.dictionary,
             "pattern": dimension.pattern,
             "universal": dimension.universal,
-            "input_column": dimension.input_column,
+            "input_column": (
+                dimension.input_column
+            ),
             "pos_tag": dimension.pos_tag,
-            "pos_input_column": dimension.pos_input_column,
-            "percentage": dimension.percentage,
-            "disabled_regexp": dimension.disabled_regexp,
+            "pos_input_column": (
+                dimension.pos_input_column
+            ),
+            "percentage": (
+                dimension.percentage
+            ),
+            "disabled_regexp": (
+                dimension.disabled_regexp
+            ),
         }
 
         metadata.update(
             {
                 key: value
-                for key, value in optional_values.items()
+                for key, value
+                in optional_values.items()
                 if value is not None
             }
         )
@@ -427,10 +517,13 @@ class ExtractionEngine:
         if dimension.children:
             metadata["children"] = [
                 child.key
-                for child in dimension.children
+                for child
+                in dimension.children
             ]
 
         if dimension.params:
-            metadata["params"] = dict(dimension.params)
+            metadata["params"] = dict(
+                dimension.params
+            )
 
         return metadata
