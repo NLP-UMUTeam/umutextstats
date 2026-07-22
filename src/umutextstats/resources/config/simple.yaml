@@ -1,14 +1,32 @@
 dimensions:
   - key: hashtags
-    class: PatternDimension
-    description: Number of hashtags
+    class_name: PatternDimension
     pattern: '(?<!\S)#[\p{L}\p{N}_]+'
     input_column: text_raw
-    percentage: true
+    percentage: false
 
-  - key: negative
-    class: WordPerDictionary
-    description: Achievement-related words
-    dictionary: negative
-    input_column: text_norm
-    percentage: true
+  - key: nouns
+    class_name: POSTaggingTag
+    tag: NOUN
+
+  - key: verbs
+    class_name: POSTaggingTag
+    tag: VERB
+
+  - key: noun-verb-ratio
+    class_name: RatioDimension
+    numerator: nouns
+    denominator: verbs
+    scale: 100
+    zero_division: 0
+
+  - key: lexical-summary
+    strategy: CompositeStrategyAvg
+    children:
+      - key: nouns
+        class_name: POSTaggingTag
+        tag: NOUN
+
+      - key: verbs
+        class_name: POSTaggingTag
+        tag: VERB

@@ -285,7 +285,7 @@ class ExtractionEngine:
             input_column=self.input_column,
         )
 
-        values = instance.compute_from_data(
+        computation = instance.compute_result_from_data(
             data=self._plain_values(results),
             n_rows=n_rows,
         )
@@ -308,22 +308,25 @@ class ExtractionEngine:
         )
 
         metadata.update(
-            {
-                "strategy": instance.strategy,
-                "children": list(
-                    instance.children
-                ),
-                "used_children": used_children,
-                "missing_children": (
-                    missing_children
-                ),
-            }
+            computation.metadata
         )
 
         return BatchDimensionResult(
             key=dimension.key,
             values=self._ensure_series(
-                values=values,
+                values=computation.values,
+                index=index,
+            ),
+            numerators=self._optional_series(
+                values=computation.numerators,
+                index=index,
+            ),
+            denominators=self._optional_series(
+                values=computation.denominators,
+                index=index,
+            ),
+            evidence=self._optional_series(
+                values=computation.evidence,
                 index=index,
             ),
             kind="composite",
