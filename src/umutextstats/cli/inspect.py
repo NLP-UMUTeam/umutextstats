@@ -135,9 +135,10 @@ def run_inspect(
     )
 
     if not args.no_segments:
-        distribution = build_match_distribution(
+        distribution, reference_text = build_match_distribution(
             inspection=inspection,
             text=text,
+            annotations=annotations,
             segments=args.segments,
         )
 
@@ -154,7 +155,7 @@ def run_inspect(
         console.print(
             render_segmented_text(
                 distribution=distribution,
-                text=text,
+                text=reference_text,
                 matches=inspection.matches,
             )
         )

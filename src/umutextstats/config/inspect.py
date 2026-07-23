@@ -1,22 +1,29 @@
 from __future__ import annotations
 
+from typing import Any
+
 import pandas as pd
 from rich.console import Group
+from rich.panel import Panel
 from rich.table import Table
 from rich.text import Text
-from rich.table import Table
-from rich.panel import Panel
 
 from umutextstats.config.explain import find_dimension
 from umutextstats.config.models import UMUTextStatsConfig
 from umutextstats.dimensions.factory import build_runtime_dimension
+from umutextstats.evidence import (
+    EvidenceOccurrence,
+    PositionalDistribution,
+    build_positional_distribution,
+)
 from umutextstats.inspection.models import (
     DimensionInspection,
-    InspectDistribution,
     InspectMatch,
-    InspectSegment,
 )
 from umutextstats.io.text import ensure_text
+
+
+_SPARK_LEVELS = "▁▂▃▄▅▆▇█"
 
 
 def _inspect_not_supported_dimension(
@@ -98,135 +105,44 @@ def inspect_dimension_text(
 def build_match_distribution(
     inspection: DimensionInspection,
     text: str,
+    annotations: dict[str, Any] | None = None,
     segments: int = 3,
-) -> InspectDistribution:
+) -> tuple[PositionalDistribution, str]:
     """
-    Distribute inspected matches across relative text segments.
+    Adapt inspection matches to the common evidence model.
 
-    Matches are assigned using their midpoint character offset.
+    Returns the positional distribution and the reference text used
+    by the evidence offsets.
     """
-    if segments < 1:
-        raise ValueError(
-            "segments must be greater than or equal to 1"
+    reference_text = resolve_inspection_reference(
+        inspection=inspection,
+        text=text,
+        annotations=annotations,
+    )
+
+    occurrences = [
+        EvidenceOccurrence(
+            label=match.match,
+            start=match.start,
+            end=match.end,
+            offset_source=inspection.offset_source,
+            offset_unit=inspection.offset_unit,
         )
-
-    text = ensure_text(
-        text
-    )
-
-    text_length = len(
-        text
-    )
-
-    matches = inspection.matches or []
-    total_matches = len(
-        matches
-    )
-
-    counts = [
-        0
-        for _ in range(segments)
+        for match in inspection.matches
     ]
 
-    if text_length > 0:
-        for match in matches:
-            midpoint = (
-                match.start
-                + match.end
-            ) / 2
-
-            relative_position = (
-                midpoint
-                / text_length
-            )
-
-            segment_index = min(
-                int(
-                    relative_position
-                    * segments
-                ),
-                segments - 1,
-            )
-
-            segment_index = max(
-                segment_index,
-                0,
-            )
-
-            counts[
-                segment_index
-            ] += 1
-
-    segment_items: list[
-        InspectSegment
-    ] = []
-
-    for index, count in enumerate(
-        counts
-    ):
-        start_ratio = (
-            index
-            / segments
-        )
-
-        end_ratio = (
-            (index + 1)
-            / segments
-        )
-
-        start = round(
-            start_ratio
-            * text_length
-        )
-
-        end = round(
-            end_ratio
-            * text_length
-        )
-
-        share = (
-            count
-            / total_matches
-            if total_matches > 0
-            else None
-        )
-
-        segment_items.append(
-            InspectSegment(
-                index=index,
-                start=start,
-                end=end,
-                start_ratio=start_ratio,
-                end_ratio=end_ratio,
-                count=count,
-                share=share,
-            )
-        )
-
-    delta = None
-
-    if total_matches > 0:
-        first_share = (
-            segment_items[0].share
-            or 0.0
-        )
-
-        last_share = (
-            segment_items[-1].share
-            or 0.0
-        )
-
-        delta = (
-            last_share
-            - first_share
-        )
-
-    return InspectDistribution(
-        text_length=text_length,
-        total_matches=total_matches,
-        segments=segment_items,
-        delta=delta,
+    distribution = build_positional_distribution(
+        occurrences=occurrences,
+        reference_length=len(reference_text),
+        segments=segments,
+        offset_source=(
+            inspection.offset_source
+            or "text"
+        ),
+        offset_unit=inspection.offset_unit,
     )
+
+    return distribution, reference_text
 
 
 def render_inspection(
@@ -350,8 +266,50 @@ def render_inspection(
     )
 
 
+def build_distribution_sparkline(
+    distribution: PositionalDistribution,
+) -> str:
+    """
+    Build a compact Unicode sparkline from segment counts.
+    """
+    counts = [
+        segment.count
+        for segment in distribution.segments
+    ]
+
+    if not counts:
+        return ""
+
+    maximum = max(counts)
+
+    if maximum == 0:
+        return _SPARK_LEVELS[0] * len(counts)
+
+    last_level = len(_SPARK_LEVELS) - 1
+
+    characters: list[str] = []
+
+    for count in counts:
+        if count == 0:
+            level = 0
+        else:
+            level = round(
+                count
+                / maximum
+                * last_level
+            )
+
+        characters.append(
+            _SPARK_LEVELS[level]
+        )
+
+    return "".join(
+        characters
+    )
+
+
 def render_match_distribution(
-    distribution: InspectDistribution,
+    distribution: PositionalDistribution,
 ):
     """
     Render a positional distribution as a Rich table.
@@ -442,25 +400,63 @@ def render_match_distribution(
         else "N/A"
     )
 
+    reference = Text(
+        "Positional reference: "
+        f"{distribution.offset_source or 'unknown'} "
+        f"({distribution.offset_unit})"
+    )
+
+    profile = Text()
+
+    profile.append(
+        "Profile: ",
+        style="bold",
+    )
+
+    profile.append(
+        build_distribution_sparkline(
+            distribution
+        ),
+        style="cyan",
+    )
+
     return Group(
+        reference,
+        Text(""),
         table,
         Text(""),
+        profile,
         Text(
             "Delta final - initial: "
             f"{delta_text}"
         ),
     )
 
+
 def render_segmented_text(
-    distribution: InspectDistribution,
+    distribution: PositionalDistribution,
     text: str,
     matches: list[InspectMatch],
 ):
     """
-    Render the inspected text divided into relative segments.
+    Render the inspected reference text divided into relative segments.
 
-    Match highlighting is preserved inside each segment.
+    Match highlighting is preserved inside each segment when offsets
+    are expressed in characters.
     """
+    if distribution.offset_unit != "characters":
+        return Group(
+            Text(
+                "Segmented text",
+                style="bold",
+            ),
+            Text(""),
+            Text(
+                "Segmented text is unavailable for "
+                f"offset unit '{distribution.offset_unit}'."
+            ),
+        )
+
     items = [
         Text(
             "Segmented text",
@@ -549,6 +545,7 @@ def render_segmented_text(
         *items
     )
 
+
 def highlight_matches(
     text: str,
     matches: list[InspectMatch],
@@ -565,3 +562,54 @@ def highlight_matches(
         )
 
     return highlighted
+
+
+def resolve_inspection_reference(
+    inspection: DimensionInspection,
+    text: str,
+    annotations: dict[str, Any] | None = None,
+) -> str:
+    """
+    Resolve the representation whose coordinate system is used by
+    the inspection matches.
+    """
+    offset_source = (
+        inspection.offset_source
+        or "text"
+    )
+
+    if offset_source in {
+        "text",
+        "text_raw",
+        "text_norm",
+    }:
+        return ensure_text(
+            text
+        )
+
+    if annotations is None:
+        raise ValueError(
+            "Positional reference "
+            f"'{offset_source}' requires annotations."
+        )
+
+    reference = annotations.get(
+        offset_source
+    )
+
+    if reference is None:
+        available = ", ".join(
+            sorted(
+                annotations
+            )
+        )
+
+        raise ValueError(
+            "Positional reference "
+            f"'{offset_source}' is not available. "
+            f"Available annotations: {available}"
+        )
+
+    return ensure_text(
+        reference
+    )

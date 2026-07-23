@@ -21,22 +21,5 @@ class DimensionInspection:
     debug_text: str | None = None
     internal_representation: str | None = None
     description: str | None = None
-
-
-@dataclass(frozen=True)
-class InspectSegment:
-    index: int
-    start: int
-    end: int
-    start_ratio: float
-    end_ratio: float
-    count: int
-    share: float | None
-
-
-@dataclass(frozen=True)
-class InspectDistribution:
-    text_length: int
-    total_matches: int
-    segments: list[InspectSegment]
-    delta: float | None
+    offset_source: str | None = None
+    offset_unit: str = "characters"
