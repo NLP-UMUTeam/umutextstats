@@ -13,7 +13,7 @@ from umutextstats.cli.extract import COMMAND as EXTRACT_COMMAND
 from umutextstats.cli.inspect import COMMAND as INSPECT_COMMAND
 from umutextstats.cli.summarize import COMMAND as SUMMARIZE_COMMAND
 from umutextstats.cli.vectorize import COMMAND as VECTORIZE_COMMAND
-
+from umutextstats.cli.position import COMMAND as POSITION_COMMAND
 
 COMMANDS = [
     ANALYZE_COMMAND,
@@ -25,6 +25,7 @@ COMMANDS = [
     EXPLAIN_COMMAND,
     INSPECT_COMMAND,
     VECTORIZE_COMMAND,
+    POSITION_COMMAND
 ]
 
 
