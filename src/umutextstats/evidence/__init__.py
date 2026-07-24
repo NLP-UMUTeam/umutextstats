@@ -3,8 +3,10 @@ from umutextstats.evidence.distribution import (
 )
 from umutextstats.evidence.jsonl import (
     dimension_distribution_from_document,
+    dimension_evidence_descriptor,
     dimension_occurrences_from_document,
     dimension_position_metadata,
+    document_reference_length,
     evidence_occurrence_from_record,
     evidence_occurrences_from_dimension_record,
 )
@@ -31,5 +33,7 @@ __all__ = [
     "evidence_occurrence_from_record",
     "evidence_occurrences_from_dimension_record",
     "AggregatedPositionalDistribution",
-"aggregate_positional_distributions",
+    "aggregate_positional_distributions",
+    "dimension_evidence_descriptor",
+    "document_reference_length",    
 ]

@@ -27,8 +27,11 @@ def make_metadata() -> dict:
                 "kind": "atomic",
                 "class_name": "WordPerDictionary",
                 "input_column": "text_norm",
-                "offset_source": "text_norm",
-                "offset_unit": "characters",
+                "evidence": {
+                    "kind": "text_span",
+                    "source": "text_norm",
+                    "unit": "characters",
+                },
             }
         },
     }
@@ -38,6 +41,9 @@ def make_document() -> dict:
     return {
         "_type": "document",
         "id": 1,
+        "reference_lengths": {
+            "text_norm": 54,
+        },
         "dimensions": {
             DIMENSION_KEY: {
                 "value": 44.44444444444444,
@@ -106,23 +112,21 @@ def test_dimension_position_metadata():
     assert offset_unit == "characters"
 
 
-def test_dimension_position_metadata_uses_input_column_fallback():
+def test_dimension_position_metadata_rejects_missing_descriptor():
     metadata = make_metadata()
 
     del metadata[
         "dimension_metadata"
-    ][DIMENSION_KEY]["offset_source"]
+    ][DIMENSION_KEY]["evidence"]
 
-    offset_source, offset_unit = (
+    with pytest.raises(
+        ValueError,
+        match="has no evidence descriptor",
+    ):
         dimension_position_metadata(
             metadata,
             DIMENSION_KEY,
         )
-    )
-
-    assert offset_source == "text_norm"
-    assert offset_unit == "characters"
-
 
 def test_dimension_occurrences_from_document():
     occurrences = (
@@ -150,7 +154,6 @@ def test_dimension_distribution_from_document():
             metadata_record=make_metadata(),
             document_record=make_document(),
             dimension_key=DIMENSION_KEY,
-            reference_length=54,
             segments=3,
         )
     )

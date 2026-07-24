@@ -13,7 +13,7 @@ import pandas as pd
 from umutextstats.extraction.models import ExtractionResult
 
 
-SCHEMA_VERSION = "1.0"
+SCHEMA_VERSION = "1.1"
 
 
 class StructuredJSONLOutputResolver:
@@ -100,27 +100,35 @@ def _write_extraction_result(
     """
     Write the canonical structured extraction result.
     """
-    dimension_keys = list(result.dimensions)
+    dimension_keys = list(
+        result.dimensions
+    )
 
-    _validate_result_lengths(result)
+    _validate_result_lengths(
+        result
+    )
 
     dimension_metadata = {
-        key: {
-            "kind": dimension.kind,
-            **_to_json_mapping(dimension.metadata),
-        }
-        for key, dimension in result.dimensions.items()
+        key: _dimension_metadata_record(
+            dimension
+        )
+        for key, dimension
+        in result.dimensions.items()
     }
 
     metadata_record = {
         "_type": "metadata",
         "schema_version": schema_version,
         "dimensions": dimension_keys,
-        "dimension_metadata": dimension_metadata,
+        "dimension_metadata": (
+            dimension_metadata
+        ),
     }
 
     if result.metadata:
-        metadata_record["extraction_metadata"] = _to_json_mapping(
+        metadata_record[
+            "extraction_metadata"
+        ] = _to_json_mapping(
             result.metadata
         )
 
@@ -129,7 +137,9 @@ def _write_extraction_result(
         metadata_record,
     )
 
-    n_rows = _result_row_count(result)
+    n_rows = _result_row_count(
+        result
+    )
 
     for position in range(n_rows):
         document = {
@@ -139,9 +149,19 @@ def _write_extraction_result(
                     dimension=dimension,
                     position=position,
                 )
-                for key, dimension in result.dimensions.items()
+                for key, dimension
+                in result.dimensions.items()
             },
         }
+
+        if result.reference_lengths:
+            document["reference_lengths"] = {
+                source: _to_json_value(
+                    lengths.iloc[position]
+                )
+                for source, lengths
+                in result.reference_lengths.items()
+            }
 
         if result.ids is not None:
             document["id"] = _to_json_value(
@@ -155,6 +175,25 @@ def _write_extraction_result(
             document,
         )
 
+def _dimension_metadata_record(
+    dimension,
+) -> dict[str, Any]:
+    """
+    Build metadata for one structured dimension.
+    """
+    record = {
+        "kind": dimension.kind,
+        **_to_json_mapping(
+            dimension.metadata
+        ),
+    }
+
+    if dimension.evidence_descriptor is not None:
+        record["evidence"] = (
+            dimension.evidence_descriptor.to_dict()
+        )
+
+    return record
 
 def _write_dataframe(
     df: pd.DataFrame,
@@ -275,6 +314,14 @@ def _validate_result_lengths(
                     "has an unexpected length: "
                     f"expected {expected}, got {len(values)}"
                 )
+
+        for source, lengths in result.reference_lengths.items():
+            if len(lengths) != expected:
+                raise ValueError(
+                    "Reference lengths for "
+                    f"{source!r} have an unexpected length: "
+                    f"expected {expected}, got {len(lengths)}"
+                )
         
 def _result_row_count(
     result: ExtractionResult,
@@ -287,6 +334,9 @@ def _result_row_count(
 
     for dimension in result.dimensions.values():
         return len(dimension.values)
+
+    for lengths in result.reference_lengths.values():
+        return len(lengths)
 
     return 0
 

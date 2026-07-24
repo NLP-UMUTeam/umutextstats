@@ -81,7 +81,7 @@ def test_write_output_writes_structured_jsonl(tmp_path):
 
     assert records[0] == {
         "_type": "metadata",
-        "schema_version": "1.0",
+        "schema_version": "1.1",
         "dimensions": [
             "feature-a",
             "feature-b",
@@ -290,7 +290,7 @@ def test_structured_jsonl_empty_dataframe(tmp_path):
     assert records == [
         {
             "_type": "metadata",
-            "schema_version": "1.0",
+            "schema_version": "1.1",
             "dimensions": [
                 "feature-a",
             ],
@@ -341,7 +341,7 @@ def test_write_extraction_result_as_structured_jsonl(
     metadata = records[0]
 
     assert metadata["_type"] == "metadata"
-    assert metadata["schema_version"] == "1.0"
+    assert metadata["schema_version"] == "1.1"
     assert metadata["dimensions"] == [
         "feature-a",
         "feature-total",

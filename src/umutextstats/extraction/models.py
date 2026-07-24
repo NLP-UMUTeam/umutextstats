@@ -2,6 +2,10 @@
 
 from __future__ import annotations
 
+from umutextstats.evidence.descriptors import (
+    EvidenceDescriptor,
+)
+
 from dataclasses import dataclass, field
 from typing import Any
 
@@ -28,9 +32,16 @@ class BatchDimensionResult:
     numerators: pd.Series | None = None
     denominators: pd.Series | None = None
     evidence: pd.Series | None = None
-    segments: dict[str, pd.Series] = field(default_factory=dict)
-    derived: dict[str, pd.Series] = field(default_factory=dict)
-    metadata: dict[str, Any] = field(default_factory=dict)
+    evidence_descriptor: EvidenceDescriptor | None = None
+    segments: dict[str, pd.Series] = field(
+        default_factory=dict
+    )
+    derived: dict[str, pd.Series] = field(
+        default_factory=dict
+    )
+    metadata: dict[str, Any] = field(
+        default_factory=dict
+    )
 
     def __post_init__(self) -> None:
         self.values = self._ensure_series(self.values)
@@ -79,6 +90,9 @@ class ExtractionResult:
     dimensions: dict[str, BatchDimensionResult]
     ids: pd.Series | None = None
     metadata: dict[str, Any] = field(default_factory=dict)
+    reference_lengths: dict[str, pd.Series] = field(
+        default_factory=dict
+    )
 
     def to_dataframe(
         self,

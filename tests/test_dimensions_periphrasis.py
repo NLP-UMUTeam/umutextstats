@@ -4,6 +4,8 @@ import pandas as pd
 
 from umutextstats.dimensions.periphrasis import PeriphrasisDimension
 
+from umutextstats.text.tokenization import get_lexical_tokens
+
 
 def compute(text, tagged_pos, auxiliar_verbs):
     df = pd.DataFrame(
@@ -145,50 +147,55 @@ def test_empty_text():
     assert result == [0]
 
 def test_periphrasis_result_contains_evidence():
-    text = "voy a salir y estoy trabajando"
-
-    tagged_pos = (
-        "voy__(AUX)(Mood=Ind|VerbForm=Fin), "
-        "a__(ADP)(), "
-        "salir__(VERB)(VerbForm=Inf), "
-        "y__(CCONJ)(), "
-        "estoy__(AUX)(Mood=Ind|VerbForm=Fin), "
-        "trabajando__(VERB)(VerbForm=Ger)"
+    dimension = PeriphrasisDimension(
+        key="test-periphrasis",
+        auxiliar_verbs="estoy+gerund",
     )
+
+    text = "Hoy estoy trabajando"
 
     df = pd.DataFrame(
         {
-            "text_norm": [text],
-            "tagged_pos": [tagged_pos],
+            "text_norm": [
+                text,
+            ],
+            "tagged_pos": [
+                (
+                    "Hoy__(ADV), "
+                    "estoy__(AUX)(Mood=Ind|VerbForm=Fin), "
+                    "trabajando__(VERB)(VerbForm=Ger)"
+                ),
+            ],
         }
     )
 
-    dimension = PeriphrasisDimension(
-        key="periphrases",
-        auxiliar_verbs=(
-            "voy (a)+infinitive, "
-            "estoy+gerund"
-        ),
+    result = dimension.compute_result(
+        df
     )
 
-    result = dimension.compute_result(df)
+    assert result.values.iloc[0] == 1.0
+    assert result.numerators.iloc[0] == 1
 
-    assert result.values.tolist() == [2.0]
-    assert result.numerators.tolist() == [2]
-    assert result.denominators is None
+    evidence = result.evidence.iloc[0]
 
-    assert result.evidence.iloc[0] == [
-        {
-            "text": "voy a salir",
-            "token_start": 0,
-            "token_end": 3,
-        },
-        {
-            "text": "estoy trabajando",
-            "token_start": 4,
-            "token_end": 6,
-        },
-    ]
+    assert len(evidence) == 1
+
+    occurrence = evidence[0]
+
+    assert occurrence == {
+        "text": "estoy trabajando",
+        "start": 4,
+        "end": 20,
+    }
+
+    assert (
+        text[
+            occurrence["start"]:
+            occurrence["end"]
+        ]
+        == occurrence["text"]
+    )
+
 
 def test_periphrasis_compute_matches_compute_result():
     text = "voy a salir y estoy trabajando"

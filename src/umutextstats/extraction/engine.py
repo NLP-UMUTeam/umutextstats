@@ -91,6 +91,12 @@ class ExtractionEngine:
         return ExtractionResult(
             ids=ids,
             dimensions=results,
+            reference_lengths=(
+                self._build_reference_lengths(
+                    df=df,
+                    results=results,
+                )
+            ),
         )
 
     def _iter_dimensions(
@@ -218,6 +224,10 @@ class ExtractionEngine:
 
                 evidence = computation.evidence
 
+                evidence_descriptor = (
+                    computation.evidence_descriptor
+                )
+
                 computation_metadata = (
                     computation.metadata
                 )
@@ -230,6 +240,14 @@ class ExtractionEngine:
 
             metadata.update(
                 computation_metadata
+            )
+
+            evidence_descriptor = (
+                self._resolve_evidence_descriptor(
+                    instance=instance,
+                    explicit_descriptor=evidence_descriptor,
+                    evidence=evidence,
+                )
             )
 
             results[key] = BatchDimensionResult(
@@ -249,6 +267,9 @@ class ExtractionEngine:
                 evidence=self._optional_series(
                     values=evidence,
                     index=df.index,
+                ),
+                evidence_descriptor=(
+                    evidence_descriptor
                 ),
                 kind=kind,
                 metadata=metadata,
@@ -290,18 +311,6 @@ class ExtractionEngine:
             n_rows=n_rows,
         )
 
-        used_children = [
-            key
-            for key in instance.children
-            if key in results
-        ]
-
-        missing_children = [
-            key
-            for key in instance.children
-            if key not in results
-        ]
-
         metadata = self._dimension_metadata(
             dimension=dimension,
             instance=instance,
@@ -309,6 +318,16 @@ class ExtractionEngine:
 
         metadata.update(
             computation.metadata
+        )
+
+        evidence_descriptor = (
+            self._resolve_evidence_descriptor(
+                instance=instance,
+                explicit_descriptor=(
+                    computation.evidence_descriptor
+                ),
+                evidence=computation.evidence,
+            )
         )
 
         return BatchDimensionResult(
@@ -328,6 +347,9 @@ class ExtractionEngine:
             evidence=self._optional_series(
                 values=computation.evidence,
                 index=index,
+            ),
+            evidence_descriptor=(
+                evidence_descriptor
             ),
             kind="composite",
             metadata=metadata,
@@ -381,6 +403,72 @@ class ExtractionEngine:
         )
 
     @staticmethod
+    def _build_reference_lengths(
+        df: pd.DataFrame,
+        results: dict[
+            str,
+            BatchDimensionResult,
+        ],
+    ) -> dict[str, pd.Series]:
+        """
+        Compute lengths for representations referenced by evidence.
+
+        Only sources explicitly declared through EvidenceDescriptor are
+        included.
+        """
+        sources = {
+            result.evidence_descriptor.source
+            for result in results.values()
+            if result.evidence_descriptor is not None
+        }
+
+        missing_sources = sorted(
+            source
+            for source in sources
+            if source not in df.columns
+        )
+
+        if missing_sources:
+            raise ValueError(
+                "Evidence descriptor sources are not "
+                "available in the extraction DataFrame: "
+                + ", ".join(
+                    repr(source)
+                    for source in missing_sources
+                )
+            )
+
+        return {
+            source: df[source].apply(
+                ExtractionEngine._reference_length
+            )
+            for source in sorted(sources)
+        }
+
+    @staticmethod
+    def _reference_length(
+        value,
+    ) -> int:
+        """
+        Return the length of one evidence reference representation.
+        """
+        if value is None:
+            return 0
+
+        try:
+            if pd.isna(value):
+                return 0
+        except (
+            TypeError,
+            ValueError,
+        ):
+            pass
+
+        return len(
+            str(value)
+        )
+
+    @staticmethod
     def _plain_values(
         results: dict[
             str,
@@ -394,6 +482,37 @@ class ExtractionEngine:
             key: result.values
             for key, result in results.items()
         }
+
+    @staticmethod
+    def _resolve_evidence_descriptor(
+        *,
+        instance,
+        explicit_descriptor,
+        evidence,
+    ):
+        """
+        Resolve the semantic descriptor of a dimension's evidence.
+
+        An explicit descriptor returned by DimensionComputation always takes
+        precedence. A class-level default is used only when the computation
+        actually returns an evidence batch.
+        """
+        if explicit_descriptor is not None:
+            return explicit_descriptor
+
+        if evidence is None:
+            return None
+
+        descriptor_factory = getattr(
+            instance,
+            "evidence_descriptor",
+            None,
+        )
+
+        if not callable(descriptor_factory):
+            return None
+
+        return descriptor_factory()
 
     def _optional_series(
         self,

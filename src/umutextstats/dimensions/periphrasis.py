@@ -10,7 +10,9 @@ from umutextstats.inspection.iterable_inspectable_dimension import IterableInspe
 from umutextstats.dimensions.results import DimensionComputation
 from umutextstats.inspection.models import DimensionInspection
 from umutextstats.text.patterns import POS_ITEM_REGEX
-from umutextstats.text.tokenization import get_lexical_tokens
+from umutextstats.text.tokenization import (
+    get_lexical_token_spans
+)
 
 
 VERB_FORM_BY_MODE = {
@@ -21,17 +23,23 @@ VERB_FORM_BY_MODE = {
 }
 
 
+
 @dataclass(frozen=True)
 class PeriphrasisMatch:
     """
     Regex-like match object used by the inspection layer.
+
+    Positions are character offsets over the dimension input text.
     """
 
     text: str
     start_pos: int
     end_pos: int
 
-    def group(self, index: int = 0) -> str:
+    def group(
+        self,
+        index: int = 0,
+    ) -> str:
         if index != 0:
             raise IndexError(index)
 
@@ -126,8 +134,7 @@ class PeriphrasisDimension(IterableInspectableDimension):
             evidence=evidence,
             metadata={
                 "measure": "count",
-                "unit": "verbal_periphrases",
-                "evidence_position_unit": "lexical_token_indices",
+                "unit": "verbal_periphrases"
             },
         )
 
@@ -138,12 +145,12 @@ class PeriphrasisDimension(IterableInspectableDimension):
         """
         Convert a detected periphrasis to structured evidence.
 
-        Positions are lexical-token indices, not character offsets.
+        Positions are character offsets over the input text.
         """
         return {
             "text": match.text,
-            "token_start": match.start_pos,
-            "token_end": match.end_pos,
+            "start": match.start_pos,
+            "end": match.end_pos,
         }
 
     def inspect(
@@ -215,18 +222,29 @@ class PeriphrasisDimension(IterableInspectableDimension):
     ):
         """
         Yield verbal periphrases detected in text.
-        """
-        words = get_lexical_tokens(text)
-        tagged_words = self._parse_tagged_pos(tagged_pos)
 
-        if not words or not tagged_words:
+        Matching is performed over lexical tokens, while returned
+        positions are character offsets over the original input text.
+        """
+        lexical_items = get_lexical_token_spans(
+            text
+        )
+
+        tagged_words = self._parse_tagged_pos(
+            tagged_pos
+        )
+
+        if not lexical_items or not tagged_words:
             return
+
+        words = tuple(
+            token
+            for token, _, _ in lexical_items
+        )
 
         index = 0
 
         while index < len(words):
-            matched = False
-
             for aux in self.auxiliar_verbs:
                 if words[index] not in aux["forms"]:
                     continue
@@ -237,7 +255,9 @@ class PeriphrasisDimension(IterableInspectableDimension):
                     matched_linker = self._match_linker(
                         words=words,
                         start_index=next_index,
-                        linker_variants=aux["linker_variants"],
+                        linker_variants=aux[
+                            "linker_variants"
+                        ],
                     )
 
                     if matched_linker is None:
@@ -248,7 +268,9 @@ class PeriphrasisDimension(IterableInspectableDimension):
                 if next_index >= len(words):
                     continue
 
-                if next_index >= len(tagged_words):
+                if next_index >= len(
+                    tagged_words
+                ):
                     continue
 
                 if not self._matches_verb_mode(
@@ -257,18 +279,28 @@ class PeriphrasisDimension(IterableInspectableDimension):
                 ):
                     continue
 
+                start_char = lexical_items[
+                    index
+                ][1]
+
+                end_char = lexical_items[
+                    next_index
+                ][2]
+
                 yield PeriphrasisMatch(
-                    text=" ".join(words[index: next_index + 1]),
-                    start_pos=index,
-                    end_pos=next_index + 1,
+                    text=text[
+                        start_char:end_char
+                    ],
+                    start_pos=start_char,
+                    end_pos=end_char,
                 )
 
                 index = next_index
-                matched = True
                 break
 
             index += 1
 
+            
     def _parse_auxiliar_verbs(
         self,
         raw: str,

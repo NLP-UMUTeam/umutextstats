@@ -3,6 +3,10 @@ from __future__ import annotations
 from collections.abc import Mapping, Sequence
 from typing import Any
 
+from umutextstats.evidence.descriptors import (
+    EvidenceDescriptor,
+)
+
 from umutextstats.evidence.distribution import (
     build_positional_distribution,
 )
@@ -169,82 +173,18 @@ def evidence_occurrence_from_record(
 def dimension_position_metadata(
     metadata_record: Mapping[str, Any],
     dimension_key: str,
-) -> tuple[str | None, str]:
+) -> tuple[str, str]:
     """
-    Read positional metadata for a dimension from the metadata record.
-
-    Returns:
-
-        (offset_source, offset_unit)
+    Read positional source and unit from the evidence descriptor.
     """
-    dimension_metadata = metadata_record.get(
-        "dimension_metadata",
-        {},
+    descriptor = dimension_evidence_descriptor(
+        metadata_record=metadata_record,
+        dimension_key=dimension_key,
     )
-
-    if not isinstance(
-        dimension_metadata,
-        Mapping,
-    ):
-        raise ValueError(
-            "Structured JSONL metadata field "
-            "'dimension_metadata' must be a mapping."
-        )
-
-    metadata = dimension_metadata.get(
-        dimension_key,
-        {},
-    )
-
-    if not isinstance(
-        metadata,
-        Mapping,
-    ):
-        raise ValueError(
-            "Metadata for dimension "
-            f"{dimension_key!r} must be a mapping."
-        )
-
-    offset_source = metadata.get(
-        "offset_source"
-    )
-
-    if offset_source is None:
-        # Backwards-compatible fallback. Older JSONL files may only
-        # contain the configured input column.
-        offset_source = metadata.get(
-            "input_column"
-        )
-
-    offset_unit = metadata.get(
-        "offset_unit",
-        "characters",
-    )
-
-    if (
-        offset_source is not None
-        and not isinstance(
-            offset_source,
-            str,
-        )
-    ):
-        raise ValueError(
-            "Dimension metadata field "
-            "'offset_source' must be a string or null."
-        )
-
-    if not isinstance(
-        offset_unit,
-        str,
-    ):
-        raise ValueError(
-            "Dimension metadata field "
-            "'offset_unit' must be a string."
-        )
 
     return (
-        offset_source,
-        offset_unit,
+        descriptor.source,
+        descriptor.unit,
     )
 
 
@@ -255,8 +195,6 @@ def dimension_occurrences_from_document(
 ) -> list[EvidenceOccurrence]:
     """
     Extract one dimension's evidence from a JSONL document record.
-
-    Positional metadata is obtained from the JSONL metadata record.
     """
     dimensions = document_record.get(
         "dimensions",
@@ -291,17 +229,15 @@ def dimension_occurrences_from_document(
             "must be a mapping."
         )
 
-    offset_source, offset_unit = (
-        dimension_position_metadata(
-            metadata_record,
-            dimension_key,
-        )
+    descriptor = dimension_evidence_descriptor(
+        metadata_record=metadata_record,
+        dimension_key=dimension_key,
     )
 
     return evidence_occurrences_from_dimension_record(
         dimension_record,
-        offset_source=offset_source,
-        offset_unit=offset_unit,
+        offset_source=descriptor.source,
+        offset_unit=descriptor.unit,
     )
 
 
@@ -310,20 +246,23 @@ def dimension_distribution_from_document(
     document_record: Mapping[str, Any],
     dimension_key: str,
     *,
-    reference_length: int,
     segments: int = 3,
 ) -> PositionalDistribution:
     """
     Build a positional distribution for one JSONL document dimension.
 
-    `reference_length` must correspond to the representation named by
-    the dimension's offset_source, such as text_norm or tagged_pos.
+    The evidence source is read from the dimension descriptor stored in
+    the metadata record. Its corresponding reference length is read from
+    the document's `reference_lengths` mapping.
     """
-    offset_source, offset_unit = (
-        dimension_position_metadata(
-            metadata_record,
-            dimension_key,
-        )
+    descriptor = dimension_evidence_descriptor(
+        metadata_record=metadata_record,
+        dimension_key=dimension_key,
+    )
+
+    reference_length = document_reference_length(
+        document_record=document_record,
+        source=descriptor.source,
     )
 
     occurrences = dimension_occurrences_from_document(
@@ -336,8 +275,8 @@ def dimension_distribution_from_document(
         occurrences=occurrences,
         reference_length=reference_length,
         segments=segments,
-        offset_source=offset_source,
-        offset_unit=offset_unit,
+        offset_source=descriptor.source,
+        offset_unit=descriptor.unit,
     )
 
 
@@ -403,3 +342,167 @@ def _read_evidence_label(
             )
 
     return None
+
+def dimension_evidence_descriptor(
+    metadata_record: Mapping[str, Any],
+    dimension_key: str,
+) -> EvidenceDescriptor:
+    """
+    Read the evidence descriptor for one dimension.
+
+    Expected metadata structure:
+
+    {
+        "dimension_metadata": {
+            "<dimension-key>": {
+                "evidence": {
+                    "kind": "text_span",
+                    "source": "text_norm",
+                    "unit": "characters"
+                }
+            }
+        }
+    }
+    """
+    dimension_metadata = metadata_record.get(
+        "dimension_metadata"
+    )
+
+    if not isinstance(
+        dimension_metadata,
+        Mapping,
+    ):
+        raise ValueError(
+            "Structured JSONL metadata has no valid "
+            "'dimension_metadata' mapping."
+        )
+
+    metadata = dimension_metadata.get(
+        dimension_key
+    )
+
+    if metadata is None:
+        raise ValueError(
+            f"Dimension {dimension_key!r} "
+            "is not present in JSONL metadata."
+        )
+
+    if not isinstance(
+        metadata,
+        Mapping,
+    ):
+        raise ValueError(
+            "Metadata for dimension "
+            f"{dimension_key!r} must be a mapping."
+        )
+
+    raw_descriptor = metadata.get(
+        "evidence"
+    )
+
+    if raw_descriptor is None:
+        raise ValueError(
+            f"Dimension {dimension_key!r} "
+            "has no evidence descriptor."
+        )
+
+    if not isinstance(
+        raw_descriptor,
+        Mapping,
+    ):
+        raise ValueError(
+            "Evidence descriptor for dimension "
+            f"{dimension_key!r} must be a mapping."
+        )
+
+    missing_fields = [
+        field
+        for field in (
+            "kind",
+            "source",
+            "unit",
+        )
+        if field not in raw_descriptor
+    ]
+
+    if missing_fields:
+        raise ValueError(
+            "Evidence descriptor for dimension "
+            f"{dimension_key!r} is missing fields: "
+            + ", ".join(
+                missing_fields
+            )
+        )
+
+    return EvidenceDescriptor(
+        kind=str(
+            raw_descriptor["kind"]
+        ),
+        source=str(
+            raw_descriptor["source"]
+        ),
+        unit=str(
+            raw_descriptor["unit"]
+        ),
+    )
+
+
+def document_reference_length(
+    document_record: Mapping[str, Any],
+    source: str,
+) -> int:
+    """
+    Read the length of a reference representation from one document.
+    """
+    reference_lengths = document_record.get(
+        "reference_lengths"
+    )
+
+    if not isinstance(
+        reference_lengths,
+        Mapping,
+    ):
+        raise ValueError(
+            "Structured JSONL document has no valid "
+            "'reference_lengths' mapping."
+        )
+
+    if source not in reference_lengths:
+        raise ValueError(
+            f"Reference length for source {source!r} "
+            "is not present in the document."
+        )
+
+    value = reference_lengths[
+        source
+    ]
+
+    if isinstance(
+        value,
+        bool,
+    ):
+        raise ValueError(
+            f"Reference length for source {source!r} "
+            "must be a non-negative integer."
+        )
+
+    try:
+        result = int(
+            value
+        )
+    except (
+        TypeError,
+        ValueError,
+    ) as exc:
+        raise ValueError(
+            f"Reference length for source {source!r} "
+            "must be a non-negative integer."
+        ) from exc
+
+    if result != value or result < 0:
+        raise ValueError(
+            f"Reference length for source {source!r} "
+            "must be a non-negative integer."
+        )
+
+    return result

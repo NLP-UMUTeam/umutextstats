@@ -4,14 +4,55 @@ from umutextstats.text.patterns import LEXICAL_TOKEN_REGEX, SYLLABIFIABLE_WORD_R
 
 
 @lru_cache(maxsize=50_000)
-def get_lexical_tokens(text: str, lowercase: bool = True) -> tuple[str, ...]:
+def get_lexical_tokens(
+    text: str,
+    lowercase: bool = True,
+) -> tuple[str, ...]:
+    return tuple(
+        token
+        for token, _, _ in get_lexical_token_spans(
+            text,
+            lowercase=lowercase,
+        )
+    )
+
+
+@lru_cache(maxsize=50_000)
+def get_lexical_token_spans(
+    text: str,
+    lowercase: bool = True,
+) -> tuple[tuple[str, int, int], ...]:
+    """
+    Return lexical tokens together with character offsets.
+
+    Each item is:
+
+        (token, start, end)
+
+    Offsets refer to the original input string and follow the
+    half-open interval convention: [start, end).
+    """
     text = "" if text is None else str(text)
-    tokens = LEXICAL_TOKEN_REGEX.findall(text)
 
-    if lowercase:
-        tokens = [token.lower() for token in tokens]
+    items = []
 
-    return tuple(tokens)
+    for match in LEXICAL_TOKEN_REGEX.finditer(
+        text
+    ):
+        token = match.group(0)
+
+        if lowercase:
+            token = token.lower()
+
+        items.append(
+            (
+                token,
+                match.start(),
+                match.end(),
+            )
+        )
+
+    return tuple(items)
 
 
 @lru_cache(maxsize=50_000)
