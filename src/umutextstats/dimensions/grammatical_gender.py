@@ -244,8 +244,13 @@ class GrammaticalGenderDimension(WordPerDictionary):
             column=self.tagged_pos_column,
         )
 
-        accepted_matches = self.get_accepted_matches(
+        matching_text = self._get_matching_text(
             text=text,
+            tagged_pos=tagged_pos,
+        )
+
+        accepted_matches = self.get_accepted_matches(
+            text=matching_text,
             tagged_pos=tagged_pos,
         )
 

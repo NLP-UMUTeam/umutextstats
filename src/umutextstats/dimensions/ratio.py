@@ -286,8 +286,11 @@ class RatioDimension(BaseDimension):
     ) -> pd.Series:
         """
         Compute a scaled ratio over two aligned numeric Series.
+
+        The zero-division fallback is a final output value and is
+        therefore not multiplied by the configured scale.
         """
-        result = (
+        ratios = (
             numerators
             / denominators.replace(
                 0,
@@ -295,18 +298,21 @@ class RatioDimension(BaseDimension):
             )
         )
 
-        result = (
+        scaled_values = (
             pd.to_numeric(
-                result,
+                ratios,
                 errors="coerce",
             )
+            * self.scale
+        )
+
+        return (
+            scaled_values
             .fillna(
                 self.zero_division
             )
             .astype(float)
         )
-
-        return result * self.scale
 
     def _safe_ratio(
         self,

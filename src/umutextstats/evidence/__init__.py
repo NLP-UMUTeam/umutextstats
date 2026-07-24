@@ -22,6 +22,12 @@ from umutextstats.evidence.models import (
     PositionalSegment,
 )
 
+from umutextstats.evidence.service import (
+    PositionalAggregationResult,
+    aggregate_dimension_from_jsonl,
+    iter_dimension_distributions_from_jsonl,
+)
+
 __all__ = [
     "EvidenceOccurrence",
     "PositionalDistribution",
@@ -35,5 +41,8 @@ __all__ = [
     "AggregatedPositionalDistribution",
     "aggregate_positional_distributions",
     "dimension_evidence_descriptor",
-    "document_reference_length",    
+    "document_reference_length",
+    "PositionalAggregationResult",
+    "aggregate_dimension_from_jsonl",
+    "iter_dimension_distributions_from_jsonl",
 ]
